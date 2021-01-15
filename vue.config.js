@@ -11,8 +11,6 @@ module.exports = {
     }
   },
   devServer: {
-    host: "localhost",
-    port: 8080, // 端口号
     open: true, //配置自动启动浏览器
     proxy: {
       "/api": { //是否使用代理标识,/api开头的才用代理
@@ -29,14 +27,16 @@ module.exports = {
     loaderOptions: {
       stylus: {
         'resolve url': true,
-        'import': []
+        'import': [
+          './src/theme'
+        ]
       }
     }
   },
   pluginOptions: {
     'cube-ui': {
       postCompile: true,
-      theme: false
+      theme: true
     }
   }
 }

@@ -1,10 +1,16 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import axios from "@/axios/index";
+import NProgress from 'nprogress' // progress bar
+import 'nprogress/nprogress.css' // progress bar style
+
+import LeaveTwoMenus from './moudels/index'
 
 Vue.use(VueRouter)
 
 const routes = [
+  ...LeaveTwoMenus,
   {
     path: '/',
     name: 'Home',
@@ -16,12 +22,14 @@ const routes = [
     component: ()=>import('../views/Login.vue')
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    path:'/changePassword',
+    name:'changePassword',
+    component: ()=>import('../views/changePassword')
+  },
+  {
+    path: '*',
+    name:'NotFound',
+    component: ()=>import('../views/NotFound.vue')
   }
 ]
 
@@ -29,6 +37,22 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+router.beforeEach((to,from,next) =>{
+  NProgress.start()
+  let Token = localStorage.getItem('Token')
+  if(Token !== null){
+    axios.get('/users/menus').catch(error=>{
+      router.push('/login')
+    })
+  }
+  next()
+  NProgress.done()
+})
+
+router.afterEach(()=>{
+  NProgress.done()
 })
 
 export default router
