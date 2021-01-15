@@ -1,7 +1,10 @@
 import axios from 'axios'
 import router from '@/router'
 
+
+
 axios.defaults.baseURL = '/api';
+
 /*
 
  /users/cof-user-sysadmin/modify-password
