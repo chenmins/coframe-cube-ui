@@ -6,12 +6,14 @@
         @submit="submitHandler"
     >
     </cube-form>
+    <button @click="test">test</button>
   </div>
 </template>
 
 
 <script>
 import exit from '@/libs/exit-login'
+
 
   export default{
     data(){
@@ -66,20 +68,29 @@ import exit from '@/libs/exit-login'
     },
     created() {
       if(localStorage.getItem('Token')){
-        this.$axios.get('/users/menus').then(res=>{
+        this.$axios.get('/api/users/menus').then(res=>{
           this.$router.push('/')
           return
         })
       }
     },
     methods:{
+      test(){
+        this.$apiInstance.health((error, data, response) => {
+          if (error) {
+            console.error(error);
+          } else {
+            console.log('API called successfully. Returned data: ' + data);
+            console.log(data);          }
+        });
+      },
       submitHandler(e,model){
         e.preventDefault()
         let data={
           "username":model.inputValue,
           "password":model.passwordValue
         }
-        this.$axios.post('/users/login',data).then(res=>{
+        this.$axios.post('/api/users/login',data).then(res=>{
           localStorage.setItem('userInfo',JSON.stringify(res.data))
           localStorage.setItem('Token',res.data.token)
           this.$router.push('/')

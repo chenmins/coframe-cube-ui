@@ -82,7 +82,7 @@ export default {
         "newPassword":this.form.newPassword,
         "confirmPassword":this.form.passwordConfirm
       }
-      this.$axios.put('/users/cof-user-sysadmin/modify-password',data).then(res=>{
+      this.$axios.put('/api/users/cof-user-sysadmin/modify-password',data).then(res=>{
         this.toast = this.$createToast({
           txt: '密码修改成功,请重新登录',
           type: 'txt'

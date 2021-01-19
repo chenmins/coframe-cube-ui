@@ -42,8 +42,8 @@ const router = new VueRouter({
 router.beforeEach((to,from,next) =>{
   NProgress.start()
   let Token = localStorage.getItem('Token')
-  if(Token !== null){
-    axios.get('/users/menus').catch(error=>{
+  if(Token !== null && to.fullPath!=='/login'){
+    axios.get('/api/users/menus').catch(error=>{
       router.push('/login')
     })
   }

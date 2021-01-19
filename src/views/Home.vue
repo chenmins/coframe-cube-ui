@@ -39,7 +39,7 @@ export default {
     }
   },
   mounted(){
-    this.$axios.get('/users/menus').then(res=>{
+    this.$axios.get('/api/users/menus').then(res=>{
       let menusLeaveOne = res.data.filter(item=>item.level === 1)
       let menusLeaveTwo = res.data.filter(item=>item.level === 2)
       this.menus = menusLeaveOne.map(leaveOneItem=>{
@@ -51,14 +51,11 @@ export default {
       this.menus[0].children[0].reverse()
     }).catch(error=>{
       const toast = this.$createToast({
-        time: 1000,
+        time: 2000,
         type: 'error',
-        txt: '登录时间过期，请重新登录'
+        txt: '请登录 '
       })
       toast.show()
-      setTimeout(() => {
-        exit()
-      }, 1000)
     })
   },
 

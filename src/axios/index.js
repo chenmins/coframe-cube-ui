@@ -3,13 +3,8 @@ import router from '@/router'
 
 
 
-axios.defaults.baseURL = '/api';
-
-/*
-
- /users/cof-user-sysadmin/modify-password
-
-*/
+axios.defaults.baseURL = 'http://localhost:8081';
+axios.defaults.timeout = 5000
 
 axios.interceptors.request.use(
 	request=>{

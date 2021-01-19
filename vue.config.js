@@ -4,6 +4,18 @@
 
 
 module.exports = {
+  configureWebpack: {   //swagger 关闭amd loader,
+    module: {
+      rules: [
+        {
+          parser: {
+            amd: false
+          }
+        }
+      ]
+    },
+  },
+
   pages:{
     index:{
       entry:'src/main',
@@ -11,6 +23,8 @@ module.exports = {
     }
   },
   devServer: {
+    host:'localhost',
+    port:8081,
     open: true, //配置自动启动浏览器
     proxy: {
       "/api": { //是否使用代理标识,/api开头的才用代理
@@ -20,7 +34,15 @@ module.exports = {
         pathRewrite: {
           '^/api': '' // 将/api开头的请求地址的/api替换为''
         },
-      }
+      },
+      "/health": { //是否使用代理标识,
+        target: "http://localhost:8080/health",
+        ws: false,// 启用websockets
+        changeOrigin: true, //跨
+        pathRewrite: {
+          '^/health': ''
+        },
+      },
     }
   },
   css: {
@@ -48,5 +70,6 @@ module.exports = {
         msTileImage: './favicon.ico'
       }
     }
-  }
+  },
+
 }
