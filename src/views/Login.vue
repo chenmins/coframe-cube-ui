@@ -12,7 +12,8 @@
 
 
 <script>
-import exit from '@/libs/exit-login'
+
+import {setToken} from '@/utils/auth'
 
 
   export default{
@@ -76,7 +77,8 @@ import exit from '@/libs/exit-login'
     },
     methods:{
       test(){
-        this.$apiInstance.health((error, data, response) => {
+       let apiInstance = new this.$XgeneCloud.CommonApi() //将api挂在到vue原型链上
+          apiInstance.health((error, data, response) => {
           if (error) {
             console.error(error);
           } else {
@@ -93,6 +95,7 @@ import exit from '@/libs/exit-login'
         this.$axios.post('/api/users/login',data).then(res=>{
           localStorage.setItem('userInfo',JSON.stringify(res.data))
           localStorage.setItem('Token',res.data.token)
+          setToken(res.data.token)
           this.$router.push('/')
         }).catch(error=>{
           let err = JSON.parse(JSON.stringify(error))

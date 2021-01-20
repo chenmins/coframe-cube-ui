@@ -1,7 +1,11 @@
 /*
  vue.config配置 https://cli.vuejs.org/zh/config/#%E5%85%A8%E5%B1%80-cli-%E9%85%8D%E7%BD%AE
 */
+const path = require('path')
 
+function resolve(dir) {
+  return path.join(__dirname, dir)
+}
 
 module.exports = {
   configureWebpack: {   //swagger 关闭amd loader,
@@ -14,6 +18,18 @@ module.exports = {
         }
       ]
     },
+    resolve:{
+      alias:{
+        '@': '/src',
+        'vue$': 'vue/dist/vue.esm.js',
+        'vue': 'vue/dist/vue.esm.js',
+        '@lib': resolve('/src/libs'),
+        '@util': resolve('/src/utils'),
+        '@actions': resolve('/src/actions'),
+        '@static': resolve('/static'),
+        '@controller': resolve('/src/actions/controller.js'),
+      }
+    }
   },
 
   pages:{

@@ -8,6 +8,7 @@
         <a class="changePassword" @click="changePassword">修改密码</a>
       </div>
 <!--    </cube-sticky>-->
+    <button @click="getDemo">testController</button>
 
   </div>
 </template>
@@ -15,7 +16,8 @@
 <script >
 import Menus from "@/components/Menus";
 import exit from '@/libs/exit-login'
-
+import { BaseVue } from '@lib'
+import {UserController} from '@/actions/controller'
 export default {
   components:{
     Menus
@@ -27,6 +29,8 @@ export default {
       menus:[],
     }
   },
+  mixins: [BaseVue],
+
   methods: {
     changePassword(){
       this.$router.push('/changePassword')
@@ -36,9 +40,20 @@ export default {
     },
     exit(){
       exit()
-    }
+    },
+    async getDemo(){
+      let resp = {}
+      resp = await this.dispatch(UserController.listUserFunctions)
+      console.log(resp)
+      if(!resp.error){
+        alert('success')
+      }else{
+        alert('failure')
+      }
+    },
   },
   mounted(){
+
     this.$axios.get('/api/users/menus').then(res=>{
       let menusLeaveOne = res.data.filter(item=>item.level === 1)
       let menusLeaveTwo = res.data.filter(item=>item.level === 2)

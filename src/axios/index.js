@@ -3,7 +3,17 @@ import router from '@/router'
 
 
 
-axios.defaults.baseURL = 'http://localhost:8081';
+
+let NODE_ENV = process.env.NODE_ENV
+if(NODE_ENV === 'development'){
+	//开发环境
+	axios.defaults.baseURL = 'http://localhost:8081'; //初始地址
+}
+if(NODE_ENV === 'production'){
+	//生产环境
+	axios.defaults.baseURL = ''; //初始地址
+}
+
 axios.defaults.timeout = 5000
 
 axios.interceptors.request.use(

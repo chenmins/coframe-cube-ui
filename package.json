@@ -4,18 +4,24 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build",
+    "build:api": "node scripts/buildApi.js"
   },
   "dependencies": {
     "axios": "0.21.1",
+    "coframe-rest-api": "0.0.1",
     "core-js": "^3.6.5",
     "cube-ui": "~1.12.15",
+    "handlebars": "^4.7.6",
     "i": "^0.3.6",
+    "js-cookie": "^2.2.1",
+    "moment": "^2.29.1",
     "npm": "^6.14.11",
     "nprogress": "^0.2.0",
+    "store": "^2.0.12",
     "vue": "2.6.11",
     "vue-router": "^3.2.0",
-    "coframe-rest-api": "0.0.1"
+    "vuex": "^3.6.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
