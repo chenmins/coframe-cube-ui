@@ -15,7 +15,6 @@
 
 import {setToken} from '@/utils/auth'
 
-
   export default{
     data(){
       return {
@@ -98,25 +97,28 @@ import {setToken} from '@/utils/auth'
           setToken(res.data.token)
           this.$router.push('/')
         }).catch(error=>{
+          let  toast
           let err = JSON.parse(JSON.stringify(error))
           if(err.message.includes('401')){
-            this.toast = this.$createToast({
+            toast = this.$createToast({
+              time:2000,
               txt: '登陆失败，账号不存在或密码错误',
               type: 'error'
             })
           }
           if(err.message.includes('500')){
-            this.toast = this.$createToast({
+           toast = this.$createToast({
+              time:2000,
               txt: '接口错误',
               type: 'error'
             })
           }
-          this.toast = this.$createToast({
+          toast = this.$createToast({
+            time:2000,
             txt: '请求失败',
             type: 'error'
           })
-          this.toast.show()
-
+          toast.show()
         })
       }
     }

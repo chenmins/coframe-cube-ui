@@ -1,6 +1,11 @@
 <template>
   <div id="app">
-    <router-view/>
+    <Nav :show-back="$route.meta.leave === 'LeaveTwoRouter'" :title="$route.meta.name"></Nav>
+    <transition name="slide-fade" >
+      <router-view/>
+    </transition>
+    <Tabbar v-show="$route.meta.name !== 'ReplayDetail' && $route.meta.tag !== 'Login' && $route.meta.tag !== 'ProductInc' " ></Tabbar>
+
   </div>
 </template>
 
@@ -14,8 +19,10 @@
     data() {
       return {
         isRouterAlive: true,
+
       }
     },
+
     methods: {
       reload() {
         this.isRouterAlive = false
@@ -37,6 +44,7 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  height: 100vh
 }
 
 #nav {
@@ -51,4 +59,15 @@
 #nav a.router-link-exact-active {
   color: #42b983;
 }
+
+.slide-fade-enter-active {
+  transition: all .3s ease;
+}
+.slide-fade-leave-active {
+  transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0) revert;
+}
+.slide-fade-enter, .slide-fade-leave-to {
+  opacity: 0;
+}
+
 </style>

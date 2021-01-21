@@ -1,14 +1,17 @@
 <template>
   <div id='Menus_app'>
-<!--    <cube-sticky :pos="scrollY" :check-top="checkTop">-->
       <div class="scroll-ele" @scroll="scrollHandler">
-          <h1>欢迎使用</h1>
-        <Menus :menu="menu"  v-for="(menu,index) in menus" :key="index"></Menus>
-        <cube-button class="exit" @click="exit">退出登录</cube-button>
-        <a class="changePassword" @click="changePassword">修改密码</a>
+        <div class="header">
+          <img class="header_img" src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__d7f2b9f1ff45ea5fbaa6e7b3914a91d1.svg" alt="">
+          <label class="search" >
+            <i class="cubeic-search" v-if="value.length === 0"></i>
+            <cube-input  class="search" v-model="value" ></cube-input>
+          </label>
+          <a  @click="search">搜索</a>
+        </div>
+        <List :show-title="false" :data="listData"></List>
       </div>
-<!--    </cube-sticky>-->
-    <button @click="getDemo">testController</button>
+
 
   </div>
 </template>
@@ -18,6 +21,7 @@ import Menus from "@/components/Menus";
 import exit from '@/libs/exit-login'
 import { BaseVue } from '@lib'
 import {UserController} from '@/actions/controller'
+
 export default {
   components:{
     Menus
@@ -27,11 +31,25 @@ export default {
       scrollY: 0,
       checkTop: false,
       menus:[],
+      value:'',
+      listData:[
+        {
+          id:1,
+          title:'one'
+        },
+        {
+          id:2,
+          title:'two'
+        }
+      ]
     }
   },
   mixins: [BaseVue],
 
   methods: {
+    search(){
+      console.log(this.value)
+    },
     changePassword(){
       this.$router.push('/changePassword')
     },
@@ -64,13 +82,6 @@ export default {
         return leaveOneItem
       })
       this.menus[0].children[0].reverse()
-    }).catch(error=>{
-      const toast = this.$createToast({
-        time: 2000,
-        type: 'error',
-        txt: '请登录 '
-      })
-      toast.show()
     })
   },
 
@@ -78,7 +89,8 @@ export default {
 </script>
 <style scoped  lang="stylus">
 #Menus_app
-  height 100vh
+  background-color $my-bgc-color
+  height calc(100% - 80px)
 h1
   font-size 1.4em
   margin 20px
@@ -93,4 +105,31 @@ h1
   text-decoration-line underline
   margin-bottom 50px
   color $color-dark-grey
+.header
+  height 80px
+  margin 20px
+  display flex
+  justify-content center
+  align-items center
+.header_img
+  position absolute
+.search
+  flex-grow 2
+  height 30px
+  margin 0 5px 0 10px
+  outline none
+  border 1px solid transparent
+  position relative
+.header>a
+  display block
+  margin-right 20px
+  color rgb(60,122,246)
+  z-index 20
+  font-weight 500
+.cubeic-search
+  position absolute
+  z-index 10
+  top 50%
+  left 20px
+  transform translateY(-50%)
 </style>

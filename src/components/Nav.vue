@@ -1,6 +1,6 @@
 <template>
   <div id='Nav_app'>
-<!--    <i @click="back" class="icon cubeic-back"></i>-->
+    <i @click="back" v-if="showBack" class="icon cubeic-back"></i>
     <slot>{{ title }}</slot>
   </div>
 </template>
@@ -9,11 +9,12 @@
 
 export default {
   props:{
+    showBack:{
+      type:Boolean,
+      default:false
+    },
     title:''
   },
-  beforeRouterEnter:((to,from,next)=>{
-    console.log (to,from)
-  }),
   methods:{
     back(){
       this.$router.back()
@@ -28,9 +29,8 @@ export default {
     text-align:center
     line-height:60px
     position:relative
-    color #fff
-    background-color $color-regular-blue
-    margin-bottom 10px
+    color $color-regular-blue
+    background-color #fff
   .icon
     position:absolute
     left:0

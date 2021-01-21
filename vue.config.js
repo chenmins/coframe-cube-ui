@@ -21,6 +21,7 @@ module.exports = {
     resolve:{
       alias:{
         '@': '/src',
+        '@myComponents':'/src/components',
         'vue$': 'vue/dist/vue.esm.js',
         'vue': 'vue/dist/vue.esm.js',
         '@lib': resolve('/src/libs'),
@@ -39,7 +40,6 @@ module.exports = {
     }
   },
   devServer: {
-    host:'localhost',
     port:8081,
     open: true, //配置自动启动浏览器
     proxy: {
