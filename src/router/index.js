@@ -5,19 +5,24 @@ import axios from "@/axios/index";
 import NProgress from 'nprogress' // progress bar
 import 'nprogress/nprogress.css' // progress bar style
 
+NProgress.configure({ showSpinner: false }) // NProgress Configuration
+
 import LeaveTwoMenus from './moudels/index'
 import blue from "@/router/blue";
+import AddressBook from "@/router/AddressBook";
 
 Vue.use(VueRouter)
 
 const routes = [
   ...LeaveTwoMenus,
   ...blue,
+    ...AddressBook,
   {
     path: '/',
     name: 'Home',
     meta:{
-      name:'常见问题'
+      name:'常见问题',
+      tag:'Question'
     },
     component: Home
   },
@@ -55,7 +60,6 @@ router.beforeEach((to,from,next) =>{
       router.push('/login')
   }
   next()
-  NProgress.done()
 })
 
 router.afterEach(()=>{

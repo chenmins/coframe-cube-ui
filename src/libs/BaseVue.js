@@ -22,9 +22,7 @@ export default {
     ...VueUtil(this)
       .select(ControllersMap)
       .state(),
-
-    ...mapGetters(['businessDicts', 'members']),
-
+    // ...mapGetters(['businessDicts', 'members']),
     workspaceHeight() {
       return `min-height: ${document.body.clientHeight - 125}px;`
     },

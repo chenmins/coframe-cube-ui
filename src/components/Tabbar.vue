@@ -26,7 +26,13 @@ export default {
     }
   },
   created() {
-    this.selectedLabelDefault = localStorage.getItem('label')
+    let tag = this.$route.meta.tag
+    localStorage.setItem('label','Question')
+    if(tag){
+      this.selectedLabelDefault = this.$route.meta.tag
+    }else {
+      this.selectedLabelDefault = localStorage.getItem('label')
+    }
   },
   methods: {
     clickHandler (label) {
