@@ -15,7 +15,7 @@ export default [
             name:'产品介绍',
             tag:'ProductsInc'
         },
-        component:()=>import('@/views/Product/ProductsInc.vue')
+        component:()=>import('@/views/HelpCenter/Product/ProductsInc.vue')
     },
     {
         path:'/ProductInc/:id',
@@ -25,7 +25,7 @@ export default [
             leave:'LeaveTwoRouter',
             tag:'ProductInc'
         },
-        component:()=>import('@/views/Product/ProductInc.vue')
+        component:()=>import('@/views/HelpCenter/Product/ProductInc.vue')
     },
     {
         path:'/DemanFeedback',
@@ -33,7 +33,7 @@ export default [
         meta:{
             name:'需求反馈'
         },
-        component:()=>import('@/views/DemanFeedback.vue')
+        component:()=>import('@/views/HelpCenter/DemanFeedback.vue')
     },
     {
         path:'/Replay',
@@ -42,7 +42,7 @@ export default [
             name:'回复',
             leave:'LeaveTwoRouter',
         },
-        component:()=>import('@/views/Replay/Replay.vue')
+        component:()=>import('@/views/HelpCenter/Replay/Replay.vue')
     },
     {
         path:'/ReplayDetail',
@@ -51,6 +51,6 @@ export default [
             name:'ReplayDetail',
             leave:'LeaveTwoRouter',
         },
-        component:()=>import('@/views/Replay/ReplayDetail.vue')
+        component:()=>import('@/views/HelpCenter/Replay/ReplayDetail.vue')
     },
 ]

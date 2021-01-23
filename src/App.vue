@@ -4,7 +4,6 @@
     <transition name="slide-fade" >
       <router-view/>
     </transition>
-    <Tabbar v-show="$route.meta.tabBarshow !==false && $route.meta.name !== 'ReplayDetail' && $route.meta.tag !== 'Login' && $route.meta.tag !== 'ProductInc' " ></Tabbar>
   </div>
 </template>
 

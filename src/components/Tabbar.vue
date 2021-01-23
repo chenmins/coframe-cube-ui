@@ -2,10 +2,19 @@
   <cube-tab-bar
       class="tabbar"
       v-model="selectedLabelDefault"
-      :data="tabs"
       @click="clickHandler"
       @change="changeHandler">
-  </cube-tab-bar></template>
+    <cube-tab v-for="(item, index) in tabs" :label="item.label" :key="item.label">
+      <!-- name为icon的插槽 -->
+<!--      <i slot="icon" :class="item.icon"></i>-->
+      <i style="font-size:20px;" slot="icon" :class="'iconfont '+item.icon  "></i>
+      <!-- 默认插槽 -->
+      <div style="font-size: 13px;margin-top: 5px">
+        {{item.label}}
+      </div>
+    </cube-tab>
+  </cube-tab-bar>
+</template>
 
 <script>
 export default {
@@ -15,22 +24,28 @@ export default {
       selectedLabelDefault: 'Question',
       tabs: [{
         label: '常见问题',
-        value:'Question'
+        value:'question',
+        icon: 'iconquestion',
+
       }, {
         label: '产品介绍',
-        value: 'ProductsInc'
+        value: 'productInc',
+        icon: 'iconproductInc'
+
       },{
         label: '需求反馈',
-        value: 'DemanFeedback'
+        value: 'feedback',
+        icon: 'iconfeedback'
+
       }]
     }
   },
-  created() {
-    let tag = this.$route.meta.tag
-    localStorage.setItem('label','Question')
+  mounted() {
+    let tag = this.$route.meta.name
     if(tag){
-      this.selectedLabelDefault = this.$route.meta.tag
+      this.selectedLabelDefault = this.$route.meta.name
     }else {
+      localStorage.setItem('label','常见问题')
       this.selectedLabelDefault = localStorage.getItem('label')
     }
   },
@@ -39,8 +54,9 @@ export default {
       // if you clicked home tab, then print 'Home'
     },
     changeHandler (label) {
+      console.log(label)
       // if you clicked different tab, this methods can be emitted
-      this.$router.push(`/${label}`)
+      this.$router.push({name:`${label}`})
       localStorage.setItem('label',label)
     }
   }
@@ -54,4 +70,6 @@ export default {
   bottom 0
   background-color #fff
   height 70px
+.icon
+  display block
 </style>

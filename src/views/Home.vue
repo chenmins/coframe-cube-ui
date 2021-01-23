@@ -1,17 +1,10 @@
 <template>
   <div id='Menus_app'>
       <div class="scroll-ele" @scroll="scrollHandler">
-        <div class="header">
-          <img class="header_img" src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__d7f2b9f1ff45ea5fbaa6e7b3914a91d1.svg" alt="">
-          <label class="search" >
-            <i class="cubeic-search" v-if="value.length === 0"></i>
-            <cube-input  class="search" v-model="value" ></cube-input>
-          </label>
-          <a  @click="search">搜索</a>
-        </div>
-        <List :show-title="false" :data="listData"></List>
+        <Menus :menu="menu"  v-for="(menu,index) in menus" :key="index"></Menus>
+        <cube-button class="exit" @click="exit">退出登录</cube-button>
+        <a class="changePassword" @click="changePassword">修改密码</a>
       </div>
-
 
   </div>
 </template>
@@ -31,25 +24,13 @@ export default {
       scrollY: 0,
       checkTop: false,
       menus:[],
-      value:'',
-      listData:[
-        {
-          id:1,
-          title:'one'
-        },
-        {
-          id:2,
-          title:'two'
-        }
-      ]
+
     }
   },
   mixins: [BaseVue],
 
   methods: {
-    search(){
-      console.log(this.value)
-    },
+
     changePassword(){
       this.$router.push('/changePassword')
     },
@@ -105,14 +86,7 @@ h1
   text-decoration-line underline
   margin-bottom 50px
   color $color-dark-grey
-.header
-  height 80px
-  margin 20px
-  display flex
-  justify-content center
-  align-items center
-.header_img
-  position absolute
+
 .search
   flex-grow 2
   height 30px

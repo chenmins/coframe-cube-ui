@@ -39,7 +39,7 @@ name: "ProductsInc",
 
 <style scoped lang="stylus">
 #product_inc
-  height calc(100% - 80px)
+  height calc(100% - 60px)
   background-color $my-bgc-color
   position relative
   display flex

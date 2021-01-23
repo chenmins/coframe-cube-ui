@@ -50,7 +50,7 @@ export default {
   },
   methods:{
       ReplayDetail(){
-      this.$router.push('/ReplayDetail')
+      this.$router.push({name:'ReplayDetail'})
     }
   }
 }

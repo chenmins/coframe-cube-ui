@@ -25,6 +25,7 @@ axios.interceptors.request.use(
 	return request
 },
 	error=>
+
 			Promise.reject(error)
 
 )
@@ -35,6 +36,7 @@ axios.interceptors.response.use(
 		return response
 	},
 	error=> {
+		router.replace('/login')
 		return Promise.reject (error)
 	}
 )

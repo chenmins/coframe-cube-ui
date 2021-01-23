@@ -8,21 +8,21 @@ import 'nprogress/nprogress.css' // progress bar style
 NProgress.configure({ showSpinner: false }) // NProgress Configuration
 
 import LeaveTwoMenus from './moudels/index'
-import blue from "@/router/blue";
 import AddressBook from "@/router/AddressBook";
+import HelpCenter from "@/router/HelpCenter";
 
 Vue.use(VueRouter)
 
 const routes = [
   ...LeaveTwoMenus,
-  ...blue,
-    ...AddressBook,
+    ...HelpCenter,
+  ...AddressBook,
   {
     path: '/',
     name: 'Home',
     meta:{
-      name:'常见问题',
-      tag:'Question'
+      name:'主菜单',
+      tag:'Meuns'
     },
     component: Home
   },
@@ -40,6 +40,7 @@ const routes = [
     name:'changePassword',
     component: ()=>import('../views/changePassword')
   },
+
   {
     path: '*',
     name:'NotFound',
@@ -60,6 +61,8 @@ router.beforeEach((to,from,next) =>{
       router.push('/login')
   }
   next()
+  NProgress.done()
+
 })
 
 router.afterEach(()=>{

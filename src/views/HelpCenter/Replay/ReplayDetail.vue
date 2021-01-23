@@ -11,12 +11,16 @@
       <ReplayBox></ReplayBox>
     </template>
   </CommentBox>
-  <cube-textarea
-      class="replay_textarea"
-      v-model="value"
-      :placeholder="placeholder"
-      :maxlength="maxlength"
-  ></cube-textarea>
+  <div class="replay">
+    <cube-textarea
+        class="replay_textarea"
+        v-model="value"
+        :placeholder="placeholder"
+        :maxlength="maxlength"
+    ></cube-textarea>
+    <button class="submit">发送</button>
+  </div>
+
 </div>
 </template>
 
@@ -44,10 +48,25 @@ export default {
   font-size 14px
   position relative
   background-color #efefef
-.replay_textarea
-  height 120px
-  bottom 0
-.comment_box
-  margin 0
+
+.replay
+  display flex
+  margin-top -20px
+.replay
+  display flex
+  align-items center
+  .replay_textarea
+    display inline-block
+    height 70px
+    bottom 0
+    flex 1
+  .submit
+    height 30px
+    margin 0 20px
+    background-color rgb(23	,134,	255)
+    border-color transparent
+    color #fff
+    border-radius 6px
+    padding 0 10px
 
 </style>

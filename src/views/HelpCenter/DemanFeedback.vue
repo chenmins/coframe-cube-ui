@@ -56,7 +56,7 @@ export default {
   },
   methods:{
     Replay(){
-      this.$router.push('/Replay')
+      this.$router.push({name:'Replay'})
     },
 
   }
