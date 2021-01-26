@@ -61,7 +61,7 @@ export default {
         this.$router.push({name:`全部`})
         return
       }
-      // this.$router.push({name:`${label}`})
+      this.$router.push({name:`${label}`})
     }
   }
 }

@@ -8,21 +8,10 @@
     ></cube-textarea>
     <div class="replay_btn">
       <cube-upload
-          class="upload"
-          ref="upload"
-          v-model="files"
-          :action="action"
-          @files-added="addedHandler"
-          @file-error="errHandler">
-        <div class="clear-fix">
-          <cube-upload-file v-for="(file, i) in files" :file="file" :key="i"></cube-upload-file>
-          <cube-upload-btn :multiple="false">
-            <div>
-              <img height="20" src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__9e017fd811aee5c85d6b1ac31b77d43a.svg" alt="">
-            </div>
-          </cube-upload-btn>
-        </div>
-      </cube-upload>
+          action="//jsonplaceholder.typicode.com/photos/"
+          :simultaneous-uploads="1"
+          @files-added="filesAdded" />
+
       <cube-button class="submit" @click="submit">发送</cube-button>
     </div>
 
@@ -41,9 +30,21 @@ export default {
     }
   },
   methods: {
-    addedHandler() {
-      const file = this.files[0]
-      file && this.$refs.upload.removeFile(file)
+    filesAdded(files) {
+      let hasIgnore = false
+      const maxSize = 1 * 1024 * 1024 // 1M
+      for (let k in files) {
+        const file = files[k]
+        if (file.size > maxSize) {
+          file.ignore = true
+          hasIgnore = true
+        }
+      }
+      hasIgnore && this.$createToast({
+        type: 'warn',
+        time: 1000,
+        txt: 'You selected >1M files'
+      }).show()
     },
     errHandler(file) {
       // const msg = file.response.message

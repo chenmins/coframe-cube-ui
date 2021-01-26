@@ -1,7 +1,7 @@
 <template>
   <div id="notice_app">
     <img width="100%" src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__69978fede7bad62225395de43eb158f3.svg" alt="">
-    <SlideNav  :selected-label="selectedLabel" :tabs="tabs" showSlider >
+    <SlideNav @changeHandle="changeHandle"  :selected-label="selectedLabel" :tabs="tabs" showSlider >
       <router-view style="margin:0 20px" ></router-view>
     </SlideNav>
   </div>

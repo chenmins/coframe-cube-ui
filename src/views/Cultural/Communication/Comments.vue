@@ -60,9 +60,7 @@ export default {
     }
   },
   created() {
-    axios.get('http://localhost:8081/test/cityInfo').then(res=>{
-      console.log(res)
-    })
+
   }
 }
 </script>

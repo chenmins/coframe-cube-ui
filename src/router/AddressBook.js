@@ -15,7 +15,7 @@ export default [
                 name:'homepage',
                 meta:{
                     name:'通讯录主页',
-                    tag:'AddressBook-HomePage',
+                    tag:'AddressBook-MainMenu',
                     tabBarshow:false,
                     leave:'LeaveTwoRouter',
 

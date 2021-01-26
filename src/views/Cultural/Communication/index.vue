@@ -14,7 +14,7 @@
         </div>
         <!--    <SlideNav class="demo" :selected-label="selectedLabel" :tabs="tabs"></SlideNav>-->
         </div>
-    <SlideNav   headerClass='com_header' :center="true" show-slider="" :selected-label="selectedLabel" :tabs="tabs" >
+    <SlideNav @changeHandle="changeHandle"   headerClass='com_header' :center="true" show-slider="" :selected-label="selectedLabel" :tabs="tabs" >
      <template slot-scope="item">
            <Card :is-like="true" @checkComments="checkComments"  style="margin: 10px 10px 0;border-radius: 8px" >
              <template v-slot:username>{{item.scoped.label}}</template>
@@ -92,7 +92,7 @@ export default {
     },
     checkComments(){
       this.$router.push({name:'交流圈-评论详情',params:{id:1}})
-    }
+    },
   }
 }
 </script>

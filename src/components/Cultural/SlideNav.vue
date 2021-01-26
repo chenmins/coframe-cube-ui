@@ -33,38 +33,26 @@ export default {
   data() {
     return {
       componentLabel:this.selectedLabel
-  //     selectedLabel: '公告列表',
-  //     tabs: [
-  //       {
-  //         label: 'Notice',
-  //         heroes: ['敌法师', '卓尔游侠', '主宰', '米拉娜', '变体精灵']
-  //       }, {
-  //         label: 'News',
-  //         heroes: ['血魔', '影魔', '剃刀', '剧毒术士', '虚空假面', '幻影刺客', '冥界亚龙', '克林克兹', '育母蜘蛛', '编织者', '幽鬼', '司夜刺客', '米波']
-  //       }, {
-  //         label: 'Communication',
-  //         heroes: ['血魔', '影魔', '剃刀', '剧毒术士', '虚空假面', '幻影刺客', '冥界亚龙', '克林克兹', '育母蜘蛛', '编织者', '幽鬼', '司夜刺客', '米波']
-  //       }
-  //     ]
     }
   },
   methods:{
     changeHandle(e){
       // this.$emit('selectLabel',e)
       // this.$router.push({name:`${e}`})
+      this.$emit('changeHandle',e)
     }
   },
-  watch: {
-    componentLabel (newV) {
-      this.componentLabel = newV
-      if(newV === '全部' && this.$route.fullPath.includes('/Cultural/News/')){
-        this.$router.push({name:`企业新闻`})
-        return
-      }
-      this.$router.push({name:`${newV}`})
-
-    }
-  }
+  // watch: {
+  //   componentLabel (newV) {
+  //     this.componentLabel = newV
+  //     if(newV === '全部' && this.$route.fullPath.includes('/Cultural/News/')){
+  //       this.$router.push({name:`企业新闻`})
+  //       return
+  //     }
+  //     this.$router.push({name:`${newV}`})
+  //
+  //   }
+  // }
 
 }
 </script>

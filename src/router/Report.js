@@ -1,0 +1,20 @@
+export default [
+    {
+        path:'/Report',
+        name:'Report',
+        meta:{
+            name:'员工信息报备',
+            leave:'LeaveTwoRouter'
+        },
+        component:()=>import('@/views/Report/index')
+    },
+    {
+        path:'/ReportFrom',
+        name:'ReportFrom',
+        meta:{
+            name:'报备详情',
+            leave:'LeaveTwoRouter'
+        },
+        component:()=>import('@/views/Report/ReportForm')
+    }
+]
