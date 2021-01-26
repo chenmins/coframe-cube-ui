@@ -54,10 +54,14 @@ export default {
       // if you clicked home tab, then print 'Home'
     },
     changeHandler (label) {
-      console.log(label)
       // if you clicked different tab, this methods can be emitted
-      this.$router.push({name:`${label}`})
+      console.log(label)
       localStorage.setItem('label',label)
+      if(label ==='公告列表'){
+        this.$router.push({name:`全部`})
+        return
+      }
+      // this.$router.push({name:`${label}`})
     }
   }
 }

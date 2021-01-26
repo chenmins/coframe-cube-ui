@@ -19,8 +19,8 @@
 </template>
 
 <script>
-import CommentBox from "@/components/CommentBox";
-import ReplayBox from "@/components/ReplayBox";
+import CommentBox from "@/components/HelpCenter/CommentBox";
+import ReplayBox from "@/components/HelpCenter/ReplayBox";
 
 export default {
   name: "DemanFeedback",

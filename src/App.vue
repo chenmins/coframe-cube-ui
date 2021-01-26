@@ -1,6 +1,11 @@
 <template>
   <div id="app">
-    <Nav :show-back="$route.meta.leave === 'LeaveTwoRouter'" :title="$route.meta.name"></Nav>
+    <Nav
+        :show-back="$route.meta.leave === 'LeaveTwoRouter'"
+        :title="$route.meta.name"
+        v-show="!$route.meta.showNav"
+
+    ></Nav>
     <transition name="slide-fade" >
       <router-view/>
     </transition>
@@ -42,7 +47,8 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  height: 100vh
+  height: 100vh;
+  font-size:16px
 }
 
 #nav {

@@ -10,13 +10,15 @@ NProgress.configure({ showSpinner: false }) // NProgress Configuration
 import LeaveTwoMenus from './moudels/index'
 import AddressBook from "@/router/AddressBook";
 import HelpCenter from "@/router/HelpCenter";
+import Cultural from "@/router/Cultural";
 
 Vue.use(VueRouter)
 
 const routes = [
   ...LeaveTwoMenus,
-    ...HelpCenter,
+  ...HelpCenter,
   ...AddressBook,
+  ...Cultural,
   {
     path: '/',
     name: 'Home',
