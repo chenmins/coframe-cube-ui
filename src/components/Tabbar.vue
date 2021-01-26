@@ -76,4 +76,6 @@ export default {
   height 70px
 .icon
   display block
+.cube-tab_active
+  color $custom-active-color
 </style>
