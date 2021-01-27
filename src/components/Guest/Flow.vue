@@ -1,18 +1,17 @@
 <template>
-  <div id="layout">
-    <slot></slot>
-  </div>
+
 </template>
 
 <script>
 export default {
-  name: "LayOut"
+  name: "Flow",
+  props:[
+      'title',
+  ]
 }
 </script>
 
 <style scoped lang="stylus">
 
-#layout
-  background-color: #fff;
 
 </style>

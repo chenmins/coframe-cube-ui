@@ -1,5 +1,5 @@
 <template>
-  <div id="menu_card">
+  <div id="menu_card" @click="CardDetail">
     <div class="title">
       <div style="display: flex;align-items: center">
         <img v-show="src"
@@ -28,6 +28,9 @@ export default {
   methods:{
     SeeAll(){
       this.$emit('SeeAll')
+    },
+    CardDetail(){
+      this.$emit('CardDetail')
     }
   }
 }

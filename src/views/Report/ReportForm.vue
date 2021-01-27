@@ -214,7 +214,6 @@ export default {
     validateHandler(result) {
       this.validity = result.validity
       this.valid = result.valid
-      console.log('validity', result.validity, result.valid, result.dirty, result.firstInvalidFieldIndex)
     },
     showDatePicker() {
       this.$refs.datePicker.show()
@@ -251,4 +250,10 @@ export default {
   bottom 60px
   background-color $custom-active-color
   border-radius 10px
+
+>>>.cube-radio_selected .cube-radio-ui
+  background-color $custom-active-color
+>>>.cube-validator-content
+  font-size 18px
+
 </style>

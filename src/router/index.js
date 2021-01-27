@@ -13,6 +13,7 @@ import HelpCenter from "@/router/HelpCenter";
 import Cultural from "@/router/Cultural";
 import MainMenu from "@/router/MainMenu";
 import Report from "@/router/Report";
+import Guest from "@/router/Guest";
 
 Vue.use(VueRouter)
 
@@ -23,6 +24,7 @@ const routes = [
     ...Cultural,
     ...MainMenu,
     ...Report,
+    ...Guest,
     {
         path: '/',
         name: 'Home',

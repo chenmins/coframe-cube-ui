@@ -11,7 +11,6 @@ import Global from '@/libs/mixins/global'
 import Tag from "@/components/Tag";
 import LayOut from "@/components/LayOut";
 import store from './store'
-import '@/utils/mock/mock'
 
 
 
