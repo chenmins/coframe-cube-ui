@@ -8,7 +8,8 @@ export default [
                 path:'org-position',
                 name:'org-position',
                 meta:{
-                    name:'机构管理'
+                    name:'机构管理',
+                    leave:'LeaveTwoRouter'
                 },
                 component:()=>import('@/views/admin/org-position.vue')
             },
@@ -16,7 +17,8 @@ export default [
                 path:'employee',
                 name:'employee',
                 meta:{
-                    name:'人员管理'
+                    name:'人员管理',
+                    leave:'LeaveTwoRouter'
                 },
                 component:()=>import('@/views/admin/employee')
             }
@@ -31,7 +33,8 @@ export default [
                 path:'role',
                 name:'role',
                 meta:{
-                    name:'成员角色'
+                    name:'成员角色',
+                    leave:'LeaveTwoRouter'
                 },
                 component:()=>import('@/views/authority/role')
             },
@@ -39,7 +42,8 @@ export default [
                 path:'user',
                 name:'user-index',
                 meta:{
-                    name:'用户管理'
+                    name:'用户管理',
+                    leave:'LeaveTwoRouter'
                 },
                 component:()=>import('@/views/authority/user')
             }
@@ -54,7 +58,8 @@ export default [
                 path:'operation-log',
                 name:'operation-log',
                 meta:{
-                    name:'操作日志'
+                    name:'操作日志',
+                    leave:'LeaveTwoRouter'
                 },
                 component:()=>import('@/views/securityAudit/operation-log')
             }
@@ -69,7 +74,8 @@ export default [
                 path:'authority-template',
                 name:'authority-template',
                 meta:{
-                    name:'角色模板'
+                    name:'角色模板',
+                    leave:'LeaveTwoRouter'
                 },
                 component:()=>import('@/views/systemConfig/authority-template')
             },
@@ -77,7 +83,8 @@ export default [
                 path:'business-dict',
                 name:'business-dict',
                 meta:{
-                    name:'资源权限'
+                    name:'资源权限',
+                    leave:'LeaveTwoRouter'
                 },
                 component:()=>import('@/views/systemConfig/business-dict')
             },
@@ -85,7 +92,8 @@ export default [
                 path:'resource-authority',
                 name:'resource-authority',
                 meta:{
-                    name:'业务字典'
+                    name:'业务字典',
+                    leave:'LeaveTwoRouter'
                 },
                 component:()=>import('@/views/systemConfig/resource-authority')
             }

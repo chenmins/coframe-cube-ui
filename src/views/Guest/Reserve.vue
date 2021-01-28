@@ -2,18 +2,18 @@
   <div id="Reserve">
     <Search placeholder="搜索访客姓名" :value="value"></Search>
 
-    <LayOut class="func" >
+    <LayOut class="func">
       <span>审批状态</span>
-      <span>到访日期</span>
+      <span @click="showPicker">到访日期</span>
     </LayOut>
 
-<!--    @CardDetail-->
+    <!--    @CardDetail-->
 
     <MenuCard @CardDetail="ThisReserve" class="card" name="我的申请" :noAll="true" style="padding: 15px">
       <div class="content">
         <p>到访时间：陈优优、张三丰</p>
         <p>到访部门：陈优优、赵晓晓、李思思、秦琪</p>
-        <p>来访姓名：2020年12月28日  08:00</p>
+        <p>来访姓名：2020年12月28日 08:00</p>
       </div>
       <Tag color="#fff" class="tag" style="background-color:#42b983;">待审批</Tag>
     </MenuCard>
@@ -27,18 +27,40 @@ import MenuCard from "@/components/MainMenu/MenuCard";
 
 export default {
   name: "Reserve",
-  components:{
+  components: {
     Search,
     MenuCard
   },
-  data(){
-    return{
-      value:'',
+  data() {
+    return {
+      value: '',
+      pickerData: ''
     }
   },
-  methods:{
-    ThisReserve(){
-      this.$router.push({name:'GuestDetail',params:{id:1}})
+  created() {
+    this.pickerData = [
+      {text: '近30天', value: '近30天'},
+      {text: '近7天', value: '近7天'},
+      {text: '全部', value: '全部'},
+    ]
+  },
+  methods: {
+    ThisReserve() {
+      this.$router.push({name: 'GuestDetail', params: {id: 1}})
+    },
+    showPicker() {
+      if (!this.picker) {
+        this.picker = this.$createPicker({
+          title: 'Picker',
+          data: [this.pickerData],
+          onSelect: this.selectHandle,
+          onCancel: this.cancelHandle
+        })
+      }
+      this.picker.show()
+    },
+    selectHandle(selectedVal, selectedIndex, selectedText) {
+
     }
   }
 }
@@ -48,13 +70,15 @@ export default {
 #Reserve
   background-color $my-bgc-color
   height $viewpoint-height
+
   .func
     height 40px
     line-height: 40px;
     display flex
+
     span
       flex-grow 1
-      border 1px solid rgba($custom-border-color,.1)
+      border 1px solid rgba($custom-border-color, .1)
 
 .content
   margin 10px
@@ -63,10 +87,13 @@ export default {
   text-align left
   color $custom-gray
   position relative
+
   p
     margin-top 6px
+
 .card
   position relative
+
   .tag
     position absolute
     right 20px

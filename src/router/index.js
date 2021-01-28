@@ -14,6 +14,8 @@ import Cultural from "@/router/Cultural";
 import MainMenu from "@/router/MainMenu";
 import Report from "@/router/Report";
 import Guest from "@/router/Guest";
+import Schedule from "@/router/Schedule";
+import EmployeeCard from "@/router/EmployeeCard";
 
 Vue.use(VueRouter)
 
@@ -25,6 +27,8 @@ const routes = [
     ...MainMenu,
     ...Report,
     ...Guest,
+    ...Schedule,
+    ...EmployeeCard,
     {
         path: '/',
         name: 'Home',
@@ -64,12 +68,11 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
     NProgress.start()
-    let Token = localStorage.getItem('Token')
-    if (Token === null && to.fullPath !== '/login') {
-        router.push('/login')
-    }
+    // let Token = localStorage.getItem('Token')
+    // if (Token === null && to.fullPath !== '/login') {
+    //     router.push('/login')
+    // }
     next()
-    NProgress.done()
 
 })
 

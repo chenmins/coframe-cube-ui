@@ -11,6 +11,7 @@ import Global from '@/libs/mixins/global'
 import Tag from "@/components/Tag";
 import LayOut from "@/components/LayOut";
 import store from './store'
+import Calendar from 'vue2-slot-calendar';
 
 
 
@@ -22,6 +23,7 @@ Vue.component('Tabbar',Tabbar)
 Vue.component('List',List)
 Vue.component('Tag',Tag)
 Vue.component('LayOut',LayOut)
+Vue.component('Calendar',Calendar)
 
 Vue.mixin(Global)
 

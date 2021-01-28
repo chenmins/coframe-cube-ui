@@ -6,7 +6,7 @@
         @submit="submitHandler"
     >
     </cube-form>
-    <button @click="test">test</button>
+    <button @click="test"> test</button>
   </div>
 </template>
 
@@ -14,8 +14,13 @@
 <script>
 
 import {setToken} from '@/utils/auth'
+import axios from "axios";
+import {UserController} from "@/actions/controller";
+import {Demo} from "@/actions/controller";
+import BaseVue from "@/libs/BaseVue";
 
-  export default{
+export default{
+  mixins:[BaseVue],
     data(){
       return {
         model:{
@@ -75,15 +80,29 @@ import {setToken} from '@/utils/auth'
       }
     },
     methods:{
-      test(){
-       let apiInstance = new this.$XgeneCloud.CommonApi() //将api挂在到vue原型链上
-          apiInstance.health((error, data, response) => {
-          if (error) {
-            console.error(error);
-          } else {
-            console.log('API called successfully. Returned data: ' + data);
-            console.log(data);          }
-        });
+     async test(){
+       // let apiInstance = new this.$XgeneCloud.CommonApi() //将api挂在到vue原型链上
+       //    apiInstance.health((error, data, response) => {
+       //    if (error) {
+       //      console.error(error);
+       //    } else {
+       //      console.log('API called successfully. Returned data: ' + data);
+       //      console.log(data);          }
+       //  });
+
+       let resp = {}
+       resp = await this.dispatch(Demo.insert,{
+         "body": "string",
+         "title": "st1r1isang",
+         "type": "string",
+         "updateUser": 0
+       })
+       console.log(resp)
+       if(!resp.error){
+         alert('success')
+       }else{
+         alert('failure')
+       }
       },
       submitHandler(e,model){
         e.preventDefault()

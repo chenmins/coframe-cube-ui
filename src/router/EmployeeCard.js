@@ -1,0 +1,21 @@
+export default [
+    {
+        path:'/EmployeeCard',
+        name:'EmployeeCard',
+        meta:{
+            name:'EmployeeCard',
+            tag:'员工卡申请',
+            leave:'LeaveTwoRouter',
+        },
+        component:()=>import('@/views/EmployeeCard/index')
+    },
+    {
+        path:'/CreateCard',
+        name:'CreateCard',
+        meta:{
+            name:'新员工开卡',
+            leave:"LeaveTwoRouter"
+        },
+        component:()=>import('@/views/EmployeeCard/CreateCard')
+    },
+]

@@ -5,8 +5,11 @@
     >
       <DetailBox></DetailBox>
 
+
+
       <LayOut class="flow">
         <div class="title">审批流程</div>
+<!--        初始表单-->
         <div class="box">
           <div class="left">
             <div class="icon_box">
@@ -31,10 +34,13 @@
             </div>
           </div>
           <div class="right">
-            <span>审批中</span>
+            <span v-if="status==='agree'">同意</span>
+            <span v-else-if="status==='approve'">审批中</span>
+            <span v-else>拒绝</span>
           </div>
         </div>
         <cube-form
+            v-show="status!=='agree'"
             :model="model"
             :schema="schema"
             :immediate-validate="false"
@@ -60,6 +66,7 @@ export default {
   },
   data(){
     return{
+      status:'approve',
       options: {
         scrollToInvalidField: true,
         layout: 'standard' // classic fresh
@@ -81,7 +88,7 @@ export default {
                   placeholder:'填写拒绝理由'
                 },
                 rules: {
-                  required: true
+                  required: false
                 },
                 // debounce validate
                 // if set to true, the default debounce time will be 200(ms)
@@ -92,12 +99,12 @@ export default {
           {
             fields: [
               {
-                type: 'submit',
+                type: 'reset',
                 label: '通过'
               },
               {
-                type: 'reset',
-                label: '拒绝'
+                type: 'submit',
+                label: '拒绝',
               }
             ]
           }
@@ -108,16 +115,22 @@ export default {
   },
 
   methods: {
+    hiddenButton(){
+      this.schema.groups[1].fields = []
+    },
     submitHandler(e) {
       e.preventDefault()
+      this.status = ''
+      this.hiddenButton()
       console.log('submit', e)
     },
     validateHandler(result) {
       this.validity = result.validity
       this.valid = result.valid
-      console.log('validity', result.validity, result.valid, result.dirty, result.firstInvalidFieldIndex)
     },
     resetHandler(e) {
+      this.status = 'agree'
+      this.hiddenButton()
       console.log('reset', e)
     }
   }
@@ -151,7 +164,9 @@ export default {
     height 20px
     line-height 0
     border-radius  8px
-
+  >>>.cube-form-item.cube-form-item_required
+    font-size 10px
+    width 100%
   >>>.cube-btn[type='submit']
     background-color $custom-active-color
     border 1px solid $custom-border-color

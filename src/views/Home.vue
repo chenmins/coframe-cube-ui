@@ -5,8 +5,7 @@
         <cube-button class="exit" @click="exit">退出登录</cube-button>
         <a class="changePassword" @click="changePassword">修改密码</a>
       </div>
-
-  </div>
+    </div>
 </template>
 
 <script >
@@ -17,7 +16,7 @@ import {UserController} from '@/actions/controller'
 
 export default {
   components:{
-    Menus
+    Menus,
   },
   data() {
     return {
@@ -28,7 +27,8 @@ export default {
     }
   },
   mixins: [BaseVue],
-
+  created() {
+  },
   methods: {
 
     changePassword(){
@@ -68,7 +68,17 @@ export default {
 
 }
 </script>
+
+<style scoped>
+
+
+</style>
+
 <style scoped  lang="stylus">
+
+
+
+
 #Menus_app
   background-color $my-bgc-color
   height calc(100% - 80px)
