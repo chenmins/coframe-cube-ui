@@ -13,10 +13,13 @@ import LayOut from "@/components/LayOut";
 import store from './store'
 import Calendar from 'vue2-slot-calendar';
 
+import { Switch } from 'vant';
 
+import dayjs from 'dayjs'
 
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios
+Vue.prototype.$dayjs = dayjs
 
 Vue.component('Nav',Nav)
 Vue.component('Tabbar',Tabbar)
@@ -26,7 +29,7 @@ Vue.component('LayOut',LayOut)
 Vue.component('Calendar',Calendar)
 
 Vue.mixin(Global)
-
+Vue.use(Switch);
 new Vue({
   router,
   store,

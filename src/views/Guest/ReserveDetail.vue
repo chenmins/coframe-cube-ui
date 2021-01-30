@@ -5,8 +5,6 @@
     >
       <DetailBox></DetailBox>
 
-
-
       <LayOut class="flow">
         <div class="title">审批流程</div>
 <!--        初始表单-->

@@ -16,6 +16,7 @@ import Report from "@/router/Report";
 import Guest from "@/router/Guest";
 import Schedule from "@/router/Schedule";
 import EmployeeCard from "@/router/EmployeeCard";
+import AppointmentCenter from "@/router/AppointmentCenter";
 
 Vue.use(VueRouter)
 
@@ -29,6 +30,7 @@ const routes = [
     ...Guest,
     ...Schedule,
     ...EmployeeCard,
+    ...AppointmentCenter,
     {
         path: '/',
         name: 'Home',

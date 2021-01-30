@@ -42,17 +42,11 @@ export default {
       this.$emit('changeHandle',e)
     }
   },
-  // watch: {
-  //   componentLabel (newV) {
-  //     this.componentLabel = newV
-  //     if(newV === '全部' && this.$route.fullPath.includes('/Cultural/News/')){
-  //       this.$router.push({name:`企业新闻`})
-  //       return
-  //     }
-  //     this.$router.push({name:`${newV}`})
-  //
-  //   }
-  // }
+  watch: {
+    componentLabel (newV) {
+      this.$emit('LabelChanged',newV)
+    }
+  }
 
 }
 </script>
