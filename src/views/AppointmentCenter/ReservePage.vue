@@ -15,6 +15,7 @@
             </div>
           </div>
           <div class="content_2">剩余名额 <span>10</span>人</div>
+          <div class="content_2 restaurant">已经预约</div>
         </cube-checkbox>
       </LayOut>
 
@@ -53,6 +54,8 @@ export default {
   font-size 12px
   position: relative;
   border-bottom 1px solid $custom-border-color
+  .restaurant
+      color $custom-border-color
   .content_2
     position absolute
     right 20px
