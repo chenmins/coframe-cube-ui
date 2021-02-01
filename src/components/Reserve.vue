@@ -51,11 +51,59 @@
 export default {
   name: "Reserve",
   props:[
-      'model',
-      'schema',
-      'options',
+      'textValue',
+    /*
+         approve or agree
+    */
       'status'
-  ]
+  ],
+  data(){
+    return {
+      options: {
+        scrollToInvalidField: true,
+        layout: 'standard' // classic fresh
+      },
+
+      model: {
+        textareaValue: this.textValue,
+      },
+      schema: {
+        groups: [
+          {
+            fields: [
+              {
+                type: 'textarea',
+                modelKey: 'textareaValue',
+                label: '拒绝理由',
+                props: {
+                  placeholder: '填写拒绝理由'
+                },
+                rules: {
+                  required: false
+                },
+                // debounce validate
+                // if set to true, the default debounce time will be 200(ms)
+                debounce: 100
+              }
+            ]
+          },
+          {
+            fields: [
+              {
+                type: 'reset',
+                label: '通过'
+              },
+              {
+                type: 'submit',
+                label: '拒绝',
+              }
+            ]
+          }
+        ]
+      },
+
+    }
+  }
 }
 </script>
 

@@ -5,11 +5,12 @@
         class="slide_nav"
         :selected-label="selectedLabel" :tabs="tabs" :showBackIcon="true"
         @changeHandle="changeHandle"
+        @back="$router.push({name:'MainMenu'})"
     >
       <router-view></router-view>
     </SlideNav>
     <div class="send" @click="Send" v-if="$route.fullPath.includes('/Communication/')">
-      <i style="font-size:20px;" class="'iconfont iconfeedback' "></i>
+      <i style="font-size:20px;" class="'iconfont iconfeedback' "  ></i>
       <span>发帖子</span>
     </div>
   </div>

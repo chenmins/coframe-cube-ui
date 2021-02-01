@@ -21,9 +21,7 @@
       </div>
     </LayOut>
     <Reserve
-        :model="model"
-        :options="options"
-        :schema="schema"
+        :text-value="model.textareaValue"
         :status="status"
     >
     </Reserve>
@@ -57,46 +55,9 @@ export default {
   data() {
     return {
       status: 'approve',
-      options: {
-        scrollToInvalidField: true,
-        layout: 'standard' // classic fresh
-      },
+
       model: {
         textareaValue: '',
-      },
-      schema: {
-        groups: [
-          {
-            fields: [
-              {
-                type: 'textarea',
-                modelKey: 'textareaValue',
-                label: '拒绝理由',
-                props: {
-                  placeholder: '填写拒绝理由'
-                },
-                rules: {
-                  required: false
-                },
-                // debounce validate
-                // if set to true, the default debounce time will be 200(ms)
-                debounce: 100
-              }
-            ]
-          },
-          {
-            fields: [
-              {
-                type: 'reset',
-                label: '通过'
-              },
-              {
-                type: 'submit',
-                label: '拒绝',
-              }
-            ]
-          }
-        ]
       },
 
     }

@@ -12,10 +12,19 @@ import Tag from "@/components/Tag";
 import LayOut from "@/components/LayOut";
 import store from './store'
 import Calendar from 'vue2-slot-calendar';
+import lunarCalendar from 'vue-lunar-calendar'
+
+import mock from "@/utils/mock/mock";
 
 import { Switch } from 'vant';
 
 import dayjs from 'dayjs'
+import isoWeek from 'dayjs/plugin/isoWeek'
+import DayOfYear from 'dayjs/plugin/dayOfYear'
+import calendar from 'dayjs/plugin/calendar'
+import IsLeapYear from 'dayjs/plugin/isLeapYear'
+dayjs.extend(isoWeek).extend(DayOfYear).extend(calendar).extend(IsLeapYear)
+
 
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios
@@ -27,6 +36,7 @@ Vue.component('List',List)
 Vue.component('Tag',Tag)
 Vue.component('LayOut',LayOut)
 Vue.component('Calendar',Calendar)
+Vue.component('lunar-calendar', lunarCalendar)
 
 Vue.mixin(Global)
 Vue.use(Switch);

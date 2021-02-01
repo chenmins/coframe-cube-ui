@@ -81,5 +81,53 @@ export default [
             tag: '业务介绍',
         },
         component: () => import('@/views/AppointmentCenter/ResultPage')
+    },{
+        path: '/DryClean',
+        name: 'DryClean',
+        meta: {
+            name: '衣物干洗',
+            tag: '衣物干洗',
+            leave:'LeaveTwoRouter'
+        },
+        component: () => import('@/views/AppointmentCenter/DryClean')
+    },{
+        path: '/AppointmentAdmin',
+        meta: {
+            name: '管理员',
+            tag: '管理员',
+            leave:'LeaveTwoRouter'
+        },
+        component: () => import('@/views/AppointmentCenter/admin/index'),
+        children:[
+            {
+                path: '/',
+                name: 'AppointmentAdminList',
+                meta: {
+                    name: '预约管理',
+                    tag: '预约管理',
+                    leave: 'LeaveTwoRouter'
+                },
+                component: () => import('@/views/AppointmentCenter/admin/List')
+            }, {
+                path: '/Release',
+                name: 'AppointmentAdminRelease',
+                meta: {
+                    name: '发布管理',
+                    tag: '发布管理',
+                    leave: 'LeaveTwoRouter'
+                },
+                component: () => import('@/views/AppointmentCenter/admin/Release')
+            },
+        ]
+    },
+    {
+        path: '/ReleaseEdit',
+        name: 'AppointmentAdminReleaseEdit',
+        meta: {
+            name: '发布',
+            tag: '发布',
+            leave: 'LeaveTwoRouter'
+        },
+        component: () => import('@/views/AppointmentCenter/admin/ReleaseEdit')
     },
 ]

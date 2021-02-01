@@ -12,7 +12,7 @@ let params = Mock.mock({ // 数据池
 })
 
 let all = Mock.mock({
-    'all|40': [{ // 图表过滤所需数据
+    'all|20': [{ // 图表过滤所需数据
         'username': '@cname',
         'avatar': '@image(100x100)',
         'topic': '@ctitle',

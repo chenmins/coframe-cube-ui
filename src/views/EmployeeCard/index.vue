@@ -12,16 +12,16 @@
     <div class="handle">
       <div class="title">我要办理</div>
       <div class="func clear-fix">
-        <div class="item">申请办卡</div>
-        <div class="item">我要挂失</div>
-        <div class="item">我的申请</div>
+        <div class="item" @click="$router.push({name:'EmployeeCard'})">申请办卡</div>
+        <div class="item" @click="$router.push({name:'Loss'})">我要挂失</div>
+        <div class="item" @click="$router.push({name:'Apply'})">我的申请</div>
       </div>
     </div>
     <div class="todo">
       <div class="title">我的待办</div>
       <div class="func">
-        <div class="item">我的审批</div>
-        <div class="item">新员工开卡</div>
+        <div class="item" @click="$router.push({name:'ApprovalList'})">我的审批</div>
+        <div class="item"  @click="$router.push({name:'CreateCard'})">新员工开卡</div>
       </div>
     </div>
 

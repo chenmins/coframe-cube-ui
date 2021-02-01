@@ -24,11 +24,11 @@
       </div>
     </ul>
     <div class="footer">
-      <div class="active">
+      <div :class="$route.name === 'Schedule'?'active':''" @click="$route.name !== 'Schedule'&& $router.push({name:'Schedule'}) ">
         <i style="font-size:20px;" class="iconfont iconrichen"></i>
         <p>日程</p>
       </div>
-      <div>
+      <div :class="$route.name === 'Schedule'?'active':''" @click="$route.name !== 'Schedule'&& $router.push({name:'Schedule'}) ">
         <i style="font-size:20px;" class="iconfont icondaiban"></i>
         <p>待办</p>
         <span class="dot"></span>

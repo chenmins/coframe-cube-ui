@@ -1,7 +1,7 @@
 <template>
   <div >
     <div :class="'header '+ headerClass" >
-      <i class="cubeic-back icon" v-if="showBackIcon"></i>
+      <i class="cubeic-back icon" v-if="showBackIcon" @click="$emit('back')"></i>
 
 <!--      todo 直接替换数据而不是切换路由-->
       <cube-tab-bar  v-model="componentLabel"

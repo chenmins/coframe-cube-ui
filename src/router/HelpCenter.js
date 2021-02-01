@@ -10,7 +10,8 @@ export default [
                 meta:{
                     name:'常见问题',
                     tag:'Question',
-                    showTabbar:true
+                    showTabbar:true,
+                    leave:'LeaveTwoRouter'
                 },
                 component:()=>import('@/views/HelpCenter/Question')
             },
@@ -20,7 +21,8 @@ export default [
                 meta:{
                     name:'产品介绍',
                     tag:'ProductsInc',
-                    showTabbar:true
+                    showTabbar:true,
+                    leave:'LeaveTwoRouter'
 
                 },
                 component:()=>import('@/views/HelpCenter/Product/ProductsInc.vue')
@@ -40,7 +42,8 @@ export default [
                 name:'需求反馈',
                 meta:{
                     name:'需求反馈',
-                    showTabbar:true
+                    showTabbar:true,
+                    leave:'LeaveTwoRouter'
 
                 },
                 component:()=>import('@/views/HelpCenter/DemanFeedback.vue')

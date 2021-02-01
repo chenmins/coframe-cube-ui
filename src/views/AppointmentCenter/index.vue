@@ -22,6 +22,12 @@
           <div class="name">零点餐厅预约</div>
           <i class="cubeic-arrow"></i>
         </li>
+        <li style="position:relative"
+            @click="$router.push({name:'DryClean'})"
+        >
+          <div class="name">衣物干洗</div>
+          <i class="cubeic-arrow"></i>
+        </li>
       </ul>
     </LayOut>
 
