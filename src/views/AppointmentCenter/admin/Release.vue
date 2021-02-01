@@ -51,6 +51,7 @@ export default {
 
   },
   mounted() {
+    console.log(this.$refs.Calendar.$el.scrollLeft = 100);
   },
   methods: {
 

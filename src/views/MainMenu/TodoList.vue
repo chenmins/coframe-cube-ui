@@ -73,11 +73,11 @@
     </header>
 <!--todo 日程、待办-->
     <div class="footer">
-      <div class="active">
+      <div @click="$router.push({name:'Schedule'})">
         <i style="font-size:20px;" class="iconfont iconrichen"></i>
         <p>日程</p>
       </div>
-      <div>
+      <div class="active">
         <i style="font-size:20px;" class="iconfont icondaiban"></i>
         <p>待办</p>
         <span class="dot"></span>

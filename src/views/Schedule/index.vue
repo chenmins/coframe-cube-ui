@@ -4,7 +4,8 @@
     <ul class="list" >
       <li class="title">
         {{ date }}
-        <div class="add" >
+        <div class="add"  @>
+<!--          todo 点击跳转-->
           <i class="cubeic-wrong "></i>
           <span>新建日程</span>
         </div>

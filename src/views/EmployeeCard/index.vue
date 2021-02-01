@@ -12,7 +12,7 @@
     <div class="handle">
       <div class="title">我要办理</div>
       <div class="func clear-fix">
-        <div class="item" @click="$router.push({name:'EmployeeCard'})">申请办卡</div>
+        <div class="item" @click="$router.push({name:'addCard'})">申请办卡</div>
         <div class="item" @click="$router.push({name:'Loss'})">我要挂失</div>
         <div class="item" @click="$router.push({name:'Apply'})">我的申请</div>
       </div>
