@@ -9,7 +9,7 @@
           </div>
         </div>
         <div class="selected" @click="showType" >
-          <span>问诊类型</span>
+          <span>{{$route.meta.name==='医务室预约'?'问诊':$route.meta.name==='理发室预约'?'护理':$route.meta.name==='零点餐厅预约'?'选择餐厅':''}}类型</span>
           <div>
             <span>请选择</span>
             <i class="cubeic-arrow"></i>
@@ -34,20 +34,25 @@ export default {
     }
   },
   created() {
-    console.log(this.$route.meta.dataType.filter(i=>i.name==='one')[0].type)
   },
   methods:{
     showType(){
+      let nameMap={
+        '医务室预约':'hospital',
+        '理发室预约':'barbershop',
+        '零点餐厅预约':'restaurant',
+      }
+      let routerName = this.$route.meta.name
       this.$createActionSheet({
         title: '',
-        data: this.$route.meta.dataType.filter(i=>i.name==='one')[0].type,
-        onSelect: (item, index) => {
-          this.$createToast({
-            txt: `Clicked ${item.content}`,
-            time: 1000
-          }).show()
-        }
-      }).show()
+        data: this.$route.meta.dataType[nameMap[routerName]],
+            onSelect: (item, index) => {
+        this.$createToast({
+          txt: `Clicked ${item.content}`,
+          time: 1000
+        }).show()
+      }
+    }).show()
     },
     showDefault() {
       this.$createActionSheet({

@@ -1,6 +1,7 @@
 <template>
   <div id="Release">
     <Calendar
+        @click="demo"
         ref="Calendar"
         title="日历"
         :poppable="false"
@@ -8,7 +9,7 @@
         :formatter="formatter"
         :min-date="minDate" :max-date="maxDate"
         color="#1989fa"
-        :style=" show?'overflow:hidden;height:95px;':'height:350px;'"
+        :style="show?'overflow:hidden;height:95px;':'height:350px;'"
     />
     <i class="cubeic-select" @click="toggle"></i>
 
@@ -51,10 +52,11 @@ export default {
 
   },
   mounted() {
-    console.log(this.$refs.Calendar.$el.scrollLeft = 100);
   },
   methods: {
-
+    demo(){
+      console.log('demo')
+    },
     formatter(day) {
       // day.topInfo = '劳动节';
       // day.bottomInfo = '入住';
@@ -67,12 +69,13 @@ export default {
     toggle() {
       console.log('1')
       this.show = !this.show
+      console.log(this.show)
     }
   }
 
 }
 </script>
-<style scoped>
+<style scoped >
 >>> .van-calendar__selected-day {
   background-color: transparent;
 }
@@ -91,6 +94,9 @@ export default {
 }
 </style>
 <style scoped lang="stylus">
+.cubeic-select
+  width 100%
+  display block
 >>>.van-calendar__days
   overflow: auto;
   display flex

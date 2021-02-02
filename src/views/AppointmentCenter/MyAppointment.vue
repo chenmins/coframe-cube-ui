@@ -85,7 +85,7 @@ footer
       color $custom-active-color
 #MyAppointment
   background-color $my-bgc-color
-  height 100%
+  height $custom-bgc-height
   .record
     display flex
     align-items center

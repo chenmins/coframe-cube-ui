@@ -61,6 +61,16 @@ const routes = [
         path: '*',
         name: 'NotFound',
         component: () => import('../views/NotFound.vue')
+    },
+    {
+        path: "/QR/:id",
+        name:'我的二维码',
+        meta:{
+            name:'我的二维码',
+            leave:2,
+            showNav:true
+        },
+        component: ()=>import('@/views/MainMenu/MyQR')
     }
 ]
 
@@ -72,10 +82,10 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
     NProgress.start()
-    // let Token = localStorage.getItem('Token')
-    // if (Token === null && to.fullPath !== '/login') {
-    //     router.push('/login')
-    // }
+    let Token = localStorage.getItem('Token')
+    if (Token === null && to.fullPath !== '/login') {
+        router.push('/login')
+    }
     next()
 
 })

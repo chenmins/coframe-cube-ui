@@ -64,7 +64,7 @@ export default {
 
 <style scoped lang="stylus">
 #outside_car
-
+    height $custom-bgc-height
   >>> .test
     background-color #fff
     margin 0

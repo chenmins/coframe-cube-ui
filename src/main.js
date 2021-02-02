@@ -12,9 +12,8 @@ import Tag from "@/components/Tag";
 import LayOut from "@/components/LayOut";
 import store from './store'
 import Calendar from 'vue2-slot-calendar';
-import lunarCalendar from 'vue-lunar-calendar'
 
-import mock from "@/utils/mock/mock";
+// import mock from "@/utils/mock/mock"; //mock数据的时候使用
 
 import { Switch } from 'vant';
 
@@ -36,7 +35,6 @@ Vue.component('List',List)
 Vue.component('Tag',Tag)
 Vue.component('LayOut',LayOut)
 Vue.component('Calendar',Calendar)
-Vue.component('lunar-calendar', lunarCalendar)
 
 Vue.mixin(Global)
 Vue.use(Switch);

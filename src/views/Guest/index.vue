@@ -1,14 +1,19 @@
 
 <template>
   <div id="index">
-    <router-view></router-view>
+    <div class="scroll-list-wrap">
+      <cube-scroll
+          ref="scroll"
+          >
+        <router-view></router-view>
+      </cube-scroll>
+    </div>
     <footer>
       <a :class="$route.meta.tag.includes('Guest')?'active':''" @click="$router.push({name:'Guest'})">访客预约</a>
       <a :class="$route.meta.tag.includes('Approve')?'active':''" @click="$router.push({name:'Approve'})">
         我的审批
       </a>
       <a :class="$route.meta.tag.includes('Reserve')?'active':''" @click="$router.push({name:'Reserve'})">我的预约</a>
-
     </footer>
   </div>
 </template>
@@ -20,13 +25,10 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+.scroll-list-wrap
+  height $custom-bgc-height
 #index
-  background-color $my-bgc-color
-  height $viewpoint-height
-
   main
-    height calc(100% - 42px)
-
     .notice
       line-height 20px
       text-align left
@@ -45,7 +47,7 @@ export default {
     position fixed
     width 100%
     bottom 0
-
+    z-index 50
     a
       color black
       flex 1

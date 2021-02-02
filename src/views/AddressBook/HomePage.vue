@@ -4,7 +4,7 @@
       行政服务平台
     </p>
 <!--    <List></List>-->
-    <cube-loading class="loading" :size="40" v-if="over"></cube-loading>
+<!--    <cube-loading class="loading" :size="40" v-if="over"></cube-loading>-->
     <ListLayout :ListData="list" >
       <template slot-scope="organization">
         <div class="disbox left">

@@ -4,7 +4,8 @@ export default [
         name:'Schedule',
         meta:{
             name:'日程协同',
-            leave:"LeaveTwoRouter"
+            leave:2,
+            showNav:true
         },
         component:()=>import('@/views/Schedule/index')
     },
@@ -13,7 +14,8 @@ export default [
         name:'addSchedule',
         meta:{
             name:'添加日程',
-            leave:"LeaveTwoRouter"
+            leave:3,
+            showNav: true
         },
         component:()=>import('@/views/Schedule/addSchedule')
     },
@@ -22,7 +24,8 @@ export default [
         name:'ScheduleDetail',
         meta:{
             name:'日程详情',
-            leave:"LeaveTwoRouter"
+            leave:3,
+            showNav: true
         },
         component:()=>import('@/views/Schedule/ScheduleDetail')
     },
@@ -32,7 +35,8 @@ export default [
         name:'receive',
         meta:{
             name:'接收详情',
-            leave:"LeaveTwoRouter"
+            leave:3,
+            showNav: true
         },
         component:()=>import('@/views/Schedule/receive')
     },

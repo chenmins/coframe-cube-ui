@@ -5,8 +5,8 @@ export default [
             name:'通讯录',
             tag:'通讯录',
             tabBarshow:false,
-            leave:'LeaveTwoRouter',
-
+            leave:2,
+            showNav:true
         },
         component:()=>import('@/views/AddressBook/index.vue'),
         children:[
@@ -17,7 +17,8 @@ export default [
                     name:'通讯录主页',
                     tag:'AddressBook-MainMenu',
                     tabBarshow:false,
-                    leave:'LeaveTwoRouter',
+                    leave:2,
+                    showNav:true
 
                 },
                 component:()=>import('@/views/AddressBook/HomePage.vue')
@@ -29,7 +30,8 @@ export default [
                     name:'部门人员',
                     tag:'AddressBook-Staff',
                     tabBarshow:false,
-                    leave:'LeaveTwoRouter',
+                    leave:3,
+                    showNav:true
 
                 },
                 component:()=>import('@/views/AddressBook/Staff.vue')
@@ -41,7 +43,8 @@ export default [
                     name:'个人信息',
                     tag:'AddressBook-Information',
                     tabBarshow:false,
-                    leave:'LeaveTwoRouter',
+                    leave:3,
+                    showNav:true
 
                 },
                 component:()=>import('@/views/AddressBook/Information.vue')

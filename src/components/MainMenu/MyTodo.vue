@@ -3,11 +3,8 @@
       src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__b141aa3d288cf15d74fffee487868c6e.svg"
       name="我的待办" @SeeAll="SeeAll">
     <cube-slide :auto-play="false">
-      <cube-slide-item v-for="(item, index) in items" :key="index" @click.native="clickHandler(item, index)">
-        <!--        <a :href="item.url">-->
-        <!--          <img :src="item.image">-->
-        <!--        </a>-->
-        <div class="type">访客预约</div>
+      <cube-slide-item v-for="(item, index) in todos" :key="index" @click.native="clickHandler(item, index)">
+        <div class="type"  >访客预约</div>
         <div style="padding: 0 10px">
           <p class="who"><span>来访者：</span>{{ item.name }}</p>
           <p class="which"><span>到访部门：</span>{{ item.position }}</p>
@@ -31,30 +28,20 @@ export default {
   },
   data() {
     return {
-      items: [
-        {
-          name: '硕大的',
-          position: '行政部',
-          comeTime: '2020-12-26  15:00'
-        },
-        {
-          name: '硕大2222的',
-          position: '行政部2222',
-          comeTime: '2020-12-26  15:00'
-        },
-        {
-          name: '硕大33333的',
-          position: '行政部1111',
-          comeTime: '2020-12-26  15:00'
-        }
-      ]
+      todos: []
     }
-  }, methods: {
+  },
+  created() {
+    let MainMenu = this.$store.state.MainMenu
+    this.todos = MainMenu.todos
+  },
+  methods: {
     changePage(current) {
       console.log('当前轮播图序号为:' + current)
     },
     clickHandler(item, index) {
       console.log(item, index)
+      console.log('当前轮播图序号为:' + index, item)
     },
     SeeAll(){
       this.$emit('SeeAll')

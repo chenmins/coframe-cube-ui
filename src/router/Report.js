@@ -4,7 +4,8 @@ export default [
         name:'Report',
         meta:{
             name:'员工信息报备',
-            leave:'LeaveTwoRouter'
+            leave:2,
+            showNav: true
         },
         component:()=>import('@/views/Report/index')
     },
@@ -13,7 +14,8 @@ export default [
         name:'ReportFrom',
         meta:{
             name:'报备详情',
-            leave:'LeaveTwoRouter'
+            leave:3,
+            showNav: true
         },
         component:()=>import('@/views/Report/ReportForm')
     }

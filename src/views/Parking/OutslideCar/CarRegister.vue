@@ -112,6 +112,7 @@ export default {
 #car_register
   border 1px solid transparent
   padding 20px
+  height $custom-bgc-height
   .title
     margin 20px
 >>>.cube-btn

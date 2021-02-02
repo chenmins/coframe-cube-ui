@@ -6,7 +6,8 @@ export default [
         meta:{
             name:'行政服务工作台',
             tag:'行政服务工作台',
-            leave:'LeaveTwoRouter'
+            leave:2,
+            showNav:true
         },
         component:()=>import('@/views/MainMenu/index')
     },
@@ -16,7 +17,8 @@ export default [
         meta:{
             name:'工具列表',
             tag:'工具列表',
-            leave:'LeaveTwoRouter'
+            leave:2,
+            showNav:true
         },
         component:()=>import('@/views/MainMenu/AllTools')
     },
@@ -26,7 +28,8 @@ export default [
         meta:{
             name:'工具管理',
             tag:'工具管理',
-            leave:'LeaveTwoRouter'
+            leave:3,
+            showNav: true
         },
         component:()=>import('@/views/MainMenu/ManageTool')
     },
@@ -36,7 +39,8 @@ export default [
         meta:{
             name:'审批待办',
             tag:'审批待办',
-            leave:'LeaveTwoRouter'
+            leave:2,
+            showNav: true
         },
         component:()=>import('@/views/MainMenu/TodoList')
     }

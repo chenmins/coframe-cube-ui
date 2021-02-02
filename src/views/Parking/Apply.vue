@@ -60,6 +60,116 @@
           申请
         </div>
       </LayOut>
+      <LayOut class="item">
+        <div class="left">
+          <p>车位编号：A0192</p>
+          <p>日期：2020-12-20 至 2020-12-30</p>
+        </div>
+        <div class="func_btn">
+          <span v-if="!isUsed">申请</span>
+          <span v-else>释放</span>
+        </div>
+      </LayOut>
+      <LayOut class="item">
+        <div class="left">
+          <p>车位编号：A0192</p>
+          <p>日期：2020-12-20 至 2020-12-30</p>
+        </div>
+        <div class="func_btn">
+          申请
+        </div>
+      </LayOut>
+      <LayOut class="item">
+        <div class="left">
+          <p>车位编号：A0192</p>
+          <p>日期：2020-12-20 至 2020-12-30</p>
+        </div>
+        <div class="func_btn">
+          申请
+        </div>
+      </LayOut>
+      <LayOut class="item">
+        <div class="left">
+          <p>车位编号：A0192</p>
+          <p>日期：2020-12-20 至 2020-12-30</p>
+        </div>
+        <div class="func_btn">
+          申请
+        </div>
+      </LayOut>
+      <LayOut class="item">
+        <div class="left">
+          <p>车位编号：A0192</p>
+          <p>日期：2020-12-20 至 2020-12-30</p>
+        </div>
+        <div class="func_btn">
+          申请
+        </div>
+      </LayOut>
+      <LayOut class="item">
+        <div class="left">
+          <p>车位编号：A0192</p>
+          <p>日期：2020-12-20 至 2020-12-30</p>
+        </div>
+        <div class="func_btn">
+          申请
+        </div>
+      </LayOut>
+      <LayOut class="item">
+        <div class="left">
+          <p>车位编号：A0192</p>
+          <p>日期：2020-12-20 至 2020-12-30</p>
+        </div>
+        <div class="func_btn">
+          <span v-if="!isUsed">申请</span>
+          <span v-else>释放</span>
+        </div>
+      </LayOut>
+      <LayOut class="item">
+        <div class="left">
+          <p>车位编号：A0192</p>
+          <p>日期：2020-12-20 至 2020-12-30</p>
+        </div>
+        <div class="func_btn">
+          申请
+        </div>
+      </LayOut>
+      <LayOut class="item">
+        <div class="left">
+          <p>车位编号：A0192</p>
+          <p>日期：2020-12-20 至 2020-12-30</p>
+        </div>
+        <div class="func_btn">
+          申请
+        </div>
+      </LayOut>
+      <LayOut class="item">
+        <div class="left">
+          <p>车位编号：A0192</p>
+          <p>日期：2020-12-20 至 2020-12-30</p>
+        </div>
+        <div class="func_btn">
+          申请
+        </div>
+      </LayOut>
+      <LayOut class="item">
+        <div class="left">
+          <p>车位编号：A0192</p>
+          <p>日期：2020-12-20 至 2020-12-30</p>
+        </div>
+        <div class="func_btn">
+          申请
+        </div>
+      </LayOut>
+      <LayOut class="item">
+        <div class="left">
+          <p>车位编号：A0192</p>
+          <p>日期：2020-12-20 至 2020-12-30</p>
+        </div>
+        <div class="func_btn">
+          申请
+        </div>
+      </LayOut>
     </SlideNav>
 
 
@@ -93,6 +203,8 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+#Apply
+  $custom-bgc-height
 .item
   display flex
   justify-content: space-between;

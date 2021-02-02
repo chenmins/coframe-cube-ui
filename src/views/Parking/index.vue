@@ -1,7 +1,13 @@
 <template>
   <div id="Parking">
-
-    <router-view></router-view>
+    <div class="scroll-list-wrap">
+      <cube-scroll
+          :ref="$route.meta.name"
+          :key="$route.meta.name"
+      >
+        <router-view></router-view>
+      </cube-scroll>
+    </div>
 
     <footer v-show="!$route.meta.showBottom">
       <span :class="$route.name==='Parking'?'active':''"
@@ -34,10 +40,9 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+.scroll-list-wrap
+  height $custom-bgc-height
 #Parking
-  height 100%
-  background-color $my-bgc-color
-
   footer
     background-color #ffffff
     position fixed
@@ -47,6 +52,7 @@ export default {
     line-height 60px
     display flex
     justify-content space-evenly
+    z-index 50
 
     .active
       color $custom-active-color

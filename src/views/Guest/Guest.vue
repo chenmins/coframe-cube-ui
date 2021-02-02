@@ -314,7 +314,6 @@ export default {
   watch: {
     'model.peopleNum': {
       immediate: true,
-      //todo 数字过大卡住
       handler(newV, oldV) {
         if (newV < oldV) {
           this.schema.groups.reverse()

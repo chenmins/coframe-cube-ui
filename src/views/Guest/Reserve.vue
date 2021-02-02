@@ -1,5 +1,5 @@
 <template>
-  <div id="Reserve">
+  <div id="Reserve" style="margin-bottom: 80px">
     <Search placeholder="搜索访客姓名" :value="value"></Search>
 
     <LayOut class="func">
@@ -9,13 +9,13 @@
 
     <!--    @CardDetail-->
 
-    <MenuCard @CardDetail="ThisReserve" class="card" name="我的申请" :noAll="true" style="padding: 15px">
+    <MenuCard v-for="reserve in reserves" @CardDetail="ThisReserve" class="card" name="我的申请" :noAll="true" style="padding: 15px">
       <div class="content">
-        <p>到访时间：陈优优、张三丰</p>
-        <p>到访部门：陈优优、赵晓晓、李思思、秦琪</p>
-        <p>来访姓名：2020年12月28日 08:00</p>
+        <p>到访时间：<span v-for="i in reserve.name">{{i}}，</span></p>
+        <p>到访部门：<span v-for="i in reserve.where">{{i}}，</span></p>
+        <p>来访姓名：{{reserve.time}}</p>
       </div>
-      <Tag color="#fff" class="tag" style="background-color:#42b983;">待审批</Tag>
+      <Tag color="#fff" class="tag" :background-color="reserve.approved?'#42b983':'#000'">{{ !reserve.approved?'待审批':'已完成' }}</Tag>
     </MenuCard>
 
   </div>
@@ -34,10 +34,12 @@ export default {
   data() {
     return {
       value: '',
-      pickerData: ''
+      pickerData: '',
+      reserves:[]
     }
   },
   created() {
+    this.reserves = this.$store.state.Guest.reserves
     this.pickerData = [
       {text: '近30天', value: '近30天'},
       {text: '近7天', value: '近7天'},
@@ -69,8 +71,6 @@ export default {
 <style scoped lang="stylus">
 #Reserve
   background-color $my-bgc-color
-  height $viewpoint-height
-
   .func
     height 40px
     line-height: 40px;

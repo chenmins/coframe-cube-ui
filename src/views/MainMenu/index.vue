@@ -26,9 +26,13 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+
 #main_menu
   background-color $my-bgc-color
   height 100%
   border 1px solid $my-bgc-color
+  position relative
+  z-index 60
+
 
 </style>

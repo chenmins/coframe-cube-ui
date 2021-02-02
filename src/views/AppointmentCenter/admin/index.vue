@@ -1,6 +1,13 @@
 <template>
   <div id="appointment_admin">
-    <router-view style="padding-bottom: 80px;"></router-view>
+
+    <div class="scroll-list-wrap" style="padding-bottom: 80px;">
+      <cube-scroll
+          ref="scroll"
+          >
+        <router-view ></router-view>
+      </cube-scroll>
+    </div>
     <footer>
       <span :class="$route.meta.name === '预约管理'?'active':''"
             @click="$route.meta.name === '预约管理'?'':$router.push({name:'AppointmentAdminList'})"
@@ -27,6 +34,8 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+.scroll-list-wrap
+  height calc(100vh - 190px)
 #appointment_admin
   height $viewpoint-height
   background-color $my-bgc-color
@@ -38,8 +47,7 @@ export default {
     line-height 50px
     position fixed
     width 100%
-    bottom 0
-
+    z-index 60
     span
       flex-grow 1
 

@@ -74,6 +74,7 @@ export default {
   bottom 0
   background-color #fff
   height 70px
+  z-index 50
 .icon
   display block
 .cube-tab_active

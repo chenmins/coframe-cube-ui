@@ -8,7 +8,8 @@ export default [
         meta: {
             name: '预约中心',
             tag: 'AppointmentCenter',
-            leave: "LeaveTwoRouter"
+            leave:2,
+            showNav: true
         },
         component: () => import('@/views/AppointmentCenter/index')
     },
@@ -18,7 +19,8 @@ export default [
         meta: {
             name: '预约中心',
             tag: 'MyAppointment',
-            leave: "LeaveTwoRouter"
+            leave:2,
+            showNav: true
         },
         component: () => import('@/views/AppointmentCenter/MyAppointment')
     },
@@ -27,29 +29,43 @@ export default [
         name: 'func',
         meta: {
             name: 'func',
-            dataType:[
-                {
-                    name:'one',
-                    type:[
-                        {
-                            content:'问诊',
-                        },
-                        {
-                            content:'理疗',
-                        },
-                        {
-                            content:'拿药'
-                        }
-                    ]
-                },
-                {
-                    name:'two',
-                    type:[
-                        {}
-                    ]
-                }
-            ],
-            leave: "LeaveTwoRouter"
+            dataType:{
+                hospital:[
+                    {
+                        content:'问诊',
+                    },
+                    {
+                        content:'理疗',
+                    },
+                    {
+                        content:'拿药'
+                    }
+                ],
+                barbershop:[
+                    {
+                        content:'理发',
+                    },
+                    {
+                        content:'护理',
+                    },
+                    {
+                        content:'洗发'
+                    }
+                ],
+                restaurant:[
+                    {
+                        content:'一号餐厅',
+                    },
+                    {
+                        content:'二号餐厅',
+                    },
+                    {
+                        content:'三号餐厅'
+                    }
+                ],
+            },
+            leave:3,
+            showNav: true
         },
         component: () => import('@/views/AppointmentCenter/BusinessPage'),
     },
@@ -59,7 +75,8 @@ export default [
         meta: {
             name: '预约页面',
             tag: '预约页面',
-            leave: "LeaveTwoRouter"
+            leave:3,
+            showNav: true
         },
         component: () => import('@/views/AppointmentCenter/ReservePage')
     },
@@ -69,7 +86,8 @@ export default [
         meta: {
             name: '业务介绍',
             tag: '业务介绍',
-            leave: "LeaveTwoRouter"
+            leave:3,
+            showNav: true
         },
         component: () => import('@/views/AppointmentCenter/BusinessIntroduction')
     },
@@ -81,21 +99,25 @@ export default [
             tag: '业务介绍',
         },
         component: () => import('@/views/AppointmentCenter/ResultPage')
-    },{
+    },
+    {
         path: '/DryClean',
         name: 'DryClean',
         meta: {
             name: '衣物干洗',
             tag: '衣物干洗',
-            leave:'LeaveTwoRouter'
+            leave:3,
+            showNav: true
         },
         component: () => import('@/views/AppointmentCenter/DryClean')
-    },{
+    },
+    {
         path: '/AppointmentAdmin',
         meta: {
             name: '管理员',
             tag: '管理员',
-            leave:'LeaveTwoRouter'
+            leave:3,
+            showNav: true
         },
         component: () => import('@/views/AppointmentCenter/admin/index'),
         children:[
@@ -105,7 +127,8 @@ export default [
                 meta: {
                     name: '预约管理',
                     tag: '预约管理',
-                    leave: 'LeaveTwoRouter'
+                    leave:3,
+                    showNav: true
                 },
                 component: () => import('@/views/AppointmentCenter/admin/List')
             }, {
@@ -114,7 +137,8 @@ export default [
                 meta: {
                     name: '发布管理',
                     tag: '发布管理',
-                    leave: 'LeaveTwoRouter'
+                    leave:3,
+                    showNav: true
                 },
                 component: () => import('@/views/AppointmentCenter/admin/Release')
             },
@@ -126,7 +150,8 @@ export default [
         meta: {
             name: '发布',
             tag: '发布',
-            leave: 'LeaveTwoRouter'
+            leave:3,
+            showNav: true
         },
         component: () => import('@/views/AppointmentCenter/admin/ReleaseEdit')
     },

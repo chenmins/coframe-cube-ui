@@ -4,23 +4,16 @@
     <ul class="list" >
       <li class="title">
         {{ date }}
-        <div class="add"  @>
-<!--          todo 点击跳转-->
-          <i class="cubeic-wrong "></i>
+        <div class="add"  @click="$router.push({name:'addSchedule'})">
           <span>新建日程</span>
         </div>
       </li>
       <div class="scroll_container"  @click="ScheduleDetail">
-        <cube-scroll ref="scroll"   >
-          <li class="item did"  data-type="item" data-id="1">
-            <span class="time">上午11:30</span>
-            <span class="item_name">部门会议</span>
+        <cube-scroll  ref="scroll"  >
+          <li :class="meeting.did?'item did':'item'"  data-type="item" data-id="1" v-for="meeting in meetings">
+            <span class="time">{{meeting.type}}</span>
+            <span class="item_name">{{meeting.time}}</span>
           </li>
-          <li class="item "  data-type="item"data-id="2">
-            <span class="time">上午11:30</span>
-            <span class="item_name">部门会议</span>
-          </li>
-
         </cube-scroll>
       </div>
     </ul>
@@ -29,7 +22,7 @@
         <i style="font-size:20px;" class="iconfont iconrichen"></i>
         <p>日程</p>
       </div>
-      <div :class="$route.name === 'Schedule'?'active':''" @click="$route.name !== 'Schedule'&& $router.push({name:'Schedule'}) ">
+      <div  :class="$route.name === 'TodoLists'?'active':''" @click="$route.name !== 'TodoLists'&& $router.push({name:'TodoLists'}) ">
         <i style="font-size:20px;" class="iconfont icondaiban"></i>
         <p>待办</p>
         <span class="dot"></span>
@@ -48,8 +41,12 @@ export default {
   },
   data() {
     return {
-      date: ''
+      date: '',
+      meetings:[]
     }
+  },
+  created() {
+    this.meetings = this.$store.state.Schedule.meeting
   },
   methods: {
     ScheduleDetail(e){
@@ -70,6 +67,7 @@ export default {
 
 #schedule
   overflow: hidden;
+  height $custom-bgc-height
   .scroll_container
     height calc(100vh - 470px)
   .list

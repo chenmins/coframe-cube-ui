@@ -1,7 +1,7 @@
 <template>
   <div id="create_card">
-    <Preview></Preview>
-    <img width="100%" class="bgc_img"
+    <Preview v-show="preview"></Preview>
+    <img width="90%" class="bgc_img" style="margin-top: 10px"
          src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__b8c1e971a5e62603a7be89dc0ad3cbca.svg"
          alt="">
     <div class="message ">
@@ -30,8 +30,8 @@
       <cube-button :disabled="$route.meta.tag ==='confirm'" @click="selectItem2">{{ '选项二' }}</cube-button>
     </div>
     <footer>
-      <span style="border-right:1px solid #f5f5f5">信息有误</span>
-      <span>预览确认</span>
+      <span style="border-right:1px solid #f5f5f5" @click="$router.push({name:'addCard'})">信息有误</span>
+      <span @click="preview = !preview">预览确认</span>
     </footer>
   </div>
 </template>
@@ -60,6 +60,11 @@ export default {
   name: "CreateCard",
   components:{
     Preview
+  },
+  data(){
+   return {
+     preview:false
+   }
   },
   methods: {
     selectItem2() {
@@ -117,7 +122,7 @@ export default {
 #create_card
   position relative
   background-color $my-bgc-color
-  height calc(100% - 30px)
+  height $custom-bgc-height
 
   .modify
     position absolute

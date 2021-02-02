@@ -4,7 +4,8 @@ export default [
         meta:{
             name:'申请车位',
             tag:'释放车位',
-            leave:'LeaveTwoRouter'
+            leave:2,
+            showNav:true
         },
         component:()=>import('@/views/Parking/index'),
         children:[
@@ -14,7 +15,8 @@ export default [
                 meta:{
                     name:'申请车位',
                     tag:'',
-                    leave: 'LeaveTwoRouter',
+                    leave:2,
+                    showNav:true
                 },
                 component:()=>import('@/views/Parking/Apply'),
             },{
@@ -23,7 +25,8 @@ export default [
                 meta:{
                     name:'我的审批',
                     tag:'我的审批',
-                    leave: 'LeaveTwoRouter'
+                    leave:2,
+                    showNav:true
                 },
                 component:()=>import('@/views/Parking/MyApproval'),
             },{
@@ -32,7 +35,8 @@ export default [
                 meta:{
                     name:'审批详情',
                     tag:'审批详情',
-                    leave: 'LeaveTwoRouter',
+                    leave:2,
+                    showNav:true,
                     showBottom:'false'
                 },
                 component:()=>import('@/views/Parking/ApprovalDetail'),
@@ -42,7 +46,8 @@ export default [
                 meta:{
                     name:'外来车辆审批',
                     tag:'外来车辆审批',
-                    leave: 'LeaveTwoRouter'
+                    leave:2,
+                    showNav:true,
                 },
                 component:()=>import('@/views/Parking/OutslideCar/OutsideCar'),
             },{
@@ -51,7 +56,8 @@ export default [
                 meta:{
                     name:'说明',
                     tag:'说明',
-                    leave: 'LeaveTwoRouter',
+                    leave:2,
+                    showNav:true,
                     showBottom: 'false'
                 },
                 component:()=>import('@/views/Parking/OutslideCar/Readme'),
@@ -61,7 +67,8 @@ export default [
                 meta:{
                     name:'车辆注册',
                     tag:'车辆注册',
-                    leave: 'LeaveTwoRouter',
+                    leave:3,
+                    showNav:true,
                     showBottom: 'false'
                 },
                 component:()=>import('@/views/Parking/OutslideCar/CarRegister'),
@@ -71,7 +78,8 @@ export default [
                 meta:{
                     name:'车辆备案详情',
                     tag:'车辆备案详情',
-                    leave: 'LeaveTwoRouter',
+                    leave:3,
+                    showNav:true,
                     showBottom: 'false'
                 },
                 component:()=>import('@/views/Parking/OutslideCar/Recorded'),

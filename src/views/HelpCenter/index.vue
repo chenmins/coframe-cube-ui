@@ -1,6 +1,14 @@
 <template>
   <div id="help_center">
-    <router-view></router-view>
+    <div class="container">
+      <cube-scroll
+          ref="scroll"
+      >
+        <transition name="slide-fade" >
+          <router-view/>
+        </transition>
+      </cube-scroll>
+    </div>
     <Tabbar v-show="$route.meta.showTabbar"></Tabbar>
   </div>
 </template>
@@ -13,6 +21,9 @@ name: "index"
 
 <style scoped lang="stylus">
 #help_center
-  height 100%
-
+  height $custom-bgc-height
+  background-color $my-bgc-color
+  position: relative;
+  .container
+    height 100%
 </style>

@@ -114,9 +114,11 @@ name: "send",
 </script>
 
 <style scoped lang="stylus">
+.send_app
+  height $custom-bgc-height
 .submit
   position absolute
-  top 30px
+  top 230px
   right 0px
   transform translate(-50%,-50%)
   background-color $custom-active-color

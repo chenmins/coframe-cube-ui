@@ -5,7 +5,8 @@ export default [
         meta:{
             name:'EmployeeCard',
             tag:'员工卡申请',
-            leave:'LeaveTwoRouter',
+            leave:2,
+            showNav: true
         },
         component:()=>import('@/views/EmployeeCard/index')
     },
@@ -14,7 +15,8 @@ export default [
         name:'CreateCard',
         meta:{
             name:'新员工开卡',
-            leave:"LeaveTwoRouter"
+            leave:3,
+            showNav: true
         },
         component:()=>import('@/views/EmployeeCard/CreateCard')
     },
@@ -23,7 +25,8 @@ export default [
         name:'addCard',
         meta:{
             name:'补卡',
-            leave:"LeaveTwoRouter"
+            leave:3,
+            showNav: true
         },
         component:()=>import('@/views/EmployeeCard/AddCard/index')
     },
@@ -33,7 +36,8 @@ export default [
         meta:{
             name:'确认信息',
             tag:'confirm',
-            leave:"LeaveTwoRouter"
+            leave:3,
+            showNav: true
         },
         component:()=>import('@/views/EmployeeCard/CreateCard')
     },
@@ -43,7 +47,8 @@ export default [
         meta:{
             name:'我的申请',
             tag:'Apply',
-            leave:"LeaveTwoRouter"
+            leave:3,
+            showNav: true
         },
         component:()=>import('@/views/EmployeeCard/Apply')
     },
@@ -53,7 +58,8 @@ export default [
         meta:{
             name:'申请记录',
             tag:'ApplyRecord',
-            leave:"LeaveTwoRouter"
+            leave:3,
+            showNav: true
         },
         component:()=>import('@/views/EmployeeCard/ApplyRecord')
     },
@@ -62,8 +68,8 @@ export default [
         name:'Loss',
         meta:{
             name:'挂失',
-            tag:'Loss',
-            leave:"LeaveTwoRouter"
+            leave:3,
+            showNav: true
         },
         component:()=>import('@/views/EmployeeCard/Loss')
     },
@@ -73,7 +79,8 @@ export default [
         meta: {
             name: '审批列表',
             tag: 'ApprovalList',
-            leave: "LeaveTwoRouter"
+            leave:3,
+            showNav: true
         },
         component: () => import('@/views/EmployeeCard/ApprovalList/index')
     },
@@ -83,7 +90,8 @@ export default [
         meta: {
             name: '审批详情',
             tag: 'ApprovalDetail',
-            leave: "LeaveTwoRouter"
+            leave:3,
+            showNav: true
         },
         component: () => import('@/views/EmployeeCard/ApprovalList/Detail')
     }

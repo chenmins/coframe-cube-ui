@@ -1,5 +1,4 @@
 <template>
-  <!--  todo 切换nav使切换数据，路由上加 ?参数，而不是直接切换路由-->
   <div id="cultural_app">
     <SlideNav
         class="slide_nav"
@@ -9,7 +8,7 @@
     >
       <router-view></router-view>
     </SlideNav>
-    <div class="send" @click="Send" v-if="$route.fullPath.includes('/Communication/')">
+    <div class="send" @click="Send" v-if="$route.fullPath.includes('/Communication')">
       <i style="font-size:20px;" class="'iconfont iconfeedback' "  ></i>
       <span>发帖子</span>
     </div>
@@ -51,7 +50,7 @@ export default {
 <style lang="stylus" scoped>
 #cultural_app
   height 100%
-
+  padding-top -100px
 .slide_nav
   background-color: #fff;
 

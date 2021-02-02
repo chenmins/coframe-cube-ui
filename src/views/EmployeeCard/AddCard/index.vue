@@ -4,7 +4,7 @@
     <div class="selected">工卡丢失</div>
     <div>以旧换新</div>
 
-    <footer>
+    <footer @click="$router.push({name:'CreateCard'})">
       下一步
     </footer>
   </div>
@@ -18,6 +18,7 @@ name: "index"
 
 <style scoped lang="stylus">
 #add_card
+  height $custom-bgc-height
   h1
     font-size 18px
     text-align left

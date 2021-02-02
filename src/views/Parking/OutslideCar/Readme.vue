@@ -25,7 +25,7 @@ export default {
 <style scoped lang="stylus">
 
 #readme
-  padding 20px
+  height $custom-bgc-height
   button
     position absolute
     bottom 20px

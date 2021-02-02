@@ -1,32 +1,32 @@
 <template>
-  <div id="card">
-    <div class="title">
-      <img
-          src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__a63db0a228d80c34501a34fa50d27746.svg"
-          alt="">
-      <span class="username">
+  <div id="card"  >
+      <div @click="goComment" class="title">
+        <img
+            src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__a63db0a228d80c34501a34fa50d27746.svg"
+            alt="">
+        <span class="username">
         <slot name="username">username</slot>
       </span>
-    </div>
-    <div class="content_box">
-      <div>
-      <span class="card_topic"  v-if="!$route.fullPath.includes('/Comments/')">
+      </div>
+      <div @click="goComment" class="content_box">
+        <div>
+      <span class="card_topic"  v-if="!$route.fullPath.includes('/Comments/')" >
         #<slot name="card_topic">
           哪个食堂的饭香
         </slot>#
       </span>
-        <span class="content">
+          <span class="content">
         <slot name="content">
           欢迎大家在这里给我们提APP相关的建议，产品经理会在这里查看大家的反馈情况。另外使用过程中遇到的问题或疑问，也可以一起提出来哟，帮助我们更好的改进产品~~~
         </slot>
       </span>
+        </div>
+        <div class="comment_topic" v-if="$route.fullPath.includes('/Comments/') && !isComment">
+          #<slot name="card_topic">
+          哪个食堂的饭香
+        </slot>#
+        </div>
       </div>
-      <div class="comment_topic" v-if="$route.fullPath.includes('/Comments/') && !isComment">
-      #<slot name="card_topic">
-      哪个食堂的饭香
-      </slot>#
-    </div>
-    </div>
 
     <div class="footer">
       <div class="remove" v-if="!$route.fullPath.includes('/Comments/')">
@@ -63,6 +63,10 @@ export default {
   methods:{
     seeComments(){
       this.$emit('checkComments')
+    },
+    goComment(e){
+
+      this.$emit('goComment',e)
     }
   }
 }

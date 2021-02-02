@@ -42,7 +42,7 @@ export default {
 #approval_detail
   padding 20px
   font-size 12px
-  height $viewpoint-height
+  height $custom-bgc-height
   >>>.cube-form-item
   >>>.cube-btn
     font-size 12px

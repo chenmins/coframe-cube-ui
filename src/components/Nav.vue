@@ -13,11 +13,16 @@ export default {
       type:Boolean,
       default:false
     },
-    title:''
+    title:'',
   },
   methods:{
     back(){
-      this.$router.back()
+      if(this.$route.meta.leave === 2){
+        this.$router.push({name:'MainMenu'})
+      }
+      if(this.$route.meta.leave === 3){
+        this.$router.back()
+      }
     }
   }
 
@@ -28,9 +33,12 @@ export default {
     height:60px
     text-align:center
     line-height:60px
-    position:relative
+    position:fixed
+    width 100%
+    top 0
     color $color-regular-blue
     background-color #fff
+    z-index 50
   .icon
     position:absolute
     left:0

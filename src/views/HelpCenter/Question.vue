@@ -18,17 +18,11 @@ name: "Question",
   data(){
   return{
     value:'',
-    listData:[
-      {
-        id:1,
-        title:'one'
-      },
-      {
-        id:2,
-        title:'two'
-      }
-    ]
+    listData:[]
   }
+  },
+  created() {
+    this.listData = this.$store.state.HelpCenter.listData
   },
   methods:{
     search(){

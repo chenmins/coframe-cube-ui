@@ -2,76 +2,19 @@
   <div id="todo-list">
     <header>
       <cube-scroll ref="scroll">
-        <SlideNav  :selected-label="selectedLabel" :tabs="tabs" :center="true" >
+        <SlideNav  :selected-label="selectedLabel" :tabs="tabs" :center="true"  @LabelChanged="changeHandle">
           <div slot-scope="item">
-            <MenuCard class="card" name="我的申请" :noAll="true" style="padding: 15px">
+            <MenuCard v-for="todoList in todoLists" class="card" name="我的申请" :noAll="true" style="padding: 15px">
                 <div class="content">
-                  <p>参与人：陈优优、张三丰、王二小、张思、李四、王思奥、赵晓晓、李思思、秦琪</p>
-                  <p>提醒时间：2020年12月28日  08:00</p>
+                  <p>参与人：<span v-for="people in todoList.join">{{people}}，</span></p>
+                  <p>提醒时间：{{todoList.noticeTime}}</p>
                 </div>
-              <Tag color="#fff" class="tag" style="background-color:orangered;">日程</Tag>
-            </MenuCard>
-            <MenuCard class="card" name="我的申请" :noAll="true" style="padding: 15px">
-              <div class="content">
-                <p>参与人：陈优优、张三丰、王二小、张思、李四、王思奥、赵晓晓、李思思、秦琪</p>
-                <p>提醒时间：2020年12月28日  08:00</p>
-              </div>
-              <Tag color="#fff" class="tag" style="background-color:orangered;">日程</Tag>
-            </MenuCard>
-            <MenuCard class="card" name="我的申请" :noAll="true" style="padding: 15px">
-              <div class="content">
-                <p>参与人：陈优优、张三丰、王二小、张思、李四、王思奥、赵晓晓、李思思、秦琪</p>
-                <p>提醒时间：2020年12月28日  08:00</p>
-              </div>
-              <Tag color="#fff" class="tag" style="background-color:orangered;">日程</Tag>
-            </MenuCard>
-            <MenuCard class="card" name="我的申请" :noAll="true" style="padding: 15px">
-              <div class="content">
-                <p>参与人：陈优优、张三丰、王二小、张思、李四、王思奥、赵晓晓、李思思、秦琪</p>
-                <p>提醒时间：2020年12月28日  08:00</p>
-              </div>
-              <Tag color="#fff" class="tag" style="background-color:orangered;">日程</Tag>
-            </MenuCard>
-            <MenuCard class="card" name="我的申请" :noAll="true" style="padding: 15px">
-              <div class="content">
-                <p>参与人：陈优优、张三丰、王二小、张思、李四、王思奥、赵晓晓、李思思、秦琪</p>
-                <p>提醒时间：2020年12月28日  08:00</p>
-              </div>
-              <Tag color="#fff" class="tag" style="background-color:orangered;">日程</Tag>
-            </MenuCard>
-            <MenuCard class="card" name="我的申请" :noAll="true" style="padding: 15px">
-              <div class="content">
-                <p>参与人：陈优优、张三丰、王二小、张思、李四、王思奥、赵晓晓、李思思、秦琪</p>
-                <p>提醒时间：2020年12月28日  08:00</p>
-              </div>
-              <Tag color="#fff" class="tag" style="background-color:orangered;">日程</Tag>
-            </MenuCard>
-            <MenuCard class="card" name="我的申请" :noAll="true" style="padding: 15px">
-              <div class="content">
-                <p>参与人：陈优优、张三丰、王二小、张思、李四、王思奥、赵晓晓、李思思、秦琪</p>
-                <p>提醒时间：2020年12月28日  08:00</p>
-              </div>
-              <Tag color="#fff" class="tag" style="background-color:orangered;">日程</Tag>
-            </MenuCard>
-            <MenuCard class="card" name="我的申请" :noAll="true" style="padding: 15px">
-              <div class="content">
-                <p>参与人：陈优优、张三丰、王二小、张思、李四、王思奥、赵晓晓、李思思、秦琪</p>
-                <p>提醒时间：2020年12月28日  08:00</p>
-              </div>
-              <Tag color="#fff" class="tag" style="background-color:orangered;">日程</Tag>
-            </MenuCard>
-            <MenuCard class="card" name="我的申请" :noAll="true" style="padding: 15px">
-              <div class="content">
-                <p>参与人：陈优优、张三丰、王二小、张思、李四、王思奥、赵晓晓、李思思、秦琪</p>
-                <p>提醒时间：2020年12月28日  08:00</p>
-              </div>
               <Tag color="#fff" class="tag" style="background-color:orangered;">日程</Tag>
             </MenuCard>
           </div>
         </SlideNav>
         </cube-scroll>
     </header>
-<!--todo 日程、待办-->
     <div class="footer">
       <div @click="$router.push({name:'Schedule'})">
         <i style="font-size:20px;" class="iconfont iconrichen"></i>
@@ -105,7 +48,20 @@ export default {
         }, {
           label: '已完成',
         }
-      ]
+      ],
+      todoLists:[]
+    }
+  },
+  created() {
+    this.todoLists = this.$store.state.MainMenu.todoList.filter(i =>i.complete === true)
+  },
+  methods:{
+    changeHandle(e){
+      if(e==='进行中'){
+        this.todoLists = this.$store.state.MainMenu.todoList.filter(i =>i.complete === true)
+      }else if(e==='已完成'){
+        this.todoLists = this.$store.state.MainMenu.todoList.filter(i =>i.complete === false)
+      }
     }
   }
 }
@@ -114,16 +70,20 @@ export default {
 <style scoped lang="stylus">
 #todo-list
   background-color $my-bgc-color
-  height $viewpoint-height
   header
-    height calc(100%- 100px)
+    height $custom-bgc-height
   .footer
     display flex
     justify-content: space-evenly;
     font-size 12px
     margin-top 20px
+    position fixed
+    bottom 0
+    width 100%
+    z-index 50
+    background-color: #fff;
     div
-      background-color rgba($custom-border-color,.1)
+      background-color #fff
       padding 10px 14px
       position: relative;
       &.active

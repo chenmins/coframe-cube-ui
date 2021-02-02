@@ -14,7 +14,8 @@ export default [
                 meta:{
                     name:'访客预约',
                     tag:'Guest',
-                    leave:'LeaveTwoRouter'
+                    leave:2,
+                    showNav:true
                 },
                 component:()=>import('@/views/Guest/Guest'),
             },
@@ -24,7 +25,8 @@ export default [
                 meta:{
                     name:'我的审批',
                     tag:'Approve',
-                    leave:'LeaveTwoRouter'
+                    leave:2,
+                    showNav: true
                 },
                 component:()=>import('@/views/Guest/Approve')
             },
@@ -34,7 +36,8 @@ export default [
                 meta:{
                     name:'我的预约',
                     tag:'Reserve',
-                    leave:'LeaveTwoRouter'
+                    leave:3,
+                    showNav: true,
                 },
                 component:()=>import('@/views/Guest/Reserve')
             }
@@ -46,7 +49,8 @@ export default [
         meta:{
             name:'访客详情',
             tag:'GuestDetail',
-            leave:'LeaveTwoRouter'
+            leave:3,
+            showNav:true
         },
         component:()=>import('@/views/Guest/GuestDetil')
     },
@@ -56,7 +60,8 @@ export default [
         meta:{
             name:'访客详情',
             tag:'ReserveDetail',
-            leave:'LeaveTwoRouter'
+            leave:3,
+            showNav:true
         },
         component:()=>import('@/views/Guest/ReserveDetail')
     }

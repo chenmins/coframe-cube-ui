@@ -8,129 +8,40 @@ export default [
         meta:{
             name:'文化建设',
             tag:'文化建设',
-            showNav:true
+            showNav:false
         },
         component:()=>import('@/views/Cultural/index'),
         children:[
             {
                 path:'Notice',
                 name:'公告列表',
-                redirect:'/Cultural/Notice/',
                 meta:{
                     name:'公告列表',
                     tag:'公告列表',
-                    showNav:true
+                    showNav:false
                 },
                 component:()=>import('@/views/Cultural/Notice/index'),
-                children:[
-                    {
-                        path:'/',
-                        name:'全部',
-                        meta:{
-                            name:'公告列表-全部',
-                            tag:'公告列表-全部',
-                            showNav:true
-                        },
-                        component:()=>import('@/views/Cultural/Notice/All'),
-                    },
-                    {
-                        path:'NoticeSystem',
-                        name:'系统公告',
-                        meta:{
-                            name:'公告列表-系统公告',
-                            tag:'公告列表-系统公告',
-                            showNav:true
-                        },
-                        component:()=>import('@/views/Cultural/Notice/System'),
-                    },
-                    {
-                        path:'NoticeRestaurant',
-                        name:'餐厅公告',
-                        meta:{
-                            name:'公告列表-餐厅公告',
-                            tag:'公告列表-餐厅公告',
-                            showNav:true
-                        },
-                        component:()=>import('@/views/Cultural/Notice/Restaurant'),
-                    },
-                    {
-                        path:'NoticeProperty',
-                        name:'物业公告',
-                        meta:{
-                            name:'公告列表-物业公告',
-                            tag:'公告列表-物业公告',
-                            showNav:true
-                        },
-                        component:()=>import('@/views/Cultural/Notice/Property'),
-                    }
-                ]
             },
             {
                 path:'News',
                 name:'企业新闻',
-                redirect:'/Cultural/News/',
                 meta:{
                     name:'企业新闻',
                     tag:'企业新闻',
-                    showNav:true
+                    showNav:false
                 },
                 component:()=>import('@/views/Cultural/News/index'),
-                children:[
-                    {
-                        path:'/',
-                        name:'企业新闻-全部',
-                        meta:{
-                            name:'企业新闻-全部',
-                            tag:'企业新闻-全部',
-                            showNav:true
-                        },
-                        component:()=>import('@/views/Cultural/News/All'),
-                    },
-                    {
-                        path:'hot',
-                        name:'热点精选',
-                        meta:{
-                            name:'企业新闻-热点精选',
-                            tag:'企业新闻-热点精选',
-                            showNav:true
-                        },
-                        component:()=>import('@/views/Cultural/News/Hot'),
-                    },
-                    {
-                        path:'CurrentEvents',
-                        name:'时事要闻',
-                        meta:{
-                            name:'企业新闻-时事要闻',
-                            tag:'企业新闻-时事要闻',
-                            showNav:true
-                        },
-                        component:()=>import('@/views/Cultural/News/CurrentEvents'),
-                    },
-                ]
             },
             {
                 path:'Communication',
                 name:'交流圈',
-                redirect:'/Cultural/Communication/',
                 meta:{
                     name:'交流圈',
                     tag:'交流圈',
-                    showNav:true
+                    showNav:false
                 },
                 component:()=>import('@/views/Cultural/Communication/index'),
-                children: [
-                    {
-                        path:'/',
-                        name:'交流圈-全部',
-                        meta:{
-                            name:'交流圈-全部',
-                            tag:'交流圈-全部',
-                            showNav:true
-                        },
-                        component:()=>import('@/views/Cultural/News/All'),
-                    },
 
-                ]
             }
         ]
     },
@@ -138,9 +49,9 @@ export default [
         path:'/Cultural/:id',
         name:'公告详情',
         meta:{
-            showNav:false,
+            showNav:true,
             name:'公告详情',
-            leave:'LeaveTwoRouter',
+            leave:3,
 
         },
         component:()=>import('@/views/Cultural/Notice/Detail'),
@@ -149,9 +60,9 @@ export default [
         path:'/Cultural/New/:id',
         name:'企业新闻详情',
         meta:{
-            showNav:false,
+            showNav:true,
             name:'企业新闻',
-            leave:'LeaveTwoRouter',
+            leave:3,
 
         },
         component:()=>import('@/views/Cultural/News/Detail'),
@@ -162,8 +73,8 @@ export default [
         meta:{
             name:'交流圈-评论详情',
             tag:'交流圈-评论详情',
-            showNav:false,
-            leave:'LeaveTwoRouter',
+            showNav:true,
+            leave:3,
 
         },
         component:()=>import('@/views/Cultural/Communication/Comments'),
@@ -174,8 +85,8 @@ export default [
         meta:{
             name:'发帖子',
             tag:'发帖子',
-            showNav:false,
-            leave:'LeaveTwoRouter',
+            showNav:true,
+            leave:3,
 
         },
         component:()=>import('@/views/Cultural/Communication/send'),
@@ -187,6 +98,7 @@ export default [
             name:'话题列表',
             tag:'话题列表',
             showNav:true,
+            leave: 3
         },
         component:()=>import('@/views/Cultural/Communication/TopicList')
     }

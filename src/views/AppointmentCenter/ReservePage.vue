@@ -63,9 +63,7 @@ export default {
     span
       color orangered
 #ReservePage
-  height 100%
-  background-color $my-bgc-color
-
+  height $custom-bgc-height
   .content
     display flex
     justify-content: space-between;

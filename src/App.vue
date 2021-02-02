@@ -1,14 +1,27 @@
 <template>
-  <div id="app">
-    <Nav
-        :show-back="$route.meta.leave === 'LeaveTwoRouter'"
-        :title="$route.meta.name"
-        v-show="!$route.meta.showNav"
-
-    ></Nav>
-    <transition name="slide-fade" >
-      <router-view/>
-    </transition>
+  <div id="app"
+  >
+    <div
+          :class="$route.meta.showNav?'scroll-list-wrap nav_height':'scroll-list-wrap'"
+    >
+      <div v-if="$route.meta.showNav" style="height: 60px;background-color:transparent;">
+        <Nav
+            :show-back="!!$route.meta.leave"
+            :title="$route.meta.name"
+            v-if="$route.meta.showNav"
+        ></Nav>
+      </div>
+      <cube-scroll
+          ref="scroll"
+      >
+        <transition name="slide-fade" >
+          <router-view/>
+        </transition>
+      </cube-scroll>
+    </div>
+    <div class="write" v-if="$route.meta.name==='需求反馈'" @click="Replay">
+      写
+    </div>
   </div>
 </template>
 
@@ -33,6 +46,9 @@
           this.isRouterAlive = true
         })
       },
+      Replay(){
+        this.$router.push({name:'Replay'})
+      },
     },
 
 
@@ -40,7 +56,37 @@
 
 </script>
 
+<style lang="stylus">
+>>>.scroll-list-wrap
+  >>>.cube-scroll-wrapper
+    overflow: visible;
+    >>>.cube-scroll-content
+      z-index 60!important
+.write
+  height 40px
+  width 40px
+  position fixed
+  z-index 60
+  background-color #fff
+  border-radius 50%
+  border 1px solid black
+  bottom 90px
+  right 40px
+  font-size 14px
+  line-height 42px
+  text-align center
+  box-shadow 4px 4px 8px rgba(0,0,0,.6)
+
+</style>
+
 <style>
+.cube-scroll-wrapper{
+  overflow: visible;
+}
+
+.cube-scroll-content{
+  z-index: 60;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -48,13 +94,15 @@
   text-align: center;
   color: #2c3e50;
   height: 100vh;
-  font-size:16px
+  font-size:16px;
+  background-color: rgb(249,249,249);
 }
-
 #nav {
   padding: 30px;
 }
-
+.nav_height{
+  height: calc(100vh - 60px)
+}
 #nav a {
   font-weight: bold;
   color: #2c3e50;

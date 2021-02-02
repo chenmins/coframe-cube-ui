@@ -26,7 +26,7 @@ export default {
   text-align left
   margin 0 20px
   position relative
-  height calc(100% - 90px)
+  height $custom-bgc-height
   header
     font-size 20px
     margin 30px 20px

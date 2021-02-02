@@ -11,7 +11,8 @@ export default [
                     name:'常见问题',
                     tag:'Question',
                     showTabbar:true,
-                    leave:'LeaveTwoRouter'
+                    showNav:true,
+                    leave:2
                 },
                 component:()=>import('@/views/HelpCenter/Question')
             },
@@ -22,7 +23,8 @@ export default [
                     name:'产品介绍',
                     tag:'ProductsInc',
                     showTabbar:true,
-                    leave:'LeaveTwoRouter'
+                    leave:2,
+                    showNav:true,
 
                 },
                 component:()=>import('@/views/HelpCenter/Product/ProductsInc.vue')
@@ -32,7 +34,8 @@ export default [
                 name:'ProductInc',
                 meta:{
                     name:'产品介绍',
-                    leave:'LeaveTwoRouter',
+                    leave:3,
+                    showNav:true,
                     tag:'ProductInc'
                 },
                 component:()=>import('@/views/HelpCenter/Product/ProductInc.vue')
@@ -43,7 +46,8 @@ export default [
                 meta:{
                     name:'需求反馈',
                     showTabbar:true,
-                    leave:'LeaveTwoRouter'
+                    leave:2,
+                    showNav:true,
 
                 },
                 component:()=>import('@/views/HelpCenter/DemanFeedback.vue')
@@ -53,7 +57,8 @@ export default [
                 name:'Replay',
                 meta:{
                     name:'回复',
-                    leave:'LeaveTwoRouter',
+                    leave:3,
+                    showNav:true,
                 },
                 component:()=>import('@/views/HelpCenter/Replay/Replay.vue')
             },
@@ -62,7 +67,8 @@ export default [
                 name:'ReplayDetail',
                 meta:{
                     name:'ReplayDetail',
-                    leave:'LeaveTwoRouter',
+                    leave:3,
+                    showNav:true,
                 },
                 component:()=>import('@/views/HelpCenter/Replay/ReplayDetail.vue')
             },

@@ -110,7 +110,7 @@ footer
       color $custom-active-color
 
 #appointment_center
-  height $viewpoint-height
+  height $custom-bgc-height
   background $my-bgc-color
 
   div:nth-child(2)

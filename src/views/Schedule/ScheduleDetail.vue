@@ -91,7 +91,7 @@ export default {
 <style scoped lang="stylus">
 #schedule_detail
   background-color $my-bgc-color
-  height $viewpoint-height
+  height $custom-bgc-height
   .schedule_group_1
     text-align left
     padding 20px

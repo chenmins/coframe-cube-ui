@@ -87,7 +87,7 @@ export default {
 .cube-form
   background-color $my-bgc-color
   position relative
-  height $viewpoint-height
+  height $custom-bgc-height
   >>>.cube-form-item
     margin 10px 0
   >>>.cube-input-field
