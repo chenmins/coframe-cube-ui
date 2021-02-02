@@ -1,16 +1,16 @@
 <template>
     <div id="TopicList">
-        <div class="search">
+        <div class="search" >
             <input type="text" class="search_input" placeholder="# 话题、电影、书、歌曲、地点、股票">
             <span @click="$router.back()">取消</span>
         </div>
         <div class="left-panel">
-            <cube-scroll>
+<!--            <cube-scroll>-->
             <cube-tab-bar  style="display:block" v-model="selectedLabel" :data="tabs" @change="changeHandler"></cube-tab-bar>
-            </cube-scroll>
+<!--            </cube-scroll>-->
         </div>
-        <div class="right-panel">
-          <cube-scroll ref="scroll">
+        <div class="right-panel" >
+          <cube-scroll ref="scroll" >
             <ul>
               <li v-for="(hero, index) in scrollData">
                 <img :src="hero.avatar" alt="">
@@ -50,16 +50,16 @@ export default {
       }
     },
     created () {
-			// axios.get('http://localhost:8081/test/cityInfo').then(res=>{
-			// 	this.DATA_MAP = res.data.slideNav
-			// 	this.tabs = res.data.slideNav.map(i=>({
-			// 		label:i.name
-			// 	}))
-			// 	this.selectedLabel = this.tabs[0].label
-			// 	this.scrollData = res.data.slideNav.find(i=>{
-			// 		return i.name === this.selectedLabel
-			// 	}).num
-			// })
+			axios.get('http://localhost:8081/test/cityInfo').then(res=>{
+				this.DATA_MAP = res.data.slideNav
+				this.tabs = res.data.slideNav.map(i=>({
+					label:i.name
+				}))
+				this.selectedLabel = this.tabs[0].label
+				this.scrollData = res.data.slideNav.find(i=>{
+					return i.name === this.selectedLabel
+				}).num
+			})
     },
     methods: {
       changeHandler (label) {
@@ -126,7 +126,9 @@ export default {
 		bottom: 0
 		width: 80px
 		background-color rgba($custom-border-color,.2)
+
 	.right-panel
+      height calc(100vh - 100px)
       position: absolute
       top: 44px
       left: 80px
@@ -155,7 +157,10 @@ export default {
     padding 5px 20px
     font-size 14px
     border-bottom 1px solid rgba($custom-border-color,.3)
-    span
+    z-index 70
+    position: relative;
+    background-color: #fff;
+  span
         line-height 30px
 .search_input
     height 30px

@@ -17,6 +17,9 @@ export default {
   },
   methods:{
     back(){
+        if(this.$route.meta.leave === 1){
+          this.$router.push({name:'Login'})
+        }
       if(this.$route.meta.leave === 2){
         this.$router.push({name:'MainMenu'})
       }

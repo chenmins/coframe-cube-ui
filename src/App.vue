@@ -57,11 +57,7 @@
 </script>
 
 <style lang="stylus">
->>>.scroll-list-wrap
-  >>>.cube-scroll-wrapper
-    overflow: visible;
-    >>>.cube-scroll-content
-      z-index 60!important
+
 .write
   height 40px
   width 40px
@@ -82,6 +78,10 @@
 <style>
 .cube-scroll-wrapper{
   overflow: visible;
+  z-index: 1;
+}
+.cube-scroll-content{
+
 }
 
 #app {

@@ -37,7 +37,7 @@ module.exports = {
   pages:{
     index:{
       entry:'src/main',
-      title:'demo'
+      title:'cube'
     }
   },
   devServer: {

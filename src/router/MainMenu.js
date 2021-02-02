@@ -6,7 +6,7 @@ export default [
         meta:{
             name:'行政服务工作台',
             tag:'行政服务工作台',
-            leave:2,
+            leave:1,
             showNav:true
         },
         component:()=>import('@/views/MainMenu/index')

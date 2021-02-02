@@ -13,7 +13,7 @@ import LayOut from "@/components/LayOut";
 import store from './store'
 import Calendar from 'vue2-slot-calendar';
 
-// import mock from "@/utils/mock/mock"; //mock数据的时候使用
+import mock from "@/utils/mock/mock"; //mock数据的时候使用
 
 import { Switch } from 'vant';
 
