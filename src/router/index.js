@@ -83,10 +83,10 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
     NProgress.start()
-    let Token = localStorage.getItem('Token')
-    if (Token === null && to.fullPath !== '/login') {
-        router.push('/login')
-    }
+    // let Token = localStorage.getItem('Token')
+    // if (Token === null && to.fullPath !== '/login') {
+    //     router.push('/login')
+    // }
     next()
 
 })
