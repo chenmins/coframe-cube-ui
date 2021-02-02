@@ -40,7 +40,8 @@ const routes = [
             name: '主菜单',
             tag: 'Meuns'
         },
-        component: Home
+        // component: Home
+        component:()=>import('@/views/MainMenu/index')
     },
     {
         path: '/login',
