@@ -47,7 +47,7 @@ export default {
     position fixed
     width 100%
     bottom 0
-    z-index 50
+    z-index 60
     a
       color black
       flex 1

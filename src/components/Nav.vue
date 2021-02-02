@@ -38,7 +38,7 @@ export default {
     top 0
     color $color-regular-blue
     background-color #fff
-    z-index 50
+    z-index 60
   .icon
     position:absolute
     left:0

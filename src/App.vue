@@ -84,9 +84,6 @@
   overflow: visible;
 }
 
-.cube-scroll-content{
-  z-index: 60;
-}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
