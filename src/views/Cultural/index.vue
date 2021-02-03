@@ -1,7 +1,11 @@
 <template>
   <div id="cultural_app">
+    <div class="bgc"></div>
     <SlideNav
         class="slide_nav"
+        :center="true"
+        :show-slider="true"
+        :show-back-icon="true"
         :selected-label="selectedLabel" :tabs="tabs" :showBackIcon="true"
         @changeHandle="changeHandle"
         @back="$router.push({name:'MainMenu'})"
@@ -51,9 +55,28 @@ export default {
 #cultural_app
   height 100%
   padding-top -100px
+  .bgc
+    position: absolute;
+    top 0
+    width: 100%;
+    height: 154px;
+    background: linear-gradient(119deg, #19D4FF 0%, #0F97FB 100%);
+  >>>.cube-tab-bar-slider
+    margin-left 35px
+    max-width: 20px;
+    height: 4px;
+    background: #FFFFFF;
+    border-radius: 2px;
+  >>>.cube-tab
+    min-width 70px
+    font-size: 14px;
+    color #fff
+    font-weight: 500;
+    line-height: 22px;
+  >>>.cube-tab_active
+    font-size 16px
 .slide_nav
   background-color: #fff;
-
 .send
   border 1px solid $custom-active-color
   padding 8px 20px

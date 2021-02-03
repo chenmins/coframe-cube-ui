@@ -1,54 +1,45 @@
 <template>
   <MenuCard
-      src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__b141aa3d288cf15d74fffee487868c6e.svg"
-      name="我的工具" @SeeAll="SeeAll">
-    <div class="func clearfix"  >
+      name="我的工具"
+      justify-content="flex-start"
+      :shadow="true"
+      @SeeAll="SeeAll">
+    <div class="func clearfix clear-fix"  >
       <div class="tool_item" @click="$router.push({name:'Cultural'})">
-        <img
-            src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__6449922a3d74aa93822aa970d17b7a2f.svg"
-            alt="">
+        <Icon svg-name="one" class-name="svg"></Icon>
         <div>文化建设</div>
       </div>
       <div class="tool_item"  @click="$router.push({name:'常见问题'})">
-        <img
-            src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__6449922a3d74aa93822aa970d17b7a2f.svg"
-            alt="">
+        <Icon svg-name="two" class-name="svg"></Icon>
+
         <div>帮助中心</div>
       </div>
       <div class="tool_item" @click="$router.push({name:'Schedule'})">
-        <img
-            src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__6449922a3d74aa93822aa970d17b7a2f.svg"
-            alt="">
+        <Icon svg-name="three" class-name="svg"></Icon>
+
         <div>日程协同</div>
       </div>
       <div class="tool_item" @click="$router.push({name:'Guest'})">
-        <img
-            src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__6449922a3d74aa93822aa970d17b7a2f.svg"
-            alt="">
+        <Icon svg-name="four" class-name="svg"></Icon>
+
         <div>访客预约</div>
       </div>
       <div class="tool_item" @click="$router.push({name:'homepage'})">
-        <img
-            src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__6449922a3d74aa93822aa970d17b7a2f.svg"
-            alt="">
+        <Icon svg-name="five" class-name="svg"></Icon>
+
         <div>通讯录</div>
       </div>
       <div class="tool_item" @click="$router.push({name:'EmployeeCard'})">
-        <img
-            src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__6449922a3d74aa93822aa970d17b7a2f.svg"
-            alt="">
+        <Icon svg-name="six" class-name="svg"></Icon>
         <div>员工卡申请</div>
       </div>
       <div class="tool_item" @click="$router.push({name:'AppointmentCenter'})">
-        <img
-            src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__6449922a3d74aa93822aa970d17b7a2f.svg"
-            alt="">
+        <Icon svg-name="seven" class-name="svg"></Icon>
+
         <div>预约中心</div>
       </div>
       <div class="tool_item" @click="$router.push({name:'Report'})">
-        <img
-            src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__6449922a3d74aa93822aa970d17b7a2f.svg"
-            alt="">
+        <Icon svg-name="eight" class-name="svg"></Icon>
         <div>信息报备</div>
       </div>
     </div>
@@ -75,15 +66,30 @@ export default {
 </script>
 
 <style scoped lang="stylus">
-
+.svg
+  height 44px
+  width 44px
 .func
-  margin 10px 10px 0
-
-.tool_item
-  width calc(25% - 10px)
-  margin 5px
-  float left
-  font-size 12px
+  padding-top 27px
+  padding-bottom 20px
+  .tool_item
+    height 58px
+    width 25%
+    float left
+    font-size 13px
+    display flex
+    flex-direction column
+    align-items center
+    &:nth-child(1)
+      margin-bottom 27px
+    &:nth-child(2)
+      margin-bottom 27px
+    &:nth-child(3)
+      margin-bottom 27px
+    &:nth-child(4)
+      margin-bottom 27px
+    .svg
+      margin-bottom 6px
 
 .clearfix:after
   content ''

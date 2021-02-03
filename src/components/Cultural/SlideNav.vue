@@ -7,8 +7,11 @@
                      :style="center?'width: 100%':''"
                     @change="changeHandle"
                      :showSlider="showSlider"
-                     class="nav_tabbar">
-        <cube-tab  v-for="(item, index) in tabs" :label="item.label" :icon="item.icon" :key="item.label"></cube-tab>
+                     class="nav_tabbar scroll_container">
+
+
+          <cube-tab  class="tab_item" v-for="(item, index) in tabs" :label="item.label" :icon="item.icon" :key="item.label"></cube-tab>
+        <Icon svg-name="customer" class-name="svg"></Icon>
       </cube-tab-bar>
     </div>
 
@@ -36,8 +39,6 @@ export default {
   },
   methods:{
     changeHandle(e){
-      // this.$emit('selectLabel',e)
-      // this.$router.push({name:`${e}`})
       this.$emit('changeHandle',e)
     }
   },
@@ -50,16 +51,31 @@ export default {
 }
 </script>
 <style lang="stylus"  scoped>
+.scroll_container
+  display flex
+  flex-direction row
+  flex-wrap nowrap
+  overflow: scroll;
+  &::-webkit-scrollbar {
+    display: none; /* Chrome Safari */
+  }
+.svg
+  height 20px
+  width 20px
+
 .nav_tabbar
   text-align left
   height 40px
-  font-size 14px
+  font-size: 14px;
   display flex
   justify-content: flex-start;
 .cube-tab
+  display inline-block
   min-width 70px
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  line-height: 22px;
 .cube-tab_active
-  color $custom-active-color
   font-size 16px
 .header
   margin 0 15px
@@ -70,6 +86,8 @@ export default {
 .icon
   font-size 14px
   padding 0 10px
+  z-index 50
+  color #fff
 .com_header
   background-color: #fff;
   margin 0 0 10px

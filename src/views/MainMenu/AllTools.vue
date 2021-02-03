@@ -1,140 +1,122 @@
 <template>
   <div id="all_tools">
-    <header>
-      <span class="title">管理常用工具</span>
-      <div class="num" @click="$router.push({name:'ManageTool'})">
-        <span>8</span>
-        <i class="cubeic-arrow"></i>
-      </div>
-    </header>
-    <div class="scroll-list-wrap">
-      <cube-scroll
-          ref="scroll"
-      >
-        <ul class="tools_list">
-          <li>
-            <div>
-              <img
-                  src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__6449922a3d74aa93822aa970d17b7a2f.svg"
-                  alt="">
-              <span>文化建设</span>
-            </div>
-            <span class="commonly tag" v-if="commonly">+ 添加常用</span>
-            <span class="is-commonly tag" v-else>已添加常用</span>
-          </li>
-          <li>
-            <div>
-              <img
-                  src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__6449922a3d74aa93822aa970d17b7a2f.svg"
-                  alt="">
-              <span>文化建设</span>
-            </div>
-            <span class="commonly tag" v-if="commonly">+ 添加常用</span>
-            <span class="is-commonly tag" v-else>已添加常用</span>
-          </li>
-          <li>
-            <div>
-              <img
-                  src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__6449922a3d74aa93822aa970d17b7a2f.svg"
-                  alt="">
-              <span>文化建设</span>
-            </div>
-            <span class="commonly tag" v-if="commonly">+ 添加常用</span>
-            <span class="is-commonly tag" v-else>已添加常用</span>
-          </li>
-          <li>
-            <div>
-              <img
-                  src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__6449922a3d74aa93822aa970d17b7a2f.svg"
-                  alt="">
-              <span>文化建设</span>
-            </div>
-            <span class="commonly tag" v-if="commonly">+ 添加常用</span>
-            <span class="is-commonly tag" v-else>已添加常用</span>
-          </li>
-          <li>
-            <div>
-              <img
-                  src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__6449922a3d74aa93822aa970d17b7a2f.svg"
-                  alt="">
-              <span>文化建设</span>
-            </div>
-            <span class="commonly tag" v-if="commonly">+ 添加常用</span>
-            <span class="is-commonly tag" v-else>已添加常用</span>
-          </li>
-          <li>
-            <div>
-              <img
-                  src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__6449922a3d74aa93822aa970d17b7a2f.svg"
-                  alt="">
-              <span>文化建设</span>
-            </div>
-            <span class="commonly tag" v-if="commonly">+ 添加常用</span>
-            <span class="is-commonly tag" v-else>已添加常用</span>
-          </li>
-          <li>
-            <div>
-              <img
-                  src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__6449922a3d74aa93822aa970d17b7a2f.svg"
-                  alt="">
-              <span>文化建设</span>
-            </div>
-            <span class="commonly tag" v-if="commonly">+ 添加常用</span>
-            <span class="is-commonly tag" v-else>已添加常用</span>
-          </li>
-          <li>
-            <div>
-              <img
-                  src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__6449922a3d74aa93822aa970d17b7a2f.svg"
-                  alt="">
-              <span>文化建设</span>
-            </div>
-            <span class="commonly tag" v-if="commonly">+ 添加常用</span>
-            <span class="is-commonly tag" v-else>已添加常用</span>
-          </li>
-          <li>
-            <div>
-              <img
-                  src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__6449922a3d74aa93822aa970d17b7a2f.svg"
-                  alt="">
-              <span>文化建设</span>
-            </div>
-            <span class="commonly tag" v-if="commonly">+ 添加常用</span>
-            <span class="is-commonly tag" v-else>已添加常用</span>
-          </li>
-          <li>
-            <div>
-              <img
-                  src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__6449922a3d74aa93822aa970d17b7a2f.svg"
-                  alt="">
-              <span>文化建设</span>
-            </div>
-            <span class="commonly tag" v-if="commonly">+ 添加常用</span>
-            <span class="is-commonly tag" v-else>已添加常用</span>
-          </li>
-          <li>
-            <div>
-              <img
-                  src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__6449922a3d74aa93822aa970d17b7a2f.svg"
-                  alt="">
-              <span>文化建设</span>
-            </div>
-            <span class="commonly tag" v-if="commonly">+ 添加常用</span>
-            <span class="is-commonly tag" v-else>已添加常用</span>
-          </li>
-          <li>
-            <div>
-              <img
-                  src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__6449922a3d74aa93822aa970d17b7a2f.svg"
-                  alt="">
-              <span>文化建设</span>
-            </div>
-            <span class="commonly tag" v-if="commonly">+ 添加常用</span>
-            <span class="is-commonly tag" v-else>已添加常用</span>
-          </li>
-        </ul>
-      </cube-scroll>
-    </div>
+    <NavLayOut
+        bgc-color="#fff"
+    >
+      <header>
+        <span class="title">管理常用工具</span>
+        <div class="num" @click="$router.push({name:'ManageTool'})">
+          <div>8</div>
+          <i class="cubeic-arrow"></i>
+        </div>
+      </header>
+
+      <ul class="tools_list">
+        <li>
+          <div>
+            <Icon svg-name="two" class-name="svg"></Icon>
+            <span>帮助中心</span>
+          </div>
+          <span class="commonly tag" v-if="commonly">
+                <Icon svg-name="add" height="14" width="14" class-name="add"></Icon>
+                添加常用
+              </span>
+          <span class="is-commonly tag" v-else>已添加常用</span>
+        </li>
+        <li>
+          <div>
+            <Icon svg-name="one" class-name="svg"></Icon>
+            <span>文化建设</span>
+          </div>
+          <span class="commonly tag" v-if="commonly">
+                <Icon svg-name="add" height="14" width="14" class-name="add"></Icon>
+                添加常用
+              </span> <span class="is-commonly tag" v-else>已添加常用</span>
+        </li>
+        <li>
+          <div>
+            <Icon svg-name="E-commerce" class-name="svg"></Icon>
+            <span>电商采购</span>
+          </div>
+          <span class="commonly tag" v-if="commonly">
+                <Icon svg-name="add" height="14" width="14" class-name="add"></Icon>
+                添加常用
+              </span> <span class="is-commonly tag" v-else>已添加常用</span>
+        </li>
+        <li>
+          <div>
+            <Icon svg-name="five" class-name="svg"></Icon>
+            <span>访客预约</span>
+          </div>
+          <span class="commonly tag" v-if="commonly">
+                <Icon svg-name="add" height="14" width="14" class-name="add"></Icon>
+                添加常用
+              </span> <span class="is-commonly tag" v-else>已添加常用</span>
+        </li>
+        <li>
+          <div>
+            <Icon svg-name="seven" class-name="svg"></Icon>
+            <span>通讯录</span>
+          </div>
+          <span class="commonly tag" v-if="commonly">
+                <Icon svg-name="add" height="14" width="14" class-name="add"></Icon>
+                添加常用
+              </span> <span class="is-commonly tag" v-else>已添加常用</span>
+        </li>
+        <li>
+          <div>
+            <Icon svg-name="three" class-name="svg"></Icon>
+            <span>文化建设</span>
+          </div>
+          <span class="commonly tag" v-if="commonly">
+                <Icon svg-name="add" height="14" width="14" class-name="add"></Icon>
+                添加常用
+              </span> <span class="is-commonly tag" v-else>已添加常用</span>
+        </li>
+        <li>
+          <div>
+            <Icon svg-name="QR" class-name="svg"></Icon>
+            <span>员工信息报备</span>
+          </div>
+          <span class="commonly tag" v-if="commonly">
+                <Icon svg-name="add" height="14" width="14" class-name="add"></Icon>
+                添加常用
+              </span> <span class="is-commonly tag" v-else>已添加常用</span>
+        </li>
+        <li>
+          <div>
+            <Icon svg-name="convenienceStore" class-name="svg"></Icon>
+            <span>便利店</span>
+          </div>
+          <span class="commonly tag" v-if="commonly">
+                <Icon svg-name="add" height="14" width="14" class-name="add"></Icon>
+                添加常用
+              </span> <span class="is-commonly tag" v-else>已添加常用</span>
+        </li>
+        <li>
+          <div>
+            <Icon svg-name="property" class-name="svg"></Icon>
+            <span>物业</span>
+          </div>
+          <span class="commonly tag" v-if="commonly">
+                <Icon svg-name="add" height="14" width="14" class-name="add"></Icon>
+                添加常用
+              </span> <span class="is-commonly tag" v-else>已添加常用</span>
+        </li>
+        <li>
+          <div>
+            <Icon svg-name="parking" class-name="svg"></Icon>
+            <span>停车场</span>
+          </div>
+          <span class="commonly tag" v-if="commonly">
+                <Icon svg-name="add" height="14" width="14" class-name="add"></Icon>
+                添加常用
+              </span> <span class="is-commonly tag" v-else>已添加常用</span>
+        </li>
+      </ul>
+
+    </NavLayOut>
+
   </div>
 </template>
 
@@ -150,6 +132,11 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+.svg
+  height 44px
+  width 44px
+  margin-right 12px
+
 .scroll-list-wrap
   height calc(100% - 52px)
   border-radius: 5px
@@ -158,7 +145,6 @@ export default {
 
 #all_tools
   background-color $my-bgc-color
-  height $viewpoint-height
 
   header
     display flex
@@ -168,6 +154,12 @@ export default {
     background-color: #fff;
     margin-bottom 20px
 
+    span
+      height 30px
+      line-height: 30px;
+      font-size 16px
+      font-weight 600
+
     .title
       font-size 14px
 
@@ -175,18 +167,18 @@ export default {
       display flex
       align-items center
 
-      span
-        display inline-block
-        width 24px
-        border-radius 10px
-        padding 2px 7px
-        background-color $custom-active-color
+      div
+        flex 0
+        min-width 16px
+        height 16px
+        border-radius 50%
+        line-height 16px
+        font-size 12px
+        background-color #0099FF
         color #fff
-        font-size 14px
 
       i
         color $custom-gray
-        margin-left 10px
 
   .tools_list
     background-color: #fff;
@@ -203,19 +195,28 @@ export default {
         align-items center
         font-size 14px
 
-        img
-          margin-right 10px
+        span
+          font-size 14px
 
       .tag
         font-size 12px
         color #fff
-        padding 3px 8px
-        border-radius 5px
+        display flex
+        align-items center
+        height 28px
+        border-radius 28px
+        padding 0 12px
 
         &.commonly
-          background-color $custom-active-color
+          //background-color $custom-active-color
+          color #0099FF
+          border 1px solid #0099FF
+
+          padding
+          .add
+            margin-right 7px
 
         &.is-commonly
-          padding 3px 8px
+          color #CCCCCC
           color $custom-gray
 </style>

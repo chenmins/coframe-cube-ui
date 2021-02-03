@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="351px" height="163px" viewBox="0 0 351 163" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 63 (92445) - https://sketch.com -->
+    <title>椭圆形</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="27.3286553%" y1="38.9229698%" x2="100%" y2="38.9229698%" id="linearGradient-1">
+            <stop stop-color="#FFFFFF" offset="0%"></stop>
+            <stop stop-color="#EFF7FF" offset="100%"></stop>
+        </linearGradient>
+        <rect id="path-2" x="0" y="0" width="335" height="141" rx="12"></rect>
+        <filter x="-4.0%" y="-11.7%" width="108.1%" height="123.4%" filterUnits="objectBoundingBox" id="filter-4">
+            <feOffset dx="0" dy="3" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="4" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0.203921569   0 0 0 0 0.725490196  0 0 0 0.06 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feOffset dx="0" dy="-3" in="SourceAlpha" result="shadowOffsetOuter2"></feOffset>
+            <feGaussianBlur stdDeviation="4" in="shadowOffsetOuter2" result="shadowBlurOuter2"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0.203921569   0 0 0 0 0.725490196  0 0 0 0.04 0" type="matrix" in="shadowBlurOuter2" result="shadowMatrixOuter2"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="shadowMatrixOuter2"></feMergeNode>
+            </feMerge>
+        </filter>
+        <linearGradient x1="48.5513807%" y1="93.3230361%" x2="51.4486193%" y2="29.2508398%" id="linearGradient-5">
+            <stop stop-color="#4FACFE" stop-opacity="0" offset="0%"></stop>
+            <stop stop-color="#009FFF" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="49.1111111%" y1="93.3230361%" x2="50.8888889%" y2="29.2508398%" id="linearGradient-6">
+            <stop stop-color="#009FFF" offset="0%"></stop>
+            <stop stop-color="#4FACFE" stop-opacity="0" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="页面" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="菜单" transform="translate(-13.000000, -370.000000)">
+            <g id="编组-3" transform="translate(21.000000, 381.000000)">
+                <g id="椭圆形">
+                    <mask id="mask-3" fill="white">
+                        <use xlink:href="#path-2"></use>
+                    </mask>
+                    <g id="蒙版">
+                        <use fill="black" fill-opacity="1" filter="url(#filter-4)" xlink:href="#path-2"></use>
+                        <use fill="url(#linearGradient-1)" fill-rule="evenodd" xlink:href="#path-2"></use>
+                    </g>
+                    <rect id="矩形" fill="url(#linearGradient-5)" opacity="0.044035" mask="url(#mask-3)" transform="translate(235.476943, 37.895093) rotate(24.000000) translate(-235.476943, -37.895093) " x="223.476943" y="-32.6049066" width="24" height="141" rx="3"></rect>
+                    <rect id="矩形" fill="url(#linearGradient-6)" opacity="0.044035" mask="url(#mask-3)" transform="translate(245.568635, 73.314136) rotate(24.000000) translate(-245.568635, -73.314136) " x="233.568635" y="-16.6858636" width="24" height="180" rx="3"></rect>
+                    <rect id="矩形" fill="url(#linearGradient-5)" opacity="0.044035" mask="url(#mask-3)" transform="translate(295.476943, 47.895093) rotate(24.000000) translate(-295.476943, -47.895093) " x="283.476943" y="-22.6049066" width="24" height="141" rx="3"></rect>
+                    <rect id="矩形" fill="url(#linearGradient-6)" opacity="0.044035" mask="url(#mask-3)" transform="translate(305.568635, 83.314136) rotate(24.000000) translate(-305.568635, -83.314136) " x="293.568635" y="-6.68586358" width="24" height="180" rx="3"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -37,8 +37,10 @@ const routes = [
         path: '/',
         name: 'Home',
         meta: {
-            name: '主菜单',
-            tag: 'Meuns'
+            name: '行政服务工作台',
+            tag: 'Meuns',
+            showNav: true,
+            leave: 1
         },
         // component: Home
         component:()=>import('@/views/MainMenu/index')

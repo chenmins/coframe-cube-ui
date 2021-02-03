@@ -1,28 +1,34 @@
 <template>
-<div id="Notice_card" @click="read">
-  <div class="title">
-    <slot name="title" ></slot>
-  </div>
-  <div class="tag">
-    <slot></slot>
-  </div>
-  <div class="content">
-    <slot name="content"></slot>
-  </div>
-  <div class="footer">
-    <div class="date">
-      <slot name="date">2021-01-22</slot>
+  <div id="Notice_card" @click="read">
+    <slot name="image"></slot>
+    <div class="box">
+    <span class="title">
+      <slot name="title"></slot>
+    </span>
+      <span class="content">
+      <slot name="content"></slot>
+    </span>
+      <span class="footer">
+        <span class="date">
+          <slot name="date"></slot>
+        </span>
+
+        <span class="from">
+            <span class="read_all">
+              <slot name="readAll"></slot>
+            </span>
+          <slot name="from"></slot>
+        </span>
+      </span>
     </div>
-    <a class="readall">阅读全部</a>
   </div>
-</div>
 </template>
 
 <script>
 export default {
-name: "NoticeCard",
-  methods:{
-    read(){
+  name: "NoticeCard",
+  methods: {
+    read() {
       this.$emit('read')
     }
   }
@@ -31,33 +37,49 @@ name: "NoticeCard",
 
 <style scoped lang="stylus">
 #Notice_card
-  text-align left
-  border-bottom 1px solid $custom-gray
-  padding-bottom 10px
-  padding-top 20px
-.title
-  font-weight bold
-  overflow hidden
-  text-overflow ellipsis
-  white-space nowrap
-.tag
-  margin 3px 0
-.content
-  font-size 12px
-  line-height 16px
-  display -webkit-box
-  -webkit-box-orient vertical
-  -webkit-line-clamp 2
-  overflow hidden
-.footer
   display flex
-  justify-content: space-between;
-  font-size 10px
-  margin-top 10px
-  .date
-    color $custom-gray
-  .readall
-    font-size 12px
-    color $custom-active-color
+  padding 21px 16px
+  margin 12px
+  max-width 100vh
+  box-shadow: 0px 1px 12px 0px rgba(0, 0, 0, 0.04), 0px -1px 12px 0px rgba(0, 0, 0, 0.04);
+  border-radius: 6px;
 
+
+  .box
+    display flex
+    flex-direction column
+    justify-content: space-between;
+    .read_all
+      font-size 12px
+      color #0099FF
+    .title
+      font-size 16px
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: #000000;
+      line-height: 22px;
+      letter-spacing: 1px;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 1;
+      overflow: hidden;
+
+    .content
+      margin 0 0 12px 0
+      font-size 14px
+      font-weight: 300;
+      color: #666666;
+      line-height: 22px;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      overflow: hidden;
+
+    .footer
+      font-size 12px
+      font-weight: 300;
+      color: #999999;
+      line-height: 17px;
+      display flex
+      justify-content: space-between;
 </style>

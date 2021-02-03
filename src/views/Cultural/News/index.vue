@@ -1,20 +1,44 @@
 <template>
   <div id="notice_app">
-    <img width="100%" src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__69978fede7bad62225395de43eb158f3.svg" alt="">
-    <SlideNav @changeHandle="changeHandle"  :selected-label="selectedLabel" :tabs="tabs" showSlider >
-      <NewCard  v-for="item in news" :data="item" style="margin:  20px"></NewCard>
-    </SlideNav>
+    <Common>
+      <SlideNav
+          @changeHandle="changeHandle" :selected-label="selectedLabel" :tabs="tabs">
+        <div class="scroll-list-wrap" style="height: calc(100vh - 220px)">
+          <cube-scroll
+              ref="scroll">
+            <NoticeCard @read="read" class="content" v-for="notice in news">
+              <template v-slot:title>
+                {{ notice.title }}
+              </template>
+              <template v-slot:content>
+                {{ notice.title }}
+              </template>
+              <template v-slot:date>
+                {{ notice.time }}
+              </template>
+              <template v-slot:from>
+                <span>来源:</span>
+                {{ notice.from }}
+              </template>
+            </NoticeCard>
+          </cube-scroll>
+        </div>
+      </SlideNav>
+    </Common>
+
   </div>
 </template>
 
 <script>
 import SlideNav from "@/components/Cultural/SlideNav";
 import NewCard from "@/components/Cultural/NewCard";
+import NoticeCard from "@/components/Cultural/NoticeCard";
+import Common from "@/views/Cultural/Common";
 export default {
   name: "index",
   components:{
-    NewCard,
-    SlideNav
+    NewCard,NoticeCard,
+    SlideNav,Common
   },
   data() {
     return {

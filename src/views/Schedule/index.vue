@@ -69,7 +69,8 @@ export default {
   overflow: hidden;
   height $custom-bgc-height
   .scroll_container
-    height calc(100vh - 470px)
+    height: calc(100vh - 470px)
+    overflow: hidden;
   .list
     li
       height 60px

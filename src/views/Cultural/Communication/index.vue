@@ -1,33 +1,33 @@
 <template>
 
   <div class="communication_app">
-    <div style="background-color:#fff;" >
-      <img
-          src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__e1d1defe0c2a8e31ed04fe4311a2d63c.svg"
-          alt="">
+
+    <Common>
+      <div class="topic_title">热门话题</div>
       <div class="topics">
-        <div class="topic" v-for="topic in topics">#{{ topic.topicTitle }}#</div>
+        <div class="topic" v-for="(topic,index) in topics">
+          <span>0{{index+1}}</span><div>{{ topic.topicTitle }}</div>
+        </div>
         <div class="topic more" @click="$router.push({name:'话题列表'})">更多话题 ></div>
-        <div class="mid"></div>
       </div>
-      <!--    <SlideNav class="demo" :selected-label="selectedLabel" :tabs="tabs"></SlideNav>-->
-    </div>
-    <SlideNav @changeHandle="changeHandle" headerClass='com_header' :center="true" show-slider
-              :selected-label="selectedLabel" :tabs="tabs">
-      <div class="scroll-list-wrap">
-        <cube-scroll
-            ref="scroll">
-          <Card  :is-like="true" v-for="comment in comments" @checkComments="checkComments" @goComment="goComment"
-                style="margin: 10px 10px 0;border-radius: 8px" >
-            <template v-slot:username>{{ comment.username }}</template>
-            <template v-slot:card_topic>{{ comment.belongToTopic }}</template>
-            <template v-slot:content>{{ comment.content }}</template>
-          </Card>
-        </cube-scroll>
-      </div>
+      <SlideNav @changeHandle="changeHandle" headerClass='com_header' :center="true" show-slider
+                 :selected-label="selectedLabel" :tabs="tabs">
+        <div class="scroll-list-wrap">
+          <cube-scroll
+              ref="scroll">
+            <Card  :is-like="true" v-for="comment in comments" @checkComments="checkComments" @goComment="goComment"
+                   style="margin: 10px 10px 0;border-radius: 8px" >
+              <template v-slot:username>{{ comment.username }}</template>
+              <template v-slot:card_topic>{{ comment.belongToTopic }}</template>
+              <template v-slot:content>{{ comment.content }}</template>
+            </Card>
+          </cube-scroll>
+        </div>
 
 
-    </SlideNav>
+      </SlideNav>
+
+    </Common>
 
 
   </div>
@@ -36,11 +36,12 @@
 <script>
 import SlideNav from "@/components/Cultural/SlideNav";
 import Card from "@/components/Cultural/Card";
+import Common from "@/views/Cultural/Common";
 
 export default {
   name: "index",
   components: {
-    SlideNav, Card
+    SlideNav, Card,Common
   },
   data() {
     return {
@@ -96,27 +97,48 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+
+.communication_app
+  margin 0 10px
+  .topic_title
+    margin  20px
+    font-weight: 500;
+    color: #000000;
+    line-height: 22px;
+    letter-spacing: 1px;
+    &:before
+      content '#'
+      font-size 16px
+
 .scroll-list-wrap
   height calc(100vh - 264px)
   margin-bottom 20px
 >>>.cube-scroll-list-wrapper
   padding-bottom 20px
-.communication_app
-  background-color $my-bgc-color
 .topics
   display flex
   flex-direction column
-  max-height 80px
   flex-wrap wrap
   position relative
-  padding-bottom 10px
+  height 120px
   margin 0 20px
   border-bottom 1px solid $custom-border-color
   text-align center
-
+  align-content space-between
   .topic
-    padding 5px 10px
-    font-size 13px
+    font-size 14px
+    margin 8px 0
+    display flex
+    flex-direction row
+    align-items center
+    span
+      font-size: 15px;
+      margin-right 6px
+      font-family: DINEngschrift-Alternate, DINEngschrift;
+      font-weight: normal;
+      color: #E82336;
+      line-height: 18px;
+      letter-spacing: 1px;
 
   .more
     font-size 14px

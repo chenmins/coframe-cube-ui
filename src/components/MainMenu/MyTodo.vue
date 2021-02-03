@@ -1,20 +1,34 @@
 <template>
   <MenuCard
-      src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__b141aa3d288cf15d74fffee487868c6e.svg"
-      name="我的待办" @SeeAll="SeeAll">
-    <cube-slide :auto-play="false">
-      <cube-slide-item v-for="(item, index) in todos" :key="index" @click.native="clickHandler(item, index)">
-        <div class="type"  >访客预约</div>
-        <div style="padding: 0 10px">
-          <p class="who"><span>来访者：</span>{{ item.name }}</p>
-          <p class="which"><span>到访部门：</span>{{ item.position }}</p>
-          <p class="when"><span>来访时间：</span>{{ item.comeTime }}</p>
-        </div>
-        <Tag class="tag" color="rgb(23	,134	,255)">
-          待审批
-        </Tag>
-      </cube-slide-item>
-    </cube-slide>
+      name="我的待办"
+      title-color="#000"
+      :allText="true"
+      bgcColor="transparent"
+      @SeeAll="SeeAll">
+    <div class="container clear-fix">
+      <img class="bgc_img one" width="100%" src="../../assets/MainMenu/椭圆形.svg" alt="">
+      <img class="bgc_img two" width="100%" src="../../assets/MainMenu/椭圆形.svg" alt="">
+      <img class="bgc_img three" width="100%" src="../../assets/MainMenu/椭圆形.svg" alt="">
+      <div>
+        <cube-slide :auto-play="false">
+          <cube-slide-item v-for="(item, index) in todos" :key="index" @click.native="clickHandler(item, index)">
+            <div style="display: flex;align-items: center;margin:0 16px 16px 10px"  >
+              <Icon svg-name="four" class-name="svg" style="margin-right: 16px" height="36px" width="36px" ></Icon>
+              <span style="font-size: 16px;color: #333333;font-weight: 500">访客预约</span>
+            </div>
+            <div style="padding: 0 10px">
+              <p class="who"><span>来访者：</span>{{ item.name }}</p>
+              <p class="which"><span>到访部门：</span>{{ item.position }}</p>
+              <p class="when"><span>来访时间：</span>{{ item.comeTime }}</p>
+            </div>
+            <Tag class="tag" >
+              待审批
+            </Tag>
+          </cube-slide-item>
+        </cube-slide>
+      </div>
+    </div>
+
   </MenuCard>
 </template>
 
@@ -52,23 +66,40 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+.container
+  position: relative;
+  padding 12px 20px 0
+  .bgc_img
+    position: absolute;
+    left 0
+  .one
+    top 0
+    z-index -3
+  .two
+    top  -6px
+    z-index -2
+  .three
+    top  -12px
+    z-index -1
 >>> .cube-slide-dots
+  position absolute
   span
-    height 6px
-    width 6px
+    left 50%
+    z-index  70
+    height 7px
+    width 7px
     border-radius 50%
     transition all .5s ease
     margin-left: 5px;
     margin-top 5px
-
+    background-color rgba(#0099FF,.2)
     &.active
-      transform scale(1.2)
-      background-color $custom-active-color
+      background-color rgba(#0099FF,1)
 
 >>> .cube-slide
   font-size 14px
   text-align left
-
+  padding-bottom 10px
   .cube-slide-group
     margin-bottom 25px
 
@@ -85,17 +116,29 @@ export default {
     border-left 1px solid rgba($custom-border-color, .3)
     border-right 1px solid rgba($custom-border-color, .3)
 
-  .who
-    font-size 16px
-
-  .which, .when
-    font-size 12px
-    margin-top 10px
-    color gray
+  .who,.which, .when
+    font-size 24px
+    -webkit-transform scale(.5)
+    -webkit-transform-origin-x: 0;
+    color:#000
+    text-align left
+    span
+      display inline-block
+      width 120px
+      font-size 20px
+      color:#999
+      text-align left
 
   .tag
-    border 1px solid $custom-active-color
+    border-radius 0
+    background-color #F5BA39
+    font-size 16.8px
+    -webkit-transform:scale(.5)
+    -webkit-transform-origin-x: 0;
+    height 14px
+    min-width 34px
+    line-height 14px
     position absolute
-    top 10px
-    right 10px
+    right -15px
+    top 7px
 </style>

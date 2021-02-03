@@ -1,7 +1,10 @@
 <template>
-  <div id='Nav_app'>
+  <div id='Nav_app' :style=" 'background-color:'+backgroundColor+';color:'+color">
     <i @click="back" v-if="showBack" class="icon cubeic-back"></i>
     <slot>{{ title }}</slot>
+    <div class="func">
+      <slot name="right"></slot>
+    </div>
   </div>
 </template>
 
@@ -14,6 +17,8 @@ export default {
       default:false
     },
     title:'',
+    backgroundColor:'',
+    color:''
   },
   methods:{
     back(){
@@ -21,7 +26,7 @@ export default {
           this.$router.push({name:'Login'})
         }
       if(this.$route.meta.leave === 2){
-        this.$router.push({name:'MainMenu'})
+        this.$router.push({name:'Home'})
       }
       if(this.$route.meta.leave === 3){
         this.$router.back()
@@ -39,13 +44,22 @@ export default {
     position:fixed
     width 100%
     top 0
-    color $color-regular-blue
-    background-color #fff
+    background-color transparent
     z-index 60
+    font-size: 16px;
+    font-family: PingFangSC-Medium, PingFang SC;
+    font-weight: 500;
+    color: #333333;
   .icon
     position:absolute
     left:0
-    margin 0 20px
+    margin-left 12px
+    height 20px
+    width 20px
+.func
+  position absolute
+  right 30px
+  top 0
 
 
 </style>

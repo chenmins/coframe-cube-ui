@@ -1,24 +1,10 @@
 <template>
   <div id="app"
   >
-    <div
-          :class="$route.meta.showNav?'scroll-list-wrap nav_height':'scroll-list-wrap'"
-    >
-      <div v-if="$route.meta.showNav" style="height: 60px;background-color:transparent;">
-        <Nav
-            :show-back="!!$route.meta.leave"
-            :title="$route.meta.name"
-            v-if="$route.meta.showNav"
-        ></Nav>
-      </div>
-      <cube-scroll
-          ref="scroll"
-      >
-        <transition name="slide-fade" >
-          <router-view/>
-        </transition>
-      </cube-scroll>
-    </div>
+    <transition name="slide-fade" >
+      <router-view/>
+    </transition>
+
     <div class="write" v-if="$route.meta.name==='需求反馈'" @click="Replay">
       写
     </div>
@@ -85,7 +71,7 @@
 }
 
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: PingFangSC-Medium, PingFang SC , Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -97,9 +83,7 @@
 #nav {
   padding: 30px;
 }
-.nav_height{
-  height: calc(100vh - 60px)
-}
+
 #nav a {
   font-weight: bold;
   color: #2c3e50;

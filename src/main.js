@@ -12,6 +12,8 @@ import Tag from "@/components/Tag";
 import LayOut from "@/components/LayOut";
 import store from './store'
 import Calendar from 'vue2-slot-calendar';
+import NavLayOut from "@/components/NavLayOut";
+import Icon from "@/components/Icon";
 
 import mock from "@/utils/mock/mock"; //mock数据的时候使用
 
@@ -35,6 +37,10 @@ Vue.component('List',List)
 Vue.component('Tag',Tag)
 Vue.component('LayOut',LayOut)
 Vue.component('Calendar',Calendar)
+Vue.component('NavLayOut',NavLayOut)
+Vue.component('Icon',Icon)
+
+
 
 Vue.mixin(Global)
 Vue.use(Switch);

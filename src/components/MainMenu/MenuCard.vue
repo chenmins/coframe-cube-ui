@@ -1,20 +1,15 @@
 <template>
   <div id="menu_card" @click="CardDetail">
-    <div class="title">
-      <div style="display: flex;align-items: center">
-        <img v-show="src"
-            height="25px"
-            width="25px"
-            :src="src"
-            alt="">
-        <span>{{name}}</span>
-      </div>
-      <div style="color: darkgray;font-size: 10px" v-show="!noAll">
-        <span @click="SeeAll" >查看全部</span>
-        <i class="cubeic-arrow"></i>
+    <div class="title" :style="'justify-content:'+justifyContent " @click="SeeAll">
+      <span :style="'font-size: 18px;color:'+titleColor ">{{ name }}</span>
+      <div v-show="!noAll " style="display: flex;align-items: center;">
+        <div v-show="allText" style="font-size: 10px;color: #999999">查看全部</div>
+        <i class="cubeic-arrow" style="font-size:10px;color: #999999;margin-left: 2px"></i>
       </div>
     </div>
-    <slot></slot>
+    <div class='content' :style="'background-color:'+bgcColor" :class="shadow?'shadow':''">
+      <slot></slot>
+    </div>
   </div>
 </template>
 
@@ -22,14 +17,15 @@
 
 export default {
   name: "MenuCard",
-  props:[
-      'name','src','noAll'
+  props: [
+    'name', 'src', 'noAll', 'justifyContent',
+    'allText', 'titleColor','shadow','bgcColor'
   ],
-  methods:{
-    SeeAll(){
+  methods: {
+    SeeAll() {
       this.$emit('SeeAll')
     },
-    CardDetail(){
+    CardDetail() {
       this.$emit('CardDetail')
     }
   }
@@ -38,20 +34,28 @@ export default {
 
 <style scoped lang="stylus">
 #menu_card
-  background-color #fff
-  border-radius 8px
-  margin 20px
-  padding 8px
+  margin 15px 12px
+  border-radius 10px
 
+  .content
+    background-color #fff
+    border-radius 10px
+  .shadow
+    box-shadow 0 3px 12px rgba($custom-shoaw-color, .06)
   .title
     display flex
+    color #fff
     flex-direction row
-    justify-content: space-between;
     align-items center
-    font-size 14px
-    padding-bottom 8px
-    border-bottom 1px solid rgba($custom-border-color, .2)
+    justify-content: space-between;
+    font-size 18px
+    line-height 25px
+    padding-bottom 15px
+    margin-left 14px
 
   img
     margin-right 5px
+
+  span
+    font-weight 600
 </style>

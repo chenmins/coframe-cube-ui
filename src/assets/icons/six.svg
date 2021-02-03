@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="44px" height="44px" viewBox="0 0 44 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 63 (92445) - https://sketch.com -->
+    <title>icon/工具/员工卡申请</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="100%" y1="100%" x2="-12.7261835%" y2="0%" id="linearGradient-1">
+            <stop stop-color="#63DD5A" offset="0%"></stop>
+            <stop stop-color="#75E5A6" offset="100%"></stop>
+            <stop stop-color="#75E5A6" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="99.6014569%" id="linearGradient-2">
+            <stop stop-color="#FFFFFF" offset="0%"></stop>
+            <stop stop-color="#E5FFE9" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-3">
+            <stop stop-color="#FFFFFF" stop-opacity="0" offset="0%"></stop>
+            <stop stop-color="#FFFFFF" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="icon/工具/员工卡申请" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="工作/icon/采购申请">
+            <path d="M4.14336123e-16,15.3833112 L-4.14336123e-16,28.6166888 C2.4074122e-16,33.9658012 0.556953667,35.9055187 1.60279622,37.8610742 C2.64863878,39.8166298 4.18337022,41.3513612 6.13892578,42.3972038 C8.09448133,43.4430463 10.0341988,44 15.3833112,44 L28.6166888,44 C33.9658012,44 35.9055187,43.4430463 37.8610742,42.3972038 C39.8166298,41.3513612 41.3513612,39.8166298 42.3972038,37.8610742 C43.4430463,35.9055187 44,33.9658012 44,28.6166888 L44,15.3833112 C44,10.0341988 43.4430463,8.09448133 42.3972038,6.13892578 C41.3513612,4.18337022 39.8166298,2.64863878 37.8610742,1.60279622 C35.9055187,0.556953667 33.9658012,-3.61111829e-16 28.6166888,6.21504185e-16 L15.3833112,-6.21504185e-16 C10.0341988,3.61111829e-16 8.09448133,0.556953667 6.13892578,1.60279622 C4.18337022,2.64863878 2.64863878,4.18337022 1.60279622,6.13892578 C0.556953667,8.09448133 -2.4074122e-16,10.0341988 4.14336123e-16,15.3833112 Z" id="Rectangle-" fill="url(#linearGradient-1)"></path>
+            <g id="Group-7" transform="translate(11.000000, 11.000000)">
+                <path d="M22,7 L22,20 C22,21.1045695 21.1045695,22 20,22 L2,22 C0.8954305,22 1.3527075e-16,21.1045695 0,20 L0,7 L22,7 Z M11,12 L3,12 L2.88337887,12.0067277 C2.38604019,12.0644928 2,12.4871642 2,13 C2,13.5522847 2.44771525,14 3,14 L3,14 L11,14 L11.1166211,13.9932723 C11.6139598,13.9355072 12,13.5128358 12,13 C12,12.4477153 11.5522847,12 11,12 L11,12 Z M20,0 C21.1045695,-2.02906125e-16 22,0.8954305 22,2 L22,5 L0,5 L0,2 C-1.3527075e-16,0.8954305 0.8954305,2.02906125e-16 2,0 L20,0 Z" id="形状结合" fill="url(#linearGradient-2)" fill-rule="nonzero"></path>
+                <circle id="椭圆形" fill="url(#linearGradient-3)" opacity="0.435849144" cx="21.5" cy="19.5" r="7.5"></circle>
+            </g>
+        </g>
+    </g>
+</svg>

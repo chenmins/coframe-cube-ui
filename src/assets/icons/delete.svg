@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 63 (92445) - https://sketch.com -->
+    <title>icon/删除</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="97.8318294%" y1="45.7679158%" x2="0%" y2="45.7679158%" id="linearGradient-1">
+            <stop stop-color="#EC1B34" offset="0%"></stop>
+            <stop stop-color="#FF2395" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="icon/删除" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <circle id="椭圆形" stroke="#FFFFFF" fill="url(#linearGradient-1)" cx="7" cy="7" r="7"></circle>
+        <line x1="3" y1="7" x2="11" y2="7" id="路径-10" stroke="#FFFFFF" stroke-linecap="round"></line>
+    </g>
+</svg>

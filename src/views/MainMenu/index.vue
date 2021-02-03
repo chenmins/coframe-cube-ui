@@ -1,23 +1,16 @@
 <template>
-
   <div id="main_menu">
-    <MyTools @SeeAll="$router.push({name:'AllTools'})"></MyTools>
-    <MyTodos @SeeAll="$router.push({name:'TodoLists'})"></MyTodos>
-    <MyApply ></MyApply>
-
-<!--    <ele-calendar-->
-<!--        :render-content="renderContent"-->
-<!--        :data="datedef"-->
-<!--        :prop="prop"-->
-<!--        :lunarcalendar="true"-->
-<!--    ></ele-calendar>-->
+    <NavLayOut color="#fff">
+      <img width="100%" class="bgc_img" src="../../assets/MainMenu/MainMenu2@2x.png" alt="">
+      <MyTools @SeeAll="$router.push({name:'AllTools'})"></MyTools>
+      <MyTodos @SeeAll="$router.push({name:'TodoLists'})"></MyTodos>
+      <MyApply ></MyApply>
+    </NavLayOut>
   </div>
 
 </template>
 
 <script>
-// import eleCalendar from 'ele-calendar'
-// import 'ele-calendar/dist/vue-calendar.css' //引入css
 import MyTools from "@/components/MainMenu/MyTools";
 import MyTodos from "@/components/MainMenu/MyTodo";
 import MyApply from "@/components/MainMenu/MyApply";
@@ -62,11 +55,13 @@ export default {
 <style scoped lang="stylus">
 
 #main_menu
-  background-color $my-bgc-color
-  height 100%
-  border 1px solid $my-bgc-color
+  background-color #fff
   position relative
   z-index 60
-
+  .bgc_img
+    position: absolute;
+    top -60px
+    left 0
+    z-index -1
 
 </style>

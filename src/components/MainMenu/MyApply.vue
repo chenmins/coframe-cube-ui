@@ -1,11 +1,17 @@
 <template>
   <MenuCard
-      src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__b141aa3d288cf15d74fffee487868c6e.svg"
-      name="我的申请" :noAll="true">
+      name="我的申请"
+      title-color="#000"
+      :all-text="true"
+      bgcColor="transparent"
+      >
     <ul class="container">
       <li v-for="item in applys">
-        <span>{{item.name}}</span>
-        <span>待审批{{item.status}}</span>
+        <Icon svg-name="four" style="height:31px;width:31px"></Icon>
+        <div class="box">
+          <span>{{item.name}}</span>
+          <Tag class="tag">待审批</Tag>
+        </div>
       </li>
     </ul>
   </MenuCard>
@@ -36,8 +42,25 @@ export default {
   li
     display flex
     flex-direction row
-    justify-content space-between
-    padding 10px 20px
+    height 32px
+    background-color rgb(244,249,254)
+    padding 16px
+    margin-bottom 6px
+    border-radius 6px
     font-size 14px
+  .box
+    margin-left 12px
+    display flex
+    flex-direction column
+  .tag
+    flex-shrink 0
+    border-radius 0
+    background-color #F5BA39
+    font-size 16.8px
+    -webkit-transform:scale(.5)
+    -webkit-transform-origin-x: 0;
+    height 14px
+    width 60px
+    line-height 14px
 
 </style>
