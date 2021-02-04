@@ -14,6 +14,7 @@
 import MyTools from "@/components/MainMenu/MyTools";
 import MyTodos from "@/components/MainMenu/MyTodo";
 import MyApply from "@/components/MainMenu/MyApply";
+import Vue from 'vue'
 
 export default {
   name: "index",
@@ -31,6 +32,10 @@ export default {
       // ],
       // prop:'date' //对应日期字段名
     }
+  },
+  mounted() {
+    console.log(window)
+    document.title = window.g.title
   },
   methods:{
     // renderContent(h,parmas) {

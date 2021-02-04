@@ -1,6 +1,6 @@
 import axios from 'axios'
 import router from '@/router'
-
+import Vue from 'vue'
 
 let NODE_ENV = process.env.NODE_ENV
 if(NODE_ENV === 'development'){
@@ -16,12 +16,14 @@ axios.defaults.timeout = 5000
 
 axios.interceptors.request.use(
 	request=>{
-		// if(localStorage.getItem('Token')){
-		// 	request.headers['Authorization'] =  localStorage.getItem('Token')
-		// }
-		// if(!localStorage.getItem('Token') && router.currentRoute.fullPath !== '/login'){
-		// 	router.replace('/login').then(()=>request)
-		// }
+		request.headers['X-EOS-SourceSysKey'] = Vue.config['X-EOS-SourceSysKey']
+
+		if(localStorage.getItem('Token')){
+			request.headers['Authorization'] =  localStorage.getItem('Token')
+		}
+		if(!localStorage.getItem('Token') && router.currentRoute.fullPath !== '/login'){
+			router.replace('/login').then(()=>request)
+		}
 	return request
 },
 	error=>
@@ -40,4 +42,4 @@ axios.interceptors.response.use(
 		return Promise.reject (error)
 	}
 )
-// export default axios
+export default axios

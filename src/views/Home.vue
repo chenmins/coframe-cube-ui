@@ -53,7 +53,7 @@ export default {
   },
   mounted(){
 
-    this.$axios.get('/api/users/menus').then(res=>{
+    this.$axios.get('/api/coframe/users/menus').then(res=>{
       let menusLeaveOne = res.data.filter(item=>item.level === 1)
       let menusLeaveTwo = res.data.filter(item=>item.level === 2)
       this.menus = menusLeaveOne.map(leaveOneItem=>{

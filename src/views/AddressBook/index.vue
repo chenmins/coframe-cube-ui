@@ -1,6 +1,6 @@
 <template>
   <div class="addressbox">
-    <NavLayOut bgc-color="#fff">
+    <NavLayOut bgc-color="#fff" color="#333">
       <Search v-show="! $route.meta.notShowInRouterView" :value="value" cancel="搜索" ></Search>
       <router-view></router-view>
     </NavLayOut>

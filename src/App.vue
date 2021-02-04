@@ -6,7 +6,7 @@
     </transition>
 
     <div class="write" v-if="$route.meta.name==='需求反馈'" @click="Replay">
-      写
+      <Icon class-name="write_svg" svg-name="edit" height="24px" width="24px"></Icon>
     </div>
   </div>
 </template>
@@ -45,20 +45,23 @@
 <style lang="stylus">
 
 .write
-  height 40px
-  width 40px
+  height 46px
+  width 46px
   position fixed
   z-index 60
   background-color #fff
   border-radius 50%
-  border 1px solid black
   bottom 90px
   right 40px
   font-size 14px
   line-height 42px
   text-align center
-  box-shadow 4px 4px 8px rgba(0,0,0,.6)
-
+  box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.15);
+  .write_svg
+    position absolute
+    top 50%
+    left 50%
+    transform translate(-50%,-50%)
 </style>
 
 <style>
@@ -71,7 +74,7 @@
 }
 
 #app {
-  font-family: PingFangSC-Medium, PingFang SC , Avenir, Helvetica, Arial, sans-serif;
+  font-family: PingFangSC-Medium, PingFang SC, Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

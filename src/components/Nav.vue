@@ -49,7 +49,7 @@ export default {
     font-size: 16px;
     font-family: PingFangSC-Medium, PingFang SC;
     font-weight: 500;
-    color: #333333;
+    color: #FFFFFF;
   .icon
     position:absolute
     left:0
@@ -58,9 +58,8 @@ export default {
     width 20px
 .func
   position absolute
-  right 30px
   top 0
-  margin-right: 20px;
+  right 0
 
 
 </style>

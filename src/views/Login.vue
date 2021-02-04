@@ -18,6 +18,7 @@ import axios from "axios";
 import {UserController} from "@/actions/controller";
 import {Demo} from "@/actions/controller";
 import BaseVue from "@/libs/BaseVue";
+import Vue from 'vue'
 
 export default{
   mixins:[BaseVue],
@@ -110,7 +111,7 @@ export default{
           "username":model.inputValue,
           "password":model.passwordValue
         }
-        this.$axios.post('/api/users/login',data).then(res=>{
+        this.$axios.post(  this.$config.login,data).then(res=>{
           localStorage.setItem('userInfo',JSON.stringify(res.data))
           localStorage.setItem('Token',res.data.token)
           setToken(res.data.token)

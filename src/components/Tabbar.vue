@@ -5,11 +5,8 @@
       @click="clickHandler"
       @change="changeHandler">
     <cube-tab v-for="(item, index) in tabs" :label="item.label" :key="item.label">
-      <!-- name为icon的插槽 -->
-<!--      <i slot="icon" :class="item.icon"></i>-->
-      <i style="font-size:20px;" slot="icon" :class="'iconfont '+item.icon  "></i>
-      <!-- 默认插槽 -->
-      <div style="font-size: 13px;margin-top: 5px">
+      <Icon :svg-name="item.icon" class-name="svg_icon"  slot="icon"  height="24px" width="24px" ></Icon>
+      <div style="margin-top: 5px;font-size: 10px;font-family: PingFangSC-Medium, PingFang SC;font-weight: 500;line-height: 14px;">
         {{item.label}}
       </div>
     </cube-tab>
@@ -25,17 +22,17 @@ export default {
       tabs: [{
         label: '常见问题',
         value:'question',
-        icon: 'iconquestion',
+        icon: 'helpcenter-question',
 
       }, {
         label: '产品介绍',
         value: 'productInc',
-        icon: 'iconproductInc'
+        icon: 'helpcenter-inc'
 
       },{
         label: '需求反馈',
         value: 'feedback',
-        icon: 'iconfeedback'
+        icon: 'helpcenter-edit'
 
       }]
     }
@@ -75,8 +72,16 @@ export default {
   background-color #fff
   height 70px
   z-index 50
-.icon
-  display block
+
+.svg_icon
+  filter: drop-shadow(#333 80px 0);
+  transform: translateX(-80px);
+.cube-tab
+  overflow:hidden;
 .cube-tab_active
   color $custom-active-color
+  .svg_icon
+    filter: drop-shadow($custom-active-color 80px 0);
+    transform: translateX(-80px);
+
 </style>

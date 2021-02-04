@@ -1,15 +1,16 @@
 <template>
   <div id="report-form">
-    <cube-form :model="model" @validate="validateHandler" @submit="submitHandler">
-      <cube-form-group v-for="(item,index) in question">
-        <h1>{{index+1}}、{{ item.legend }}</h1>
-        <cube-form-item :field="item.field"></cube-form-item>
-      </cube-form-group>
-
-      <cube-form-group>
-        <cube-button type="submit">Submit</cube-button>
-      </cube-form-group>
-    </cube-form>
+    <NavLayOut bgc-color="#fff">
+      <cube-form :model="model" @validate="validateHandler" @submit="submitHandler">
+        <cube-form-group v-for="(item,index) in question">
+          <h1>{{index+1}}、{{ item.legend }}</h1>
+          <cube-form-item :field="item.field"></cube-form-item>
+        </cube-form-group>
+        <cube-form-group >
+          <cube-button type="submit">Submit</cube-button>
+        </cube-form-group>
+      </cube-form>
+    </NavLayOut>
   </div>
 
 </template>
@@ -43,7 +44,7 @@ const PCA = {
       on: {
         click: this.showPicker
       }
-    }, this.selected.length ? this.selected.join(' ') : '点击选择城市')
+    }, this.selected.length ? this.selected.join(' ') : '请选择工作地区')
   },
   mounted() {
     this.picker = this.$createCascadePicker({
@@ -66,6 +67,25 @@ const PCA = {
 export default {
   data() {
     return {
+      selected4: '1',
+        options4: [
+      {
+        label: '1',
+        value: '1',
+        src: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516805611092&di=80d0f229dd999ffa3be79d6e317832b0&imgtype=0&src=http%3A%2F%2Fimglf0.ph.126.net%2F1EnYPI5Vzo2fCkyy2GsJKg%3D%3D%2F2829667940890114965.jpg'
+      },
+      {
+        label: '2',
+        value: '2',
+        src: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516805611092&di=80d0f229dd999ffa3be79d6e317832b0&imgtype=0&src=http%3A%2F%2Fimglf0.ph.126.net%2F1EnYPI5Vzo2fCkyy2GsJKg%3D%3D%2F2829667940890114965.jpg'
+      },
+      {
+        label: '3',
+        value: '3',
+        src: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516805611092&di=80d0f229dd999ffa3be79d6e317832b0&imgtype=0&src=http%3A%2F%2Fimglf0.ph.126.net%2F1EnYPI5Vzo2fCkyy2GsJKg%3D%3D%2F2829667940890114965.jpg',
+        disabled: true
+      }
+  ],
       validity: {},
       valid: undefined,
       model: {
@@ -114,6 +134,9 @@ export default {
           field: {
             component: PCA,
             modelKey: 'value1',
+            props:{
+              class:'pca'
+            },
             rules: {
               required: true
             },
@@ -129,7 +152,8 @@ export default {
             modelKey: 'value2',
             props: {
               options: ['是', '否'],
-              position:'right'
+              position:'left',
+              horizontal:"true",
             },
             rules: {
               required: true
@@ -143,7 +167,8 @@ export default {
             modelKey: 'value3',
             props: {
               options: ['是', '否'],
-              position:'right'
+              position:'left',
+              horizontal:"true"
             },
             rules: {
               required: true
@@ -157,7 +182,8 @@ export default {
             modelKey: 'value4',
             props: {
               options: ['是', '否'],
-              position:'right'
+              position:'left',
+              horizontal:"true"
             },
             rules: {
               required: true
@@ -171,7 +197,8 @@ export default {
             modelKey: 'value5',
             props: {
               options: ['是', '否'],
-              position:'right'
+              position:'left',
+              horizontal:"true"
             },
             rules: {
               required: true
@@ -207,9 +234,9 @@ export default {
   methods: {
     submitHandler(e,model) {
       e.preventDefault()
-      model.value6 = model.value6+'°C'
-      console.log(model)
-
+      let template = model.value6+'°C'
+      console.log(template)
+s
     },
     validateHandler(result) {
       this.validity = result.validity
@@ -225,8 +252,40 @@ export default {
 
 }
 </script>
+<style scoped>
+input[type="radio"]:checked + .advice{
+  background-image: url('https://www.baidu.com/img/PCfb_5bf082d29588c07f842ccde3f97243ea.png');
+}
 
-<style lang="stylus" rel="stylesheet/stylus" scoped>
+</style>
+<style lang="stylus"  scoped>
+>>>.cube-radio-ui i::before
+  display none
+>>>.cube-radio_selected .cube-radio-ui
+  background-color transparent
+  background-image url("../../assets/icons/selected.png")
+  background-size 100%
+
+>>>.cube-radio-label
+  font-size: 14px;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #000000;
+  line-height: 20px;
+  letter-spacing: 1px;
+>>>.cube-radio::after
+  border none
+>>>.pca
+  font-size: 14px;
+  font-family: PingFangSC-Regular, PingFang SC;
+  color: #CCCCCC;
+  line-height: 20px;
+  letter-spacing: 1px;
+  display flex
+  justify-content: space-between;
+  &:after
+    content '>'
+    display inline-block
 .form-custom
   .cube-form-item
     .cube-btn
@@ -238,22 +297,30 @@ export default {
       border: none
 
 .cube-form-group
-  margin 10px 0
   background-color: #fff;
   padding 0 10px
+  border-bottom 1px solid rgba(#000000,.1)
   h1
     margin 10px 10px 0
     text-align left
 .cube-form
   background-color $my-bgc-color
 >>>.cube-btn
-  bottom 60px
-  background-color $custom-active-color
-  border-radius 10px
+  margin-top 18px
+  height: 40px;
+  background: linear-gradient(90deg, #19E8FF 0%, #0F97FB 100%);
+  border-radius: 20px;
+  line-height 0
+  font-size: 14px
 
 >>>.cube-radio_selected .cube-radio-ui
   background-color $custom-active-color
 >>>.cube-validator-content
   font-size 18px
-
+>>>.cube-form-group-content
+  font-size: 14px;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #000000;
+  line-height: 20px;
 </style>

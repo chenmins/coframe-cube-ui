@@ -1,11 +1,11 @@
 <template>
   <div class="replay_box">
-              <span class="replay_username">
-                @管理员小张：
-              </span>
-    <p class="replay_content">
+    <span class="replay_username">
+      @管理员小张：
+    </span>
+    <span class="replay_content">
       你好，感谢您的建议，我们会在下个版本中改进意见，请您持续关注。
-    </p>
+    </span>
   </div>
 </template>
 
@@ -17,13 +17,23 @@ export default {
 
 <style scoped lang="stylus">
 .replay_box
-  background-color #efefef
-  margin 5px
+  background: #F7F7F7;
   padding 8px
 .replay_username
-  color rgb(234,164,81)
+  font-size: 13px;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #6F78C8;
+  line-height: 18px;
+  letter-spacing: 1px;
   display inline-block
-  margin-bottom 5px
+  margin-bottom 8px
+
 .replay_content
   padding-bottom 10px
+  font-size: 13px;
+  font-family: PingFangSC-Regular, PingFang SC;
+  color: #333333;
+  line-height: 18px;
+  letter-spacing: 1px;
 </style>
