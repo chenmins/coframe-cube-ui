@@ -42,6 +42,7 @@ export default [
                 meta:{
                     name:'个人信息',
                     tag:'AddressBook-Information',
+                    notShowInRouterView:true,
                     tabBarshow:false,
                     leave:3,
                     showNav:true

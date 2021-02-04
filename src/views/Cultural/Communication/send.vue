@@ -1,41 +1,48 @@
 <template>
   <div class="send_app">
-    <cube-textarea
-        class="textarea"
-        v-model="value"
-        :placeholder="placeholder"
-        :maxlength="maxlength"
-        :autofocus="autofocus"
-    ></cube-textarea>
-    <button class="submit">
-      发送
-    </button>
-      <cube-upload
-          ref="upload"
-          v-model="files"
-          :action="action"
-          @files-added="filesAdded"
-          @file-success="filesSuccess"
-          @file-removed="filesRemove"
-          @file-error="errHandler">
-        <div class="clear-fix">
-          <cube-upload-file v-for="(file, i) in files" :file="file" :key="i"></cube-upload-file>
-          <cube-upload-btn v-show="!hasNine">
-            <div>
-              <i>＋</i>
-              <p>照片/视频</p>
-            </div>
-          </cube-upload-btn>
-        </div>
-      </cube-upload>
+    <NavLayOut
+      bgc-color="#fff"
+
+    >
+      <template v-slot:right>
+        <button class="submit">
+          发表
+        </button>
+      </template>
+      <div class="container">
+        <cube-textarea
+            class="textarea"
+            v-model="value"
+            :placeholder="placeholder"
+            :maxlength="maxlength"
+            :autofocus="autofocus"
+        ></cube-textarea>
+        <cube-upload
+            ref="upload"
+            v-model="files"
+            :action="action"
+            @files-added="filesAdded"
+            @file-success="filesSuccess"
+            @file-removed="filesRemove"
+            @file-error="errHandler">
+          <div class="clear-fix">
+            <cube-upload-file v-for="(file, i) in files" :file="file" :key="i"></cube-upload-file>
+            <cube-upload-btn v-show="!hasNine">
+              <div>
+                <i>＋</i>
+                <p>照片/视频</p>
+              </div>
+            </cube-upload-btn>
+          </div>
+        </cube-upload>
+      </div>
+    </NavLayOut>
       <div class="footer">
         <div class="album" style="margin-right: 20px">
-          <img  height="30" src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__891aa655083eb08d3202bc3b5ae9cc5f.png" alt="">
-          <div>相册</div>
+          <Icon svg-name="addComment" style="margin-left:15px;height: 20px;width: 20px"></Icon>
         </div>
         <div class="topic_list" @click="topic" >
-          <img height="30" src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__9b02563e67c22e3b8cdae97b669d9bde.png" alt="">
-          <div>话题</div>
+          <div ># 打标签</div>
         </div>
       </div>
   </div>
@@ -47,7 +54,7 @@ name: "send",
   data() {
     return {
       value: '',
-      placeholder: '请输入内容',
+      placeholder: '选最棒的照片作为主图，帖子更容易被追捧~',
       maxlength: 300,
       autofocus: true,
       action: '//jsonplaceholder.typicode.com/photos/',
@@ -116,26 +123,35 @@ name: "send",
 <style scoped lang="stylus">
 .send_app
   height $custom-bgc-height
+  background-color #fff
+>>>.cube-textarea-wrapper::after
+  border none
 .submit
   position absolute
-  top 230px
-  right 0px
+  width 50px
+  top 30px
+  line-height 30px
+  border-radius 15px
+  font-size 14px
+  height 30px
   transform translate(-50%,-50%)
   background-color $custom-active-color
   color #fff
-  padding 3px 10px
   border none
   outline none
+.container
+  height 100%
 .textarea
   height 200px
 .cube-upload
+  border-bottom 1px solid rgba(#000000,.1)
   .clear-fix
     flex-wrap wrap
   .cube-upload-file, .cube-upload-btn
-    height: 80px
-    width 80px
+    float left
+    height: calc(100vw / 3 - 22px)
+    width calc(100vw / 3 - 22px)
     margin 10px
-    border 1px solid rgba(#333,.3)
   .cube-upload-file
     margin: 10px
     display flex
@@ -146,6 +162,8 @@ name: "send",
     .cubeic-wrong
       display: none
   .cube-upload-btn
+    border 1px solid rgba(#333,.3)
+
     flex-shrink 0
     display: flex
     align-items: center
@@ -170,10 +188,23 @@ name: "send",
 .clear-fix
   display flex
 .footer
+  background-color #fff
+  border-top 1px solid rgba(#000,.1)
+  width 100%
   display flex
+  justify-content space-between
+  height 40px
+  align-items center
   color $custom-gray
   font-size 14px
   position absolute
-  bottom 30px
-  left 20px
+  bottom 0
+  left 0
+  z-index 70
+  .topic_list
+    border 1px solid #333
+    font-size 12px
+    padding 4px 9px
+    border-radius 12.5px
+    margin 8px 14px
 </style>

@@ -6,9 +6,10 @@
       bgcColor="transparent"
       @SeeAll="SeeAll">
     <div class="container clear-fix">
-      <img class="bgc_img one" width="100%" src="../../assets/MainMenu/椭圆形.svg" alt="">
-      <img class="bgc_img two" width="100%" src="../../assets/MainMenu/椭圆形.svg" alt="">
-      <img class="bgc_img three" width="100%" src="../../assets/MainMenu/椭圆形.svg" alt="">
+      <Icon svg-name="oval" width="100%" height="100%" class-name="bgc_img one"></Icon>
+      <Icon svg-name="oval" width="100%" height="100%"  class-name="bgc_img two"></Icon>
+      <Icon svg-name="oval" width="100%" height="100%"  class-name="bgc_img three"></Icon>
+
       <div>
         <cube-slide :auto-play="false">
           <cube-slide-item v-for="(item, index) in todos" :key="index" @click.native="clickHandler(item, index)">

@@ -60,6 +60,7 @@ export default {
   position absolute
   right 30px
   top 0
+  margin-right: 20px;
 
 
 </style>

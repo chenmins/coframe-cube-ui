@@ -36,8 +36,8 @@ axios.interceptors.response.use(
 		return response
 	},
 	error=> {
-		router.replace('/login')
+		// router.replace('/login')
 		return Promise.reject (error)
 	}
 )
-export default axios
+// export default axios

@@ -1,8 +1,12 @@
 <template>
     <div id="TopicList">
         <div class="search" >
-            <input type="text" class="search_input" placeholder="# 话题、电影、书、歌曲、地点、股票">
+          <cube-input type="text" :clearable="true" placeholder="# 话题、电影、书、歌曲、地点、股票"></cube-input>
             <span @click="$router.back()">取消</span>
+          <div class="search_icon">
+            <div class="one"></div>
+            <div class="two"></div>
+          </div>
         </div>
         <div class="left-panel">
 <!--            <cube-scroll>-->
@@ -15,7 +19,7 @@
               <li v-for="(hero, index) in scrollData">
                 <img :src="hero.avatar" alt="">
                 <div class="topic_item">
-                  <div class="topic_name">#{{hero.name}}#</div>
+                  <div class="topic_name">#{{hero.name}}</div>
                   <div class="topic_num"><span>讨论：</span>12321</div>
                 </div>
               </li>
@@ -85,21 +89,26 @@ export default {
 <style scoped>
 >>>.cube-tab_active {
     background-color: #fff;
-    color: #000;
-    padding:15px 0;
+    color: #0099FF;
+    padding: 12px 42px 12px 17px;
+    line-height: 44px;
     position: relative;
+    font-size: 14px;
 }
->>>.cube-tab_active:after {
-    content:'';
-    position: absolute;
-    height: 30px;
-    width: 4px;
-    top: 50%;
-    left: 0;
-    transform: translateY(-50%);
-    z-index: 20;
-    background: rgb(244,128,0);
+>>>.cube-tab{
+  padding: 12px 42px 12px 17px;
 }
+/*>>>.cube-tab_active:after {*/
+/*    content:'';*/
+/*    position: absolute;*/
+/*    height: 30px;*/
+/*    width: 4px;*/
+/*    top: 50%;*/
+/*    left: 0;*/
+/*    transform: translateY(-50%);*/
+/*    z-index: 20;*/
+/*    background: rgb(244,128,0);*/
+/*}*/
 </style>
 
 <style lang="stylus" scoped>
@@ -120,15 +129,14 @@ export default {
 			font-size: 16px
 			background-color: #a74b00
 	.left-panel
-		position: absolute
-		top: 44px
-		left: 0
-		bottom: 0
-		width: 80px
-		background-color rgba($custom-border-color,.2)
+      position absolute
+      top 44px
+      left 0
+      bottom 0
+      width 115px
+      background-color #F5F6FA
 
-	.right-panel
-      height calc(100vh - 100px)
+.right-panel
       position: absolute
       top: 44px
       left: 80px
@@ -137,15 +145,14 @@ export default {
       background-color: #fff
       margin-left 10px
       li
-          height 61px
+          height 60px
           display: flex
           align-items: center
           background-color: #fff
           border-bottom 1px solid rgba($custom-border-color ,.2)
-
       img
-          width: 40px
-          margin: 0 10px
+          width: 33px
+          margin: 0 7px
           //border: 1px solid #ff9f38
           border-radius: 3px
         span
@@ -154,25 +161,45 @@ export default {
 
 .search
     display flex
-    padding 5px 20px
+    padding 5px 12px
     font-size 14px
     border-bottom 1px solid rgba($custom-border-color,.3)
     z-index 70
     position: relative;
     background-color: #fff;
+    .search_icon
+      position absolute
+      transform rotate(-45deg) translateY(-70%)
+      top 50%
+      left 28px
+      .one
+        height 10px
+        width 10px
+        border 1px solid #333
+        border-radius 50%
+      .two
+        height 5px
+        width 1px
+        background-color #333
+        position absolute
+        transform translateX(5px)
   span
         line-height 30px
-.search_input
-    height 30px
-    flex-grow 1
-    margin-right 10px
-    outline none
+>>>.cube-input
+  height 30px
+  flex-grow 1
+  margin-right 10px
+  outline none
+  border none
+  &::after
     border none
-    background-color rgba($custom-border-color,.2)
-    padding 0 10px
-
-    &::-webkit-input-placeholder
-        font-size 10px
+  input
+    padding-left 30px
+    background-color #F2F2F2
+    border-radius 15px
+    height 28px
+  input::-webkit-input-placeholder
+      font-size 10px
 
 
 .tabbar
@@ -182,11 +209,13 @@ export default {
   display flex
   flex-direction column
   text-align left
+  height 33px
   .topic_name
-    font-size 14px
-    margin-bottom 6px
+    font-size 13px
   .topic_num
-    font-size 10px
+    font-size 20px
+    -webkit-transform-origin-x: 0;
+    -webkit-transform: scale(0.5);
     color $custom-border-color
 
 </style>

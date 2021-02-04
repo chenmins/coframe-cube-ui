@@ -13,8 +13,7 @@
       <router-view></router-view>
     </SlideNav>
     <div class="send" @click="Send" v-if="$route.fullPath.includes('/Communication')">
-      <i style="font-size:20px;" class="'iconfont iconfeedback' "  ></i>
-      <span>发帖子</span>
+      <Icon svg-name="edit" style="height: 24px;width: 24px"></Icon>
     </div>
   </div>
 
@@ -78,17 +77,16 @@ export default {
 .slide_nav
   background-color: #fff;
 .send
-  border 1px solid $custom-active-color
-  padding 8px 20px
-  border-radius 20px
+  border-radius 50%
+  padding 10px
   color $custom-active-color
   font-size 16px
   position fixed
   z-index 20
   bottom 60px
   right 20px
-  background-color $my-bgc-color
-
+  background-color #fff
+  box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.15);
   .iconfont
     color $custom-active-color
 </style>

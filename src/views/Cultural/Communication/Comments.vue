@@ -1,42 +1,44 @@
 <template>
   <div class="comments_app">
-    <Card>
-      <template v-slot:card_topic>dsadasda</template>
-      <template v-slot:content>dsadsadnaskdasdasd</template>
-    </Card>
-    <div style="margin-top: 20px">
-      <div style="background-color:#fff;text-align: left;padding:15px">1000条评论</div>
-      <Card class="card" :isComment="true">
-        <template v-slot:card_topic>dsadasda</template>
+    <NavLayOut bgc-color="#fff" style="margin-bottom: 100px">
+      <Card>
         <template v-slot:content>dsadsadnaskdasdasd</template>
+        <template v-slot:card_topic>#dasdada</template>
       </Card>
-      <Card class="card" :isComment="true">
-        <template v-slot:card_topic>dsadasda</template>
-        <template v-slot:content>dsadsadnaskdasdasd</template>
-      </Card>
-      <Card class="card" :isComment="true">
-        <template v-slot:card_topic>dsadasda</template>
-        <template v-slot:content>dsadsadnaskdasdasd</template>
-      </Card>
-      <Card class="card" :isComment="true">
-        <template v-slot:card_topic>dsadasda</template>
-        <template v-slot:content>dsadsadnaskdasdasd</template>
-      </Card>
-      <Card class="card" :isComment="true">
-        <template v-slot:card_topic>dsadasda</template>
-        <template v-slot:content>dsadsadnaskdasdasd</template>
-      </Card>
-      <Card class="card" :isComment="true">
-        <template v-slot:card_topic>dsadasda</template>
-        <template v-slot:content>dsadsadnaskdasdasd</template>
-      </Card>
-    </div>
+      <div style="margin-top: 20px">
+        <div style="background-color:#fff;color:#999;font-size:15px;text-align: right;padding: 8px 20px">1000条评论</div>
+        <Card class="card" :isComment="true" >
+          <div slot="content" class="content">
+            dsadsadnaskdasdasd
+          </div>
+        </Card>
+        <Card class="card" :isComment="true">
+          <template v-slot:card_topic>dsadasda</template>
+          <template v-slot:content>dsadsadnaskdasdasd</template>
+        </Card>
+        <Card class="card" :isComment="true">
+          <template v-slot:card_topic>dsadasda</template>
+          <template v-slot:content>dsadsadnaskdasdasd</template>
+        </Card>
+        <Card class="card" :isComment="true">
+          <template v-slot:card_topic>dsadasda</template>
+          <template v-slot:content>dsadsadnaskdasdasd</template>
+        </Card>
+        <Card class="card" :isComment="true">
+          <template v-slot:card_topic>dsadasda</template>
+          <template v-slot:content>dsadsadnaskdasdasd</template>
+        </Card>
+        <Card class="card" :isComment="true">
+          <template v-slot:card_topic>dsadasda</template>
+          <template v-slot:content>dsadsadnaskdasdasd</template>
+        </Card>
+      </div>
+    </NavLayOut>
     <div class="go_comment">
       <cube-textarea v-model="value"
+                     class="inputarea"
                      :placeholder="placeholder"
-                     :maxlength="maxlength" style="flex-grow: 1;height: 90px"></cube-textarea>
-      <cube-button class="btn">发送</cube-button>
-
+                     :maxlength="maxlength" ></cube-textarea>
     </div>
   </div>
 </template>
@@ -54,7 +56,7 @@ export default {
   data(){
     return{
       value:'',
-      placeholder:'选最棒的照片作为主图，帖子更容易被追捧~',
+      placeholder:'请输入评论',
       maxlength:200,
       userTableData: [] // 定义需要的数据
     }
@@ -69,16 +71,33 @@ export default {
 
 .comments_app
   background-color $my-bgc-color
-  height 100%
-
+  position: relative;
+  height 100vh
 .card
   border-bottom 1px solid rgba($my-bgc-color, 1)
 
 .go_comment
   display flex
-  height 100px
   align-items center
-
+  position: fixed;
+  bottom 0
+  width 100%
+  z-index 65
+  background: #FFFFFF;
+  padding 15px 14px 13px 15px
+  box-shadow: 0px -1px 9px 0px rgba(0, 0, 0, 0.12);
+.inputarea
+  flex-grow 1
+  margin-right: 30px;
+  height 32px
+  background: #F5F6FA;
+  border-radius 32px
+  >>>textarea
+    background: #F5F6FA;
+    line-height: 15px;
+    border-radius 32px
+.cube-textarea-wrapper::after
+  border none
 .btn
   width 70px
   height 30px

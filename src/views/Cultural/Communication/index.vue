@@ -1,28 +1,41 @@
 <template>
 
   <div class="communication_app">
-
     <Common>
-      <div class="topic_title">热门话题</div>
-      <div class="topics">
-        <div class="topic" v-for="(topic,index) in topics">
-          <span>0{{index+1}}</span><div>{{ topic.topicTitle }}</div>
+      <div style="background-color:#fff">
+        <div class="topic_title">热门话题</div>
+        <div class="topics">
+          <div class="topic" v-for="(topic,index) in topics">
+            <span>0{{ index + 1 }}</span>
+            <div>{{ topic.topicTitle }}</div>
+          </div>
+          <div class="topic more" @click="$router.push({name:'话题列表'})">更多话题 ></div>
         </div>
-        <div class="topic more" @click="$router.push({name:'话题列表'})">更多话题 ></div>
       </div>
-      <SlideNav @changeHandle="changeHandle" headerClass='com_header' :center="true" show-slider
-                 :selected-label="selectedLabel" :tabs="tabs">
-        <div class="scroll-list-wrap">
-          <cube-scroll
-              ref="scroll">
-            <Card  :is-like="true" v-for="comment in comments" @checkComments="checkComments" @goComment="goComment"
-                   style="margin: 10px 10px 0;border-radius: 8px" >
+      <SlideNav @changeHandle="changeHandle"
+                headerClass='com_header'
+                :center="true" show-slider
+                :selected-label="selectedLabel" :tabs="tabs">
+<!--        <div class="scroll-list-wrap">-->
+<!--          <cube-scroll-->
+<!--              ref="scroll">-->
+            <Card :is-like="true" v-for="comment in comments" @checkComments="checkComments" @goComment="goComment"
+
+            >
               <template v-slot:username>{{ comment.username }}</template>
-              <template v-slot:card_topic>{{ comment.belongToTopic }}</template>
-              <template v-slot:content>{{ comment.content }}</template>
+              <template v-slot:content>
+                <div>
+                  {{ comment.content }}
+                  <img  width="100%" src="../../../assets/icons/news.png" alt="">
+                </div>
+
+              </template>
+              <template v-slot:card_topic>
+                #{{ comment.belongToTopic }}
+              </template>
             </Card>
-          </cube-scroll>
-        </div>
+<!--          </cube-scroll>-->
+<!--        </div>-->
 
 
       </SlideNav>
@@ -41,7 +54,7 @@ import Common from "@/views/Cultural/Common";
 export default {
   name: "index",
   components: {
-    SlideNav, Card,Common
+    SlideNav, Card, Common
   },
   data() {
     return {
@@ -69,8 +82,8 @@ export default {
     this.comments = this.$store.state.Cultural.comments
   },
   methods: {
-    goComment(e){
-      if(e.target.classList[0]==='card_topic') return
+    goComment(e) {
+      if (e.target.classList[0] === 'card_topic') return
       this.$router.push({name: '交流圈-评论详情', params: {id: 1}})
     },
     changeHandle(e) {
@@ -97,61 +110,74 @@ export default {
 </script>
 
 <style scoped lang="stylus">
-
+>>>.com_header
+  margin-top 20px
+  background-color: #fff;
+  margin-bottom 0
+  padding-top 10px
 .communication_app
-  margin 0 10px
+  overflow: scroll;
+  background-color $my-bgc-color
   .topic_title
-    margin  20px
+    margin 20px 20px 19px
     font-weight: 500;
     color: #000000;
     line-height: 22px;
     letter-spacing: 1px;
+
     &:before
       content '#'
       font-size 16px
 
+  .topics
+    display flex
+    flex-direction column
+    flex-wrap wrap
+    position relative
+    height 120px
+    margin -8px 20px 0
+    text-align center
+    align-content space-between
+
+    .topic
+      font-size 14px
+      margin 8px 0
+      display flex
+      flex-direction row
+      align-items center
+
+      span
+        font-size: 15px;
+        margin-right 6px
+        font-family: DINEngschrift-Alternate, DINEngschrift;
+        font-weight: normal;
+        color: #E82336;
+        line-height: 18px;
+        letter-spacing: 1px;
+
+    .more
+      font-size 14px
+      text-align center
+      display inline-block
+
+.mid
+  position absolute
+  height 80%
+  background-color $custom-border-color
+  width 1px
+  top 50%
+  left 50%
+  transform translate(-50%, -50%)
+
 .scroll-list-wrap
   height calc(100vh - 264px)
   margin-bottom 20px
->>>.cube-scroll-list-wrapper
+
+>>> .cube-scroll-list-wrapper
   padding-bottom 20px
-.topics
-  display flex
-  flex-direction column
-  flex-wrap wrap
-  position relative
-  height 120px
-  margin 0 20px
-  border-bottom 1px solid $custom-border-color
-  text-align center
-  align-content space-between
-  .topic
-    font-size 14px
-    margin 8px 0
-    display flex
-    flex-direction row
-    align-items center
-    span
-      font-size: 15px;
-      margin-right 6px
-      font-family: DINEngschrift-Alternate, DINEngschrift;
-      font-weight: normal;
-      color: #E82336;
-      line-height: 18px;
-      letter-spacing: 1px;
-
-  .more
-    font-size 14px
-
-  .mid
-    position absolute
-    height 80%
-    background-color $custom-border-color
-    width 1px
-    top 50%
-    left 50%
-    transform translate(-50%, -50%)
-
+>>>.cube-tab-bar
+  margin-left 10px
+  background-color transparent
 .communication_nav
   width 100%
   display flex

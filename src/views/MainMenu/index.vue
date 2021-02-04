@@ -1,7 +1,7 @@
 <template>
   <div id="main_menu">
     <NavLayOut color="#fff">
-      <img width="100%" class="bgc_img" src="../../assets/MainMenu/MainMenu2@2x.png" alt="">
+      <img width="100%" class="bgc_img" src="../../assets/icons/MainMenu2@2x.png" alt="">
       <MyTools @SeeAll="$router.push({name:'AllTools'})"></MyTools>
       <MyTodos @SeeAll="$router.push({name:'TodoLists'})"></MyTodos>
       <MyApply ></MyApply>

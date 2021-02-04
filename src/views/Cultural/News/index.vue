@@ -7,8 +7,12 @@
           <cube-scroll
               ref="scroll">
             <NoticeCard @read="read" class="content" v-for="notice in news">
+              <template v-slot:image>
+                <img style="margin-right: 16px" height="94px" width="94px" src="../../../assets/icons/news.png" alt="">
+              </template>
               <template v-slot:title>
-                {{ notice.title }}
+                  <Icon svg-name="hot" style="height: 15px;width: 15px"></Icon>
+                  {{ notice.title }}
               </template>
               <template v-slot:content>
                 {{ notice.title }}

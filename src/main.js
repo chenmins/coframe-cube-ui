@@ -3,7 +3,8 @@ import './cube-ui'
 import "@/libs/XgeneCloudOptions";
 import App from './App.vue'
 import router from './router'
-import axios from  './axios/index'
+// import axios from  './axios/index'
+import axios from "axios";
 import Nav from '@/components/Nav'
 import Tabbar from "@/components/Tabbar";
 import List from "@/components/List";
