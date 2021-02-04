@@ -129,6 +129,7 @@ name: "send",
 .submit
   position absolute
   width 50px
+  right 0
   top 30px
   line-height 30px
   border-radius 15px

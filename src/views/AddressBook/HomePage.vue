@@ -1,13 +1,13 @@
 <template>
   <div id="addressbook_homepage">
-    <List :show-title="true" title="行政服务平台" :data="listData" @goRouter="go">
+    <List :show-title="true" title="行政服务平台" :data="list" @goRouter="go">
       <template slot-scope="organization">
         <div style="display: flex;align-items: center;color: #0F1826">
           <Icon svg-name="addressbook-qr" style="height: 44px;width: 44px;margin-right: 8px"></Icon>
-          <span>{{ organization.scoped.title }}</span>
+          <span>{{ organization.scoped.name }}</span>
         </div>
         <div>
-          <span style="font-size: 14px;color: #ccc">50</span>
+          <span style="font-size: 14px;color: #ccc">{{ organization.scoped.totalElements }}</span>
           <i class="cubeic-arrow icon-arrow"></i>
         </div>
       </template>
@@ -38,38 +38,35 @@ export default {
     }
   },
   created() {
-    this.listData = this.$store.state.HelpCenter.listData
-    let store = this.$store
-    store.dispatch('AddressBook/allOr').then((res) => {
-      this.$nextTick(() => {
-        this.list = res
-        this.over = false
-      })
-    })
-
-    //   axios.get('/api/organizations/page-search').then(res=>{
-    //     this.midlist = res.data.content
-    //     this.getNum()
+    // this.listData = this.$store.state.HelpCenter.listData
+    // let store = this.$store
+    // store.dispatch('AddressBook/allOr').then((res) => {
+    //   this.$nextTick(() => {
+    //     this.list = res
+    //     this.over = false
     //   })
-  },
-  beforeRouteLeave(to,from,next){
-    to.meta.name = to.params.name
-    next()
+    // })
+
+      axios.get('/api/coframe/organizations/page-search').then(res=>{
+        console.log(res.data.content)
+        this.midlist = res.data.content
+        this.getNum()
+      })
   },
   methods: {
     go(e) {
       this.$router.push({name:'Staff',params:{id:e.id,name:e.title}})
     },
     getNum() {
-      // for (let i = 0; i < this.midlist.length; i++) {
-      //   axios.get(`/api/organizations/${this.midlist[i].id}/employees`).then(res => {
-      //     this.midlist[i].totalElements = res.data.content.length
-      //     setTimeout(() => {
-      //       this.list = this.midlist
-      //       this.over = false
-      //     }, 500)
-      //   })
-      // }
+      for (let i = 0; i < this.midlist.length; i++) {
+        axios.get(`/api/coframe/organizations/${this.midlist[i].id}/employees`).then(res => {
+          this.midlist[i].totalElements = res.data.content.length
+          setTimeout(() => {
+            this.list = this.midlist
+            this.over = false
+          }, 500)
+        })
+      }
     }
   },
 

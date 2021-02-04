@@ -9,21 +9,9 @@
           <div class="position_name">{{employees.scoped.code}}</div>
         </div>
       </div>
-
     </template>
   </List>
-<!--    <ListLayout :height="80" :list-data="employees">-->
-<!--      <template slot-scope="employees">-->
-<!--        <div class="staff_container">-->
-<!--          <img height="50" class="avatar" src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__b8db0dfecbb9de7a7edcb0266985f8ba.png" alt="">-->
-<!--          <div class="right">-->
-<!--            <div class="username">{{employees.item.name}}</div>-->
-<!--            <div class="position_name">{{employees.item.code}}</div>-->
-<!--          </div>-->
-<!--        </div>-->
 
-<!--      </template>-->
-<!--  </ListLayout>-->
 
   <footer>
     共{{employees.length}}人
@@ -42,30 +30,31 @@ name: "Staff",
   data(){
     return{
       employees:[
-        {
-          name:'32131',
-          code:1
-        },
-        {
-          name:'32131',
-          code:1
-        },
-        {
-          name:'32131',
-          code:1
-        },
+        // {
+        //   name:'32131',
+        //   code:1
+        // },
+        // {
+        //   name:'32131',
+        //   code:1
+        // },
+        // {
+        //   name:'32131',
+        //   code:1
+        // },
       ]
     }
   },
 
   created() {
 
-    // axios.get(`/api/organizations/${this.$route.params.id}/employees`).then(res=>{
-    //   this.employees = res.data.content
-    // })
+    axios.get(`/api/coframe/organizations/${this.$route.params.id}/employees`).then(res=>{
+      this.employees = res.data.content
+    })
   },
   methods:{
     go(e){
+      this.$store.commit('setEposition',{name:e.name,id:e.id})
       this.$router.push({name:'Information',params:{id:e.id,name:e.name}})
     }
   }

@@ -1,13 +1,8 @@
 
 <template>
   <div id="index">
-    <div class="scroll-list-wrap">
-      <cube-scroll
-          ref="scroll"
-          >
-        <router-view></router-view>
-      </cube-scroll>
-    </div>
+
+    <router-view></router-view>
     <footer>
       <a :class="$route.meta.tag.includes('Guest')?'active':''" @click="$router.push({name:'Guest'})">访客预约</a>
       <a :class="$route.meta.tag.includes('Approve')?'active':''" @click="$router.push({name:'Approve'})">
@@ -28,6 +23,7 @@ export default {
 .scroll-list-wrap
   height $custom-bgc-height
 #index
+
   main
     .notice
       line-height 20px
@@ -70,7 +66,6 @@ export default {
 
 .add-group
   border-bottom 1px solid rgba($custom-border-color, .1)
-
   & >>> .cube-form-group-legend
     height 40px
     line-height 40px

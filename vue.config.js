@@ -2,9 +2,17 @@
  vue.config配置 https://cli.vuejs.org/zh/config/#%E5%85%A8%E5%B1%80-cli-%E9%85%8D%E7%BD%AE
 */
 const path = require('path')
-
+const GenerateAssetPlugin = require('generate-asset-webpack-plugin');
+const config = require('./config/app-config.json');
 function resolve(dir) {
   return path.join(__dirname, dir)
+}
+function createServerConfig(compilation){
+  return JSON.stringify(
+      Object.assign({
+        _hash: compilation.hash
+      },config)
+  )
 }
 
 module.exports = {
@@ -31,7 +39,15 @@ module.exports = {
         '@static': resolve('/static'),
         '@controller': resolve('/src/actions/controller.js'),
       }
-    }
+    },
+    plugins:[
+      new GenerateAssetPlugin({
+        filename: 'config/app-config.json',
+        fn: (compilation, cb) => {
+          cb(null, createServerConfig(compilation));
+        }
+      })
+    ]
   },
   chainWebpack: config => {
     const dir = path.resolve(__dirname, 'src/assets/icons')
@@ -68,26 +84,26 @@ module.exports = {
     open: true, //配置自动启动浏览器
     proxy: {
       "/api": { //是否使用代理标识,/api开头的才用代理
-        target: "http://39.105.213.176/api",
+        target: "http://c94.cn:3003/api/",
         ws: false,// 启用websockets
         changeOrigin: true, //跨域
         pathRewrite: {
           '^/api': '' // 将/api开头的请求地址的/api替换为''
         },
       },
-      "/api/platform": { //是否使用代理标识,/api开头的才用代理
-        target: "http://39.105.213.176:8080/api",
-        ws: false,// 启用websockets
-        changeOrigin: true, //跨域
-      },
-      "/health": { //是否使用代理标识,
-        target: "http://localhost:8080/health",
-        ws: false,// 启用websockets
-        changeOrigin: true, //跨
-        pathRewrite: {
-          '^/health': ''
-        },
-      },
+      // "/api/platform": { //是否使用代理标识,/api开头的才用代理
+      //   target: "http://39.105.213.176:8080/api",
+      //   ws: false,// 启用websockets
+      //   changeOrigin: true, //跨域
+      // },
+      // "/health": { //是否使用代理标识,
+      //   target: "http://localhost:8080/health",
+      //   ws: false,// 启用websockets
+      //   changeOrigin: true, //跨
+      //   pathRewrite: {
+      //     '^/health': ''
+      //   },
+      // },
     }
   },
   css: {

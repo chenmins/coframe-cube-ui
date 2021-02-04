@@ -16,6 +16,8 @@ let get = function (url) {
   })
 }
 
+
+
 export default async (vue) => {
   if(!vue.config.login_type){
     let resp =  await get('/config/app-config.json')
@@ -25,6 +27,13 @@ export default async (vue) => {
       vue.config.title = resp.title || ''
       vue.config.shortTitle = resp.shortTitle || ''
       vue.config.platformRoleTmpId = resp.platformRoleTmpId || ''
+      vue.config.coframe = resp.coframe || ''
+      vue.config['X-EOS-SourceSysKey'] = resp['X-EOS-SourceSysKey'] || ''
+      vue.config.login = resp.login || ''
     }
   }
 }
+// "coframe": "/api/coframe",
+//     "X-EOS-SourceSysKey": "bf5a8edbe6134dfc9887df631007ef7a",
+//     "login": "/api/coframe/users/login"
+// }

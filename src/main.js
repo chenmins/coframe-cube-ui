@@ -3,8 +3,7 @@ import './cube-ui'
 import "@/libs/XgeneCloudOptions";
 import App from './App.vue'
 import router from './router'
-// import axios from  './axios/index'
-import axios from "axios";
+import axios from  './axios/index'
 import Nav from '@/components/Nav'
 import Tabbar from "@/components/Tabbar";
 import List from "@/components/List";
@@ -15,6 +14,7 @@ import store from './store'
 import Calendar from 'vue2-slot-calendar';
 import NavLayOut from "@/components/NavLayOut";
 import Icon from "@/components/Icon";
+import ReadConfig from './utils/config'
 
 import mock from "@/utils/mock/mock"; //mock数据的时候使用
 
@@ -32,6 +32,13 @@ Vue.config.productionTip = false
 Vue.prototype.$axios = axios
 Vue.prototype.$dayjs = dayjs
 
+Vue.config.silent = true
+Vue.config.productionTip = false
+Vue.config.sys_error_show = true
+Vue.config.lang = 'zh_CN'
+
+
+
 Vue.component('Nav',Nav)
 Vue.component('Tabbar',Tabbar)
 Vue.component('List',List)
@@ -45,8 +52,21 @@ Vue.component('Icon',Icon)
 
 Vue.mixin(Global)
 Vue.use(Switch);
-new Vue({
-  router,
-  store,
-  render: h => h(App)
-}).$mount('#app')
+
+
+const create = async () => {
+  await ReadConfig(Vue)
+  new Vue({
+    router,
+    store,
+    render: h => h(App)
+  }).$mount('#app')
+}
+create()
+Vue.prototype.$config = Vue.config
+
+// new Vue({
+//   router,
+//   store,
+//   render: h => h(App)
+// }).$mount('#app')

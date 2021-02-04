@@ -11,15 +11,7 @@
       <ReplayBox></ReplayBox>
     </template>
   </CommentBox>
-  <div class="replay">
-    <cube-textarea
-        class="replay_textarea"
-        v-model="value"
-        :placeholder="placeholder"
-        :maxlength="maxlength"
-    ></cube-textarea>
-    <button class="submit">发送</button>
-  </div>
+
 
 </div>
 </template>
@@ -49,18 +41,9 @@ export default {
   position relative
   background-color #efefef
 
-.replay
-  display flex
-  margin-top -20px
-.replay
-  display flex
-  align-items center
-  .replay_textarea
-    display inline-block
-    height 70px
-    bottom 0
-    flex 1
-  .submit
+
+
+.submit
     height 30px
     margin 0 20px
     background-color rgb(23	,134,	255)

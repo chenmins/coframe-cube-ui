@@ -1,51 +1,59 @@
 <template>
   <div id="Guest">
-    <main>
-      <cube-scroll
-          ref="scroll"
-      >
-        <!--   :field="fields[1]" -->
-        <cube-form :model="model"
-                   :schema="schema"
-                   @submit="submitHandler"
+    <NavLayOut color="#fff" >
+      <main>
+        <cube-scroll
+            ref="scroll"
         >
-          <cube-form-group>
-            <cube-form-item :field="form[0]">
-              <div class="time-show" @click="showTimePicker">{{ model.time || form[0].props.placeholder }}</div>
-            </cube-form-item>
-            <cube-form-item :field="form[1]">
-              <div @click="showPicker('来访人数',maxPeople)">{{ model.peopleNum || form[1].props.placeholder }}</div>
-            </cube-form-item>
-          </cube-form-group>
+          <!--   :field="fields[1]" -->
+          <cube-form :model="model"
+                     :schema="schema"
+                     :options="{layout:'classic'}"
+                     @submit="submitHandler"
+                     class="form-control"
+          >
+            <cube-form-group>
+              <cube-form-item :field="form[0]">
+                <div class="time-show" @click="showTimePicker">{{ model.time || form[0].props.placeholder }}
+                <i class="cubeic-arrow" style="float: right;margin-right: 16px"></i>
+                </div>
+              </cube-form-item>
+              <cube-form-item :field="form[1]">
+                <div @click="showPicker('来访人数',maxPeople)">{{ model.peopleNum || form[1].props.placeholder }}
+                <span style="float:right;margin-right: 16px">人</span>
+                </div>
+              </cube-form-item>
+            </cube-form-group>
 
-          <cube-form-group class="add-group" v-for="(i,index) in schema.groups" :legend="i.legend"
-                           :fields="i.fields">
-          </cube-form-group>
+            <cube-form-group class="add-group" v-for="(i,index) in schema.groups" :legend="i.legend"
+                             :fields="i.fields">
+            </cube-form-group>
 
-          <cube-form-group>
-            <cube-form-item :field="form[2]">
-            </cube-form-item>
-            <cube-form-item :field="form[3]">
-              <div @click="showPicker('来访区域',column1)">{{ model.to || form[3].label }}</div>
-            </cube-form-item>
-            <cube-form-item :field="form[4]">
-            </cube-form-item>
-          </cube-form-group>
+            <cube-form-group>
+              <cube-form-item :field="form[2]">
+              </cube-form-item>
+              <cube-form-item :field="form[3]">
+                <div @click="showPicker('来访区域',column1)">{{ model.to || form[3].label }}</div>
+              </cube-form-item>
+              <cube-form-item :field="form[4]">
+              </cube-form-item>
+            </cube-form-group>
 
-          <cube-form-group>
-            <cube-button type="submit">提交</cube-button>
-          </cube-form-group>
+            <cube-form-group>
+              <cube-button type="submit">提交</cube-button>
+            </cube-form-group>
 
-        </cube-form>
-        <ul  class="notice">
-          <li>请配合职场做好防控工作，保障职场安全；</li>
-          <li>预约成功后会自动发送短信，请与访客确认查收；</li>
-          <li>访客需凭短信到园区门卫、前台处核验通行；</li>
-          <li>请勿将预约码发送给送餐、推销等与业务无关人员。</li>
-        </ul>
-      </cube-scroll>
-    </main>
+          </cube-form>
+          <ul  class="notice">
+            <li>请配合职场做好防控工作，保障职场安全；</li>
+            <li>预约成功后会自动发送短信，请与访客确认查收；</li>
+            <li>访客需凭短信到园区门卫、前台处核验通行；</li>
+            <li>请勿将预约码发送给送餐、推销等与业务无关人员。</li>
+          </ul>
+        </cube-scroll>
+      </main>
 
+    </NavLayOut>
   </div>
 </template>
 
@@ -75,7 +83,7 @@ export default {
           modelKey: 'time',
           label: '来访时间',
           props: {
-            placeholder: '请选择'
+            placeholder: '请选择',
           },
           rules: {
             required: true
@@ -87,6 +95,7 @@ export default {
           label: '来访人数',
           props: {
             placeholder: '请选择来访人数'
+
           },
           rules: {
             required: true
@@ -310,7 +319,6 @@ export default {
       }
     },
   },
-
   watch: {
     'model.peopleNum': {
       immediate: true,
@@ -332,10 +340,13 @@ export default {
 
 <style scoped lang="stylus">
 #Guest
-  background-color $my-bgc-color
-  height $viewpoint-height
+  height: 154px;
+  background: linear-gradient(119deg, #19D8FF 0%, #0F97FB 100%);
+  position: relative;
   main
+    margin 20px 13px 0
     height 100%
+    background-color red
     .notice
       line-height 20px
       text-align left
@@ -345,22 +356,46 @@ export default {
       li
         list-style decimal
         margin-left 20px
-
+>>>.cube-validator-content
+  text-align left
+  font-size: 14px;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #CCCCCC;
+  line-height: 20px;
+  letter-spacing: 1px;
+>>>.cube-input::after,>>>.cube-radio-group[data-horz="true"]::after, .cube-radio-group[data-col="true"]::after,>>>.border-right-1px::after
+  border none
+.form-control
+  background-color $my-bgc-color
+>>>.cube-form_classic .cube-form-item
+  background-color #fff
+  padding 10px
+>>>.cube-input-field
+  padding 10px
+  height 10px
 >>> .cube-form-label
-  font-size 12px
-  color $custom-gray
-
+  font-size: 14px;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #000000;
+  line-height: 20px;
 >>> .border-bottom-1px
   border-bottom 1px solid rgba($custom-border-color, .1)
 
 .add-group
   border-bottom 1px solid rgba($custom-border-color, .1)
+  margin-top 12px
 
   & >>> .cube-form-group-legend
-    height 40px
-    line-height 40px
-    padding 0 10px
-
+    text-align left
+    padding 20px
+    background-color #fff
+    font-size: 18px;
+    font-family: PingFangSC-Medium, PingFang SC;
+    font-weight: 500;
+    color: #000000;
+    line-height: 25px;
 >>> .cube-radio_selected .cube-radio-ui
   background-color $custom-active-color
 
