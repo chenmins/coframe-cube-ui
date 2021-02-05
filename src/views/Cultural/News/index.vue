@@ -87,6 +87,10 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+>>>.cube-tab,.tab_item
+  color #000!important
+>>> .cube-tab_active
+  color #fff!important
 #New_card
   display flex
   padding-bottom 10px

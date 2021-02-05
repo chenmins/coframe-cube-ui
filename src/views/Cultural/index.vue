@@ -52,6 +52,7 @@ export default {
 }
 </script>
 <style lang="stylus" scoped>
+
 #cultural_app
   height 100%
   padding-top -100px

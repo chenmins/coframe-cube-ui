@@ -9,22 +9,22 @@
       </span>
       </div>
       <div class="func_arae">
-        <div class="func loss" @click="lossStatus('loss')">
-          <div>
-            <div>挂失</div>
-            <div>员工卡</div>
+        <div class="func loss"  @click="showToastTime('挂失成功')">
+          <div class="text">
+            <div style="font-size: 18px;margin-bottom: 10px">挂失</div>
+            <div style="font-size: 12px">员工卡</div>
           </div>
         </div>
-        <div class="func dismiss"  @click="lossStatus('removeloss')">
-            <div>
-              <div>解除</div>
-              <div>员工卡</div>
+        <div class="func dismiss"   @click="showToastTime('解除成功')">
+            <div class="text">
+              <div  style="font-size: 18px;margin-bottom: 10px">解除</div>
+              <div  style="font-size: 12px">员工卡</div>
             </div>
         </div>
       </div>
-      <footer>
+      <div class="footer">
         注：挂失后员工卡为冻结状态且不可使用，如已找到可以解除挂失，回复启用状态。否则可以申请补卡。
-      </footer>
+      </div>
     </LayOut>
   </NavLayOut>
   </div>
@@ -36,6 +36,24 @@ import {Dialog} from 'vant'
 export default {
   name: "Loss",
   methods: {
+    showToastTime(text) {
+      const toast = this.$createToast({
+        time: 1000,
+        type:'txt',
+        txt: text
+      })
+      toast.show()
+    },
+    showToastTime0() {
+      const toast = this.$createToast({
+        time: 0,
+        txt: 'Toast time 0'
+      })
+      toast.show()
+      setTimeout(() => {
+        toast.hide()
+      }, 2000)
+    },
     lossStatus(type) {
       Dialog.confirm({
         title: '',
@@ -59,6 +77,7 @@ export default {
   height 100vh
   background-color #fff
   .card
+    position relative
     background: #FFFFFF;
     box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.11);
     border-radius: 12px;
@@ -75,13 +94,32 @@ export default {
         line-height: 17px;
     .func_arae
       display flex
+      justify-content: space-evenly;
       .func
         width: 130px;
         height: 130px;
         border-radius: 12px;
+        position relative
+        .text
+          position: absolute;
+          top 50%
+          left 50%
+          transform translate(-50%,-50%)
       .loss
+        color #E38117
         background: linear-gradient(180deg, #FFFBF7 0%, #FEEFDF 100%);
-
+      .dismiss
+        color #ED2C54
+        background: linear-gradient(175deg, #FFFBFC 0%, #FFEAEA 100%);
+    .footer
+      font-size: 12px;
+      font-family: PingFangSC-Regular, PingFang SC;
+      color: #999999;
+      line-height: 20px;
+      position absolute
+      bottom 20px
+      text-align left
+      padding 18px 20px
   h1
     font-size: 18px;
     font-family: PingFangSC-Semibold, PingFang SC;

@@ -110,6 +110,10 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+>>>.cube-tab,.tab_item
+  color #000!important
+>>> .cube-tab_active
+  color #fff!important
 >>>.com_header
   margin-top 20px
   background-color: #fff;
