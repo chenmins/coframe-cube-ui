@@ -7,6 +7,7 @@ server {
     #access_log  /var/log/nginx/host.access.log  main;
 
     gzip on;
+    gzip_static on;
     gzip_min_length 1k;
     gzip_comp_level 9;
     gzip_types text/plain application/javascript application/x-javascript text/css application/xml text/javascript application/x-httpd-php image/jpeg image/gif image/png;
