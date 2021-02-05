@@ -161,7 +161,6 @@ export default {
   margin-top 15px
 #Reserve
   background-color #F5F6FA
-
   .top_fixed
     position fixed
     width 100%
