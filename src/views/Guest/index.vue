@@ -3,27 +3,55 @@
   <div id="index">
 
     <router-view></router-view>
-    <footer>
-      <a :class="$route.meta.tag.includes('Guest')?'active':''" @click="$router.push({name:'Guest'})">访客预约</a>
-      <a :class="$route.meta.tag.includes('Approve')?'active':''" @click="$router.push({name:'Approve'})">
-        我的审批
-      </a>
-      <a :class="$route.meta.tag.includes('Reserve')?'active':''" @click="$router.push({name:'Reserve'})">我的预约</a>
-    </footer>
+
+    <Tabbar v-show="$route.meta.showTabbar" :tabs="tabs" :tabMap="tabMap"></Tabbar>
+
+<!--    <footer>-->
+<!--      <a :class="$route.meta.tag.includes('Guest')?'active':''" @click="$router.push({name:'Guest'})">访客预约</a>-->
+<!--      <a :class="$route.meta.tag.includes('Approve')?'active':''" @click="$router.push({name:'Approve'})">-->
+<!--        我的审批-->
+<!--      </a>-->
+<!--      <a :class="$route.meta.tag.includes('Reserve')?'active':''" @click="$router.push({name:'Reserve'})">我的预约</a>-->
+<!--    </footer>-->
   </div>
 </template>
 
 <script>
+
 export default {
-  name: "Guest"
+  name: "Guest",
+  data(){
+    return{
+      tabMap:{
+        '访客预约': 'Guest',
+        '我的审批': 'Approve',
+        '我的预约': 'Reserve',
+      },
+      tabs: [
+        {
+          label: '访客预约',
+          icon: 'guest-',
+
+        }, {
+          label: '我的审批',
+          icon: 'guest-shenpi'
+
+        },{
+          label: '我的预约',
+          icon: 'guest-yuyue'
+
+        }]
+    }
+  }
+
 }
 </script>
 
 <style scoped lang="stylus">
+
 .scroll-list-wrap
   height $custom-bgc-height
 #index
-
   main
     .notice
       line-height 20px

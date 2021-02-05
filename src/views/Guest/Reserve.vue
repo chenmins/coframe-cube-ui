@@ -1,28 +1,42 @@
 <template>
   <div id="Reserve" style="margin-bottom: 80px">
-    <Search placeholder="搜索访客姓名" :value="value"></Search>
-
-    <LayOut class="func">
-      <span>审批状态</span>
-      <span @click="showPicker">到访日期</span>
-    </LayOut>
-
-    <!--    @CardDetail-->
-
-    <MenuCard v-for="reserve in reserves" @CardDetail="ThisReserve" class="card" name="我的申请" :noAll="true" style="padding: 15px">
-      <div class="content">
-        <p>到访时间：<span v-for="i in reserve.name">{{i}}，</span></p>
-        <p>到访部门：<span v-for="i in reserve.where">{{i}}，</span></p>
-        <p>来访姓名：{{reserve.time}}</p>
+      <div class="top_fixed">
+        <Search class="search" style="border-bottom: none;" placeholder="搜索访客姓名" :value="value"></Search>
+        <LayOut class="func">
+          <span  @click="showDefault">审批状态
+          <i class="cubeic-select"></i>
+          </span>
+          <span @click="showPicker">到访日期
+          <i class="cubeic-select"></i>
+          </span>
+        </LayOut>
       </div>
-      <Tag color="#fff" class="tag" :background-color="reserve.approved?'#42b983':'#000'">{{ !reserve.approved?'待审批':'已完成' }}</Tag>
-    </MenuCard>
+      <NavLayOut bgc-color="#fff" style="padding-top: 80px;">
+        <!--    @CardDetail-->
+            <div id="card"  v-for="reserve in reserves">
+              <div class="title">
+                <div class="dot"></div>
+                <span>易烊千玺的访客预约</span>
+              </div>
+              <div class="content">
+                <p><span class="titou">到访时间 </span> <span v-for="i in reserve.name">{{ i }}，</span></p>
+                <p><span class="titou">到访部门 </span>  <span v-for="i in reserve.where">{{ i }}，</span></p>
+                <p><span class="titou">来访姓名 </span> {{ reserve.time }}</p>
+              </div>
+              <Tag color="#fff" class="tag" :background-color="reserve.approved?'#42b983':'#000'">
+                {{ !reserve.approved ? '待审批' : '已完成' }}
+              </Tag>
+            </div>
 
+        <div slot="right" class="right">
+          <Icon svg-name="guest-qr" height="20px" width="20px" class-name="svg_position"></Icon>
+        </div>
+      </NavLayOut>
   </div>
 </template>
 
 <script>
-import Search from "@/components/Search";
+import Search from "@/components/UI/Search";
 import MenuCard from "@/components/MainMenu/MenuCard";
 
 export default {
@@ -53,7 +67,7 @@ export default {
     showPicker() {
       if (!this.picker) {
         this.picker = this.$createPicker({
-          title: 'Picker',
+          title: '',
           data: [this.pickerData],
           onSelect: this.selectHandle,
           onCancel: this.cancelHandle
@@ -63,39 +77,109 @@ export default {
     },
     selectHandle(selectedVal, selectedIndex, selectedText) {
 
+    },
+    showDefault() {
+        this.$createActionSheet({
+          title: '',
+          pickerStyle: true,
+          data: [
+            {
+              content: '已完成',
+              class:'complete action'
+            },
+            {
+              content: '审批中',
+              class:'approving action'
+            },
+            {
+              content: '已拒绝 ',
+              class:'not action'
+            }
+          ],
+          onSelect: (item, index) => {
+            this.$createToast({
+              txt: `Clicked ${item.content}`,
+              type: 'correct',
+              time: 1000
+            }).show()
+          },
+          onCancel: () => {
+            this.$createToast({
+              txt: `Clicked canceled`,
+              type: 'warn',
+              time: 1000
+            }).show()
+          }
+        }).show()
     }
   }
 }
 </script>
-
+>
 <style scoped lang="stylus">
+
+>>>.scroll-list-wrap
+  max-height calc(100vh - 210px)
+  padding-bottom: 1px;
+#card
+  font-family: PingFangSC-Regular, PingFang SC;
+  text-align left
+  padding 20px
+  background-color #fff
+  margin 12px
+  border-radius 10px
+  position relative
+  .tag
+    padding 1px 5px 2px 6px
+    position absolute
+    right 8px
+    top 20px
+    font-size: 12px;
+    color: #FFFFFF;
+    line-height: 17px;
+    border-radius 10px
+  .title
+    display flex
+    align-items center
+    margin-bottom 14px
+    .dot
+      height 3px
+      width 3px
+      border 2px solid #0099FF
+      border-radius 50%
+      margin-right 7px
+  .content
+      font-size: 14px;
+      color: #000000;
+      line-height: 20px;
+    .titou
+      color: #999999;
+      margin-right 13px
+
+.right
+  margin-right 60px
+  margin-top 15px
 #Reserve
-  background-color $my-bgc-color
+  background-color #F5F6FA
+  .top_fixed
+    position fixed
+    width 100%
+    top 60px
+    z-index 20
+  >>>input
+    background-color #F5F6FA
+    text-align left!important
   .func
     height 40px
     line-height: 40px;
     display flex
-
+    font-size: 12px;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    color: #000000;
     span
       flex-grow 1
       border 1px solid rgba($custom-border-color, .1)
 
-.content
-  margin 10px
-  font-size 12px
-  line-height 14px
-  text-align left
-  color $custom-gray
-  position relative
 
-  p
-    margin-top 6px
-
-.card
-  position relative
-
-  .tag
-    position absolute
-    right 20px
-    top 10px
 </style>

@@ -16,7 +16,7 @@ import NavLayOut from "@/components/NavLayOut";
 import Icon from "@/components/Icon";
 import ReadConfig from './utils/config'
 
-import mock from "@/utils/mock/mock"; //mock数据的时候使用
+// import mock from "@/utils/mock/mock"; //mock数据的时候使用
 
 import { Switch } from 'vant';
 

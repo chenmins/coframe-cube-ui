@@ -2,20 +2,25 @@
 
   <div id="nav_layout"
   >
-    <div v-if="$route.meta.showNav" style="height: 60px;background-color:transparent;">
-      <Nav
-          style="font-size: 1em"
-          :background-color="bgcColor"
-          :color="color"
-          :show-back="!!$route.meta.leave"
-          :title="$route.meta.name"
-          v-if="$route.meta.showNav"
-          v-show="toggle"
-      >
-        <div slot="right" >
-          <slot name="right"></slot>
-        </div>
-      </Nav>
+    <div >
+      <div v-if="$route.meta.showNav" style="height: 60px;background-color:transparent;">
+        <Nav
+            style="font-size: 1em"
+            :background-color="bgcColor"
+            :color="color"
+            :show-back="!!$route.meta.leave"
+            :title="$route.meta.name"
+            v-if="$route.meta.showNav"
+            v-show="toggle"
+        >
+          <div slot="right" >
+            <slot name="right"></slot>
+          </div>
+        </Nav>
+      </div>
+      <div v-if="$route.meta.showNav" :style="'background-color:'+ bgcColor">
+        <slot name="fixed"></slot>
+      </div>
     </div>
     <div
         :class="$route.meta.showNav?'scroll-list-wrap nav_height':'scroll-list-wrap'"
@@ -24,7 +29,7 @@
           ref="scroll"
           @scroll="scroll"
           :scrollEvents="['scroll']"
-          :key="$route.meta.name"
+          :key="randomKey"
       >
         <slot></slot>
       </cube-scroll>
@@ -42,7 +47,8 @@ name: "NavLayOut",
   ],
   data(){
     return{
-      toggle:true
+      toggle:true,
+      randomKey:0
     }
   },
   methods:{
@@ -56,12 +62,17 @@ name: "NavLayOut",
         }
       }
     }
+  },
+  mounted() {
+    this.randomKey = Math.random()
   }
 }
 </script>
 
 <style scoped lang="stylus">
+
 .nav_height
-  height calc(100vh - 60px)
+  height calc(100vh - 120px)
+
 
 </style>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 63 (92445) - https://sketch.com -->
+    <title>icon/我的预约 </title>
+    <desc>Created with Sketch.</desc>
+    <g id="icon/我的预约-" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9.95014663,5 C12.5946273,5 12.778508,5 14.1007484,5 M18.0502506,5 C18.6299993,5 19.6132491,5 21,5 C21.5522847,5 22,5.44771525 22,6 L22,21 C22,21.5522847 21.5522847,22 21,22 L3,22 C2.44771525,22 2,21.5522847 2,21 L2,6 C2,5.44771525 2.44771525,5 3,5 L6.01531237,5" id="形状" stroke="#000000" stroke-width="1.4"></path>
+        <polyline id="路径-22" stroke="#000000" stroke-width="1.4" transform="translate(12.592846, 13.437999) rotate(40.000000) translate(-12.592846, -13.437999) " points="10.0928459 17.4379987 15.0928459 17.4379987 15.0928459 9.43799866"></polyline>
+        <line x1="16.3308116" y1="2.58600343" x2="16.3308116" y2="8.58600343" id="路径-21" stroke="#000000" stroke-width="1.4"></line>
+        <line x1="8.03617735" y1="2.58579086" x2="8.03617735" y2="8.58579086" id="路径-21" stroke="#000000" stroke-width="1.4"></line>
+    </g>
+</svg>

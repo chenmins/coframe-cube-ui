@@ -10,6 +10,7 @@
                      :schema="schema"
                      :options="{layout:'classic'}"
                      @submit="submitHandler"
+                     @validate="validateHandler"
                      class="form-control"
           >
             <cube-form-group>
@@ -33,7 +34,10 @@
               <cube-form-item :field="form[2]">
               </cube-form-item>
               <cube-form-item :field="form[3]">
-                <div @click="showPicker('来访区域',column1)">{{ model.to || form[3].label }}</div>
+                <div @click="showPicker('来访区域',column1)">{{ model.to || form[3].label }}
+                  <i class="cubeic-arrow" style="float: right;margin-right: 16px"></i>
+
+                </div>
               </cube-form-item>
               <cube-form-item :field="form[4]">
               </cube-form-item>
@@ -58,12 +62,15 @@
 </template>
 
 <script>
-
+import Button from "@/components/UI/Button";
 
 const time = new Date().valueOf() + 1 * 60 * 60 * 1000
 
 export default {
   name: "index",
+  components:{
+    Button
+  },
   data() {
     return {
       validity: {},
@@ -209,6 +216,18 @@ export default {
       }
       this.maxPeople = newArr
     },
+    validateHandler(result) {
+      this.validity = result.validity
+      this.valid = result.valid
+      console.log('validity', result.validity, result.valid, result.dirty, result.firstInvalidFieldIndex)
+      if(result.firstInvalidFieldIndex!==-1){
+        const toast = this.$createToast({
+          txt: '请确认表单是否填写完整',
+          type: 'error'
+        })
+        toast.show()
+      }
+    },
     submitHandler(e, model, model2) {
       console.log('信息提交')
       let length = this.model.peopleNum
@@ -345,8 +364,8 @@ export default {
   position: relative;
   main
     margin 20px 13px 0
-    height 100%
-    background-color red
+    overflow: hidden;
+    height calc(100vh - 60px)
     .notice
       line-height 20px
       text-align left
@@ -356,6 +375,16 @@ export default {
       li
         list-style decimal
         margin-left 20px
+>>>.cube-textarea-wrapper::after
+  border none
+>>>.cube-radio
+  max-width: 50px
+>>>.cube-radio-ui i::before
+  display none
+>>>.cube-radio_selected .cube-radio-ui
+  background-color transparent
+  background-image url("../../assets/icons/selected.png")
+  background-size 100%
 >>>.cube-validator-content
   text-align left
   font-size: 14px;
@@ -374,6 +403,7 @@ export default {
 >>>.cube-input-field
   padding 10px
   height 10px
+  text-align left
 >>> .cube-form-label
   font-size: 14px;
   font-family: PingFangSC-Medium, PingFang SC;
@@ -386,7 +416,12 @@ export default {
 .add-group
   border-bottom 1px solid rgba($custom-border-color, .1)
   margin-top 12px
-
+  border-radius 6px
+  box-shadow: 0px 1px 12px 0px rgba(0, 0, 0, 0.04);
+  >>>.cube-form-label
+    padding-bottom 10px
+  >>>.cube-form-item
+    padding  5px 10px
   & >>> .cube-form-group-legend
     text-align left
     padding 20px
@@ -398,7 +433,9 @@ export default {
     line-height: 25px;
 >>> .cube-radio_selected .cube-radio-ui
   background-color $custom-active-color
-
+>>>.cube-form_classic .cube-form-item .cube-validator-msg
+  position: relative;
+  text-align left
 >>> input
   text-align center
 

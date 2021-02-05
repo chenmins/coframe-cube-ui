@@ -69,8 +69,20 @@
   overflow: visible;
   z-index: 1;
 }
-.cube-scroll-content{
 
+.cube-action-sheet-list{
+  display: flex;
+  padding: 31px 15px;
+}
+.cube-action-sheet-item{
+  background: #F7F7F7;
+  border-radius: 17px;
+  padding: 1px;
+  font-size: 12px;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #3B3B3B;
+  line-height: 17px;
 }
 
 #app {
