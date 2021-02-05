@@ -3,7 +3,8 @@
       <div class="top_fixed">
         <Search class="search" style="border-bottom: none;" placeholder="搜索访客姓名" :value="value"></Search>
         <LayOut class="func">
-          <span  @click="showDefault">审批状态
+          <span  @click="showDefault" :style="status?'color:#0251FE':''">
+            {{status||'审批状态'}}
           <i class="cubeic-select"></i>
           </span>
           <span @click="showPicker">到访日期
@@ -49,7 +50,8 @@ export default {
     return {
       value: '',
       pickerData: '',
-      reserves:[]
+      reserves:[],
+      status:''
     }
   },
   created() {
@@ -97,19 +99,8 @@ export default {
             }
           ],
           onSelect: (item, index) => {
-            this.$createToast({
-              txt: `Clicked ${item.content}`,
-              type: 'correct',
-              time: 1000
-            }).show()
+            this.status = item.content
           },
-          onCancel: () => {
-            this.$createToast({
-              txt: `Clicked canceled`,
-              type: 'warn',
-              time: 1000
-            }).show()
-          }
         }).show()
     }
   }
