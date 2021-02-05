@@ -1,17 +1,17 @@
 <template>
   <div id="todo-list">
-      <SlideNav @LabelChanged="changeHandle"  :selected-label="selectedLabel" :tabs="tabs" :center="true" >
-        <div slot-scope="item">
-          <MenuCard v-for="approve in approves" @CardDetail="GuestDetail" class="card" name="我的申请" :noAll="true" style="padding: 15px">
-            <div class="content">
-              <p>到访时间：<span v-for="i in approve.come">{{i}}，</span></p>
-              <p>到访部门：<span v-for="i in approve.where">{{i}}，</span></p>
-              <p>来访姓名：{{approve.time}}</p>
-            </div>
-            <Tag color="#fff" class="tag" :background-color="approve.approved?'#42b983':'#000'">{{ !approve.approved?'待审批':'已完成' }}</Tag>
-          </MenuCard>
-        </div>
-      </SlideNav>
+      <NavLayOut
+          color="#fff"
+
+      >
+        <SlideNav @LabelChanged="changeHandle" show-slider :selected-label="selectedLabel" :tabs="tabs"  >
+          <div slot-scope="item">
+              <Card :reserve="approve" v-for="approve in approves"
+              @clicked="$router.push({name:'ReserveDetail',params:{id:1}})"
+              ></Card>
+          </div>
+        </SlideNav>
+      </NavLayOut>
   </div>
 </template>
 
@@ -19,9 +19,11 @@
 import MenuCard from "@/components/MainMenu/MenuCard";
 import SlideNav from "@/components/Cultural/SlideNav";
 import Search from "@/components/Search";
+import Card from "@/components/UI/Card";
 
 export default {
   components:{
+    Card,
     SlideNav,
     MenuCard,Search
   },
@@ -61,8 +63,28 @@ export default {
 
 <style scoped lang="stylus">
 #todo-list
-  background-color $my-bgc-color
-  height 100vh
+  height: 154px;
+  background: linear-gradient(119deg, #19D8FF 0%, #0F97FB 100%);
+  position: relative;
+  >>>.cube-tab,.tab_item
+    font-family: PingFangSC-Semibold, PingFang SC;
+    font-weight: 600;
+    color: #FFFFFF;
+    line-height: 22px;
+  >>>.cube-tab-bar-slider
+    margin-left 25px
+    max-width: 20px;
+    height: 4px;
+    background: #FFFFFF;
+    border-radius: 2px;
+  >>>.cube-tab
+    min-width 70px
+    font-size: 14px;
+    color #fff
+    font-weight: 500;
+    line-height: 22px;
+  >>>.cube-tab_active
+    font-size 16px
   .card
     position relative
     .tag

@@ -2,7 +2,7 @@
 
 // demo
 
-import { Demo } from '@controller';
+import { Demo } from '../controller';
 export default {
     actions: {
         [Demo.insert.method] : {

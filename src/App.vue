@@ -65,22 +65,31 @@
 </style>
 
 <style>
+.cube-picker-confirm,.cube-picker-cancel{
+  font-size: 17px;
+  font-family: PingFangSC-Regular, PingFang SC;
+  color: #0099FF;
+}
 .cube-scroll-wrapper{
   overflow: visible;
   z-index: 1;
 }
 
 .cube-action-sheet-list{
-  display: flex;
-  padding: 31px 15px;
+  padding: 31px 15px ;
 }
 .cube-action-sheet-panel.cube-safe-area-pb,.cube-action-sheet-content {
   border-radius: 12px 12px 0 0;
+}
+.cube-action-sheet-content{
+  padding-bottom: 31px;
 }
 .cube-action-sheet-title,.cube-action-sheet-cancel{
   display: none;
 }
 .cube-action-sheet-item{
+  margin: 7px 11px;
+  float: left;
   background: #F7F7F7;
   border-radius: 17px;
   padding: 9px 18px;
@@ -89,13 +98,9 @@
   font-weight: 500;
   color: #3B3B3B;
   line-height: 17px;
-  float: left;
-  width: 200px;
 
 }
-.cube-action-sheet-item:nth-child(2){
-  margin: 0  11px;
-}
+
 
 #app {
   font-family: PingFangSC-Medium, PingFang SC, Avenir, Helvetica, Arial, sans-serif;

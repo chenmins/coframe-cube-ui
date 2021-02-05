@@ -8,10 +8,8 @@
                     @change="changeHandle"
                      :showSlider="showSlider"
                      class="nav_tabbar scroll_container">
-
-
           <cube-tab  class="tab_item" v-for="(item, index) in tabs" :label="item.label" :icon="item.icon" :key="item.label"></cube-tab>
-        <Icon svg-name="customer" class-name="svg"></Icon>
+        <Icon v-show="customer" svg-name="customer" class-name="svg"></Icon>
       </cube-tab-bar>
     </div>
 
@@ -30,7 +28,7 @@ export default {
   props:[
       'selectedLabel',
       'tabs',
-      'showBackIcon','showSlider','center','headerClass'
+      'showBackIcon','showSlider','center','headerClass','customer'
   ],
   data() {
     return {

@@ -1,5 +1,5 @@
 <template>
-    <cube-button :type="type" @click="$emit('submit',e)">
+    <cube-button @click="$emit('submit',e)">
       <slot></slot>
     </cube-button>
 </template>
@@ -7,9 +7,7 @@
 <script>
 export default {
   name: "Button",
-  props:[
-      'type'
-  ]
+
 }
 </script>
 

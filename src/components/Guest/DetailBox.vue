@@ -1,53 +1,96 @@
 <template>
-  <LayOut class="box">
+  <LayOut class="box" style="background-color: transparent">
     <ul>
-      <li><span>来访时间：</span><span>2020/12/20  15:00</span></li>
-      <li><span>来访人数：</span><span>20人</span></li>
+<!--      <li><span>来访时间：</span><span>2020/12/20  15:00</span></li>-->
+<!--      <li><span>来访人数：</span><span>20人</span></li>-->
       <template>
-        <div class="title">访客<i>1</i>信息</div>
-        <li>
-          <ul class="two">
-            <li><span>来访姓名</span> <span>张小果</span></li>
-            <li><span>来访电话</span> <span>18600000000</span></li>
-            <li><span>来访单位</span> <span>中国电信股份有限公司北京分公司</span></li>
-            <li><span>健康情况</span> <span>优</span></li>
-            <li><span>是否来自高危地区</span> <span>否</span></li>
-          </ul>
-        </li>
-        <div class="title">访客<i>1</i>信息</div>
-        <li>
-          <ul class="two">
-            <li><span>来访姓名</span> <span>张小果</span></li>
-            <li><span>来访电话</span> <span>18600000000</span></li>
-            <li><span>来访单位</span> <span>中国电信股份有限公司北京分公司</span></li>
-            <li><span>健康情况</span> <span>优</span></li>
-            <li><span>是否来自高危地区</span> <span>否</span></li>
-          </ul>
-        </li>
-        <div class="title">访客<i>1</i>信息</div>
-        <li>
-          <ul class="two">
-            <li><span>来访姓名</span> <span>张小果</span></li>
-            <li><span>来访电话</span> <span>18600000000</span></li>
-            <li><span>来访单位</span> <span>中国电信股份有限公司北京分公司</span></li>
-            <li><span>健康情况</span> <span>优</span></li>
-            <li><span>是否来自高危地区</span> <span>否</span></li>
-          </ul>
-        </li>
-        <div class="title">访客<i>1</i>信息</div>
-        <li>
-          <ul class="two">
-            <li><span>来访姓名</span> <span>张小果</span></li>
-            <li><span>来访电话</span> <span>18600000000</span></li>
-            <li><span>来访单位</span> <span>中国电信股份有限公司北京分公司</span></li>
-            <li><span>健康情况</span> <span>优</span></li>
-            <li><span>是否来自高危地区</span> <span>否</span></li>
-          </ul>
-        </li>
+        <div class="card_position">
+          <div class="title">访客1信息</div>
+          <li>
+            <ul class="two">
+              <li>
+                <div style="display: flex;align-items: center">
+                  <span class="dot"></span>
+                  <span class="item_label">来访姓名</span>
+                </div>
+                <div class="item_content">张小果</div>
+              </li>
+              <li>
+                <div style="display: flex;align-items: center">
+                  <span class="dot"></span>
+                  <span class="item_label">来访电话</span>
+                </div>
+                <div class="item_content">18600000000</div>
+              </li>
+              <li>
+                <div style="display: flex;align-items: center">
+                  <span class="dot"></span>
+                  <span class="item_label">来访单位</span>
+                </div>
+                <div class="item_content">中国电信股份有限公司北京分公司</div>
+              </li>
+              <li>
+                <div style="display: flex;align-items: center">
+                  <span class="dot"></span>
+                  <span class="item_label">健康情况</span>
+                </div>
+                <div class="item_content">优</div>
+              </li>
+              <li>
+                <div style="display: flex;align-items: center">
+                  <span class="dot"></span>
+                  <span class="item_label">是否来自高危地区</span>
+                </div>
+                <div class="item_content">否</div>
+              </li>
+            </ul>
+          </li>
+        </div>
+        <div class="card_position">
+          <div class="title">访客2信息</div>
+          <li>
+            <ul class="two">
+              <li>
+                <div style="display: flex;align-items: center">
+                  <span class="dot"></span>
+                  <span class="item_label">来访姓名</span>
+                </div>
+                <div class="item_content">张小果</div>
+              </li>
+              <li>
+                <div style="display: flex;align-items: center">
+                  <span class="dot"></span>
+                  <span class="item_label">来访电话</span>
+                </div>
+                <div class="item_content">18600000000</div>
+              </li>
+              <li>
+                <div style="display: flex;align-items: center">
+                  <span class="dot"></span>
+                  <span class="item_label">来访单位</span>
+                </div>
+                <div class="item_content">中国电信股份有限公司北京分公司</div>
+              </li>
+              <li>
+                <div style="display: flex;align-items: center">
+                  <span class="dot"></span>
+                  <span class="item_label">健康情况</span>
+                </div>
+                <div class="item_content">优</div>
+              </li>
+              <li>
+                <div style="display: flex;align-items: center">
+                  <span class="dot"></span>
+                  <span class="item_label">是否来自高危地区</span>
+                </div>
+                <div class="item_content">否</div>
+              </li>
+            </ul>
+          </li>
+        </div>
+
       </template>
-      <li><span>来访事由</span> <span>技术方案讨论</span></li>
-      <li><span>到访部门</span> <span>技术部</span></li>
-      <li><span>接待人</span> <span>王二小</span></li>
+
     </ul>
   </LayOut>
 </template>
@@ -59,12 +102,21 @@ name: "DetailBox"
 </script>
 
 <style scoped lang="stylus">
+.card_position
+  background-color #Fff
+  margin-bottom 10px
+  padding 1px
 .box
-  margin 20px 0
+  margin 8px 12px
   text-align left
-  padding 10px
+  padding 1px
   .title
-    margin-top 10px
+    margin 20px
+    font-size: 18px;
+    font-family: PingFangSC-Medium, PingFang SC;
+    font-weight: 500;
+    color: #000000;
+    line-height: 25px;
     &+li
       margin-bottom 20px
   i
@@ -81,10 +133,24 @@ name: "DetailBox"
     width 100%
   li
     margin 10px
-    display flex
-    justify-content: space-between;
-    span:nth-child(2)
-      color #000
+    .dot
+      width: 3px;
+      height: 3px;
+      border: 2px solid #0099FF;
+      border-radius 50%
+      margin-right 5px
+    .item_label
+      font-size: 12px;
+      font-weight: 400;
+      color: #999999;
+      line-height: 17px;
+    .item_content
+      margin-top 5px
+      margin-left 12px
+      font-size: 14px;
+      font-weight: 500;
+      color: #000000;
+      line-height: 20px;
   span
     color $custom-gray
     font-size 13px

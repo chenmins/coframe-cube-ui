@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 63 (92445) - https://sketch.com -->
+    <title>icon/14pt备份</title>
+    <desc>Created with Sketch.</desc>
+    <g id="icon/14pt备份" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icon/14pt" opacity="0">
+            <rect id="boud/14pt" x="0" y="0" width="14" height="14"></rect>
+        </g>
+        <g id="icon/18/选择">
+            <g id="icon/16/选择">
+                <path d="M7,0 C3.143,0 0,3.143 0,7 C0,10.857 3.143,14 7,14 C10.857,14 14,10.857 14,7 C14,3.143 10.857,0 7,0 Z" id="形状" fill="#1FC210" fill-rule="nonzero"></path>
+                <polyline id="路径" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" transform="translate(7.088116, 5.869963) rotate(-45.000000) translate(-7.088116, -5.869963) " points="10.1762326 7.73992623 4 7.73992623 4 4"></polyline>
+            </g>
+        </g>
+    </g>
+</svg>

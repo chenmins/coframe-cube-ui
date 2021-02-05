@@ -2,6 +2,7 @@
   <div id="cultural_app">
     <div class="bgc"></div>
     <SlideNav
+        :customer="true"
         class="slide_nav"
         :center="true"
         :show-slider="true"

@@ -56,7 +56,6 @@
           </ul>
         </cube-scroll>
       </main>
-
     </NavLayOut>
   </div>
 </template>

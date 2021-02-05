@@ -4,7 +4,7 @@
 const path = require('path')
 const GenerateAssetPlugin = require('generate-asset-webpack-plugin'); //vue配置外放
 const CompressionWebpackPlugin = require('compression-webpack-plugin') //js压缩
-const productionGzipExtensions = ['js', 'css','png','ttf','woff']
+const productionGzipExtensions = ['js', 'css','webp','ttf','woff']
 
 
 const config = require('./config/app-config.json');
@@ -28,8 +28,11 @@ module.exports = {
           parser: {
             amd: false
           }
-        }
+        },
+
+
       ],
+
 
     },
     resolve:{

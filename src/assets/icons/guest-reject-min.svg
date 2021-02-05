@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 63 (92445) - https://sketch.com -->
+    <title>icon/14pt备份 2</title>
+    <desc>Created with Sketch.</desc>
+    <g id="icon/14pt备份-2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icon/14pt" opacity="0">
+            <rect id="boud/14pt" x="0" y="0" width="14" height="14"></rect>
+        </g>
+        <g id="icon/18/选择" fill="#F20404" fill-rule="nonzero">
+            <g id="icon/16/选择">
+                <path d="M7,0 C3.143,0 0,3.143 0,7 C0,10.857 3.143,14 7,14 C10.857,14 14,10.857 14,7 C14,3.143 10.857,0 7,0 Z" id="形状"></path>
+            </g>
+        </g>
+        <g id="编组" transform="translate(3.676336, 3.747304)" stroke="#FFFFFF" stroke-linecap="round">
+            <line x1="5.81756865e-14" y1="1.33226763e-15" x2="6.10077041" y2="6.10077041" id="路径-26"></line>
+            <line x1="0" y1="6.10077041" x2="6.10077041" y2="0" id="路径-26"></line>
+        </g>
+    </g>
+</svg>

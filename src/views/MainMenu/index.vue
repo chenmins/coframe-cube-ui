@@ -1,6 +1,6 @@
 <template>
   <div id="main_menu">
-    <NavLayOut color="#fff">
+    <NavLayOut color="#fff" >
       <img width="100%" class="bgc_img" src="../../assets/icons/Main.webp" alt="">
       <MyTools @SeeAll="$router.push({name:'AllTools'})"></MyTools>
       <MyTodos @SeeAll="$router.push({name:'TodoLists'})"></MyTodos>
