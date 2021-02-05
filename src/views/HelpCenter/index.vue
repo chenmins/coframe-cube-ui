@@ -23,7 +23,7 @@
       ></cube-textarea>
       <Icon svg-name="helpcenter-emoji" style="margin-right: 10px" height="26px" width="26px"></Icon>
     </div>
-    <Tabbar v-show="$route.meta.showTabbar"></Tabbar>
+    <Tabbar c :tabs="tabs"></Tabbar>
 
   </div>
 </template>
@@ -36,6 +36,23 @@ export default {
       value: '',
       placeholder: '回复需求',
       maxlength: 200,
+      tabs: [
+        {
+          label: '常见问题',
+          value:'question',
+          icon: 'helpcenter-question',
+
+        }, {
+          label: '产品介绍',
+          value: 'productInc',
+          icon: 'helpcenter-inc'
+
+        },{
+          label: '需求反馈',
+          value: 'feedback',
+          icon: 'helpcenter-edit'
+
+        }]
     }
   },
 }

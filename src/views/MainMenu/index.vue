@@ -33,10 +33,7 @@ export default {
       // prop:'date' //对应日期字段名
     }
   },
-  mounted() {
-    console.log(window)
-    document.title = window.g.title
-  },
+
   methods:{
     // renderContent(h,parmas) {
     //   const loop = data => {

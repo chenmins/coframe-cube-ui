@@ -2,8 +2,13 @@
  vue.config配置 https://cli.vuejs.org/zh/config/#%E5%85%A8%E5%B1%80-cli-%E9%85%8D%E7%BD%AE
 */
 const path = require('path')
-const GenerateAssetPlugin = require('generate-asset-webpack-plugin');
+const GenerateAssetPlugin = require('generate-asset-webpack-plugin'); //vue配置外放
+const CompressionWebpackPlugin = require('compression-webpack-plugin') //js压缩
+const productionGzipExtensions = ['js', 'css']
+
+
 const config = require('./config/app-config.json');
+const webpack = require("webpack");
 function resolve(dir) {
   return path.join(__dirname, dir)
 }
@@ -46,6 +51,20 @@ module.exports = {
         fn: (compilation, cb) => {
           cb(null, createServerConfig(compilation));
         }
+      }),
+      // Ignore all locale files of moment.js
+      new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+
+      // 配置compression-webpack-plugin压缩
+      new CompressionWebpackPlugin({
+        algorithm: 'gzip',
+        test: new RegExp('\\.(' + productionGzipExtensions.join('|') + ')$'),
+        threshold: 10240,
+        minRatio: 0.8
+      }),
+      new webpack.optimize.LimitChunkCountPlugin({
+        maxChunks: 5,
+        minChunkSize: 100
       })
     ]
   },

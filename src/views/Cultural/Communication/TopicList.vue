@@ -54,16 +54,16 @@ export default {
       }
     },
     created () {
-			axios.get('http://localhost:8081/test/cityInfo').then(res=>{
-				this.DATA_MAP = res.data.slideNav
-				this.tabs = res.data.slideNav.map(i=>({
-					label:i.name
-				}))
-				this.selectedLabel = this.tabs[0].label
-				this.scrollData = res.data.slideNav.find(i=>{
-					return i.name === this.selectedLabel
-				}).num
-			})
+			// axios.get('http://localhost:8081/test/cityInfo').then(res=>{
+			// 	this.DATA_MAP = res.data.slideNav
+			// 	this.tabs = res.data.slideNav.map(i=>({
+			// 		label:i.name
+			// 	}))
+			// 	this.selectedLabel = this.tabs[0].label
+			// 	this.scrollData = res.data.slideNav.find(i=>{
+			// 		return i.name === this.selectedLabel
+			// 	}).num
+			// })
     },
     methods: {
       changeHandler (label) {

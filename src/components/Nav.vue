@@ -49,7 +49,6 @@ export default {
     font-size: 16px;
     font-family: PingFangSC-Medium, PingFang SC;
     font-weight: 500;
-    color: #FFFFFF;
   .icon
     position:absolute
     left:0

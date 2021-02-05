@@ -69,8 +69,16 @@
   overflow: visible;
   z-index: 1;
 }
-.cube-scroll-content{
 
+.cube-action-sheet-list{
+  display: flex;
+  padding: 31px 15px;
+}
+.action{
+  float:left;
+  height: 35px;
+  background: #F7F7F7;
+  border-radius: 18px;
 }
 
 #app {

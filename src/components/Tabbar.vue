@@ -14,27 +14,15 @@
 </template>
 
 <script>
+
 export default {
   name: "Tabbar",
+  props:[
+      'tabs','tabMap'
+  ],
   data () {
     return {
       selectedLabelDefault: 'Question',
-      tabs: [{
-        label: '常见问题',
-        value:'question',
-        icon: 'helpcenter-question',
-
-      }, {
-        label: '产品介绍',
-        value: 'productInc',
-        icon: 'helpcenter-inc'
-
-      },{
-        label: '需求反馈',
-        value: 'feedback',
-        icon: 'helpcenter-edit'
-
-      }]
     }
   },
   mounted() {
@@ -52,7 +40,11 @@ export default {
     },
     changeHandler (label) {
       // if you clicked different tab, this methods can be emitted
-      console.log(label)
+      if(this.tabMap){
+        let routerName = this.tabMap[label]
+        this.$router.push({name:`${routerName}`})
+        return
+      }
       localStorage.setItem('label',label)
       if(label ==='公告列表'){
         this.$router.push({name:`全部`})

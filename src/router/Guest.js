@@ -15,7 +15,8 @@ export default [
                     name:'访客预约',
                     tag:'Guest',
                     leave:2,
-                    showNav:true
+                    showNav:true,
+                    showTabbar:true
                 },
                 component:()=>import('@/views/Guest/Guest'),
             },
@@ -26,7 +27,8 @@ export default [
                     name:'我的审批',
                     tag:'Approve',
                     leave:2,
-                    showNav: true
+                    showNav: true,
+                    showTabbar:true
                 },
                 component:()=>import('@/views/Guest/Approve')
             },
@@ -38,6 +40,7 @@ export default [
                     tag:'Reserve',
                     leave:3,
                     showNav: true,
+                    showTabbar:true
                 },
                 component:()=>import('@/views/Guest/Reserve')
             }
@@ -50,7 +53,8 @@ export default [
             name:'访客详情',
             tag:'GuestDetail',
             leave:3,
-            showNav:true
+            showNav:true,
+            showTabbar:true
         },
         component:()=>import('@/views/Guest/GuestDetil')
     },
@@ -61,7 +65,8 @@ export default [
             name:'访客详情',
             tag:'ReserveDetail',
             leave:3,
-            showNav:true
+            showNav:true,
+            showTabbar:true
         },
         component:()=>import('@/views/Guest/ReserveDetail')
     }
