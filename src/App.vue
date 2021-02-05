@@ -74,15 +74,27 @@
   display: flex;
   padding: 31px 15px;
 }
+.cube-action-sheet-panel.cube-safe-area-pb,.cube-action-sheet-content {
+  border-radius: 12px 12px 0 0;
+}
+.cube-action-sheet-title,.cube-action-sheet-cancel{
+  display: none;
+}
 .cube-action-sheet-item{
   background: #F7F7F7;
   border-radius: 17px;
-  padding: 1px;
+  padding: 9px 18px;
   font-size: 12px;
   font-family: PingFangSC-Medium, PingFang SC;
   font-weight: 500;
   color: #3B3B3B;
   line-height: 17px;
+  float: left;
+  width: 200px;
+
+}
+.cube-action-sheet-item:nth-child(2){
+  margin: 0  11px;
 }
 
 #app {
