@@ -6,13 +6,7 @@
 
     <Tabbar v-show="$route.meta.showTabbar" :tabs="tabs" :tabMap="tabMap"></Tabbar>
 
-<!--    <footer>-->
-<!--      <a :class="$route.meta.tag.includes('Guest')?'active':''" @click="$router.push({name:'Guest'})">访客预约</a>-->
-<!--      <a :class="$route.meta.tag.includes('Approve')?'active':''" @click="$router.push({name:'Approve'})">-->
-<!--        我的审批-->
-<!--      </a>-->
-<!--      <a :class="$route.meta.tag.includes('Reserve')?'active':''" @click="$router.push({name:'Reserve'})">我的预约</a>-->
-<!--    </footer>-->
+
   </div>
 </template>
 
