@@ -1,12 +1,8 @@
 
 <template>
   <div id="index">
-
     <router-view></router-view>
-
     <Tabbar v-show="$route.meta.showTabbar" :tabs="tabs" :tabMap="tabMap"></Tabbar>
-
-
   </div>
 </template>
 

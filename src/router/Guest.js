@@ -62,12 +62,23 @@ export default [
         path:'/Reserve/:id',
         name:'ReserveDetail',
         meta:{
-            name:'访客详情',
+            name:'审批详情',
             tag:'ReserveDetail',
             leave:3,
             showNav:true,
             showTabbar:true
         },
         component:()=>import('@/views/Guest/ReserveDetail')
+    },
+    {
+        path:'/RejectConfirm',
+        name:'RejectConfirm',
+        meta:{
+            name:'确认拒绝',
+            tag:'RejectConfirm',
+            leave:3,
+            showNav:true,
+        },
+        component:()=>import('@/views/Guest/RejectConfirm')
     }
 ]

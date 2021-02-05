@@ -49,7 +49,7 @@
           <div>信息报备</div>
         </div>
       </div>
-      <div slot="right">
+      <div slot="right" style="margin-right: 20px">
         <span style="font-size: 14px">完成</span>
       </div>
     </NavLayOut>

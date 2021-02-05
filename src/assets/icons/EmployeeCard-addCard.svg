@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 63 (92445) - https://sketch.com -->
+    <title>icon/申请办卡</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="100%" y1="100%" x2="14.4244184%" y2="15.0106523%" id="linearGradient-1">
+            <stop stop-color="#63DD5A" offset="0%"></stop>
+            <stop stop-color="#52F298" offset="100%"></stop>
+            <stop stop-color="#87FFBC" offset="100%"></stop>
+        </linearGradient>
+        <circle id="path-2" cx="12" cy="12" r="12"></circle>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-4">
+            <stop stop-color="#FFFFFF" offset="0%"></stop>
+            <stop stop-color="#E8FFEE" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="icon/申请办卡" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="形状结合">
+            <mask id="mask-3" fill="white">
+                <use xlink:href="#path-2"></use>
+            </mask>
+            <use id="蒙版" fill="url(#linearGradient-1)" xlink:href="#path-2"></use>
+            <rect id="矩形" fill="url(#linearGradient-1)" mask="url(#mask-3)" x="0" y="0" width="24" height="24" rx="3"></rect>
+            <path d="M20,12.09 L20,23.56 C20,24.35529 19.35529,25 18.56,25 L5.44,25 C4.64470996,25 4,24.35529 4,23.56 L4,12.0909091 L20,12.09 Z M12,15.7272727 L6.18181818,15.7272727 L6.09700282,15.7321656 C5.73530196,15.7741766 5.45454545,16.0815739 5.45454545,16.4545455 C5.45454545,16.8562071 5.78015655,17.1818182 6.18181818,17.1818182 L6.18181818,17.1818182 L12,17.1818182 L12.0848154,17.1769253 C12.4465162,17.1349143 12.7272727,16.827517 12.7272727,16.4545455 C12.7272727,16.0528838 12.4016616,15.7272727 12,15.7272727 L12,15.7272727 Z M18.56,7 C19.35529,7 20,7.64470996 20,8.44 L20,10.636 L4,10.6363636 L4,8.44 C4,7.64470996 4.64470996,7 5.44,7 L18.56,7 Z" fill="url(#linearGradient-4)" mask="url(#mask-3)"></path>
+        </g>
+    </g>
+</svg>
