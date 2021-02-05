@@ -8,7 +8,7 @@
                     @change="changeHandle"
                      :showSlider="showSlider"
                      class="nav_tabbar scroll_container">
-          <cube-tab  class="tab_item" v-for="(item, index) in tabs" :label="item.label" :icon="item.icon" :key="item.label"></cube-tab>
+          <cube-tab   class="tab_item" v-for="(item, index) in tabs" :label="item.label" :icon="item.icon" :key="item.label"></cube-tab>
         <Icon v-show="customer" svg-name="customer" class-name="svg"></Icon>
       </cube-tab-bar>
     </div>
@@ -60,14 +60,16 @@ export default {
 .svg
   height 20px
   width 20px
-
+.tab_item
+  color #000
 .nav_tabbar
   text-align left
   height 40px
   font-size: 14px;
   display flex
   justify-content: flex-start;
-.cube-tab
+
+>>>.cube-tab
   display inline-block
   min-width 70px
   font-family: PingFangSC-Medium, PingFang SC;
