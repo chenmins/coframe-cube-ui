@@ -51,12 +51,6 @@ export default {
           label: '餐厅公告',
         }, {
           label: '物业公告',
-        }, {
-          label: '系统公告',
-        }, {
-          label: '系统公告',
-        }, {
-          label: '系统公告',
         }
       ],
       notices: []
@@ -91,6 +85,8 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+>>>.cube-tab,.tab_item
+  color #000!important
 .image
   flex-shrink 0
   height 94px
@@ -132,7 +128,7 @@ export default {
     background-color #0251FE
     border-radius 15px
     font-size 14px
-    color #fff
+    color #fff!important
     font-weight: 500;
     position relative
 
