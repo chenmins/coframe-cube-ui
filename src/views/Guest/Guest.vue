@@ -16,12 +16,12 @@
             <cube-form-group>
               <cube-form-item :field="form[0]">
                 <div class="time-show" @click="showTimePicker">{{ model.time || form[0].props.placeholder }}
-                <i class="cubeic-arrow" style="float: right;margin-right: 16px"></i>
+                  <i class="cubeic-arrow" style="float: right;margin-right: 16px"></i>
                 </div>
               </cube-form-item>
               <cube-form-item :field="form[1]">
                 <div @click="showPicker('来访人数',maxPeople)">{{ model.peopleNum || form[1].props.placeholder }}
-                <span style="float:right;margin-right: 16px">人</span>
+                  <span style="float:right;margin-right: 16px">人</span>
                 </div>
               </cube-form-item>
             </cube-form-group>
@@ -46,9 +46,8 @@
             <cube-form-group>
               <cube-button type="submit">提交</cube-button>
             </cube-form-group>
-
           </cube-form>
-          <ul  class="notice">
+          <ul class="notice">
             <li>请配合职场做好防控工作，保障职场安全；</li>
             <li>预约成功后会自动发送短信，请与访客确认查收；</li>
             <li>访客需凭短信到园区门卫、前台处核验通行；</li>
@@ -67,7 +66,7 @@ const time = new Date().valueOf() + 1 * 60 * 60 * 1000
 
 export default {
   name: "index",
-  components:{
+  components: {
     Button
   },
   data() {
@@ -219,7 +218,7 @@ export default {
       this.validity = result.validity
       this.valid = result.valid
       console.log('validity', result.validity, result.valid, result.dirty, result.firstInvalidFieldIndex)
-      if(result.firstInvalidFieldIndex!==-1){
+      if (result.firstInvalidFieldIndex !== -1) {
         const toast = this.$createToast({
           txt: '请确认表单是否填写完整',
           type: 'error'
@@ -361,30 +360,38 @@ export default {
   height: 154px;
   background: linear-gradient(119deg, #19D8FF 0%, #0F97FB 100%);
   position: relative;
+
   main
     margin 20px 13px 0
     overflow: hidden;
     height calc(100vh - 60px)
+
     .notice
       line-height 20px
       text-align left
       margin 20px
       padding-bottom 40px
       font-size 14px
+
       li
         list-style decimal
         margin-left 20px
->>>.cube-textarea-wrapper::after
+
+>>> .cube-textarea-wrapper::after
   border none
->>>.cube-radio
+
+>>> .cube-radio //单选框宽度
   max-width: 50px
->>>.cube-radio-ui i::before
+
+>>> .cube-radio-ui i::before
   display none
->>>.cube-radio_selected .cube-radio-ui
+
+>>> .cube-radio_selected .cube-radio-ui  //单选框图片
   background-color transparent
   background-image url("../../assets/icons/selected.png")
   background-size 100%
->>>.cube-validator-content
+
+>>> .cube-validator-content
   text-align left
   font-size: 14px;
   font-family: PingFangSC-Regular, PingFang SC;
@@ -392,23 +399,29 @@ export default {
   color: #CCCCCC;
   line-height: 20px;
   letter-spacing: 1px;
->>>.cube-input::after,>>>.cube-radio-group[data-horz="true"]::after, .cube-radio-group[data-col="true"]::after,>>>.border-right-1px::after
+
+>>> .cube-input::after, >>> .cube-radio-group[data-horz="true"]::after, .cube-radio-group[data-col="true"]::after, >>> .border-right-1px::after
   border none
+
 .form-control
   background-color $my-bgc-color
->>>.cube-form_classic .cube-form-item
+
+>>> .cube-form_classic .cube-form-item
   background-color #fff
   padding 10px
->>>.cube-input-field
+
+>>> .cube-input-field
   padding 10px
   height 10px
   text-align left
+
 >>> .cube-form-label
   font-size: 14px;
   font-family: PingFangSC-Medium, PingFang SC;
   font-weight: 500;
   color: #000000;
   line-height: 20px;
+
 >>> .border-bottom-1px
   border-bottom 1px solid rgba($custom-border-color, .1)
 
@@ -416,11 +429,14 @@ export default {
   border-bottom 1px solid rgba($custom-border-color, .1)
   margin-top 12px
   border-radius 6px
-  box-shadow: 0px 1px 12px 0px rgba(0, 0, 0, 0.04);
-  >>>.cube-form-label
+  box-shadow: 0 1px 12px 0 rgba(0, 0, 0, 0.04);
+
+  >>> .cube-form-label
     padding-bottom 10px
-  >>>.cube-form-item
-    padding  5px 10px
+
+  >>> .cube-form-item
+    padding 5px 10px
+
   & >>> .cube-form-group-legend
     text-align left
     padding 20px
@@ -430,11 +446,14 @@ export default {
     font-weight: 500;
     color: #000000;
     line-height: 25px;
+
 >>> .cube-radio_selected .cube-radio-ui
   background-color $custom-active-color
->>>.cube-form_classic .cube-form-item .cube-validator-msg
+
+>>> .cube-form_classic .cube-form-item .cube-validator-msg
   position: relative;
   text-align left
+
 >>> input
   text-align center
 

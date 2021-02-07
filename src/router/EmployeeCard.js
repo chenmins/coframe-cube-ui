@@ -94,5 +94,28 @@ export default [
             showNav: true
         },
         component: () => import('@/views/EmployeeCard/ApprovalList/Detail')
+    },
+    {
+        path:'/CardRecord/:id',
+        name:'CardRecord',
+        meta: {
+            name: '员工卡记录',
+            tag: 'CardRecord',
+            leave:3,
+            showNav: true
+        },
+        component: () => import('@/views/EmployeeCard/CardRecord')
+    },
+    {
+        path:'/Card/:id',
+        name:'Card',
+        meta: {
+            name: '员工卡详情',
+            tag: 'Card',
+            leave:3,
+            showNav: true
+        },
+        component: () => import('@/views/EmployeeCard/CreateCard')
     }
+
 ]

@@ -110,7 +110,7 @@
   color: #2c3e50;
   height: 100vh;
   font-size:16px;
-  background-color: rgb(249,249,249);
+  background-color: #F5F6FA
 }
 #nav {
   padding: 30px;

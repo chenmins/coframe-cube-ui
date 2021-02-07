@@ -1,7 +1,7 @@
 <template>
   <div id="add_card">
   <NavLayOut bgc-color="#fff">
-    <LayOut class="card" style="background-color: #fff;margin: 20px" >
+    <Card class="card" style="background-color: #fff;margin: 20px" >
       <div class="header">
         <h1 >启用</h1>
         <span>
@@ -25,16 +25,17 @@
       <div class="footer">
         注：挂失后员工卡为冻结状态且不可使用，如已找到可以解除挂失，回复启用状态。否则可以申请补卡。
       </div>
-    </LayOut>
+    </Card>
   </NavLayOut>
   </div>
 </template>
 
 <script>
-import {Dialog} from 'vant'
+import Card from "@/components/UI/Card";
 
 export default {
   name: "Loss",
+  components: {Card},
   methods: {
     showToastTime(text) {
       const toast = this.$createToast({
@@ -54,20 +55,7 @@ export default {
         toast.hide()
       }, 2000)
     },
-    lossStatus(type) {
-      Dialog.confirm({
-        title: '',
-        message: type === 'loss' ? '确定要挂失当前的员工卡吗？' : '确定要解除挂失当前的员工卡吗？',
-      })
-          .then(() => {
-            Dialog.alert({
-              message: type === 'loss' ? '挂失成功' : '解除挂失成功',
-            })
-          })
-          .catch(() => {
-            // on cancel
-          });
-    },
+
   }
 }
 </script>

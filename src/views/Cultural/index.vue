@@ -29,7 +29,7 @@ export default {
   },
   data() {
     return {
-      selectedLabel: '公告列表',
+      selectedLabel: this.$route.meta.name,
       tabs: [
         {
           label: '公告列表',
@@ -48,6 +48,7 @@ export default {
     Send() {
       this.$router.push({name: '发帖子'})
     },
+
   }
 }
 </script>
@@ -71,9 +72,9 @@ export default {
   >>>.cube-tab
     min-width 70px
     font-size: 14px;
-    color #fff
     font-weight: 500;
     line-height: 22px;
+    color #fff
   >>>.cube-tab_active
     font-size 16px
 .slide_nav

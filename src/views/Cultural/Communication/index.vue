@@ -1,7 +1,7 @@
 <template>
 
   <div class="communication_app">
-    <Common>
+    <Common >
       <div style="background-color:#fff">
         <div class="topic_title">热门话题</div>
         <div class="topics">
@@ -20,7 +20,6 @@
 <!--          <cube-scroll-->
 <!--              ref="scroll">-->
             <Card :is-like="true" v-for="comment in comments" @checkComments="checkComments" @goComment="goComment"
-
             >
               <template v-slot:username>{{ comment.username }}</template>
               <template v-slot:content>
@@ -36,10 +35,7 @@
             </Card>
 <!--          </cube-scroll>-->
 <!--        </div>-->
-
-
       </SlideNav>
-
     </Common>
 
 
@@ -50,6 +46,7 @@
 import SlideNav from "@/components/Cultural/SlideNav";
 import Card from "@/components/Cultural/Card";
 import Common from "@/views/Cultural/Common";
+import axios from "axios";
 
 export default {
   name: "index",
@@ -80,6 +77,12 @@ export default {
   created() {
     this.topics = this.$store.state.Cultural.topics
     this.comments = this.$store.state.Cultural.comments
+
+    axios.get(`/api/platform/ccocci/selComCilList?type=1`).then(res=>{
+      console.log(res)
+    })
+
+
   },
   methods: {
     goComment(e) {
@@ -121,7 +124,6 @@ export default {
   padding-top 10px
 .communication_app
   overflow: scroll;
-  background-color $my-bgc-color
   .topic_title
     margin 20px 20px 19px
     font-weight: 500;

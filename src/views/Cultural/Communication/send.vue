@@ -2,7 +2,7 @@
   <div class="send_app">
     <NavLayOut
       bgc-color="#fff"
-
+      @emit="submit"
     >
       <template v-slot:right>
         <button class="submit">
@@ -49,6 +49,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
 name: "send",
   data() {
@@ -63,6 +65,39 @@ name: "send",
     }
   },
   methods: {
+    submit(){
+      let userInfo = JSON.parse(localStorage.getItem('userInfo'))
+      let data = {
+        "body": this.value,
+        "choice": "string", //精选
+        "fabulous": 0, //点赞数
+        "picture": "string",
+        "topicOfConversationId": 0, //话题id
+        "top": 0, //是否置顶
+        "title": "string",
+        "type": "string",  //类型
+        "userId": userInfo.id,
+        "userName": userInfo.name,
+
+      }
+      //    "body": "222222222222",
+      //     "choice": "string",
+      //     "fabulous": 0,
+      //     "id": 200,
+      //     "picture": "string",
+      //     "title": "string",
+      //     "top": 0,
+      //     "topicOfConversationId": 0,
+      //     "type": "string",
+      //     "userId": "string",
+      //     "userName": "string"
+      axios.post('/api/platform/ccocci/addComCir',data).then(res=>{
+        console.log(res)
+      })
+      // axios.get('/api/platform/selAllComment?id=1').then(res=>{
+      //   console.log(res)
+      // })
+    },
     filesAdded(files) {
       let hasIgnore = false
       let message

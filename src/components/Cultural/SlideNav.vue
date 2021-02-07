@@ -75,8 +75,10 @@ export default {
   font-family: PingFangSC-Medium, PingFang SC;
   font-weight: 500;
   line-height: 22px;
+  color #000
 .cube-tab_active
   font-size 16px
+  color #fff
 .header
   margin 0 15px
   padding 10px 0

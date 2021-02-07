@@ -57,7 +57,7 @@
               <div>员工开卡</div>
             </div>
           </div>
-          <div class="box_content" >
+          <div class="box_content" @click="$router.push({name:'CardRecord',params:{id:1}})">
             <div class="box_content_item"   >
               <Icon class-name="func_icon" svg-name="EmployeeCard-manageCard" heigth="40px" width="40px"></Icon>
               <div>员工卡管理</div>

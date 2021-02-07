@@ -13,7 +13,7 @@
             v-if="$route.meta.showNav"
             v-show="toggle"
         >
-          <div slot="right" >
+          <div slot="right" @click="$emit('emit')" >
             <slot name="right"></slot>
           </div>
         </Nav>
@@ -72,7 +72,8 @@ name: "NavLayOut",
 <style scoped lang="stylus">
 
 .nav_height
-  height calc(100vh - 120px)
+  height calc(100vh - 60px)
 
-
+>>>.cube-scroll-wrapper
+  height  calc(100vh - 80px)
 </style>

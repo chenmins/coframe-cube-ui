@@ -107,40 +107,13 @@ export default{
       },
       submitHandler(e,model){
         e.preventDefault()
+
         let data={
           "username":model.inputValue,
           "password":model.passwordValue
         }
-        this.$axios.post(  this.$config.login,data).then(res=>{
-          localStorage.setItem('userInfo',JSON.stringify(res.data))
-          localStorage.setItem('Token',res.data.token)
-          setToken(res.data.token)
-          this.$router.push('/')
-        }).catch(error=>{
-          let  toast
-          let err = JSON.parse(JSON.stringify(error))
-          if(err.message.includes('401')){
-            toast = this.$createToast({
-              time:2000,
-              txt: '登陆失败，账号不存在或密码错误',
-              type: 'error'
-            })
-          }
-          if(err.message.includes('500')){
-           toast = this.$createToast({
-              time:2000,
-              txt: '接口错误',
-              type: 'error'
-            })
-          }
-          toast = this.$createToast({
-            time:2000,
-            txt: '请求失败',
-            type: 'error'
-          })
-          toast.show()
-        })
-      }
+        this.$store.dispatch('login',data)
+        }
     }
 
   }

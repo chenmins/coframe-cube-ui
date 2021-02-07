@@ -7,7 +7,8 @@
             {{ status || '审批状态' }}
           <i class="cubeic-select"></i>
           </span>
-        <span @click="showPicker">到访日期
+        <span @click="showPicker">
+          到访日期
           <i class="cubeic-select"></i>
           </span>
       </LayOut>

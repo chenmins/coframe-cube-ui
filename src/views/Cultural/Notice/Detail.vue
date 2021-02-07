@@ -1,6 +1,6 @@
 <template>
-  <div >
-    <NavLayOut >
+  <div style="background-color: #fff;height: 100vh">
+    <NavLayOut bgc-color="#fff" >
       <div class="header">
         <div class="title">
           关于信息技术中心研发出新的功能，办公效率提升200%

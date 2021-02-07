@@ -2,6 +2,7 @@
   <div class="search_box" >
     <input class="cu_input" v-model="syncValue"></input>
     <i v-show="syncValue.length ===0" class="cubeic-search">{{ placeholder||"搜索" }}</i>
+    <i class="cubeic-close close_svg"></i>
   </div>
 </template>
 
@@ -43,4 +44,15 @@ export default {
   transform translate(-50%,-50%)
   font-size 14px
 
+.close_svg
+    position absolute
+    font-size 10px
+    top 50%
+    right 30px
+    transform translateY(-50%)
+    background-color #cccccc
+    border-radius 50%
+    color #fff
+    padding 1px
+    line-height 13px
 </style>
