@@ -19,10 +19,9 @@ function resolve(dir) {
 }
 
 function mapAction(moduleName, swagger) {
-
   swagger.tags = swagger.tags.filter(tag => {
     tag.description = tag.description.replace(/ /gi, '')
-    return /^[A-Za-z\-]+$/.test(tag.name)
+    return /^[A-Za-z\-]+$/.test(tag.description) //将tag.name 改为 tag.description
   })
   const action_tpl = Handlebars.compile(fs.readFileSync(resolve('/scripts/tpl/action.tpl'), 'utf-8'))
   if(!fs.existsSync( resolve(`/src/actions/${moduleName}`) ))
@@ -129,6 +128,7 @@ function execute(url) {
   let all = []
   Config.modules.forEach(({name, swaggerUrl}) => {
     execute(swaggerUrl).then((data) => {
+      console.log(data)
       console.log(`read ${name} : ${swaggerUrl} ...`)
       mapAction(name, data)
     }).then(() => {
