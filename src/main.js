@@ -2,6 +2,7 @@ import Vue from 'vue'
 import './cube-ui'
 import "@/libs/XgeneCloudOptions";
 import App from './App.vue'
+import BaseVue from "@/libs/BaseVue";
 import router from './router'
 import axios from  './axios/index'
 import Nav from '@/components/Nav'
@@ -50,7 +51,7 @@ Vue.component('Icon',Icon)
 
 
 
-Vue.mixin(Global)
+Vue.mixin(Global).mixin(BaseVue)
 Vue.use(Switch);
 
 

@@ -53,11 +53,15 @@ name: "NavLayOut",
   },
   methods:{
     scroll(e){
-      if(this.$route.meta.name === '行政服务工作台'){
-        if(e.y < -62){
+      if(this.$route.meta.name === '行政服务工作台'
+          // ||
+          // this.$route.meta.name ==='审批列表' ||
+          // this.$route.meta.name ==='我的审批'
+      ){
+        if(e.y < -60){
           this.toggle = false
         }
-        if(e.y > -62){
+        if(e.y > -60){
           this.toggle = true
         }
       }

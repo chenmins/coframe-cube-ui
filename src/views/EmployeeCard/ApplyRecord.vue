@@ -1,29 +1,26 @@
 <template>
   <div id="ApplyRecord">
-    <LayOut class="record">
-      <div class="border-bottom-1px">
-        <p>申请办卡</p>
-        <p>提交申请时间：2020-01-10  09：10：10</p>
-      </div>
-      <p>行政部审批中 </p>
-      <p>人事部审批通过 2020-01-10  08：10：10</p>
-      <p>技术部审批通过 2020-01-10  07：10：10</p>
-    </LayOut>
-    <LayOut class="record">
-      <div class="border-bottom-1px">
-        <p>申请办卡</p>
-        <p>提交申请时间：2020-01-10  09：10：10</p>
-      </div>
-      <p>行政部审批中 </p>
-      <p>人事部审批通过 2020-01-10  08：10：10</p>
-      <p>技术部审批通过 2020-01-10  07：10：10</p>
-    </LayOut>
+    <NavLayOut bgc-color="#fff">
+      <Application></Application>
+      <Patch></Patch>
+      <Loss></Loss>
+    </NavLayOut>
   </div>
 </template>
 
 <script>
+import NavLayOut from "@/components/NavLayOut";
+import Application from "@/views/EmployeeCard/components/Application";
+import Patch from "@/views/EmployeeCard/components/Patch";
+import Loss from "@/views/EmployeeCard/components/Loss";
 export default {
-  name: "ApplyRecord"
+  name: "ApplyRecord",
+  components:{
+    Loss,
+    Patch,
+    Application,
+    NavLayOut
+  }
 }
 </script>
 

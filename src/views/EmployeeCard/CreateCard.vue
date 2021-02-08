@@ -1,52 +1,23 @@
 <template>
-  <div id="create_card">
-    <NavLayOut
-        bgc-color="#fff"
-    >
-      <LayOut style="padding-bottom: 60px" class="bgcolor">
-        <LayOut style="margin-top: 12px;padding: 12px 20px">
-          <div class="title">选择新员工</div>
-          <!--        @submit="submitHandler"-->
-          <!--        @validate="validateHandler"-->
-          <cube-form :model="groupModel.firstModel"
-                     :schema="groupSchema.fristSchema"
-                     :options="{layout:'classic'}"
-                     class="form-control new-employee"
-          >
-          </cube-form>
-        </LayOut>
-        <LayOut style="margin-top: 12px;padding: 12px 20px">
-          <div class="title">楼层权限</div>
-          <div class="item" v-for="(model,index) in groupModel.floorModel">
-            <cube-form :model="groupModel.floorModel[index]"
-                       :schema="groupSchema.floorSchema[index]"
-                       :options="{layout:'classic'}"
-                       class="form-control floor-root"
-            >
 
-            </cube-form>
-            <Icon svg-name="employee-close" class-name="close" @iconToggle="close(index)"></Icon>
-          </div>
-
-        </LayOut>
-        <div class="add" @click="add">
-          <i class="cubeic-close add_svg"></i>
-          <span>添加</span>
-        </div>
+  <FloorSelect>
+      <LayOut style="margin-top: 12px;padding: 12px 20px">
+        <div class="title">选择新员工</div>
+        <!--        @submit="submitHandler"-->
+        <!--        @validate="validateHandler"-->
+        <cube-form :model="groupModel.firstModel"
+                   :schema="groupSchema.fristSchema"
+                   :options="{layout:'classic'}"
+                   class="form-control new-employee"
+        >
+        </cube-form>
       </LayOut>
-    </NavLayOut>
-    <div class="footer" v-if="$route.meta.name==='员工卡申请'">
-      <cube-button type="submit" @click="submit">预览确认</cube-button>
-    </div>
-    <div class="footer two" v-else>
-      <cube-button type="submit" class="cancel" @click="cancel">取消</cube-button>
-      <cube-button type="submit" class="confirm" @click="submit">提交修改</cube-button>
-    </div>
-  </div>
+  </FloorSelect>
 </template>
 
 <script>
 import Preview from "@/components/EmployeeCard/Preview";
+import FloorSelect from "@/views/EmployeeCard/components/FloorSelect";
 
 const column1 = [
   {text: '行政楼A座-一层-南门', value: '剧毒'},
@@ -69,7 +40,7 @@ const column3 = [
 export default {
   name: "CreateCard",
   components: {
-    Preview
+    Preview,FloorSelect
   },
   created() {
     this.groupModel.firstModel = {
@@ -261,6 +232,7 @@ export default {
       this.$createDialog({
         type: 'confirm',
         title: '确定注销该员工卡吗？',
+        maskClosable:true,
         onConfirm: (e) => {
           this.$createToast({
             type: 'warn',
@@ -269,6 +241,9 @@ export default {
           }).show()
         }
       }).show()
+    },
+    confirm(){
+      this.$router.push({name:'Preview',params:{id:1}})
     },
     add(){
       let schemaTemplate = {
@@ -475,124 +450,15 @@ export default {
 
 
 <style scoped lang="stylus">
->>>.cube-dialog-confirm
-  border-radius 6px
-  >>>.cube-dialog-title-def
-    font-family: PingFangSC-Regular, PingFang SC;
-    font-weight: 400;
-    color: #0F1826;
-    line-height: 24px;
-    font-size 100px
-
 
 .new-employee
   margin-top 20px
-
-.item
-  position: relative;
-
-.close
-  height 14px
-  width 14px
-  position absolute
-  right -7px
-  top -7px
-
-.floor-root
-  border-radius 6px
-  background-color rgba(#0099FF, .05)
-  position relative
-  padding 5px 10px
-  margin 10px 0
-
-  >>> .cube-select
-    background-color transparent
-
-  .close
-    height 14px
-    width 14px
-    position absolute
-    right -7px
-    top -7px
-
-  .header
-    text-align left
-    font-size: 14px;
-    font-family: PingFangSC-Medium, PingFang SC;
-    font-weight: 500;
-    color: #000000;
-    line-height: 20px;
-
-  .time-show
-    padding-left 10px
-    text-align left
-    font-size: 14px;
-    font-family: PingFangSC-Regular, PingFang SC;
-    font-weight: 400;
-    color: #000000;
-    line-height: 20px;
-    letter-spacing: 1px;
-
-  .cube-form-label
-    font-size: 14px;
-    font-weight: 500;
-    color: #000000;
-    line-height: 20px;
-
-  .cubeic-arrow
-    color #999
-
-.add
-  width: 117px;
-  height: 30px;
-  border-radius: 20px;
-  border: 1px solid #000000;
-  margin 20px auto 0
-  display flex
-  align-items center
-  justify-content: center;
-
-  .add_svg
-    transform rotate(45deg)
-    height 14px
-    width 14px
-
-.two
-  display flex
-  justify-content: center;
-  .cube-btn
-    width 40%
-.footer
-  background-color #fff
-  box-shadow: 0px -4px 10px 0px rgba(0, 0, 0, 0.04);
-  position fixed
-  bottom 0
-  width 100%
-  z-index 11
-  .cancel
-    background #F5F6FA!important
-    color #000
-  .cube-btn
-    height: 40px;
-    background: linear-gradient(90deg, #19E8FF 0%, #0F97FB 100%);
-    border-radius: 20px;
-    margin 12px auto
-
-.bgcolor
-  background-color: #F5F6FA !important
-
-
-#create_card
-  position relative
-  background-color $my-bgc-color
-  height 100vh
-
-  .title
-    font-size: 18px;
-    font-weight: 600;
-    color: #0099FF;
-    line-height: 25px;
-    text-align left
+.title
+  font-size: 18px;
+  font-weight: 600;
+  color: #0099FF;
+  line-height: 25px;
+  text-align left
 
 
 </style>

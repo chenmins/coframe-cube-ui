@@ -2,7 +2,7 @@
   <div class="product_list">
     <div  v-if="showTitle" class="product_list_title">{{title}}</div>
     <ul class="product_list_box" >
-      <li class="list_item" v-for="item in data" :data-id="item.id" @click="go(item)">
+      <li class="list_item" v-for="item in data" :key="item.id" :data-id="item.id" @click="go(item)">
         <slot :scoped="item"></slot>
       </li>
     </ul>

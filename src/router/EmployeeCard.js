@@ -116,6 +116,17 @@ export default [
             showNav: true
         },
         component: () => import('@/views/EmployeeCard/CreateCard')
+    },
+    {
+        path:'/Preview/:id',
+        name:'Preview',
+        meta: {
+            name: '确认信息',
+            tag: 'Preview',
+            leave:3,
+            showNav: true
+        },
+        component: () => import('@/views/EmployeeCard/Preview')
     }
 
 ]

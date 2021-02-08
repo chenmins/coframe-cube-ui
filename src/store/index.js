@@ -11,6 +11,9 @@ import Guest from "@/store/Guest";
 import axios from "@/axios/index";
 import {setToken} from "@/utils/auth";
 
+import {Demo} from "@/actions/pipe/Demo";
+
+
 Vue.use(Vuex)
 
 
@@ -36,8 +39,7 @@ const store = new Vuex.Store({
                 localStorage.setItem('userInfo',JSON.stringify(resp.data))
                 localStorage.setItem('Token',resp.data.token)
                 setToken(resp.data.token)
-                router.replace('/')
-
+                router.push('/')
             } catch (error) {
                 console.log(JSON.parse(JSON.stringify(error)))
             }
