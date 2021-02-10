@@ -3,7 +3,9 @@
     <div class="img_box">
       <img src="../../assets/icons/news.png" alt="">
     </div>
-    <slot></slot>
+    <div style="background-color: #F5F6FA">
+      <slot></slot>
+    </div>
   </div>
 </template>
 

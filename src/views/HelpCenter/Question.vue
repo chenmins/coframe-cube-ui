@@ -5,16 +5,16 @@
       <div class="header">
         <Search :value="value"></Search>
       </div>
-      <List :show-title="false" :data="listData" @goRouter="go">
-        <template slot-scope="scoped">
+      <ul class="product_list_box" >
+        <li class="list_item" v-for="item in listData" :key="item.id" :data-id="item.id" @click="$router.push({name: 'ProductInc', params: {id: item.id}}).catch(()=>{})">
           <div style="display: flex;align-items: center;color: #0F1826;height: 48px;">
-            <span>{{ scoped.scoped.title }}</span>
+            <span>{{ item.title }}</span>
           </div>
           <div>
             <i class="cubeic-arrow icon-arrow"></i>
           </div>
-        </template>
-      </List>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
@@ -39,21 +39,37 @@ export default {
     }
     next()
   },
-  created() {
+  beforeMount() {
     this.listData = this.$store.state.HelpCenter.listData
   },
   methods: {
     search() {
       console.log(this.value)
     },
-    go(e) {
-      this.$router.push({name: 'ProductInc', params: {id: e.id}})
+    goRouter(e) {
+      console.log(e)
+
     }
   }
 }
 </script>
 
 <style scoped lang="stylus">
+.list_item
+  display flex
+  align-items center
+  justify-content: space-between;
+  padding 8px 16px 8px 12px
+  position: relative;
+  background-color #fff
+  &:after
+    content ''
+    border-bottom 1px solid rgba(#ccc,.4)
+    position absolute
+    bottom 0
+    left 64px
+    display block
+    width 100%
 .header
   position absolute
   top -30px

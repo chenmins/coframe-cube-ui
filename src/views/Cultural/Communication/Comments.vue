@@ -1,7 +1,7 @@
 <template>
   <div class="comments_app">
     <NavLayOut bgc-color="#fff" style="margin-bottom: 100px">
-      <Card>
+      <Card :is-comment="false">
         <template v-slot:content>dsadsadnaskdasdasd</template>
         <template v-slot:card_topic>#dasdada</template>
       </Card>
@@ -35,10 +35,15 @@
       </div>
     </NavLayOut>
     <div class="go_comment">
-      <cube-textarea v-model="value"
-                     class="inputarea"
-                     :placeholder="placeholder"
-                     :maxlength="maxlength" ></cube-textarea>
+      <form style="width: 100%">
+        <cube-textarea v-model="value"
+                       class="inputarea"
+                       :placeholder="placeholder"
+                       :maxlength="maxlength" >
+
+        </cube-textarea>
+      </form>
+
     </div>
   </div>
 </template>
@@ -47,6 +52,8 @@
 import Card from "@/components/Cultural/Card";
 import axios from "axios";
 import urls from '@/utils/mock/url'  // 引入实现准备好的接口请求相关配置
+
+import {PipCcoCciController} from "@controller";
 
 export default {
   name: "Comments",
@@ -62,7 +69,21 @@ export default {
     }
   },
   created() {
+    this.init()
+  },
+  methods:{
+    async init(){
+      //todo 交流圈详情
+      let resp = await this.dispatch(PipCcoCciController.selAllComment,{id:this.$route.params.id})
 
+      console.log(resp)
+
+    },
+    async submit(){
+      let resp = await this.dispatch(PipCcoCciController.upCommentById,{})
+
+      console.log(resp)
+    }
   }
 }
 </script>

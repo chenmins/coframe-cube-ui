@@ -114,7 +114,7 @@ module.exports = {
         },
       },
       // "/api/platform": { //是否使用代理标识,/api开头的才用代理
-      //   target: "http://39.105.213.176:8080/api",
+      //   target: "http://c94.cn:3003/api/",
       //   ws: false,// 启用websockets
       //   changeOrigin: true, //跨域
       // },

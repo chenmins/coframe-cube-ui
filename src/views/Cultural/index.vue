@@ -29,17 +29,14 @@ export default {
   },
   data() {
     return {
-      selectedLabel: '公告列表',
+      selectedLabel: this.$route.meta.name,
       tabs: [
         {
           label: '公告列表',
-          heroes: ['敌法师', '卓尔游侠', '主宰', '米拉娜', '变体精灵']
         }, {
           label: '企业新闻',
-          heroes: ['血魔', '影魔', '剃刀', '剧毒术士', '虚空假面', '幻影刺客', '冥界亚龙', '克林克兹', '育母蜘蛛', '编织者', '幽鬼', '司夜刺客', '米波']
         }, {
           label: '交流圈',
-          heroes: ['血魔', '影魔', '剃刀', '剧毒术士', '虚空假面', '幻影刺客', '冥界亚龙', '克林克兹', '育母蜘蛛', '编织者', '幽鬼', '司夜刺客', '米波']
         }
       ]
     }
@@ -48,10 +45,12 @@ export default {
     Send() {
       this.$router.push({name: '发帖子'})
     },
+
   }
 }
 </script>
 <style lang="stylus" scoped>
+
 #cultural_app
   height 100%
   padding-top -100px
@@ -70,9 +69,9 @@ export default {
   >>>.cube-tab
     min-width 70px
     font-size: 14px;
-    color #fff
     font-weight: 500;
     line-height: 22px;
+    color #fff
   >>>.cube-tab_active
     font-size 16px
 .slide_nav

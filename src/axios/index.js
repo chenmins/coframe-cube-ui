@@ -2,6 +2,12 @@ import axios from 'axios'
 import router from '@/router'
 import Vue from 'vue'
 
+
+
+
+
+
+
 let NODE_ENV = process.env.NODE_ENV
 if(NODE_ENV === 'development'){
 	//开发环境
@@ -38,7 +44,10 @@ axios.interceptors.response.use(
 		return response
 	},
 	error=> {
-		router.replace('/login')
+		let errorMsg = JSON.parse(JSON.stringify(error))
+		if(errorMsg.message.includes('401')){
+			router.replace('/login')
+		}
 		return Promise.reject (error)
 	}
 )

@@ -7,7 +7,8 @@
             {{ status || '审批状态' }}
           <i class="cubeic-select"></i>
           </span>
-        <span @click="showPicker">到访日期
+        <span @click="showPicker">
+          到访日期
           <i class="cubeic-select"></i>
           </span>
       </LayOut>
@@ -137,6 +138,8 @@ export default {
 </script>
 >
 <style scoped lang="stylus">
+>>>.cube-scroll-wrapper
+  height  calc(100vh - 220px)
 
 >>> .scroll-list-wrap
   max-height calc(100vh - 210px)

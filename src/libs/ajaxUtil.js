@@ -2,6 +2,8 @@ import axios from 'axios'
 import _ from 'lodash'
 import Vue from 'vue'
 import * as auth from '@/utils/auth.js'
+import router from "@/router";
+
 
 let ajaxUtil = {}
 ajaxUtil.title = function (title) {
@@ -116,7 +118,8 @@ ajaxUtil.myRequest = (action, payload) => {
   return new Promise((resolve, reject) => {
     ajaxUtil
       .headers({
-        Authorization: token,
+        Authorization: localStorage.getItem('Token'),
+        'X-EOS-SourceSysKey':Vue.config['X-EOS-SourceSysKey'],
         Locale: Vue.config.lang,
         Channel: 'website',
         overflow: false,
@@ -137,6 +140,9 @@ ajaxUtil.myRequest = (action, payload) => {
         resolve(response)
       })
       .catch(res => {
+        if(res.response.status===401){
+          router.replace('/login')
+        }
         reject(res.response)
       })
   })

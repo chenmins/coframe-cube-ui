@@ -21,7 +21,6 @@
       </div>
       <div class="tool_item" @click="$router.push({name:'Guest'})">
         <Icon svg-name="four" class-name="svg"></Icon>
-
         <div>访客预约</div>
       </div>
       <div class="tool_item" @click="$router.push({name:'homepage'})">
@@ -33,7 +32,7 @@
         <Icon svg-name="six" class-name="svg"></Icon>
         <div>员工卡申请</div>
       </div>
-      <div class="tool_item" @click="$router.push({name:'AppointmentCenter'})">
+      <div class="tool_item" @click="$router.push({name:'YuYueCenter'})">
         <Icon svg-name="seven" class-name="svg"></Icon>
 
         <div>预约中心</div>

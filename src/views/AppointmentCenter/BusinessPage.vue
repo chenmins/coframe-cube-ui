@@ -1,58 +1,87 @@
 <template>
   <div id="page">
-      <LayOut class="container">
-        <div @click="showDefault" class="selected">
-          <span>今天 {{ date }}</span>
-          <div>
-            <span>全天</span>
-            <i class="cubeic-arrow"></i>
-          </div>
-        </div>
-        <div class="selected" @click="showType" >
-          <span>{{$route.meta.name==='医务室预约'?'问诊':$route.meta.name==='理发室预约'?'护理':$route.meta.name==='零点餐厅预约'?'选择餐厅':''}}类型</span>
-          <div>
-            <span>请选择</span>
-            <i class="cubeic-arrow"></i>
-          </div>
-        </div>
+    <NavLayOut>
+      <cube-form :model="model"
+                 :schema="schema"
+                 :options="{layout:'classic'}"
+                 class="form-control"
+      >
+        <!--        @submit="submitHandler"-->
+        <!--        @validate="validateHandler"-->
+        <cube-form-group>
+          <cube-form-item :field="form[0]">
+            <!--            @click="showTimePicker"-->
+            <div class="time-show">{{ model.time || form[0].props.placeholder }}
+              <i class="cubeic-arrow" style="float: right;margin-right: 16px"></i>
+            </div>
+          </cube-form-item>
+        </cube-form-group>
+      </cube-form>
+      <!--      <LayOut class="container">-->
+      <!--        <div @click="showDefault" class="selected">-->
+      <!--          <span>今天 {{ date }}</span>-->
+      <!--          <div>-->
+      <!--            <span>全天</span>-->
+      <!--            <i class="cubeic-arrow"></i>-->
+      <!--          </div>-->
+      <!--        </div>-->
+      <!--        <div class="selected" @click="showType" >-->
+      <!--          <span>{{$route.meta.name==='医务室预约'?'问诊':$route.meta.name==='理发室预约'?'护理':$route.meta.name==='零点餐厅预约'?'选择餐厅':''}}类型</span>-->
+      <!--          <div>-->
+      <!--            <span>请选择</span>-->
+      <!--            <i class="cubeic-arrow"></i>-->
+      <!--          </div>-->
+      <!--        </div>-->
 
-        <cube-button>查询</cube-button>
-      </LayOut>
+      <!--        <cube-button>查询</cube-button>-->
+      <!--      </LayOut>-->
+    </NavLayOut>
   </div>
 </template>
 
 <script>
 export default {
   name: "BusinessPage",
-  beforeRouteEnter(to,from,next){
+  beforeRouteEnter(to, from, next) {
     to.meta.name = to.params.id
     next()
   },
-  data(){
+  data() {
     return {
-      date:this.$dayjs().format('MM月DD日')
+      date: this.$dayjs().format('MM月DD日'),
+      model: {
+        time: ''
+      },
+      schema: {
+        groups: {
+          legend: `访客1信息`,
+          fields: [
+
+          ]
+        }
+      }
     }
   },
   created() {
   },
-  methods:{
-    showType(){
-      let nameMap={
-        '医务室预约':'hospital',
-        '理发室预约':'barbershop',
-        '零点餐厅预约':'restaurant',
+  methods: {
+    showType() {
+      let nameMap = {
+        '医务室预约': 'hospital',
+        '理发室预约': 'barbershop',
+        '零点餐厅预约': 'restaurant',
       }
       let routerName = this.$route.meta.name
       this.$createActionSheet({
         title: '',
         data: this.$route.meta.dataType[nameMap[routerName]],
-            onSelect: (item, index) => {
-        this.$createToast({
-          txt: `Clicked ${item.content}`,
-          time: 1000
-        }).show()
-      }
-    }).show()
+        onSelect: (item, index) => {
+          this.$createToast({
+            txt: `Clicked ${item.content}`,
+            time: 1000
+          }).show()
+        }
+      }).show()
     },
     showDefault() {
       this.$createActionSheet({
@@ -62,10 +91,10 @@ export default {
             content: this.$dayjs().format(' MM月DD日'),
           },
           {
-            content:  this.$dayjs().add(1, 'day').format(' MM月DD日')
+            content: this.$dayjs().add(1, 'day').format(' MM月DD日')
           },
           {
-            content:  this.$dayjs().add(2, 'day').format(' MM月DD日') ,
+            content: this.$dayjs().add(2, 'day').format(' MM月DD日'),
           }
         ],
         onSelect: (item, index) => {
@@ -86,21 +115,26 @@ export default {
   height $viewpoint-height
   background-color $my-bgc-color
   border 1px solid transparent
+
   button
     margin-top 50px
     border-radius 10px
     background-color $custom-active-color
+
   .container
     margin 20px
     padding 10px
     border-radius 10px
+
   .selected
     display flex
     justify-content space-between
     padding 20px
+
     div
       display flex
       align-items center
+
     span
       font-size 12px
 </style>

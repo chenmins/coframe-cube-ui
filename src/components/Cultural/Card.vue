@@ -23,7 +23,7 @@
             </slot>
         </span>
       </div>
-      <span class="card_topic" v-if="!isComment">
+      <span class="card_topic" v-if="!isComment"  >
               <slot name="card_topic">
               </slot>
         </span>
@@ -31,15 +31,19 @@
     </div>
 
     <div class="footer">
-      <div class="remove">
+      <div class="remove" @click="remove" >
         <Icon svg-name="delete@2" style="height: 20px;width: 20px"></Icon>
       </div>
       <div class="func">
-        <div class="like">
-          <Icon svg-name="liked" style="height: 20px;width: 20px"></Icon>
-          <span>21312</span>
+        <div class="like" @click="toggleLike">
+          <Icon v-if="isLike" svg-name="liked" style="height: 20px;width: 20px"></Icon>
+          <Icon v-else svg-name="like" style="height: 20px;width: 20px"></Icon>
+          <span>
+            <slot name="likeName"></slot>
+          </span>
         </div>
         <div class="comment"
+             v-if="$route.meta.name !== '交流圈-评论详情'"
              @click="$router.push({name: '交流圈-评论详情', params: {id: 1}})">
           <Icon svg-name="comment" style="height: 20px;width: 20px"></Icon>
           <span>11</span>
@@ -50,12 +54,50 @@
 </template>
 
 <script>
+import {PipCcoCciController} from '@controller'
 export default {
   name: "Card",
-  props: [
-    'isComment', 'isLike'
-  ],
+  props: {
+    isComment:{
+      type:Boolean,
+      default:true
+    }
+  },
+  data(){
+      return{
+        isLike:true
+      }
+  },
   methods: {
+    async remove(){
+      this.$emit('remove')
+      //todo 删除（朋友圈）
+      // if(!this.isComment){
+      //   let resp = await this.dispatch(PipCcoCciController.delCircleById,{id:6}) //朋友圈id
+      // }
+      //
+      // //todo 删除（评论）
+      // if(this.isComment){
+      //   let resp = await this.dispatch(PipCcoCciController.delCommentById,{id:5}) //评论id
+      // }
+    },
+    async toggleLike(){ //点赞
+      this.$emit('toggleLike')
+      this.isLike = !this.isLike
+
+      //TODO 点赞（交流圈）
+      if(!this.isComment){
+        let resp = await this.dispatch(PipCcoCciController.addOrDelPra,{id:5})
+      }
+
+      //todo  点赞（评论）
+      if(this.isComment){
+        let resp = await this.dispatch(PipCcoCciController.addOrDelPraComment,{id:5})
+      }
+
+
+
+    },
     seeComments() {
       this.$emit('checkComments')
     },

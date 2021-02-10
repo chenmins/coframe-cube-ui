@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 63 (92445) - https://sketch.com -->
+    <title>icon/预约中心</title>
+    <desc>Created with Sketch.</desc>
+    <g id="icon/预约中心" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M19.5,2 C20.8807119,2 22,3.11928813 22,4.5 L22,9.578 L22.0022766,9.60527357 L22.0022766,11.6912656 C22.0022766,12.077865 21.688876,12.3912656 21.3022766,12.3912656 C20.9478939,12.3912656 20.6550184,12.127922 20.6086668,11.7862515 L20.6022766,11.6912656 L20.602,11.314 L20.6,11.314 L20.6,4.5 C20.6,3.93298766 20.1709893,3.46617613 19.6198571,3.40645465 L19.5,3.4 L4.5,3.4 C3.93298766,3.4 3.46617613,3.8290107 3.40645465,4.38014288 L3.4,4.5 L3.4,19.5 C3.4,20.0670123 3.8290107,20.5338239 4.38014288,20.5935453 L4.5,20.6 L9.132,20.6 L9.14873246,20.5992221 L11.2347245,20.5992221 C11.6213238,20.5992221 11.9347245,20.9126228 11.9347245,21.2992221 C11.9347245,21.6536049 11.6713809,21.9464804 11.3297104,21.992832 L11.2347245,21.9992221 L11,21.999 L11,22 L4.5,22 C3.11928813,22 2,20.8807119 2,19.5 L2,4.5 C2,3.11928813 3.11928813,2 4.5,2 L19.5,2 Z" id="形状结合" fill="#000000" fill-rule="nonzero"></path>
+        <polyline id="路径-22" stroke="#000000" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" transform="translate(17.666139, 17.238933) rotate(40.000000) translate(-17.666139, -17.238933) " points="16.6661386 19.2389329 18.6661386 19.2389329 18.6661386 15.2389329"></polyline>
+        <circle id="椭圆形" stroke="#000000" stroke-width="1.4" stroke-linecap="round" cx="17.5" cy="17.5" r="4.5"></circle>
+        <line x1="6.5" y1="6.5" x2="15.5" y2="6.5" id="路径-2" stroke="#000000" stroke-width="1.4" stroke-linecap="round"></line>
+        <line x1="6.5" y1="10.5" x2="12.5" y2="10.5" id="路径-2" stroke="#000000" stroke-width="1.4" stroke-linecap="round"></line>
+        <line x1="6.5" y1="14.5" x2="9.5" y2="14.5" id="路径-2" stroke="#000000" stroke-width="1.4" stroke-linecap="round"></line>
+    </g>
+</svg>

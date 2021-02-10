@@ -16,30 +16,28 @@
                 headerClass='com_header'
                 :center="true" show-slider
                 :selected-label="selectedLabel" :tabs="tabs">
-<!--        <div class="scroll-list-wrap">-->
-<!--          <cube-scroll-->
-<!--              ref="scroll">-->
-            <Card :is-like="true" v-for="comment in comments" @checkComments="checkComments" @goComment="goComment"
-
+        <div class="scroll-list-wrap">
+          <cube-scroll
+              ref="scroll">
+            <Card :is-comment="false" v-for="comment in comments" @checkComments="checkComments" @goComment="goComment"
+                  @toggleLike="toggleLike(comment)" @remove="remove(comment.id)"
             >
-              <template v-slot:username>{{ comment.username }}</template>
+              <template v-slot:username>{{ comment.userName }}</template>
+              <template v-slot:likeName>{{ comment.fabulous }}</template>
               <template v-slot:content>
                 <div>
-                  {{ comment.content }}
-                  <img  width="100%" src="../../../assets/icons/news.png" alt="">
+                  {{ comment.body }}
+                  <!--                  <img  width="100%" src="../../../assets/icons/news.png" alt="">-->
                 </div>
 
               </template>
-              <template v-slot:card_topic>
-                #{{ comment.belongToTopic }}
+              <template v-slot:card_topic v-if="comment.topicOfConversationId!==0">
+                话题id#{{ comment.topicOfConversationId }}
               </template>
             </Card>
-<!--          </cube-scroll>-->
-<!--        </div>-->
-
-
+          </cube-scroll>
+        </div>
       </SlideNav>
-
     </Common>
 
 
@@ -50,6 +48,8 @@
 import SlideNav from "@/components/Cultural/SlideNav";
 import Card from "@/components/Cultural/Card";
 import Common from "@/views/Cultural/Common";
+import axios from "axios";
+import {PipCcoCciController} from '@controller'
 
 export default {
   name: "index",
@@ -58,6 +58,7 @@ export default {
   },
   data() {
     return {
+      like: false,
       selectedLabel: '全部',
       tabs: [
         {
@@ -77,11 +78,50 @@ export default {
       comments: []
     }
   },
+
   created() {
     this.topics = this.$store.state.Cultural.topics
-    this.comments = this.$store.state.Cultural.comments
+    // this.comments = this.$store.state.Cultural.comments
+    this.init('1')
   },
   methods: {
+    async remove(e){
+      console.log(e)
+      if(!this.isComment){
+        let resp = await this.dispatch(PipCcoCciController.delCircleById,{id:e}) //朋友圈id
+      }
+
+      if(this.isComment){
+        let resp = await this.dispatch(PipCcoCciController.delCommentById,{id:e}) //评论id
+      }
+    },
+    async toggleLike(e) {
+      console.log(e)
+      // let resp = await this.dispatch(PipCcoCciController.selCommentCircle, {id: e.id})
+      // console.log(resp)
+      if (this.like) {
+        e.fabulous -= 1
+      } else {
+        e.fabulous += 1
+      }
+      this.like = !this.like
+    },
+    async init(type) {
+      let circle = {"type": "1"}
+      let selComCilList = await this.dispatch(PipCcoCciController.selComCilList, {"type": type}) //获取所有列表
+
+      let res = await this.dispatch(PipCcoCciController.selCommentById, {"type": type}) //获取所有列表
+      // let resp = await this.dispatch(PipCcoCciController.selComCilPageSortList)
+
+      if (!selComCilList.error) {
+        console.log(selComCilList.data)
+        this.comments = selComCilList.data.body
+      } else {
+        if (!selComCilList.loading) {
+          this.$router.push('/login')
+        }
+      }
+    },
     goComment(e) {
       if (e.target.classList[0] === 'card_topic') return
       this.$router.push({name: '交流圈-评论详情', params: {id: 1}})
@@ -89,13 +129,13 @@ export default {
     changeHandle(e) {
       switch (e) {
         case '全部':
-          this.comments = this.$store.state.Cultural.comments
+          this.init('1')
           break
         case '热门':
-          this.comments = this.$store.state.Cultural.comments.filter(i => i.tag === 'hot')
+          this.init('2')
           break
         case '精选':
-          this.comments = this.$store.state.Cultural.comments.filter(i => i.tag === 'like')
+          this.init('3')
           break
       }
     },
@@ -110,14 +150,19 @@ export default {
 </script>
 
 <style scoped lang="stylus">
->>>.com_header
+>>> .cube-tab, .tab_item
+  color #000 !important
+
+>>> .cube-tab_active
+  color #fff !important
+
+>>> .com_header
   margin-top 20px
   background-color: #fff;
   margin-bottom 0
   padding-top 10px
+
 .communication_app
-  overflow: scroll;
-  background-color $my-bgc-color
   .topic_title
     margin 20px 20px 19px
     font-weight: 500;
@@ -173,11 +218,16 @@ export default {
   height calc(100vh - 264px)
   margin-bottom 20px
 
+>>> .cube-scroll-wrapper
+  height calc(100vh - 400px)
+
 >>> .cube-scroll-list-wrapper
   padding-bottom 20px
->>>.cube-tab-bar
+
+>>> .cube-tab-bar
   margin-left 10px
   background-color transparent
+
 .communication_nav
   width 100%
   display flex

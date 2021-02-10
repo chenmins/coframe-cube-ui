@@ -2,7 +2,7 @@
   <div class="send_app">
     <NavLayOut
       bgc-color="#fff"
-
+      @emit="submit"
     >
       <template v-slot:right>
         <button class="submit">
@@ -49,6 +49,9 @@
 </template>
 
 <script>
+
+import {PipCcoCciController} from '@controller'
+
 export default {
 name: "send",
   data() {
@@ -63,6 +66,31 @@ name: "send",
     }
   },
   methods: {
+    async submit(){
+      let userInfo = JSON.parse(localStorage.getItem('userInfo'))
+      let data = {
+        "body": this.value,
+        "choice": "1", //精选
+        "picture": "1",
+        "topicOfConversationId": 0, //话题id
+        "top": 0, //是否置顶
+        "fabulous": 0, //点赞数
+        "title": "1 ",
+        "type": "1",  //类型
+        "userId": userInfo.id,
+        "userName": userInfo.name,
+
+      }
+      let resp = await this.dispatch(PipCcoCciController.addComCir, data)
+        if(!resp.error){
+          console.log(resp)
+          this.$router.push({name:'交流圈'})
+        }else{
+          alert('failure')
+        }
+
+
+    },
     filesAdded(files) {
       let hasIgnore = false
       let message
@@ -120,21 +148,28 @@ name: "send",
 }
 </script>
 
+
 <style scoped lang="stylus">
+.cube-upload .cube-upload-btn[data-v-570f13b8]
+  border none
+  background-color #F7F7F7
+  border-radius 6px
+>>>.cube-upload-file-def
+  height 100%
+  width 100%
 .send_app
-  height $custom-bgc-height
   background-color #fff
+  height 100%
 >>>.cube-textarea-wrapper::after
   border none
 .submit
   position absolute
   width 50px
-  right 0
   top 30px
   line-height 30px
   border-radius 15px
   font-size 14px
-  height 30px
+  right 0
   transform translate(-50%,-50%)
   background-color $custom-active-color
   color #fff

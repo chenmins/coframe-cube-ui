@@ -4,8 +4,8 @@
 
       <LayOut style="height: calc(100vh - 72px)">
         <h1>请选择补卡原因</h1>
-        <div @click="selected" class="item selected">工卡丢失</div>
-        <div @click="selected" class="item">以旧换新</div>
+        <div @click="selected" :class="+select?'item selected':'item'">工卡丢失</div>
+        <div @click="selected" :class="select?'item ':'item selected'">以旧换新</div>
         <div v-if="disable" class="footer disable" @click="$router.push({name:'CreateCard'})">
           下一步
         </div>
@@ -22,22 +22,13 @@ export default {
   name: "index",
   data() {
     return {
-      disable: false
+      disable: false,
+      select:true
     }
   },
   methods:{
     selected(e){
-      let classList= e.target.classList
-      let newArr = []
-      for(let i of classList){
-        newArr.push(i)
-      }
-      console.log();
-      if(newArr.findIndex(i => i === 'selected')!==-1){
-        classList.remove('selected')
-      }else {
-        classList.add('selected')
-      }
+      this.select = !this.select
     }
   }
 }

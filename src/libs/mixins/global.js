@@ -1,4 +1,5 @@
 import {VueUtil} from '@/libs'
+import {Demo} from "@/actions/pipe/Demo";
 
 export default {
     methods: {
@@ -12,7 +13,7 @@ export default {
                 return
             }
             this.$router.push({name: `${newV}`})
-        }
+        },
     },
 
 

@@ -1,20 +1,20 @@
 <template>
 <div id="information">
-  <div class="top">
-    <div class="dot one"></div>
-    <div class="dot two"></div>
-    <div class="dot three"></div>
-    <div class="dot four"></div>
-    <div class="right"></div>
-    <div class="avatar_group">
-      <Icon class-name="bgc_svg" svg-name="addressbook-information" ></Icon>
-      <img class="avatar" src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__8e72ac7af1d0cc1029636e2300dae3a7.png" alt="">
-      <div class="information">
-        <span style="font-size: 22px;font-weight: 500;line-height: 30px;">kyrene</span>
-        <span style="line-height: 20px;font-size: 14px">高级ui设计师</span>
+    <div class="top">
+      <div class="dot one"></div>
+      <div class="dot two"></div>
+      <div class="dot three"></div>
+      <div class="dot four"></div>
+      <div class="right"></div>
+      <div class="avatar_group">
+        <Icon class-name="bgc_svg" svg-name="addressbook-information" ></Icon>
+        <img class="avatar" src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__8e72ac7af1d0cc1029636e2300dae3a7.png" alt="">
+        <div class="information">
+          <span style="font-size: 22px;font-weight: 500;line-height: 30px;">kyrene</span>
+          <span style="line-height: 20px;font-size: 14px">高级ui设计师</span>
+        </div>
       </div>
     </div>
-  </div>
   <div class="bottom">
     <img src="../../assets/icons/addressbook-bgc.png" alt="" class="bottom_bgc">
     <h1>基础资料</h1>
@@ -206,13 +206,6 @@ name: "Information",
       border-top-right-radius 30%
       position absolute
       right 0
-
-
-
-
-
-
-
 
 
 
