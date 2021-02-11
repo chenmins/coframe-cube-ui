@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import {Demo} from "@controller";
   export default {
     provide() {
       return {
@@ -24,8 +25,17 @@
 
       }
     },
-
+    mounted()  {
+      // this.init()
+    },
     methods: {
+      async init(){
+        let resp = await this.dispatch(Demo.isAdmin)
+        if(!resp.error){
+          localStorage.setItem('isAdmin',resp.data.body)
+        }
+
+      },
       reload() {
         this.isRouterAlive = false
         this.$nextTick(() => {
@@ -43,6 +53,29 @@
 </script>
 
 <style lang="stylus">
+//dialog样式
+.cube-dialog-main{
+  border-radius 4px
+}
+.cube-dialog-title{
+  font-size: 16px;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #0F1826;
+  line-height: 24px;
+  padding 12px
+}
+.cube-dialog-btn{
+  height 48px
+}
+.cube-dialog-btn{
+  color: #999999;
+  line-height: 22px;
+}
+.cube-dialog-btn_highlight{
+  color #fff
+  background: linear-gradient(90deg, #19D4FF 0%, #0F97FB 100%);
+}
 
 .write
   height 46px

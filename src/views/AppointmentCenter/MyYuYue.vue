@@ -1,5 +1,5 @@
 <template>
-  <ApproveContainer :tabs="tabs" :selectedLabel="selectedLabel">
+  <ApproveContainer style="height: 154px" :tabs="tabs" :selectedLabel="selectedLabel">
     <Card :reserve="approve" v-for="reserve in approves"
           @clicked="$router.push({name:'ApprovalDetail',params:{id:1}})"
     >
@@ -8,23 +8,12 @@
         <span>{{ reserve.title }}</span>
       </div>
       <div class="content font-normal">
-        <p><span class="titou">申请人姓名 </span> <span v-for="i in reserve.name">{{ i }}，</span></p>
-        <p><span class="titou">所在部门 </span> <span v-for="i in reserve.where">{{ i }}，</span></p>
-        <p><span class="titou">申请日期 </span> {{ reserve.time }}</p>
+        <p><span class="titou">预约时间 </span> <span v-for="i in reserve.name">{{ i }}，</span></p>
+        <p><span class="titou">预约地点 </span> <span v-for="i in reserve.where">{{ i }}，</span></p>
+        <p><span class="titou">提交时间 </span> {{ reserve.time }}</p>
       </div>
       <div class="right_bottom">
-        <template v-if="type==='卡申请'">
-          <Icon svg-name="EmployeeCard_apply" class-name="svg_class"></Icon>
-          <span>{{ type }}</span>
-        </template>
-        <template v-else-if="type==='补办'">
-          <Icon svg-name="EmployeeCard_apply2" class-name="svg_class"></Icon>
-          <span>{{ type }}</span>
-        </template>
-        <template v-else>
-          <Icon svg-name="EmployeeCard_apply1" class-name="svg_class"></Icon>
-          <span>{{ type }}</span>
-        </template>
+        <span>取消</span>
       </div>
       <template v-if="arrived">
         <Tag v-if="!reserve.approved" color="#fff" class="tag" :background-color="reserve.approved?'#42b983':'#000'">
@@ -36,53 +25,48 @@
         <Icon class-name="tag" svg-name="guest-arrived" height="80px" width="80px"></Icon>
       </template>
     </Card>
+
   </ApproveContainer>
 </template>
 
 <script>
-import MenuCard from "@/components/MainMenu/MenuCard";
 import SlideNav from "@/components/Cultural/SlideNav";
-import Search from "@/components/Search";
-import Card from "@/components/UI/Card";
 import ApproveContainer from "@/components/UI/ApproveContainer";
+import Card from "@/components/UI/Card";
 
 export default {
+  name: "MyYuYue",
   components: {
     ApproveContainer,
-    Card,
-    SlideNav,
-    MenuCard, Search
+    SlideNav,Card
   },
   data() {
     return {
-      type: '挂失',
-      selectedLabel: '待审批',
+      checked: false,
+      show: false,
+      selectedLabel: '预约成功',
+      approves: [],
+      arrived:false,
       tabs: [
         {
-          label: '待审批',
+          label: '预约成功'
         }, {
-          label: '已完成',
+          label: '已完成'
         }
-      ],
-      approves: [],
-      arrived: true
+      ]
     }
   },
   created() {
     this.approves = this.$store.state.Guest.approves.filter(i => i.approved === false)
+
   },
   methods: {
-    GuestDetail() {
-      this.$router.push({name: 'ReserveDetail', params: {id: 1}})
-    },
-    changeHandle(e) {
-      switch (e) {
-        case '待审批':
-          this.approves = this.$store.state.Guest.approves.filter(i => i.approved === false)
-          break
-        case '已完成':
-          this.approves = this.$store.state.Guest.approves.filter(i => i.approved === true)
+    LabelChanged(e) {
+      if (e === '已完成') {
+        this.show = true
+        return
       }
+      this.show = false
     }
   },
 
@@ -90,6 +74,62 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+.right_bottom
+  border-radius 20px
+  border 1px solid #CCCCCC
+  padding 5px 21px
+footer
+  display flex
+  justify-content: space-around;
+  position fixed
+  bottom 0
+  height 50px
+  line-height 50px
+  background-color: #fff;
+  width 100%
+
+  span
+    flex-grow 1
+
+    &.active
+      color $custom-active-color
+
+#MyAppointment
+  background-color $my-bgc-color
+  height $custom-bgc-height
+
+  .record
+    display flex
+    align-items center
+    justify-content: space-between
+    background-color: #fff;
+    margin-bottom 10px
+    padding 10px 40px
+
+  .item
+    padding 20px
+    border-top 1px solid $custom-border-color
+    position relative
+    margin-bottom 20px
+
+    .complete_img
+      position absolute
+      right 20px
+
+    .tag
+      border 1px solid $custom-active-color
+      position absolute
+      right 20px
+
+    p
+      font-size 12px
+      text-align left
+      line-height 25px
+
+    p:nth-child(5)
+      border-top 1px solid $custom-border-color
+      padding-top 10px
+
 
 .svg_complete
   height 80px
@@ -144,7 +184,7 @@ export default {
 
   .tag
     position absolute
-    right 20px
+    right 10px
     top 10px
 
 .content
@@ -189,11 +229,10 @@ export default {
   padding 1px 5px 2px 6px
   position absolute
   right 8px
-  top 20px
+  top 10px
   font-size: 12px;
   color: #FFFFFF;
   line-height: 17px;
   border-radius 10px
-
 
 </style>

@@ -3,7 +3,41 @@ import router from "@/router/index";
 
 export default [
     {
-        path: '/AppointmentCenter',
+        path: '/YuYue',
+        meta: {
+            name: '预约中心',
+            tag: 'AppointmentCenter',
+            leave:2,
+            showNav: true
+        },
+        component: () => import('@/views/AppointmentCenter/index'),
+        children: [
+            {
+                path: '/',
+                name: 'YuYueCenter',
+                meta: {
+                    name: '预约中心',
+                    tag: 'YuYueCenter',
+                    leave:2,
+                    showNav: true
+                },
+                component: () => import('@/views/AppointmentCenter/YuYueCenter')
+            },
+            {
+                path: '/MyYuYue',
+                name: 'MyYuYue',
+                meta: {
+                    name: '我的预约',
+                    tag: 'MyYuYue',
+                    leave:2,
+                    showNav: true
+                },
+                component: () => import('@/views/AppointmentCenter/MyYuYue')
+            },
+        ]
+    },
+    {
+        path: '/',
         name: 'AppointmentCenter',
         meta: {
             name: '预约中心',
@@ -17,12 +51,12 @@ export default [
         path: '/MyAppointment',
         name: 'MyAppointment',
         meta: {
-            name: '预约中心',
+            name: '我的预约',
             tag: 'MyAppointment',
             leave:2,
             showNav: true
         },
-        component: () => import('@/views/AppointmentCenter/MyAppointment')
+        component: () => import('@/views/AppointmentCenter/MyYuYue')
     },
     {
         path: '/func/:id',

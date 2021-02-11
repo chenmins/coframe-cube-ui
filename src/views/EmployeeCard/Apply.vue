@@ -1,72 +1,74 @@
 <template>
-  <div id="apply">
-    <div class="status_box">
-      <img width="100%" src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__42737c2f9e09cc8fafbdf85120f9a56e.svg" alt="">
-      <div class="status_circle ">
-        <div class="message">
-          <Tag background-color="#07c160">启用</Tag>
-            <div>当前办卡次数</div>
-            <div>2次</div>
-        </div>
-      </div>
-    </div>
-    <LayOut class="list">
-      <p>申请办卡</p>
-      <p>2020-01-10  09：10：10</p>
-    </LayOut>
-    <LayOut class="list">
-      <p>申请办卡</p>
-      <p>2020-01-10  09：10：10</p>
-    </LayOut>
-    <LayOut class="list">
-      <p>申请办卡</p>
-      <p>2020-01-10  09：10：10</p>
-    </LayOut>
-  </div>
+  <CardPanel :time="true" title="当前办卡次数" :loss='true'>
+      <ul>
+        <li @click="$router.push({name:'ApplyRecord'})">
+          <Icon svg-name="EmployeeCard_apply" class-name="svg_name"></Icon>
+          <div class="li_item">
+            <div>
+              <div class="title">申请办卡</div>
+              <div class="time">2021/01/22 15:10:10</div>
+            </div>
+            <i class="cubeic-arrow"></i>
+          </div>
+        </li>
+        <li>
+          <Icon svg-name="EmployeeCard_apply1" class-name="svg_name"></Icon>
+          <div class="li_item">
+            <div>
+              <div class="title">申请办卡</div>
+              <div class="time">2021/01/22 15:10:10</div>
+            </div>
+            <i class="cubeic-arrow"></i>
+          </div>
+        </li>
+        <li>
+          <Icon svg-name="EmployeeCard_apply2" class-name="svg_name"></Icon>
+          <div class="li_item">
+            <div>
+              <div class="title">申请办卡</div>
+              <div class="time">2021/01/22 15:10:10</div>
+            </div>
+            <i class="cubeic-arrow"></i>
+          </div>
+        </li>
+      </ul>
+  </CardPanel>
 </template>
 
 <script>
+import CardPanel from "@/views/EmployeeCard/components/CardPanel";
 export default {
-  name: "Apply"
+  name: "Apply",
+  components: {CardPanel}
 }
 </script>
 
 <style scoped lang="stylus">
-#apply
-  height $viewpoint-height
-  background-color $my-bgc-color
-  .status_box
-    width 100vw
-    position relative
-    .status_circle
-      position absolute
-      top 50%
-      left 50%
-      transform translate(-50%,-50%)
-      height 180px
-      width 180px
-      background-color: #fff;
-      border-radius 50%
-      border 1px solid $custom-border-color
-      .message
-        position absolute
-        top 50%
-        left 50%
-        transform translate(-50%,-50%)
-        font-size 14px
-        div
-          margin-top 20px
-        div:nth-child(3)
-          font-size 18px
-        p
-          font-size 10px
-          margin-top 50px
-
-  .list
-    padding 10px 0
-    border-top 1px solid $custom-border-color
-    margin 10px 0
+li
+  display flex
+  align-items center
+  margin  0 17px
+  .li_item
+    flex 1
+    display flex
     text-align left
-    p
-      margin 10px
+    justify-content: space-between;
+    align-items center
+    border-bottom 1px solid rgba(#000000,.1)
+    padding 16px 0
+    .title
+      font-size: 14px;
+      font-family: PingFangSC-Regular, PingFang SC;
+      line-height: 20px;
+    .time
+      font-size: 12px;
+      font-family: PingFangSC-Regular, PingFang SC;
+      font-weight: 400;
+      color: #999999;
+      line-height: 17px;
+  .svg_name
+    height 36px
+    width 36px
+    margin-right 14px
+
 </style>

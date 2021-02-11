@@ -39,8 +39,9 @@
           </Tag>
         </div>
       </Card>
-    </NavLayOut>
 
+
+    </NavLayOut>
   </div>
 </template>
 
@@ -55,6 +56,7 @@ export default {
     Card,
     Search,
     NavLayOut
+
   },
   data() {
     return {
@@ -161,6 +163,7 @@ export default {
   height  calc(100vh - 160px)
 >>>#card
   padding 0
+
 
 .card_item
     .tag

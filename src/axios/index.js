@@ -3,6 +3,11 @@ import router from '@/router'
 import Vue from 'vue'
 
 
+
+
+
+
+
 let NODE_ENV = process.env.NODE_ENV
 if(NODE_ENV === 'development'){
 	//开发环境

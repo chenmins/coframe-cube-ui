@@ -138,6 +138,8 @@ export default {
 </script>
 >
 <style scoped lang="stylus">
+>>>.cube-scroll-wrapper
+  height  calc(100vh - 220px)
 
 >>> .scroll-list-wrap
   max-height calc(100vh - 210px)

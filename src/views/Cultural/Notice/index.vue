@@ -26,7 +26,6 @@
               </span>
               </div>
             </Card>
-
           </cube-scroll>
         </div>
       </SlideNav>
@@ -37,7 +36,6 @@
 
 <script>
 import Card from "@/components/UI/Card";
-import NoticeCard from "@/components/Cultural/NoticeCard";
 import SlideNav from "@/components/Cultural/SlideNav";
 import Common from "@/views/Cultural/Common";
 
@@ -92,6 +90,8 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+>>>.cube-scroll-wrapper
+  height  calc(100vh - 250px)
 #card
   display flex
   padding 21px 16px

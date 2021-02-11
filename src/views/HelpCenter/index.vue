@@ -1,7 +1,6 @@
 <template>
   <div id="help_center">
-    <NavLayOut bgc-color="#fff" color="#333"
-    >
+    <NavLayOut bgc-color="#fff" color="#333">
       <div class="replay" slot="right" v-show="$route.meta.name==='回复'">发表</div>
       <div class="container">
         <cube-scroll
@@ -24,8 +23,7 @@
       <Icon svg-name="helpcenter-emoji" style="margin-right: 10px" height="26px" width="26px"></Icon>
     </div>
     <Tabbar c :tabs="tabs"></Tabbar>
-
-  </div>
+    </div>
 </template>
 
 <script>
@@ -39,7 +37,7 @@ export default {
       tabs: [
         {
           label: '常见问题',
-          value:'question',
+          value: 'question',
           icon: 'helpcenter-question',
 
         }, {
@@ -47,7 +45,7 @@ export default {
           value: 'productInc',
           icon: 'helpcenter-inc'
 
-        },{
+        }, {
           label: '需求反馈',
           value: 'feedback',
           icon: 'helpcenter-edit'

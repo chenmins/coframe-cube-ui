@@ -3,18 +3,11 @@
     <NavLayOut
         bgc-color="#fff"
     >
-      <LayOut  class="bgcolor">
-        <LayOut style="margin-top: 12px;padding: 12px 20px">
-          <div class="title">选择新员工</div>
-          <!--        @submit="submitHandler"-->
-          <!--        @validate="validateHandler"-->
-          <cube-form :model="groupModel.firstModel"
-                     :schema="groupSchema.fristSchema"
-                     :options="{layout:'classic'}"
-                     class="form-control new-employee"
-          >
-          </cube-form>
-        </LayOut>
+
+      <LayOut style="padding-bottom: 60px" class="bgcolor">
+        <slot>
+
+        </slot>
         <LayOut class="item" style="margin-top: 12px;padding: 12px 20px">
           <div class="title">楼层权限</div>
           <div class="item" v-for="(model,index) in groupModel.floorModel">
@@ -29,77 +22,18 @@
           </div>
 
         </LayOut>
-      </LayOut>
-      <LayOut  class="flow" style="margin:12px;padding-bottom: 60px">
-        <div class="title">审批流程</div>
-        <ul class="approve_ul">
-          <li>
-            <Icon class-name="status_svg" svg-name="guest-appro" height="14px" width="14px"></Icon>
-            <img
-                src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__15b1c74062335e999ca5b36fd025fed4.svg"
-                alt="">
-            <div class="approve">
-              <div style="display: flex;flex-direction: column;align-items: flex-start">
-                <span class="name">张明</span>
-                <span class="status appro">审批中</span>
-              </div>
-              <div class="time">
-                <span>12/21  16:00 </span>
-              </div>
-            </div>
-          </li>
-          <li>
-            <Icon class-name="status_svg" svg-name="guest-agree" height="14px" width="14px"></Icon>
-            <img
-                src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__15b1c74062335e999ca5b36fd025fed4.svg"
-                alt="">
-
-            <div class="approve">
-              <div style="display: flex;flex-direction: column;align-items: flex-start">
-                <span class="name">张明</span>
-                <span class="status " style="color: #999">审批人：易烊千玺</span>
-              </div>
-              <div class="time">
-                <span class="agree">同意</span>
-              </div>
-            </div>
-          </li>
-          <li style="margin-bottom:-10px">
-            <Icon class-name="status_svg" svg-name="guest-reject-min" height="14px" width="14px"></Icon>
-            <img
-                src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__15b1c74062335e999ca5b36fd025fed4.svg"
-                alt="">
-            <div class="approve">
-              <div style="display: flex;flex-direction: column;align-items: flex-start">
-                <span class="name">张明</span>
-                <span class="status " style="color: #999">审批人：易烊千玺</span>
-              </div>
-              <div class="time">
-                <span class="reject">已拒绝</span>
-              </div>
-            </div>
-
-          </li>
-          <li class="avatar" style="margin-left: 18px">
-            <div style="padding: 10px 14px;background-color: #F5F6FA;border-radius: 8px">
-              这是拒绝理由哦这是拒绝理由哦这是拒绝理由哦这是拒绝理由哦这是拒绝理由哦这是拒绝理由哦
-            </div>
-          </li>
-          <li class="send" style="margin-top: -10px">
-            <Icon class-name="status_svg" svg-name="guest-reject-min" height="14px" width="14px"></Icon>
-            <img
-                src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__15b1c74062335e999ca5b36fd025fed4.svg"
-                alt="">
-            <div class="approve">
-              <span>抄送</span>
-            </div>
-          </li>
-        </ul>
+        <div class="add" @click="add">
+          <i class="cubeic-close add_svg"></i>
+          <span>添加</span>
+        </div>
       </LayOut>
     </NavLayOut>
-    <div class="footer two" >
-      <cube-button type="submit" class="cancel" @click="cancel">拒绝</cube-button>
-      <cube-button type="submit" class="confirm" @click="confirm">通过</cube-button>
+    <div class="footer" v-if="$route.meta.name==='员工卡申请'">
+      <cube-button type="submit" @click="submit">预览确认</cube-button>
+    </div>
+    <div class="footer two" v-else>
+      <cube-button type="submit" class="cancel" @click="cancel">取消</cube-button>
+      <cube-button type="submit" class="confirm" @click="confirm">提交修改</cube-button>
     </div>
   </div>
 </template>
@@ -128,7 +62,7 @@ const column3 = [
 export default {
   name: "FloorSelect",
   props: [
-    'Detail'
+    'bgColor'
   ],
   components: {
     Preview
@@ -325,8 +259,11 @@ export default {
         title: '确定注销该员工卡吗？',
         maskClosable: true,
         onConfirm: (e) => {
-          this.$router.push({name:'RejectConfirm',params:{id:1}})
-
+          this.$createToast({
+            type: 'warn',
+            time: 1000,
+            txt: `点击了确认`
+          }).show()
         }
       }).show()
     },
@@ -537,89 +474,17 @@ export default {
 
 >>> .cube-select
   background-color transparent
-
-
-
->>>.cube-scroll-wrapper
-  height  calc(100vh - 180px)
 </style>
 
 
 <style scoped lang="stylus">
-.flow
-  padding 15px
-  border-radius 10px
-  .title
-    text-align left
-    font-size: 16px;
-    font-weight: 500;
-    color: #000000;
-    line-height: 22px;
-
-  .approve_ul
-    .send
-    li
-      display flex
-      align-items center
-      justify-content: space-between;
-      margin 15px 0
-      font-size 14px
-      position relative
-
-      .status_svg
-        position absolute
-        top 36px
-        left 36px
-        margin-top -10px
-        margin-left -10px
-        z-index 10
-
-      .approve
-        width 100%
-        display flex
-        justify-content: space-between;
-
-        .name
-          font-size: 14px;
-          color: #000000;
-          line-height: 20px;
-
-        .status
-          font-size: 12px;
-          font-weight: 500;
-          line-height: 17px;
-
-        .agree
-          color: #1FC210;
-
-        .reject
-          color: #F20404
-
-        .appro
-          color: #FFC000
-
-      .time
-        font-size: 12px;
-        font-family: PingFangSC-Regular, PingFang SC;
-        font-weight: 400;
-        color: #999999;
-        line-height: 17px;
-
-      img
-        margin-right 10px
-        min-height 36px
-        min-width 36px
-        border-radius 50%
-
-      div
-        display flex
-        align-items center
-
 #floor_select
   position relative
   height 100vh
+
   .bgcolor
     background-color: #F5F6FA
+
     .add
       width: 117px;
       height: 30px;
