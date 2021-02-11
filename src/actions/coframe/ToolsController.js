@@ -2,7 +2,7 @@
 
 // tools-controller
 
-import { ToolsController } from '@controller';
+import { ToolsController } from '../controller';
 export default {
     actions: {
         [ToolsController.scanFunctions.method] : {

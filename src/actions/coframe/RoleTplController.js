@@ -2,7 +2,7 @@
 
 // role-tpl-controller
 
-import { RoleTplController } from '@controller';
+import { RoleTplController } from '../controller';
 export default {
     actions: {
         [RoleTplController.create.method] : {

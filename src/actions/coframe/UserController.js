@@ -2,7 +2,7 @@
 
 // user-controller
 
-import { UserController } from '@controller';
+import { UserController } from '../controller';
 export default {
     actions: {
         [UserController.create.method] : {

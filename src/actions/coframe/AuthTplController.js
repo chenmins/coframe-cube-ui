@@ -2,7 +2,7 @@
 
 // auth-tpl-controller
 
-import { AuthTplController } from '@controller';
+import { AuthTplController } from '../controller';
 export default {
     actions: {
         [AuthTplController.addRootResourceGroups.method] : {

@@ -2,7 +2,7 @@
 
 // organization-controller
 
-import { OrganizationController } from '@controller';
+import { OrganizationController } from '../controller';
 export default {
     actions: {
         [OrganizationController.addOrgEmployees.method] : {
@@ -33,7 +33,7 @@ export default {
             summary: '分页查询',
             method: 'get',
             url: (payload) => `/api/organizations/page-search`,
-            parameters: [{'name':'area','in':'query','required':false,'type':'string'},{'name':'code','in':'query','description':'编码','required':false,'type':'string'},{'name':'dimension','in':'query','required':false,'type':'string'},{'name':'dimensionCode','in':'query','required':false,'type':'string'},{'name':'dimensionId','in':'query','required':false,'type':'string'},{'name':'id','in':'query','description':'Id','required':false,'type':'string'},{'name':'listRoot','in':'query','description':'是否只查询顶层数据','required':false,'type':'boolean'},{'name':'loadChildren','in':'query','description':'是否加载子节点','required':false,'type':'boolean'},{'name':'loadChildrenLevel','in':'query','description':'从当前层开始，需要加载子节点的层级','required':false,'type':'integer','format':'int32'},{'name':'loadOthers','in':'query','description':'是否加载节点的��它资源','required':false,'type':'boolean'},{'name':'name','in':'query','description':'名称','required':false,'type':'string'},{'name':'pageNum','in':'query','required':false,'type':'integer','format':'int32'},{'name':'pageSize','in':'query','required':false,'type':'integer','format':'int32'},{'name':'parentId','in':'query','description':'父对象的id','required':false,'type':'string'},{'name':'status','in':'query','required':false,'type':'string'},{'name':'strategy','in':'query','required':false,'type':'string','enum':['NONE','CURRENT','ALL']},{'name':'type','in':'query','required':false,'type':'string'},{'name':'usingLikeQuery','in':'query','description':'是否使用模糊查询','required':false,'type':'boolean'}],
+            parameters: [{'name':'area','in':'query','required':false,'type':'string'},{'name':'code','in':'query','description':'编码','required':false,'type':'string'},{'name':'dimension','in':'query','required':false,'type':'string'},{'name':'dimensionCode','in':'query','required':false,'type':'string'},{'name':'dimensionId','in':'query','required':false,'type':'string'},{'name':'id','in':'query','description':'Id','required':false,'type':'string'},{'name':'listRoot','in':'query','description':'是否只查询顶层数据','required':false,'type':'boolean'},{'name':'loadChildren','in':'query','description':'是否加载子节点','required':false,'type':'boolean'},{'name':'loadChildrenLevel','in':'query','description':'从当前层开始，需要加载子节点的层级','required':false,'type':'integer','format':'int32'},{'name':'loadOthers','in':'query','description':'是否加载节��的其它资源','required':false,'type':'boolean'},{'name':'name','in':'query','description':'名称','required':false,'type':'string'},{'name':'pageNum','in':'query','required':false,'type':'integer','format':'int32'},{'name':'pageSize','in':'query','required':false,'type':'integer','format':'int32'},{'name':'parentId','in':'query','description':'父对象的id','required':false,'type':'string'},{'name':'status','in':'query','required':false,'type':'string'},{'name':'strategy','in':'query','required':false,'type':'string','enum':['NONE','CURRENT','ALL']},{'name':'type','in':'query','required':false,'type':'string'},{'name':'usingLikeQuery','in':'query','description':'是否使用模糊查询','required':false,'type':'boolean'}],
         },
         [OrganizationController.querySubEmployees.method] : {
             summary: '查询机构下的员工',

@@ -2,7 +2,7 @@
 
 // role-tpl-group-controller
 
-import { RoleTplGroupController } from '@controller';
+import { RoleTplGroupController } from '../controller';
 export default {
     actions: {
         [RoleTplGroupController.create.method] : {
