@@ -2,7 +2,7 @@
 
 // member-controller
 
-import { MemberController } from '@controller';
+import { MemberController } from '../controller';
 export default {
     actions: {
         [MemberController.addMembers.method] : {

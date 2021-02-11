@@ -2,7 +2,7 @@
 
 // role-controller
 
-import { RoleController } from '@controller';
+import { RoleController } from '../controller';
 export default {
     actions: {
         [RoleController.bindRoleToUsers.method] : {

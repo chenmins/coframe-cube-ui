@@ -2,7 +2,7 @@
 
 // menu-controller
 
-import { MenuController } from '@controller';
+import { MenuController } from '../controller';
 export default {
     actions: {
         [MenuController.create.method] : {
@@ -30,10 +30,10 @@ export default {
             parameters: [{'name':'code','in':'query','description':'编码','required':false,'type':'string'},{'name':'groupId','in':'query','required':false,'type':'string'},{'name':'id','in':'query','description':'Id','required':false,'type':'string'},{'name':'listRoot','in':'query','description':'是否只查询顶层数据','required':false,'type':'boolean'},{'name':'loadChildren','in':'query','description':'是否加载子节点','required':false,'type':'boolean'},{'name':'loadChildrenLevel','in':'query','description':'从当前层开始，需要加载子节点的层级','required':false,'type':'integer','format':'int32'},{'name':'loadOthers','in':'query','description':'是否加载节点的其它资源','required':false,'type':'boolean'},{'name':'name','in':'query','description':'名称','required':false,'type':'string'},{'name':'pageNum','in':'query','required':false,'type':'integer','format':'int32'},{'name':'pageSize','in':'query','required':false,'type':'integer','format':'int32'},{'name':'parentId','in':'query','description':'父对象的id','required':false,'type':'string'},{'name':'usingLikeQuery','in':'query','description':'是否使用模糊查询','required':false,'type':'boolean'}],
         },
         [MenuController.update.method] : {
-            summary: '更新',
+            summary: '更��',
             method: 'put',
             url: (payload) => `/api/menus`,
-            parameters: [{'in':'body','name':'model','description':'model','required':true,'schema':{'$ref':'#/definitions/��单'}}],
+            parameters: [{'in':'body','name':'model','description':'model','required':true,'schema':{'$ref':'#/definitions/菜单'}}],
         },
     },
     // state: {},
