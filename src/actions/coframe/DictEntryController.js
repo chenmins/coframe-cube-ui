@@ -2,7 +2,7 @@
 
 // dict-entry-controller
 
-import { DictEntryController } from '@controller';
+import { DictEntryController } from '../controller';
 export default {
     actions: {
         [DictEntryController.create.method] : {

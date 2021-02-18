@@ -2,7 +2,7 @@
 
 // operation-log-controller
 
-import { OperationLogController } from '@controller';
+import { OperationLogController } from '../controller';
 export default {
     actions: {
         [OperationLogController.getOperationLogDetail.method] : {

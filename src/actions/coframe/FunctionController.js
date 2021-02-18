@@ -2,7 +2,7 @@
 
 // function-controller
 
-import { FunctionController } from '@controller';
+import { FunctionController } from '../controller';
 export default {
     actions: {
         [FunctionController.create.method] : {

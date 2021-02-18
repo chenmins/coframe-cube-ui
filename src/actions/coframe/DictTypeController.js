@@ -2,7 +2,7 @@
 
 // dict-type-controller
 
-import { DictTypeController } from '@controller';
+import { DictTypeController } from '../controller';
 export default {
     actions: {
         [DictTypeController.create.method] : {

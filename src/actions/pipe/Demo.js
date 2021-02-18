@@ -12,7 +12,7 @@ export default {
             parameters: [],
         },
         [Demo.insert.method] : {
-            summary: '添加常用问题',
+            summary: '添加常用问题123',
             method: 'post',
             url: (payload) => `/api/platform/commonProblem/insert/one`,
             parameters: [{'in':'body','name':'commonProblem','description':'commonProblem','required':true,'schema':{'$ref':'#/definitions/CommonProblem'}}],

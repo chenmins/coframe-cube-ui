@@ -2,7 +2,7 @@
 
 // res-group-controller
 
-import { ResGroupController } from '@controller';
+import { ResGroupController } from '../controller';
 export default {
     actions: {
         [ResGroupController.create.method] : {

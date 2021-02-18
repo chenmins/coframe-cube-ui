@@ -2,7 +2,7 @@
 
 // employee-controller
 
-import { EmployeeController } from '@controller';
+import { EmployeeController } from '../controller';
 export default {
     actions: {
         [EmployeeController.create.method] : {

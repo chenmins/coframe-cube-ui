@@ -2,7 +2,7 @@
 
 // workgroup-controller
 
-import { WorkgroupController } from '@controller';
+import { WorkgroupController } from '../controller';
 export default {
     actions: {
         [WorkgroupController.addWorkgroupEmployees.method] : {
