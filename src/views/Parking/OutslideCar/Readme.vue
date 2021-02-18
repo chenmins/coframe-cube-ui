@@ -1,5 +1,6 @@
 <template>
   <div id="readme">
+    <NavLayOut>
       <LayOut class="content">
         <h2>Hi，欢迎！</h2>
         <ul>
@@ -12,36 +13,55 @@
           <li>7、驾驶员应严格按照交通指示标行驶，减速慢行、避让行人，注意安全。</li>
         </ul>
       </LayOut>
-    <cube-button>注册车辆</cube-button>
+    </NavLayOut>
+    <cube-button  @click="$router.push({name:'CarRegister'})">注册车辆</cube-button>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Readme"
+  name: "Readme",
+  methods:{
+  }
 }
 </script>
 
 <style scoped lang="stylus">
 
 #readme
-  height $custom-bgc-height
+  height 100vh
+  background-color #fff
+  background-image url("../../../assets/icons/bg.webp")
+  background-size 100%
+  background-repeat no-repeat
+  background-position center 0
+
   button
     position absolute
+    z-index 20
     bottom 20px
-    width 200px
+    width 80%
     left 50%
-    margin-left -100px
-    background-color $custom-active-color
+    margin-left -40%
+    border-radius 30px
+    background: linear-gradient(90deg, #19E8FF 0%, #0F97FB 100%);
+
   .content
-    border 1px solid $custom-border-color
-    padding 10px
+    margin 36px
     text-align left
+    background-color transparent
+
     h2
-      font-width bold
-      font-size 19px
-      margin-bottom 10px
+      font-size: 22px;
+      font-family: PingFangSC-Medium, PingFang SC;
+      font-weight: 500;
+      color: #333333;
+      line-height: 30px;
+
     li
-      line-height 20px
-      font-size 12px
+      font-size: 14px;
+      font-family: PingFangSC-Light, PingFang SC;
+      font-weight: 300;
+      color: #000000;
+      line-height: 24px;
 </style>

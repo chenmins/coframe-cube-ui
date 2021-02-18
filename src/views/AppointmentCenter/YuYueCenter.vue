@@ -2,49 +2,13 @@
   <NavLayOut bgc-color="#fff">
     <h1 class="font-blod" style="font-size: 20px">行政服务平台预约中心</h1>
     <div class="container clear-fix">
+      <Card class="card" v-for="(item,index) in routerMap" :key="index" @clicked="$router.push({name:'YuYueItem',params:{id:item.text,value:item.value}})">
+        <div class="group">
+          <Icon :svg-name="item.icon" class-name="svg_reserve "></Icon>
+          <div class="font-blod" style="font-size: 14px">{{item.text}}</div>
+        </div>
+      </Card>
 
-      <Card class="card">
-        <div class="group">
-          <Icon svg-name="reserve-yiwushi" class-name="svg_reserve "></Icon>
-          <div class="font-blod" style="font-size: 14px">医务室预约</div>
-        </div>
-      </Card>
-      <Card class="card">
-        <div class="group">
-          <Icon svg-name="reserve-lifashi" class-name="svg_reserve "></Icon>
-          <div class="font-blod" style="font-size: 14px">理发室预约</div>
-        </div>
-      </Card>
-      <Card class="card">
-        <div class="group">
-          <Icon svg-name="reserve-lingdian" class-name="svg_reserve "></Icon>
-          <div class="font-blod" style="font-size: 14px">零点餐厅预约</div>
-        </div>
-      </Card>
-      <Card class="card">
-        <div class="group">
-          <Icon svg-name="reserve-xiyi" class-name="svg_reserve "></Icon>
-          <div class="font-blod" style="font-size: 14px">衣物干洗</div>
-        </div>
-      </Card>
-      <Card class="card">
-        <div class="group">
-          <Icon svg-name="reserve-huiyishi" class-name="svg_reserve "></Icon>
-          <div class="font-blod" style="font-size: 14px">会议室预约</div>
-        </div>
-      </Card>
-      <Card class="card">
-        <div class="group">
-          <Icon svg-name="reserve-wenyingshi" class-name="svg_reserve "></Icon>
-          <div class="font-blod" style="font-size: 14px">文印室预约</div>
-        </div>
-      </Card>
-      <Card class="card">
-        <div class="group">
-          <Icon svg-name="reserve-kuyue" class-name="svg_reserve "></Icon>
-          <div class="font-blod" style="font-size: 14px">库房预约</div>
-        </div>
-      </Card>
 
     </div>
     <div class="font-normal rules">
@@ -60,10 +24,62 @@
 
 <script>
 import NavLayOut from "@/components/NavLayOut";
+import Card from "@/components/UI/Card";
+
+const routerMap = [
+  {
+    text:'医务室预约',
+    value:'yiwushi',
+    icon:'reserve-yiwushi'
+
+  },
+  {
+    text:'理发室预约',
+    value:'lifashi',
+    icon:'reserve-lifashi'
+
+  },
+  {
+    text:'零点餐厅预约',
+    value:'lingdian',
+    icon:'reserve-lingdian'
+
+  },
+  {
+    text:'衣物干洗预约',
+    value:'yiwuganxi',
+    icon:'reserve-xiyi'
+
+  },
+  {
+    text:'会议室预约',
+    value:'huiyishi',
+    icon:'reserve-huiyishi'
+
+  },
+  {
+    text:'文印室预约',
+    value:'wenyingshi',
+    icon:'reserve-wenyingshi'
+
+  },
+  {
+    text:'库房预约',
+    value:'kufang',
+    icon:'reserve-kuyue'
+
+  },
+]
+
 export default {
   name: "YuYueCenter",
   components:{
-    NavLayOut
+    NavLayOut,Card
+  },
+  data(){
+    return {
+      routerMap:routerMap
+    }
   }
 }
 </script>
@@ -87,11 +103,13 @@ h1
     opacity: 0.2;
 
 .container
-  .card
-    margin-left 20px
+  >>>#card
+    margin 0
     margin-bottom 20px
+  .card
+    margin-left 20px!important
     float left
-    width calc(50% - 30px)
+    width calc(50% - 70px)
     height: 128px;
     background: #FFFFFF;
     box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.08);

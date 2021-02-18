@@ -1,6 +1,6 @@
 <template>
   <ApproveContainer :tabs="tabs" :selectedLabel="selectedLabel">
-    <Card :reserve="approve" v-for="reserve in approves"
+    <Card v-for="reserve in approves"
           @clicked="$router.push({name:'ReserveDetail',params:{id:1}})"
     >
       <div class="title">

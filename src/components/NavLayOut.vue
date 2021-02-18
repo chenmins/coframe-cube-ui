@@ -13,7 +13,7 @@
             v-if="$route.meta.showNav"
             v-show="toggle"
         >
-          <div slot="right" @click="$emit('emit')" >
+          <div slot="right"  >
             <slot name="right"></slot>
           </div>
         </Nav>
@@ -54,7 +54,6 @@ name: "NavLayOut",
   methods:{
     scroll(e){
       if(this.$route.meta.name === '行政服务工作台'
-          // ||
           // this.$route.meta.name ==='审批列表' ||
           // this.$route.meta.name ==='我的审批'
       ){

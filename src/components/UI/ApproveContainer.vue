@@ -1,10 +1,8 @@
 <template>
   <div id="todo-list">
     <NavLayOut bgc-color="transparent" color="#fff" >
-
     <SlideNav @LabelChanged="changeHandle" show-slider :selected-label="selectedLabel" :tabs="tabs"  >
-
-      <div class="scroll-list-wrap warp" >
+      <div class="scroll-list-wrap warp custom" >
         <cube-scroll
             ref="scroll" >
           <slot></slot>
@@ -53,6 +51,7 @@ export default {
       this.$router.push({name:'ReserveDetail',params:{id:1}})
     },
     changeHandle(e){
+      this.$emit('changeHandle',e)
       switch (e){
         case '待审批':
           this.approves = this.$store.state.Guest.approves.filter(i=>i.approved===false)
@@ -72,6 +71,7 @@ export default {
   >>>.cube-scroll-wrapper
     height  100%
 #todo-list
+  height 200px
   background: linear-gradient(119deg, #19D8FF 0%, #0F97FB 100%);
   position: relative;
   >>>.cube-tab,.tab_item

@@ -25,7 +25,6 @@
         <Icon class-name="tag" svg-name="guest-arrived" height="80px" width="80px"></Icon>
       </template>
     </Card>
-
   </ApproveContainer>
 </template>
 

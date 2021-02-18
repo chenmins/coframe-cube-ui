@@ -1,14 +1,6 @@
 <template>
   <div id="Parking">
-    <div class="scroll-list-wrap">
-      <cube-scroll
-          :ref="$route.meta.name"
-          :key="$route.meta.name"
-      >
-        <router-view></router-view>
-      </cube-scroll>
-    </div>
-
+    <router-view></router-view>
     <footer v-show="!$route.meta.showBottom">
       <span :class="$route.name==='Parking'?'active':''"
             @click="!($route.name ==='Parking')  && $router.push({name:'Parking'})">车辆申请</span>
@@ -42,7 +34,11 @@ export default {
 <style scoped lang="stylus">
 .scroll-list-wrap
   height $custom-bgc-height
+
 #Parking
+  height 100vh
+  overflow: hidden;
+
   footer
     background-color #ffffff
     position fixed

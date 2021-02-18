@@ -53,6 +53,9 @@ import {Demo} from "@controller";
 </script>
 
 <style lang="stylus">
+//picker样式
+.cube-picker-panel.cube-safe-area-pb
+  border-radius 12px 12px 0 0
 //dialog样式
 .cube-dialog-main{
   border-radius 4px

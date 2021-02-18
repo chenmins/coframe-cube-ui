@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 63 (92445) - https://sketch.com -->
+    <title>icon/20/分享备份</title>
+    <desc>Created with Sketch.</desc>
+    <g id="icon/20/分享备份" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round">
+        <circle id="椭圆形" stroke="#333333" stroke-width="1.4" cx="10" cy="10" r="9"></circle>
+        <line x1="8.20422077" y1="6.02304017" x2="8.20422077" y2="15.7804161" id="路径-50" stroke="#333333" stroke-width="1.4"></line>
+        <path d="M8.42990133,6.00781869 L11.9299013,6.00781869 C13.3106132,6.00781869 14.4299013,7.12710681 14.4299013,8.50781869 C14.4299013,9.88853056 13.3106132,11.0078187 11.9299013,11.0078187 L8.42990133,11.0078187 L8.42990133,11.0078187" id="路径" stroke="#333333" stroke-width="1.4"></path>
+    </g>
+</svg>

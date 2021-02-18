@@ -1,74 +1,72 @@
 <template>
   <div id="Recorded">
-    <LayOut class="item">
-      <header class="border_bottom" r>技术部-张小果</header>
-      <main>
-        <div>车牌号：京A BL192</div>
-        <div>姓名：晓兰兰</div>
-        <div>手机号：18903347000</div>
-        <div>技术部-张小果</div>
-      </main>
-    </LayOut>
-    <LayOut class="item">
-      <header>审批流程</header>
-      <main>
-        <div class="line">
-          <div class="left">
-            <img
-                src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__233c059c0612bf471d8d782755934664.svg"
-                alt="">
-            <span>行政部</span>张明
-          </div>
+    <NavLayOut bgc-color="#fff">
+      <LayOut @clicked="$router.push({name:'Parking-ApprovalDetail',params:{id:1}})" class="item_header">
+        <div class="header">
           <div>
-            已同意.12/21 16:00
+            <h1>技术部-王小二</h1>
+            <span>申请人</span>
           </div>
         </div>
-        <div class="line">
-          <div class="left">
-            <img
-                src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__233c059c0612bf471d8d782755934664.svg"
-                alt="">
-            <span>行政部</span>张明
-          </div>
-          <div>
-            已同意.12/21 16:00
-          </div>
+        <div class="body">
+          <div><span>车牌号：</span> 京A BL192s</div>
+          <div><span>姓名：</span> 京A BL192</div>
+          <div><span>入院日期：</span> 2020-12-20 15:00</div>
         </div>
-        <div class="line">
-          <div class="left">
+      </LayOut>
+      <LayOut class="flow" style="margin:0 8px 20px">
+        <div class="title">审批流程</div>
+        <ul>
+          <li>
+            <Icon class-name="status_svg" svg-name="guest-agree" height="14px" width="14px"></Icon>
             <img
-                src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__233c059c0612bf471d8d782755934664.svg"
+                src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__15b1c74062335e999ca5b36fd025fed4.svg"
                 alt="">
-            <span>行政部</span>张明
-          </div>
-          <div>
-            已同意.12/21 16:00
-          </div>
-        </div>
-        <div class="line">
-          <div class="left">
+            <div class="approve" >
+              <div style="display: flex;flex-direction: column;align-items: flex-start">
+                <span class="name">张明</span>
+                <span class="status agree">已同意</span>
+              </div>
+              <div class="time">
+                <span>12/21  16:00 </span>
+              </div>
+            </div>
+          </li>
+          <li>
+            <Icon class-name="status_svg" svg-name="guest-appro" height="14px" width="14px"></Icon>
             <img
-                src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__233c059c0612bf471d8d782755934664.svg"
+                src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__15b1c74062335e999ca5b36fd025fed4.svg"
                 alt="">
-            <span>行政部</span>张明
-          </div>
-          <div>
-            已同意.12/21 16:00
-          </div>
-        </div>
-        <div class="line">
-          <div class="left">
+            <div class="approve" >
+              <div style="display: flex;flex-direction: column;align-items: flex-start">
+                <span class="name">张明</span>
+                <span class="status appro">审批中</span>
+              </div>
+              <div class="time">
+                <span>12/21  16:00 </span>
+              </div>
+            </div>
+          </li>
+          <li>
+            <Icon class-name="status_svg" svg-name="guest-reject-min" height="14px" width="14px"></Icon>
             <img
-                src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__233c059c0612bf471d8d782755934664.svg"
+                src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__15b1c74062335e999ca5b36fd025fed4.svg"
                 alt="">
-            <span>行政部</span>张明
-          </div>
-          <div>
-            已同意.12/21 16:00
-          </div>
-        </div>
-      </main>
-    </LayOut>
+            <div class="approve" >
+              <div style="display: flex;flex-direction: column;align-items: flex-start">
+                <span class="name">张明</span>
+                <span class="status reject">已拒绝</span>
+              </div>
+              <div class="time">
+                <span>12/21  16:00 </span>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </LayOut>
+
+    </NavLayOut>
+
   </div>
 </template>
 
@@ -81,35 +79,125 @@ export default {
 <style scoped lang="stylus">
 
 #Recorded
-  padding 20px
-
-  .item
-    padding 10px
-    border-radius 10px
-    margin-bottom 10px
-    text-align left
+  .item_header
     font-size 12px
+    position relative
+    margin 8px
+    border-radius 10px
 
-    header
-      padding-bottom 16px
-      font-size 14px
-
-    .border_bottom
+    .header
       border-bottom 1px solid $custom-border-color
-
-    main
-      padding-top 10
-
-      div
-        margin 10px
-
-    .line
+      padding 18px
+      text-align left
       display flex
       align-items center
-      justify-content space-between
-      .left
+      &:before
+        content:''
+        display block
+        height 3px
+        width 3px
+        border 2px solid #0099FF
+        border-radius 50%
+        margin-right 7px
+      h1
+        font-size: 16px;
+        font-family: PingFangSC-Medium, PingFang SC;
+        font-weight: 500;
+        color: #000000;
+        line-height: 22px;
+      span
+        font-size: 12px;
+        font-family: PingFangSC-Regular, PingFang SC;
+        font-weight: 400;
+        color: #999999;
+        line-height: 17px;
+      span:nth-child(1)
+        margin-right 40px
+
+    .body
+      padding 20px
+      text-align left
+      display flex
+      flex-direction column
+      font-size: 14px;
+      font-family: PingFangSC-Regular, PingFang SC;
+      font-weight: 400;
+      color: #000000;
+      line-height: 20px;
+      span
+        margin 5px
+        display inline-block
+        color #999
+    .complete_svg
+      height 80px
+      width 80px
+      position: absolute;
+      bottom 10px
+      right 10px
+      transform rotate(-45deg) scale(.8)
+    .tag
+      position absolute
+      top 16px
+      right 20px
+      border-radius 20px
+  .flow
+    padding 15px
+    border-radius 6px
+    .title
+      text-align left
+      font-size: 16px;
+      font-weight: 500;
+      color: #000000;
+      line-height: 22px;
+    ul
+      margin 20px 10px
+
+      li
         display flex
         align-items center
-        img,span
-          margin-right 7px
+        justify-content: space-between;
+        margin 15px 0
+        font-size 14px
+        position relative
+
+        .status_svg
+          position absolute
+          top 36px
+          left 36px
+          margin-top -10px
+          margin-left -10px
+        .approve
+          width 100%
+          display flex
+          justify-content: space-between;
+          .name
+            font-size: 14px;
+            color: #000000;
+            line-height: 20px;
+          .status
+            font-size: 12px;
+            font-weight: 500;
+            line-height: 17px;
+          .agree
+            color: #1FC210;
+          .reject
+            color: #F20404
+          .appro
+            color: #FFC000
+
+        .time
+          font-size: 12px;
+          font-family: PingFangSC-Regular, PingFang SC;
+          font-weight: 400;
+          color: #999999;
+          line-height: 17px;
+        img
+          margin-right 10px
+          min-height 36px
+          min-width 36px
+          border-radius 50%
+        div
+          display flex
+          align-items center
+
 </style>
