@@ -12,7 +12,7 @@ export default {
             parameters: [{'in':'body','name':'model','description':'model','required':true,'schema':{'$ref':'#/definitions/维度'}}],
         },
         [DimensionController.deleteByIds.method] : {
-            summary: '按主键��合删除',
+            summary: '按主键集合删除',
             method: 'put',
             url: (payload) => `/api/dimensions/bulk-delete`,
             parameters: [{'in':'body','name':'ids','description':'ids','required':true,'schema':{'type':'array','items':{'type':'string'}}}],

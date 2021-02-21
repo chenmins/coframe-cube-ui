@@ -12,7 +12,7 @@ export default {
             parameters: [{'name':'filePath','in':'query','description':'文件路径','required':true,'type':'string'}],
         },
         [FileController.fileUploading.method] : {
-            summary: '文件图片上传（返回��片地址）',
+            summary: '文件图片上传（返回图片地址）',
             method: 'post',
             url: (payload) => `/api/platform/uploading/fileUploading`,
             parameters: [{'name':'files','in':'formData','description':'图片文件','required':true,'type':'string'}],
