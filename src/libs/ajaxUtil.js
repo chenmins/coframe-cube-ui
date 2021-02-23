@@ -4,6 +4,9 @@ import Vue from 'vue'
 import * as auth from '@/utils/auth.js'
 import router from "@/router";
 
+import { Toast } from 'cube-ui'
+
+Vue.use(Toast)
 
 let ajaxUtil = {}
 ajaxUtil.title = function (title) {
@@ -142,7 +145,13 @@ ajaxUtil.myRequest = (action, payload) => {
       })
       .catch(res => {
         if(res.response.status===401){
-          router.replace('/login')
+          Toast.$create({
+            txt: '登录已失效',
+            time: 1000,
+            onTimeout: () => {
+              router.replace('/login')
+            }
+          }).show()
         }
         reject(res.response)
       })

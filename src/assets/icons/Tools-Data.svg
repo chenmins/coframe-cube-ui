@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="44px" height="44px" viewBox="0 0 44 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 63 (92445) - https://sketch.com -->
+    <title>icon/工具/我的二维码备份 2</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="88.349698%" y1="91.7835403%" x2="10.9039522%" y2="0%" id="linearGradient-1">
+            <stop stop-color="#4ED2F0" offset="0%"></stop>
+            <stop stop-color="#50E5DC" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-2">
+            <stop stop-color="#FFFFFF" stop-opacity="0" offset="0%"></stop>
+            <stop stop-color="#FFFFFF" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-3">
+            <stop stop-color="#FFFFFF" offset="0%"></stop>
+            <stop stop-color="#E5FBFF" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-4">
+            <stop stop-color="#FFFFFF" offset="0%"></stop>
+            <stop stop-color="#E5FBFF" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="icon/工具/我的二维码备份-2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M4.14336123e-16,15.3833112 L-4.14336123e-16,28.6166888 C2.4074122e-16,33.9658012 0.556953667,35.9055187 1.60279622,37.8610742 C2.64863878,39.8166298 4.18337022,41.3513612 6.13892578,42.3972038 C8.09448133,43.4430463 10.0341988,44 15.3833112,44 L28.6166888,44 C33.9658012,44 35.9055187,43.4430463 37.8610742,42.3972038 C39.8166298,41.3513612 41.3513612,39.8166298 42.3972038,37.8610742 C43.4430463,35.9055187 44,33.9658012 44,28.6166888 L44,15.3833112 C44,10.0341988 43.4430463,8.09448133 42.3972038,6.13892578 C41.3513612,4.18337022 39.8166298,2.64863878 37.8610742,1.60279622 C35.9055187,0.556953667 33.9658012,-3.61111829e-16 28.6166888,6.21504185e-16 L15.3833112,-6.21504185e-16 C10.0341988,3.61111829e-16 8.09448133,0.556953667 6.13892578,1.60279622 C4.18337022,2.64863878 2.64863878,4.18337022 1.60279622,6.13892578 C0.556953667,8.09448133 -2.4074122e-16,10.0341988 4.14336123e-16,15.3833112 Z" id="Rectangle-" fill="url(#linearGradient-1)"></path>
+        <circle id="椭圆形" fill="url(#linearGradient-2)" opacity="0.435849144" cx="32.5" cy="30.5" r="7.5"></circle>
+        <path d="M22.9999078,6.00845598 C30.610482,6.26630289 36.7334717,12.3891602 36.9915301,19.9996807 L23,20 Z" id="形状结合" fill="url(#linearGradient-3)" fill-rule="nonzero"></path>
+        <path d="M21.0004698,6.07659731 L21,22 L36.9233,22.0005294 C36.1724625,29.3036101 30.0014628,35 22.5,35 C14.4918711,35 8,28.5081289 8,20.5 C8,12.9981951 13.6969095,6.82697463 21.0004698,6.07659731 Z" id="形状结合" fill="url(#linearGradient-4)" fill-rule="nonzero"></path>
+    </g>
+</svg>

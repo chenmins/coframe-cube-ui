@@ -3,6 +3,7 @@
       name="我的申请"
       title-color="#000"
       :all-text="true"
+      allTextColor="#999"
       bgcColor="transparent"
       >
     <ul class="container">
@@ -10,7 +11,7 @@
         <Icon svg-name="four" style="height:31px;width:31px"></Icon>
         <div class="box">
           <span>{{item.name}}</span>
-          <Tag class="tag">待审批</Tag>
+          <Tag class="main_menu-tag">待审批</Tag>
         </div>
       </li>
     </ul>
@@ -52,15 +53,8 @@ export default {
     margin-left 12px
     display flex
     flex-direction column
-  .tag
-    flex-shrink 0
-    border-radius 0
-    background-color #F5BA39
-    font-size 16.8px
-    -webkit-transform:scale(.5)
-    -webkit-transform-origin-x: 0;
-    height 14px
-    width 60px
-    line-height 14px
+  .main_menu-tag
+    padding 0
+    border-radius 20px
 
 </style>

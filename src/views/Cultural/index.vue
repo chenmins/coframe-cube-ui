@@ -61,7 +61,7 @@ export default {
     height: 154px;
     background: linear-gradient(119deg, #19D4FF 0%, #0F97FB 100%);
   >>>.cube-tab-bar-slider
-    margin-left 35px
+    margin-left 40px
     max-width: 20px;
     height: 4px;
     background: #FFFFFF;

@@ -12,14 +12,15 @@
         :on-day-click="onDayClick4"
         :change-pane="changePane2"
     >
-      <div
-          class="event"
-          v-for="(evt, index) in lurevents"
-          :key="index"
-          :slot="evt.date"
-      >
-        <div style="font-size: 12px" v-html="evt.content">{{evt}}</div>
-      </div>
+<!--      显示农历-->
+<!--      <div-->
+<!--          class="event"-->
+<!--          v-for="(evt, index) in lurevents"-->
+<!--          :key="index"-->
+<!--          :slot="evt.date"-->
+<!--      >-->
+<!--        <div style="font-size: 12px" v-html="evt.content">{{evt}}</div>-->
+<!--      </div>-->
     </Calendar>
   </div>
 </template>
@@ -31,7 +32,8 @@ export default {
   name: "myCalendar",
   props:[
       'format',
-      'placeholder'
+      'placeholder',
+      'date'
   ],
   data(){
     return {
@@ -49,7 +51,22 @@ export default {
   created() {
     this.date4 = this.stringify(new Date())
   },
+  mounted() {
+    this.$nextTick(()=>{
+      let dir = document.getElementsByClassName('day-cell')
+      dir.forEach(i=>{
+        console.log(i.dataset.date)
+        if(i.dataset.date === '2021-02-16'){
+          i.classList.add('hasTodo')
+        }
+      })
+
+    })
+  },
   methods:{
+    toArr(cArr) {
+      return [].slice.call(cArr);
+    },
     foramtDay(el) {
       /* eslint-disable */
       var S = "",
@@ -157,6 +174,11 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+>>>.hasTodo
+  color #fff!important
+  background-color #0F97FB
+  box-shadow: 0px 2px 4px 0px rgba(#0F97FB, 0.34);
+
 .lorem {
   visibility: hidden;
 }
@@ -167,14 +189,16 @@ export default {
   >>> .datepicker-inner
     width 100%
 
-
   >>> .datepicker-body
     span
-      width: 14.28%;
-      height: 35px;
+      margin 10px
+      width calc((100% - 140px) / 7)
+      height calc((100vw - 44px - 140px) / 7)
       vertical-align: top;
-
-
+      border-radius 50%
+      display flex
+      flex-direction column
+      align-items center
     .event
       color: #e56700;
 
@@ -213,8 +237,18 @@ export default {
   justify-content: space-evenly !important
 >>>.day-cell,.datepicker-dateRange-item-active
   position relative!important
+
 >>>.datepicker-dateRange-item-active
   border-radius 8px
+  box-shadow: 0px 2px 4px 0px rgba(255, 50, 133, 0.34);
+
+  &:after
+    content ''
+    height 3px
+    width 3px
+    background-color #fff
+    display inline-block
+
 .datepicker-body,.event
     width 100%
     transform scale(.7)

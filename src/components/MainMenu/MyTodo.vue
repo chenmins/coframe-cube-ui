@@ -3,6 +3,7 @@
       name="我的待办"
       title-color="#000"
       :allText="true"
+      allTextColor="#999"
       bgcColor="transparent"
       @SeeAll="SeeAll">
     <div class="container clear-fix">
@@ -14,7 +15,7 @@
         <cube-slide :auto-play="false">
           <cube-slide-item v-for="(item, index) in todos" :key="index" @click.native="clickHandler(item, index)">
             <div style="display: flex;align-items: center;margin:0 16px 16px 10px"  >
-              <Icon svg-name="four" class-name="svg" style="margin-right: 16px" height="36px" width="36px" ></Icon>
+              <Icon svg-name="Tools-Guest" class-name="svg" style="margin-right: 16px" height="36px" width="36px" ></Icon>
               <span style="font-size: 16px;color: #333333;font-weight: 500">访客预约</span>
             </div>
             <div style="padding: 0 10px">
@@ -22,7 +23,7 @@
               <p class="which"><span>到访部门：</span>{{ item.position }}</p>
               <p class="when"><span>来访时间：</span>{{ item.comeTime }}</p>
             </div>
-            <Tag class="tag" >
+            <Tag class="main_menu-tag" >
               待审批
             </Tag>
           </cube-slide-item>
@@ -130,16 +131,16 @@ export default {
       color:#999
       text-align left
 
-  .tag
-    border-radius 0
-    background-color #F5BA39
+  .main_menu-tag
     font-size 16.8px
     -webkit-transform:scale(.5)
     -webkit-transform-origin-x: 0;
-    height 14px
+    height 20px
+    line-height 20px
+    border-radius 20px
     min-width 34px
-    line-height 14px
     position absolute
     right -15px
     top 7px
+    padding 5px 15px
 </style>
