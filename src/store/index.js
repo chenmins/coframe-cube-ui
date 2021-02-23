@@ -11,7 +11,7 @@ import Guest from "@/store/Guest";
 import axios from "@/axios/index";
 import {setToken} from "@/utils/auth";
 
-import {Demo} from "@/actions/pipe/Demo";
+// import {Demo} from "@/actions/pipe/Demo";
 
 
 Vue.use(Vuex)
@@ -35,7 +35,6 @@ const store = new Vuex.Store({
         async login(context, payload) {
             let resp
             try {
-                resp = await axios.post(Vue.config.login, payload)
                 localStorage.setItem('userInfo',JSON.stringify(resp.data))
                 localStorage.setItem('Token',resp.data.token)
                 setToken(resp.data.token)

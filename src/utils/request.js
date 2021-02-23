@@ -12,9 +12,12 @@ const service = axios.create({
 // request interceptor
 service.interceptors.request.use(
   config => {
+    config.headers['content-type'] = "application/json;charset=UTF-8"
+
     // Do something before request is sent
     if (store.getters.token) {
       config.headers['X-Token'] = getToken() // 让每个请求携带token-- ['X-Token']为自定义key 请根据实际情况自行修改
+
     }
     return config
   },

@@ -6,6 +6,7 @@
       <MyTodos @SeeAll="$router.push({name:'TodoLists'})"></MyTodos>
       <MyApply ></MyApply>
     </NavLayOut>
+    <button @click="exitLogin">退出登录</button>
   </div>
 
 </template>
@@ -15,9 +16,14 @@ import MyTools from "@/components/MainMenu/MyTools";
 import MyTodos from "@/components/MainMenu/MyTodo";
 import MyApply from "@/components/MainMenu/MyApply";
 import Vue from 'vue'
+import {AuthApiController} from '@controller'
+import { BaseVue } from '@lib'
+
 
 export default {
   name: "index",
+  mixins: [BaseVue],
+
   components: {
     MyTools,
     MyTodos,
@@ -33,23 +39,27 @@ export default {
       // prop:'date' //对应日期字段名
     }
   },
+  created() {
+    this.getUserInfo()
 
+  },
   methods:{
-    // renderContent(h,parmas) {
-    //   const loop = data => {
-    //     return (
-    //         data.defvalue.value ? (<div>
-    //           <div>{data.defvalue.text}</div>
-    //           <span>备选项</span>
-    //         </div>) : <div><div>{data.defvalue.text}</div><div><div>{data.defvalue.Lunar.lDayChinese}</div></div></div>
-    //     )
-    //   }
-    //   return (
-    //       <div style="min-height:60px;">
-    //         {loop(parmas)}
-    //       </div>
-    //   );
-    // }
+    async exitLogin(){
+      let resp = await this.dispatch(AuthApiController.logout)
+      if(!resp.error){
+        console.log(resp)
+      }else {
+        console.log('error')
+      }
+
+    },
+    async getUserInfo(){
+      let userInfo = await this.dispatch(AuthApiController.get)
+      if(!userInfo.error){
+      }else {
+        console.log('error')
+      }
+    },
   }
 }
 </script>

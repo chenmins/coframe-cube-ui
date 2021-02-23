@@ -36,7 +36,6 @@ export default [
             },
         ]
     },
-
     {
         path: '/YuYue/:id',
         name: 'YuYueItem',
@@ -206,7 +205,6 @@ export default [
         },
         component: () => import('@/views/AppointmentCenter/admin/index'),
     },
-
     {
         path: '/AppointmentAdminRelease',
         name: 'AppointmentAdminRelease',
@@ -218,39 +216,73 @@ export default [
         },
         component: () => import('@/views/AppointmentCenter/admin/Release')
     },
-
-
     {
-        path: '/AppointmentCenter',
-        name: 'AppointmentCenter',
+        path: '/AdminReleaseEdit/:id',
+        name: 'AdminReleaseEdit',
         meta: {
-            name: '预约中心',
-            tag: 'AppointmentCenter',
-            leave: 2,
-            showNav: true
-        },
-        component: () => import('@/views/AppointmentCenter/index')
-    },
-    {
-        path: '/DryClean',
-        name: 'DryClean',
-        meta: {
-            name: '衣物干洗',
-            tag: '衣物干洗',
+            name: '发布时间段管理',
+            tag: '发布时间段管理',
             leave: 3,
             showNav: true
         },
-        component: () => import('@/views/AppointmentCenter/DryClean')
+        component: () => import('@/views/AppointmentCenter/admin/ReleaseEdit')
     },
     {
-        path: '/ReleaseEdit/:id',
-        name: 'AdminReleaseEdit',
+        path: '/AdminRelease',
+        name: 'AdminRelease',
         meta: {
             name: '发布',
             tag: '发布',
             leave: 3,
             showNav: true
         },
-        component: () => import('@/views/AppointmentCenter/admin/ReleaseEdit')
+        component: () => import('@/views/AppointmentCenter/admin/addRelease')
     },
+    {
+        path: '/AdminRelease-yiwuganxi',
+        name: 'AdminRelease-yiwuganxi',
+        meta: {
+            name: '发布-衣物干洗',
+            tag: '发布-衣物干洗',
+            leave: 3,
+            showNav: true
+        },
+        component: () => import('@/views/AppointmentCenter/admin/addRelease-yiwugannxi')
+    },
+    {
+        path: '/AdminRelease-meeting',
+        name: 'AdminRelease-meeting',
+        meta: {
+            name: '添加会议',
+            tag: '添加会议',
+            leave: 3,
+            showNav: true
+        },
+        component: () => import('@/views/AppointmentCenter/admin/addMeeting')
+    },
+    {
+        path: '/meetingConfirm',
+        name: 'meetingConfirm',
+        meta: {
+            name: '会议室预约',
+            tag: '会议室预约',
+            leave: 3,
+            showNav: true
+        },
+        component: () => import('@/views/AppointmentCenter/admin/meetingConfirm')
+    },
+
+    {
+        path: '/meetingSuccess',
+        name: 'meetingSuccess',
+        meta: {
+            name: '',
+            tag: 'AppointmentCenter',
+            leave: 2,
+            showNav: true
+        },
+        component: () => import('@/views/AppointmentCenter/admin/meetingSuccess')
+    },
+
+
 ]

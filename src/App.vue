@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import {Demo} from "@controller";
+// import {Demo} from "@controller";
   export default {
     provide() {
       return {
@@ -29,13 +29,13 @@ import {Demo} from "@controller";
       // this.init()
     },
     methods: {
-      async init(){
-        let resp = await this.dispatch(Demo.isAdmin)
-        if(!resp.error){
-          localStorage.setItem('isAdmin',resp.data.body)
-        }
-
-      },
+      // async init(){
+      //   let resp = await this.dispatch(Demo.isAdmin)
+      //   if(!resp.error){
+      //     localStorage.setItem('isAdmin',resp.data.body)
+      //   }
+      //
+      // },
       reload() {
         this.isRouterAlive = false
         this.$nextTick(() => {
@@ -53,6 +53,34 @@ import {Demo} from "@controller";
 </script>
 
 <style lang="stylus">
+.schedule-footer
+  height 24px
+  width 24px
+.schedule-avatar
+  height 50px
+  width 50px
+  background-color red
+  border-radius 50%
+  margin-right 8px
+.my-content
+  display flex
+  justify-content: center;
+  margin 30px
+.schedule-h1
+  font-size: 16px;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #000000;
+  line-height: 22px;
+.schedule-content
+  font-size: 16px;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #999999;
+  line-height: 24px;
+//input边框取消
+.cube-input::after,.cube-select::after
+  border none
 //picker样式
 .cube-picker-panel.cube-safe-area-pb
   border-radius 12px 12px 0 0

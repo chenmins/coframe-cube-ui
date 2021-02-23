@@ -31,8 +31,8 @@ export default [
     },
 
     {
-        path:'/receive/:id',
-        name:'receive',
+        path:'/ScheduleDoing',
+        name:'ScheduleDoing',
         meta:{
             name:'接收详情',
             leave:3,

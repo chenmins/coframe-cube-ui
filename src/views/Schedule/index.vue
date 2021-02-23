@@ -3,15 +3,15 @@
     <NavLayOut color="#fff">
       <h1><span>{{ time.month }}月</span>/{{ time.year }}</h1>
       <mySchedule @getDate="getDate"></mySchedule>
-      <div slot="right">
-        <Icon svg-name="Schedule-add" class-name="schedule-add"></Icon>
+      <div slot="right" >
+        <img src="../../assets/icons/addBlack.webp" alt="" >
       </div>
       <ul class="list">
         <li class="title">
-          {{ date }}
-          <div class="add" @click="$router.push({name:'addSchedule'})">
-            <span>新建日程</span>
-          </div>
+          今天<span style="font-size: 12px;color:#999999">{{ date }}</span>
+<!--          <div class="add" @click="$router.push({name:'addSchedule'})">-->
+<!--            <span>新建日程</span>-->
+<!--          </div>-->
         </li>
         <div class="scroll_container" @click="ScheduleDetail">
           <cube-scroll ref="scroll">
@@ -27,19 +27,19 @@
                       <Icon svg-name="Schedule-date" class-name="schedule-date schedule"></Icon>
                       <span>23日</span>
                     </div>
-                    <div>2月</div>
+                    <div class="row_2">2月</div>
                   </div>
                   <div>
                     <div>
                       <Icon svg-name="Schedule-time" class-name="schedule-time schedule"></Icon>
                       <span>12：00-01：00</span>
                     </div>
-                    <div>PM</div>
+                    <div class="row_2">PM</div>
                   </div>
                 </div>
               </div>
-<!--              <span class="time">{{ meeting.type }}</span>-->
-<!--              <span class="item_name">{{ meeting.time }}</span>-->
+              <!--              <span class="time">{{ meeting.type }}</span>-->
+              <!--              <span class="item_name">{{ meeting.time }}</span>-->
             </li>
           </cube-scroll>
         </div>
@@ -78,14 +78,35 @@ export default {
       this.$router.push({name: 'addSchedule'})
     },
     getDate(e) {
-      console.log(e)
-      this.date = e
+      let weekMap = [
+        '周日',
+        '周一',
+        '周二',
+        '周三',
+        '周四',
+        '周五',
+        '周六',
+      ]
+      this.date =" "+ e +" "+ weekMap[this.$dayjs(e).day()]
+
     }
   }
 }
 </script>
 
 <style scoped lang="stylus">
+
+>>>.datepicker-dateRange-item-active
+  background: #FF3285!important
+  box-shadow: 0px 2px 4px 0px rgba(255, 50, 133, 0.34);
+>>>.datepicker-dateRange-item-active .event
+    color #fff!important
+>>>.datepicker-body span
+  font-size: 14px;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #000000;
+  line-height: 23px;
 >>> .cube-scroll-list-wrapper
   padding 0 12px
 
@@ -102,112 +123,150 @@ export default {
   border-radius: 27px;
   opacity: 0.92;
 
+>>>.func
+  top 50px
+  right 20px
+
 .schedule
   height 12px
   width 12px
+
 #schedule
+  overflow: hidden;
+  height $custom-bgc-height
+  background-image url("../../assets/icons/Main.webp")
+  background-repeat no-repeat
+  background-size 100%
+  .scroll_container
+    height: calc(100vh - 470px)
     overflow: hidden;
-    height $custom-bgc-height
-    background-image url("../../assets/icons/Main.webp")
-    background-repeat no-repeat
-    background-size 100%
 
-    .scroll_container
-      height: calc(100vh - 470px)
-      overflow: hidden;
-      .item
-        display flex
-        color #fff
-        .right
-          width 100%
-          margin-left 28px
-          margin-right 28px
-          margin-bottom: 18px;
-          border-radius 0 17px 17px 17px
-          background-color #2BDCA2
-          overflow: hidden;
-          .right_header
-            background-color #2BDCA2
-          .right_bottom
-            height: 47px;
-            filter:opacity(.18)
-            color #fff
-        .dot
-          width: 19px;
-          height: 19px;
-          box-shadow: 0 2px 7px 0 rgba(0, 0, 0, 0.22);
-          border: 3px solid #000000;
-          border-radius 50%
-
-    h1
-      text-align left
-      margin 14px 28px
-      color #ffffff
-      font-size: 14px;
-      font-family: PingFangSC-Regular, PingFang SC;
-      font-weight: 400;
-      line-height: 20px;
-
-      span
-        font-size: 22px;
-        font-family: PingFangSC-Semibold, PingFang SC;
-        font-weight: 600;
-        line-height: 30px;
-
-    .list
-      .title
-        font-weight 500
-        font-size 20px
-        line-height 60px
-        text-align left
-        padding-left 30px
-        position relative
-        .add
-          position absolute
-          top 0
-          right 0
-          margin-right 20px
-          display flex
-          align-items center
-          color $custom-gray
-
-          span
-            font-size 10px
-
-        .cubeic-wrong:before
-          transform: rotate(45deg);
-          display: inline-block;
-          right 0
-      .did
-        opacity: .4;
-
-    .footer
-      position fixed
-      bottom 0
-      width 100%
+    .item
       display flex
-      justify-content: space-evenly;
-      font-size 12px
-      background-color rgba($custom-border-color, .1)
+      color #fff
 
-      div
-        padding 10px 14px
+      .right
+        width 100%
+        margin-left 28px
+        margin-right 28px
+        margin-bottom: 18px;
+        border-radius 0 17px 17px 17px
+        background-color #2BDCA2
+        overflow: hidden;
+
+        .right_header
+          background-color #2BDCA2
+
+        .right_bottom
+          height: 47px;
+          color #fff
+          display flex
+          justify-content: space-evenly;
+          align-items center
+          text-align left
+          font-size: 11px;
+          font-family: PingFangSC-Regular, PingFang SC;
+          font-weight: 400;
+          line-height: 16px;
+          background-color #5de3a8
+
+          .schedule-date, .schedule-time
+            height 12px
+            width 12px
+            margin-right 8px
+
+          .row_2
+            margin-left 20px
+
+      .dot
+        width: 19px;
+        height: 19px;
+        box-shadow: 0 2px 7px 0 rgba(0, 0, 0, 0.22);
+        border: 3px solid #000000;
+        border-radius 50%
         position: relative;
-
-        &.active
-          color $custom-active-color
-
-        .dot
-          position absolute
-          height 7px
-          width 7px
+        &:after
+          content ''
+          width 2px
+          height 90px
+          background-color #E6E6E6
           display inline-block
-          background-color orangered
-          border-radius 50%
-          top 10px
-          right 13px
+          position: absolute;
+          left 50%
+          margin-left -1px
+          top 25px
 
-      i
+  h1
+    text-align left
+    margin 14px 28px
+    color #ffffff
+    font-size: 14px;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    line-height: 20px;
+
+    span
+      font-size: 22px;
+      font-family: PingFangSC-Semibold, PingFang SC;
+      font-weight: 600;
+      line-height: 30px;
+
+  .list
+    .title
+      font-weight 500
+      font-size 20px
+      line-height 60px
+      text-align left
+      padding-left 30px
+      position relative
+
+      .add
+        position absolute
+        top 0
+        right 0
+        margin-right 20px
+        display flex
+        align-items center
+        color $custom-gray
+
+        span
+          font-size 10px
+
+      .cubeic-wrong:before
+        transform: rotate(45deg);
+        display: inline-block;
+        right 0
+
+    .did
+      opacity: .4;
+
+  .footer
+    position fixed
+    bottom 0
+    width 100%
+    display flex
+    justify-content: space-evenly;
+    font-size 12px
+    background-color rgba($custom-border-color, .1)
+
+    div
+      padding 10px 14px
+      position: relative;
+
+      &.active
+        color $custom-active-color
+
+      .dot
+        position absolute
+        height 7px
+        width 7px
         display inline-block
-        padding-bottom 7px
+        background-color orangered
+        border-radius 50%
+        top 10px
+        right 13px
+
+    i
+      display inline-block
+      padding-bottom 7px
 </style>

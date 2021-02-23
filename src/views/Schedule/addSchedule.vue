@@ -1,46 +1,70 @@
 <template>
   <div id="addSchedule">
+    <NavLayOut bgc-color="#fff">
 
-    <cube-form :model="model" @validate="validateHandler" @submit="submitHandler">
-      <cube-form-group>
-        <cube-form-item :field="fields[0]"></cube-form-item>
-        <cube-form-item>
-          <div class="picker"  @click="showDateTimePickerStart">{{model.start||fields[1].label}}</div>
-        </cube-form-item>
-        <cube-form-item>
-          <div class="picker" @click="showDateTimePickerEnd">{{model.end||fields[2].label}}</div>
-        </cube-form-item>
-        <cube-form-item :field="fields[3]"></cube-form-item>
-        <cube-form-item :field="fields[4]"></cube-form-item>
-      </cube-form-group>
-      <cube-form-group>
-        <cube-form-item>
-          <div class="picker" @click="showPickerStyle(items.notice)">{{model.noticeTime || '选择提醒时间'}}</div>
-        </cube-form-item>
-        <cube-form-item>
-        </cube-form-item>
-      </cube-form-group>
-      <cube-form-group>
-        <cube-button  type="submit">保存</cube-button>
-      </cube-form-group>
-    </cube-form>
+      <header>
+        <div>
+          <h1>想添加点什么</h1>
+          <div style="font-size: 12px;color: #ccc">添加日程可以提高工作效率哦</div>
+        </div>
+        <img src="../../assets/icons/addSchedule.webp" alt="">
+      </header>
 
+      <Card :shadow="true">
+        <cube-form
+            :model="model"
+            :options="{
+              layout: 'classic' // classic fresh
+            }"
+            @validate="validateHandler"
+            @submit="submitHandler">
+          <cube-form-group>
+            <cube-form-item :field="fields[0]"></cube-form-item>
+            <cube-form-item class="time-from no-margin-bottom">
+              <div class="picker" @click="showDateTimePickerStart">{{ model.start || fields[1].label }}
+                <i class="cubeic-arrow" style="float: right;margin-right: 16px"></i>
+              </div>
+            </cube-form-item>
+            <cube-form-item class="time-from">
+              <div class="picker" @click="showDateTimePickerEnd">{{ model.end || fields[2].label }}
+                <i class="cubeic-arrow" style="float: right;margin-right: 16px"></i>
+              </div>
+            </cube-form-item>
+            <cube-form-item :field="fields[3]">
+            </cube-form-item>
+            <cube-form-item :field="fields[4]"></cube-form-item>
+            <cube-form-item :field="fields[5]"></cube-form-item>
+            <cube-form-item :field="fields[6]"></cube-form-item>
+          </cube-form-group>
+          <cube-form-group>
+            <cube-button type="submit">保存</cube-button>
+          </cube-form-group>
+        </cube-form>
+
+      </Card>
+
+    </NavLayOut>
   </div>
 </template>
 
 <script>
+import Card from "@/components/UI/Card";
+
 export default {
+  components: {Card},
   data() {
     return {
       validity: {},
       valid: undefined,
       model: {
-        theme:'',
-        start:'',
-        end:'',
-        join:'',
-        where:'',
-        noticeTime:''
+        theme: '',
+        start: '',
+        end: '',
+        join: '',
+        where: '',
+        notice: '',
+        repeat:''
+
       },
       fields: [
         {
@@ -56,35 +80,61 @@ export default {
         },
         {
           modelKey: 'start',
-          label: '开始',
+          label: '开始时间',
           rules: {
             required: true
           }
         },
         {
           modelKey: 'end',
-          label: '结束',
+          label: '结束时间',
           rules: {
             required: true
           }
         },
         {
-          type: 'input',
+          type: 'select',
           modelKey: 'join',
           label: '参与人',
+          title: '选择',
           props: {
-            placeholder: '请输入'
+            options: ['无提醒', '日程发生时', '5分钟前', '15分钟前', '30分钟前', '1小时前']
           },
           rules: {
             required: true
           }
         },
         {
-          type: 'input',
+          type: 'select',
           modelKey: 'where',
-          label: 'Input',
+          label: '会议人',
+          title: '选择',
           props: {
-            placeholder: '会议室'
+            options: [2015, 2016, 2017, 2018, 2019, 2020]
+          },
+          rules: {
+            required: true
+          }
+        },
+        {
+          type: 'select',
+          modelKey: 'notice',
+          label: '提醒',
+          title: '选择',
+          props: {
+            options: ['无提醒', '日程发生时', '5分钟前', '15分钟前', '30分钟前', '1小时前']
+          },
+          rules: {
+            required: true
+          }
+        },
+        {
+          type: 'select',
+          modelKey: 'repeat',
+          label: '重复',
+          title: '选择',
+          props: {
+            options: ['不重复','每天', '工作日', '每周', '每两周', '每年','自定义']
           },
           rules: {
             required: true
@@ -143,9 +193,9 @@ export default {
     }
   },
   methods: {
-    submitHandler(e,model,modelSubmit) {
+    submitHandler(e, model, modelSubmit) {
       e.preventDefault()
-      console.log('submit',modelSubmit)
+      console.log('submit', modelSubmit)
     },
     validateHandler(result) {
       this.validity = result.validity
@@ -203,7 +253,7 @@ export default {
         title: '选择提醒时间',
         pickerStyle: true,
         data: data,
-        onSelect:(item,index)=>{
+        onSelect: (item, index) => {
           this.model.noticeTime = item.content
         }
       }).show()
@@ -213,21 +263,63 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+#addSchedule
+  background-color #ffffff
 
+  header
+    display flex
+    justify-content: space-around;
+    align-items center
+    text-align left
+    margin-bottom: 30px;
+
+    h1
+      font-size 18px
+      font-weight 500
+      position: relative;
+      display inline-block
+      margin-bottom 13px
+
+      &:after
+        content ''
+        position absolute
+        bottom 0
+        left 0
+        display inline-block
+        width 100%
+        height: 5px;
+        background: #0099FF;
+        border-radius: 3px;
+        opacity: 0.22;
+
+
+  >>>.cube-form-label span
+    font-size: 14px;
+    font-family: PingFangSC-Medium, PingFang SC;
+    font-weight: 500;
+    color: #000000;
+    line-height: 20px;
+  >>>.cube-form-item
+    margin-bottom 20px
 .cube-btn
-  background-color $custom-active-color
+  background: linear-gradient(90deg, #19E8FF 0%, #0F97FB 100%);
+  border-radius: 20px;
   width 80%
   margin 0 auto
-  border-radius 30px
   padding 10px 5px
 
->>>.cube-form-label
+>>> .cube-form-label
   font-size 12px
->>>.cube-form-item
+
+>>> .cube-form-item
   padding 0
+
 .picker
-  background-color $my-bgc-color
+  background: rgb(241,249,255);
+  padding 13px 0 13px 13px
+  color #000
   height 100%
-  padding 13px 0
   font-weight 500
+.no-margin-bottom
+  margin-bottom 0!important
 </style>

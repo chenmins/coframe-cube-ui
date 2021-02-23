@@ -17,6 +17,8 @@
 
 <script>
 import {provinceList, cityList, areaList} from '@/assets/DATA/area'
+import {HealthApiController} from '@controller'
+import { BaseVue } from '@lib'
 
 const cityData = provinceList
 cityData.forEach(province => {
@@ -39,6 +41,7 @@ const PCA = {
       selected: []
     }
   },
+
   render(createElement) {
     return createElement('div', {
       on: {
@@ -231,11 +234,41 @@ export default {
 
     }
   },
+  created() {
+    this.getHealthInfo()
+  },
+  mixins: [BaseVue],
+
   methods: {
-    submitHandler(e,model) {
+    async getHealthInfo(){
+      let resp = await this.dispatch(HealthApiController.getHealthInfo)
+      console.log(resp)
+    },
+    async submitHandler(e,model) {
       e.preventDefault()
       let template = model.value6+'°C'
-      console.log(template)
+      console.log(e,model)
+
+      let resp = await this.dispatch(HealthApiController.updateHealthInfo,{
+        "answerFive": model.value5,
+        "answerFour": model.value4,
+        "answerSix": model.value6,
+        "answerThree": model.value3,
+        "answerTwo": model.value2,
+        "cityId": 20841,
+        "cityName": "九明生才",
+        "extendFive": "数无些约方",
+        "extendFour": "转节北价今华",
+        "extendOne": model.value7,
+        "extendThree": "动两该图争转次",
+        "extendTwo": "任公问公",
+        "remarks": "年约片把果",
+      })
+      if(!resp.error){
+        console.log(resp)
+      }else{
+        console.log('error')
+      }
 s
     },
     validateHandler(result) {

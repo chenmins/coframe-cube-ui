@@ -19,11 +19,14 @@
         <div class="scroll-list-wrap">
           <cube-scroll
               ref="scroll">
-            <Card :is-comment="false" v-for="comment in comments" @checkComments="checkComments" @goComment="goComment"
+            <Card :is-comment="false" :is-like="comment.fabulousForUser" v-for="comment in comments"
+                  @checkComments="checkComments(comment)"
+                  @goComment="goComment(comment)"
                   @toggleLike="toggleLike(comment)" @remove="remove(comment.id)"
             >
+              <template v-slot:time>{{$dayjs(comment.releaseTime).format('YYYY-MM-DD')}}</template>
               <template v-slot:username>{{ comment.userName }}</template>
-              <template v-slot:likeName>{{ comment.fabulous }}</template>
+              <template v-slot:likeName>{{ comment.fabulousPlusCount }}</template>
               <template v-slot:content>
                 <div>
                   {{ comment.body }}
@@ -49,7 +52,8 @@ import SlideNav from "@/components/Cultural/SlideNav";
 import Card from "@/components/Cultural/Card";
 import Common from "@/views/Cultural/Common";
 import axios from "axios";
-import {PipCcoCciController} from '@controller'
+import {allPageSreach} from '@controller'
+import {CulturalControllerImpl} from '@controller'
 
 export default {
   name: "index",
@@ -86,45 +90,71 @@ export default {
   },
   methods: {
     async remove(e){
-      console.log(e)
-      if(!this.isComment){
-        let resp = await this.dispatch(PipCcoCciController.delCircleById,{id:e}) //朋友圈id
-      }
+      // console.log(e,this.isComment)
+      // if(!this.isComment){
+      //   let resp = await this.dispatch(CulturalControllerImpl.deleteCommunicationCircle,{id:e}) //朋友圈id
+      // }
 
-      if(this.isComment){
-        let resp = await this.dispatch(PipCcoCciController.delCommentById,{id:e}) //评论id
-      }
+      // if(this.isComment){
+        let resp = await this.dispatch(CulturalControllerImpl.deleteCommunicationCircle,{id:e}) //朋友圈id
+        if(!resp.error){
+          console.log(resp)
+          await this.init()
+        }else {
+          console.log('error')
+        }
+      // }
     },
+    // todo 点赞
     async toggleLike(e) {
       console.log(e)
-      // let resp = await this.dispatch(PipCcoCciController.selCommentCircle, {id: e.id})
+      let resp = await this.dispatch(CulturalControllerImpl.fabulousCommunicationCircle, {id: e.id})
       // console.log(resp)
-      if (this.like) {
-        e.fabulous -= 1
-      } else {
-        e.fabulous += 1
+      if(!resp.error){
+        console.log(resp)
+        if (e.fabulousForUser) {
+          e.fabulousPlusCount -= 1
+        } else {
+          e.fabulousPlusCount += 1
+        }
+        await this.init()
+        this.like = !this.like
       }
-      this.like = !this.like
+
     },
     async init(type) {
-      let circle = {"type": "1"}
-      let selComCilList = await this.dispatch(PipCcoCciController.selComCilList, {"type": type}) //获取所有列表
+      let resp = await this.dispatch(CulturalControllerImpl.allPageSreach,{
+        pageNo:1,
+        pageSize:20
+      })
 
-      let res = await this.dispatch(PipCcoCciController.selCommentById, {"type": type}) //获取所有列表
-      // let resp = await this.dispatch(PipCcoCciController.selComCilPageSortList)
-
-      if (!selComCilList.error) {
-        console.log(selComCilList.data)
-        this.comments = selComCilList.data.body
-      } else {
-        if (!selComCilList.loading) {
-          this.$router.push('/login')
-        }
+      if(!resp.error){
+        this.comments = resp.data.body.communicationCircles1
+      }else{
+        console.log('error')
       }
+
+
+
+      // let circle = {"type": "1"}
+      // let selComCilList = await this.dispatch(PipCcoCciController.selComCilList, {"type": type}) //获取所有列表
+      //
+      // let res = await this.dispatch(PipCcoCciController.selCommentById, {"type": type}) //获取所有列表
+      // // let resp = await this.dispatch(PipCcoCciController.selComCilPageSortList)
+      //
+      // if (!selComCilList.error) {
+      //   console.log(selComCilList.data)
+      //   this.comments = selComCilList.data.body
+      // } else {
+      //   if (!selComCilList.loading) {
+      //     this.$router.push('/login')
+      //   }
+      // }
     },
     goComment(e) {
-      if (e.target.classList[0] === 'card_topic') return
-      this.$router.push({name: '交流圈-评论详情', params: {id: 1}})
+      console.log(e)
+      // if (e.target.classList[0] === 'card_topic') return
+      this.$router.push({name: '交流圈-评论详情', params: {id: e.id,isLike:e.fabulousForUser}})
     },
     changeHandle(e) {
       switch (e) {
@@ -142,8 +172,8 @@ export default {
     selectItem(e) {
       console.log(e.target.innerHTML)
     },
-    checkComments() {
-      this.$router.push({name: '交流圈-评论详情', params: {id: 1}})
+    checkComments(comment) {
+      this.$router.push({name: '交流圈-评论详情', params: {id: comment.id}})
     },
   }
 }

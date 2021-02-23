@@ -2,10 +2,9 @@
   <div class="send_app">
     <NavLayOut
       bgc-color="#fff"
-      @emit="submit"
     >
       <template v-slot:right>
-        <button class="submit">
+        <button class="submit" @click="submit">
           发表
         </button>
       </template>
@@ -51,9 +50,12 @@
 <script>
 
 import {PipCcoCciController} from '@controller'
+import { CulturalControllerImpl } from '@controller'
+import {BaseVue} from "@/libs";
 
 export default {
 name: "send",
+  mixins:[BaseVue],
   data() {
     return {
       value: '',
@@ -62,31 +64,31 @@ name: "send",
       autofocus: true,
       action: '//jsonplaceholder.typicode.com/photos/',
       files: [],
-      hasNine:false
+      hasNine:false,
+
     }
   },
   methods: {
     async submit(){
+      console.log('submit')
       let userInfo = JSON.parse(localStorage.getItem('userInfo'))
       let data = {
-        "body": this.value,
-        "choice": "1", //精选
-        "picture": "1",
-        "topicOfConversationId": 0, //话题id
-        "top": 0, //是否置顶
-        "fabulous": 0, //点赞数
-        "title": "1 ",
-        "type": "1",  //类型
-        "userId": userInfo.id,
-        "userName": userInfo.name,
+        body: this.value,
+        choice: "京还马思",
+        picture: "并却维术运",
+        title: "13十大技术吧",
+        topicOfConversationId: "",
+        type: "通大广经儿",
+        userId: userInfo.id,
+        userName: userInfo.name,
 
       }
-      let resp = await this.dispatch(PipCcoCciController.addComCir, data)
+      let resp = await this.dispatch(CulturalControllerImpl.addCommunicationCircle, data)
         if(!resp.error){
           console.log(resp)
-          this.$router.push({name:'交流圈'})
+          // this.$router.push({name:'交流圈'})
         }else{
-          alert('failure')
+          console.log('failure')
         }
 
 
