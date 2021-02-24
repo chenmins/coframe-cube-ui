@@ -12,7 +12,6 @@ const service = axios.create({
 // request interceptor
 service.interceptors.request.use(
   config => {
-    config.headers['content-type'] = "application/json;charset=UTF-8"
 
     // Do something before request is sent
     if (store.getters.token) {

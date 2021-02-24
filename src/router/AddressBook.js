@@ -1,6 +1,8 @@
 export default [
     {
         path:'/addressbook',
+        redirect:'addressbook/',
+        name:'通讯录',
         meta:{
             name:'通讯录',
             tag:'通讯录',

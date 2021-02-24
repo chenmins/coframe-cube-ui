@@ -121,7 +121,6 @@ ajaxUtil.myRequest = (action, payload) => {
   return new Promise((resolve, reject) => {
     ajaxUtil
       .headers({
-        // 'Conten1t-Type':"application/json;charset=UTF-8",
         Authorization: localStorage.getItem('Token'),
         'X-EOS-SourceSysKey':Vue.config['X-EOS-SourceSysKey'],
         Locale: Vue.config.lang,

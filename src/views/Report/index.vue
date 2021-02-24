@@ -33,7 +33,6 @@ export default {
   position relative
   height $custom-bgc-height
   overflow: hidden;
-  padding  0 20px
   .bg
     position absolute
     top 0
@@ -66,6 +65,7 @@ export default {
     width calc(100% - 40px)
     z-index 12
     section
+      width 100%
       text-align center
       font-size: 10px;
       font-family: PingFangSC-Regular, PingFang SC;
@@ -73,6 +73,7 @@ export default {
       line-height: 14px;
   >>>.cube-btn
     margin-top 18px
+    margin-left 20px
     height: 40px;
     background: linear-gradient(90deg, #19E8FF 0%, #0F97FB 100%);
     border-radius: 20px;

@@ -12,6 +12,7 @@ import axios from "@/axios/index";
 import {setToken} from "@/utils/auth";
 
 // import {Demo} from "@/actions/pipe/Demo";
+import ToolsManager from "@/store/Tools";
 
 
 Vue.use(Vuex)
@@ -27,27 +28,16 @@ const store = new Vuex.Store({
         setEposition(state, payload) {
             state.Eposition = payload
         },
-        setUseInfo(state,payload){
+        setUseInfo(state, payload) {
             state.userInfo = payload
         }
     },
     actions: {
-        async login(context, payload) {
-            let resp
-            try {
-                localStorage.setItem('userInfo',JSON.stringify(resp.data))
-                localStorage.setItem('Token',resp.data.token)
-                setToken(resp.data.token)
-                router.push('/')
-            } catch (error) {
-                console.log(JSON.parse(JSON.stringify(error)))
-            }
-        },
     },
     modules: {
         ...actions,
         AddressBook,
-        MainMenu, Cultural, HelpCenter, Schedule, Guest
+        MainMenu, Cultural, HelpCenter, Schedule, Guest, ToolsManager
     }
 })
 

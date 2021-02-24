@@ -61,6 +61,7 @@ Vue.use(Switch);
 
 
 const create = async () => {
+
   await ReadConfig(Vue)
   new Vue({
     router,

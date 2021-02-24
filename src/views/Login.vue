@@ -6,7 +6,7 @@
         @submit="submitHandler"
     >
     </cube-form>
-    <button @click="test"> test</button>
+<!--    <button @click="test"> test</button>-->
   </div>
 </template>
 
@@ -69,40 +69,9 @@ export default {
     }
   },
   created() {
-    // 通过请求菜单获取登录状态
-    // if (localStorage.getItem('Token')) {
-    //   this.$axios.get('/api/users/menus').then(res => {
-    //     this.$router.push('/')
-    //     return
-    //   })
-    // }
+
   },
   methods: {
-    async test() {
-      // let apiInstance = new this.$XgeneCloud.CommonApi() //将api挂在到vue原型链上
-      //    apiInstance.health((error, data, response) => {
-      //    if (error) {
-      //      console.error(error);
-      //    } else {
-      //      console.log('API called successfully. Returned data: ' + data);
-      //      console.log(data);          }
-      //  });
-      //
-      // let resp = {}
-      // resp = await this.dispatch(Demo.insert,{
-      //   "body": "string",
-      //   "title": "st1r1isang",
-      //   "type": "string",
-      //   "updateUser": 0
-      // })
-      // console.log(resp)
-      // if(!resp.error){
-      //   alert('success')
-      // }else{
-      //   alert('failure')
-      // }
-    },
-
     async submitHandler(e, model) {
       e.preventDefault()
 
@@ -110,9 +79,10 @@ export default {
         "username": model.inputValue,
         "password": model.passwordValue
       }
-
       let resp = await this.dispatch(AuthApiController.login, data)
       if (!resp.error) {
+        this.$store.commit('setUseInfo',resp.data)
+        localStorage.setItem('admin',resp.data.admin)
         localStorage.setItem('userInfo', JSON.stringify(resp.data))
         localStorage.setItem('Token', resp.data.token)
         setToken(resp.data.token)

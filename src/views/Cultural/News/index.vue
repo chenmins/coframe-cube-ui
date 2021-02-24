@@ -1,13 +1,12 @@
 <template>
   <div id="notice_app">
-    <Common>
       <SlideNav
           @changeHandle="changeHandle" :selected-label="selectedLabel" :tabs="tabs">
         <div class="scroll-list-wrap" style="height: calc(100vh - 220px)">
           <cube-scroll
               ref="scroll">
-            <Card @clicked="read" class="content"  id="card" v-for="notice in news">
-              <img style="margin-right: 16px" height="94px" width="94px" src="../../../assets/icons/news.png" alt="">
+            <Card @clicked="read(notice)" class="content"  id="card" v-for="notice in news">
+              <img style="margin-right: 16px;max-width: 94px;" height="94px"  src="../../../assets/icons/news.png" alt="">
               <div class="box">
                 <span class="title">
                 {{ notice.title }}
@@ -30,15 +29,12 @@
           </cube-scroll>
         </div>
       </SlideNav>
-    </Common>
   </div>
 </template>
 
 <script>
 import SlideNav from "@/components/Cultural/SlideNav";
 import NewCard from "@/components/Cultural/NewCard";
-import NoticeCard from "@/components/Cultural/NoticeCard";
-import Common from "@/views/Cultural/Common";
 import Card from "@/components/UI/Card";
 
 export default {
@@ -46,7 +42,7 @@ export default {
   components: {
     Card,
     NewCard,
-    SlideNav, Common
+    SlideNav,
   },
   data() {
     return {
@@ -66,23 +62,23 @@ export default {
       news: []
     }
   },
-  created() {
-    this.news = this.$store.state.Cultural.news.all
+  mounted() {
+    this.news = this.$store.state.Cultural.allData.journalisms
   },
   methods: {
-    read() {
-      this.$router.push({name: '公告详情', params: {id: 1}})
+    read(notices) {
+      this.$router.push({name: '企业新闻详情', params: {id: notices.id,notice:notices}})
     },
     changeHandle(e) {
       switch (e) {
         case '全部':
-          this.news = this.$store.state.Cultural.news.all
+          this.news = this.$store.state.Cultural.allData.journalisms
           break
         case '热点精选':
-          this.news = this.$store.state.Cultural.news.hot
+          this.news = this.$store.state.Cultural.allData.journalisms1
           break
         case '时事要闻':
-          this.news = this.$store.state.Cultural.news.events
+          this.news = this.$store.state.Cultural.allData.journalisms2
           break
       }
     }

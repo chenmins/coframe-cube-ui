@@ -1,9 +1,9 @@
 <template>
   <div id="schedule">
     <NavLayOut color="#fff">
-      <h1><span>{{ time.month }}月</span>/{{ time.year }}</h1>
+      <h1 @click="showFormatPicker"><span>{{ time.month }}月</span>/{{ time.year }}</h1>
       <mySchedule @getDate="getDate"></mySchedule>
-      <div slot="right" >
+      <div slot="right" @click="$router.push({name:'addSchedule'})" >
         <img src="../../assets/icons/addBlack.webp" alt="" >
       </div>
       <ul class="list">
@@ -38,8 +38,6 @@
                   </div>
                 </div>
               </div>
-              <!--              <span class="time">{{ meeting.type }}</span>-->
-              <!--              <span class="item_name">{{ meeting.time }}</span>-->
             </li>
           </cube-scroll>
         </div>
@@ -71,6 +69,25 @@ export default {
     this.meetings = this.$store.state.Schedule.meeting
   },
   methods: {
+    showFormatPicker() {
+      if (!this.formatPicker) {
+        this.formatPicker = this.$createDatePicker({
+          title: 'Use format',
+          min: new Date(2008, 7, 8),
+          max: new Date(2020, 9, 20),
+          value: new Date(),
+          format: {
+            year: 'YY年',
+            month: 'MM月',
+            date: '第 D 日'
+          },
+          onSelect: this.selectHandle,
+          onCancel: this.cancelHandle
+        })
+      }
+
+      this.formatPicker.show()
+    },
     ScheduleDetail(e) {
       this.$router.push({name: 'ScheduleDetail', params: {id: e.target.dataset.id}})
     },
@@ -133,7 +150,6 @@ export default {
 
 #schedule
   overflow: hidden;
-  height $custom-bgc-height
   background-image url("../../assets/icons/Main.webp")
   background-repeat no-repeat
   background-size 100%

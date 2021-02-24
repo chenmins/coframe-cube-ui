@@ -52,6 +52,7 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+
 #product_inc
   height calc(100% - 60px)
   background-color $my-bgc-color

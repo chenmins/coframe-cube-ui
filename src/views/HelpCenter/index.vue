@@ -3,14 +3,7 @@
     <NavLayOut bgc-color="#fff" color="#333">
       <div class="replay" slot="right" v-show="$route.meta.name==='回复'">发表</div>
       <div class="container">
-        <cube-scroll
-            ref="scroll"
-            :key="$route.meta.name"
-        >
-          <transition name="slide-fade">
-            <router-view/>
-          </transition>
-        </cube-scroll>
+        <router-view/>
       </div>
     </NavLayOut>
     <div class="replay_bot" v-show="$route.meta.name==='ReplayDetail'">
@@ -22,8 +15,8 @@
       ></cube-textarea>
       <Icon svg-name="helpcenter-emoji" style="margin-right: 10px" height="26px" width="26px"></Icon>
     </div>
-    <Tabbar c :tabs="tabs"></Tabbar>
-    </div>
+    <Tabbar :tabs="tabs"></Tabbar>
+  </div>
 </template>
 
 <script>
@@ -58,6 +51,9 @@ export default {
 
 <style scoped lang="stylus">
 
+>>> .cube-scroll-wrapper
+  height calc(100vh - 300px)
+
 .replay_bot
   box-shadow: 0px -2px 7px 0px rgba(0, 0, 0, 0.15);
   position fixed
@@ -87,11 +83,10 @@ export default {
   height $custom-bgc-height
   position: relative;
 
-  .container
-    height 100%
 
   .replay
-    margin 15px
+    margin-top 40px
+    margin-right 15px
     width 50px
     height: 30px;
     background: #0099FF;

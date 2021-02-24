@@ -1,7 +1,7 @@
 export default [
     {
         path:'/Question',
-        name:'Question',
+        name:'常见问题',
         redirect:'/',
         meta:{
             name:'常见问题'

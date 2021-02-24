@@ -26,14 +26,13 @@
       <span class="card_topic" v-if="!isComment"  >
               <slot name="card_topic">
               </slot>
-        </span>
-
+      </span>
     </div>
-
     <div class="footer">
-      <div class="remove" @click="remove" >
-        <Icon svg-name="delete@2" style="height: 20px;width: 20px"></Icon>
-      </div>
+        <div class="remove" @click="remove">
+          <slot name="trash">
+          </slot>
+        </div>
       <div class="func">
         <div class="like" @click="toggleLike">
           <Icon v-if="Like" svg-name="liked" style="height: 20px;width: 20px"></Icon>
@@ -65,6 +64,10 @@ export default {
     isLike:{
       type:Boolean,
       default:false
+    },
+    userInfo:{
+      type:Object,
+      default:{}
     }
 
   },

@@ -1,6 +1,8 @@
 export default [
     {
         path: '/Parking',
+        redirect:'Parking/',
+        name:'智能停车场',
         meta: {
             name: '申请车位',
             tag: '释放车位',

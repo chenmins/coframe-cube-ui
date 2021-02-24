@@ -3,7 +3,7 @@
 export default [
     {
         path:'/Cultural',
-        name:'Cultural',
+        name:'文化建设',
         redirect:'/Cultural/Notice/',
         meta:{
             name:'文化建设',
