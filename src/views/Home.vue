@@ -11,7 +11,6 @@
 <script >
 import Menus from "@/components/Menus";
 import exit from '@/libs/exit-login'
-import { BaseVue } from '@lib'
 
 export default {
   components:{
@@ -25,7 +24,6 @@ export default {
 
     }
   },
-  mixins: [BaseVue],
   created() {
 
   },

@@ -3,17 +3,15 @@
     <NavLayOut bgc-color="#fff" >
       <div class="header">
         <div class="title">
-          关于信息技术中心研发出新的功能，办公效率提升200%
+          {{notice.title}}
         </div>
         <div class="from_box">
           <div class="from">来源：行政服务平台</div>
-          <div class="date ">2020-12-25</div>
+          <div class="date ">{{$dayjs(notice.releaseTime).format('YYYY-MM-DD')}}</div>
         </div>
-
       </div>
       <div class="content">
-        新闻正文部分，新闻正文部分，新闻正文部分，新闻正文部分，新闻正文部分，新闻正文部分，新闻正文部分，新闻正文部分，新闻正文部分，新闻正文部分，大幅度发到付
-        新闻正文部分，新闻正文部分，新闻正文部分，新闻正文部分，新闻正文部分，新闻正文部分，新闻正文部分，新闻正文部分，新闻正文部分，新闻正文部分，大幅度发到付
+        {{notice.body}}
       </div>
     </NavLayOut>
   </div>
@@ -25,6 +23,14 @@ export default {
   name: "Detail",
   components:{
     LayOut,
+  },
+  data(){
+    return {
+      notice:{}
+    }
+  },
+  created() {
+    this.notice = this.$route.params.notice
   }
 }
 </script>

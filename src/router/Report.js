@@ -1,7 +1,7 @@
 export default [
     {
         path:'/Report',
-        name:'Report',
+        name:'员工信息报备',
         meta:{
             name:'员工信息报备',
             leave:2,

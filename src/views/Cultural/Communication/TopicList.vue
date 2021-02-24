@@ -10,16 +10,17 @@
         </div>
         <div class="left-panel">
 <!--            <cube-scroll>-->
-            <cube-tab-bar  style="display:block" v-model="selectedLabel" :data="tabs" @change="changeHandler"></cube-tab-bar>
+<!--          @change="changeHandler"-->
+            <cube-tab-bar  style="display:block" v-model="selectedLabel" :data="tabs" ></cube-tab-bar>
 <!--            </cube-scroll>-->
         </div>
         <div class="right-panel" >
           <cube-scroll ref="scroll" >
             <ul>
-              <li v-for="(hero, index) in scrollData">
-                <img :src="hero.avatar" alt="">
+              <li v-for="(item, index) in scrollData" @click="selectTopic(item)">
+                <img :src="item.avatar" alt="">
                 <div class="topic_item">
-                  <div class="topic_name">#{{hero.name}}</div>
+                  <div class="topic_name">#{{item.name}}</div>
                   <div class="topic_num"><span>讨论：</span>12321</div>
                 </div>
               </li>
@@ -33,6 +34,7 @@
 <script>
 import * as DATAS from '@/assets/data'
 import axios from 'axios'
+import {DictApiController} from '@controller'
 
  const DATA_MAP = {
     '全部': DATAS.ALL_HEROES,
@@ -50,37 +52,58 @@ export default {
         selectedLabel: '全部',
         scrollData: [],
 				tabs: [],
-				DATA_MAP:[]
+				DATA_MAP:[],
+        topicItems:[]
       }
     },
     created () {
-			// axios.get('http://localhost:8081/test/cityInfo').then(res=>{
-			// 	this.DATA_MAP = res.data.slideNav
-			// 	this.tabs = res.data.slideNav.map(i=>({
-			// 		label:i.name
-			// 	}))
-			// 	this.selectedLabel = this.tabs[0].label
-			// 	this.scrollData = res.data.slideNav.find(i=>{
-			// 		return i.name === this.selectedLabel
-			// 	}).num
-			// })
+      this.init()
     },
     methods: {
-      changeHandler (label) {
-				this.scrollData = this.DATA_MAP.find(i=>{
-					return i.name === this.selectedLabel
-				}).num
-        this.$nextTick(() => {
-          // reset better-scroll'postion
-          this.$refs.scroll.scrollTo(0, 0)
-          // you need to caculate scroll-content height when your dom has changed in nextTick
-          this.$refs.scroll.refresh()
-        })
-      }
-    },  
+      selectTopic(item){
+        this.$store.commit('Cultural/setSelectedTopic',item)
+        this.$store.commit('Cultural/setTopics',item.id)
+        this.$router.push({name: '发帖子'})
+      },
+      async init(){
+        let resp
+            resp = await this.dispatch(DictApiController.getDictEntryByDictTypeCode,{code:'pip-ccocci-topic'})
+        if(!resp.error){
+          this.tabs = resp.data.map(item=>{
+            return {
+              label:item.name,
+              id:item.id,
+              name:item.name,
+              code:item.code
+            }
+          })
+          if(this.$route.params.index){
+            this.selectedLabel = this.tabs[this.$route.params.index].label
+          }else{
+            this.selectedLabel = this.tabs[0].label
+          }
+
+        }
+      },
+      async getItem(id){
+        let resp
+        resp = await this.dispatch(DictApiController.getDictEntryByDictEntryId,{id:id})
+        if(!resp.error){
+          this.scrollData = resp.data.children.map(item=>{
+            return {
+              label:item.name,
+              id:item.id,
+              name:item.name,
+              code:item.code
+            }
+          })
+        }
+      },
+    },
     watch: {
       selectedLabel (newV) {
-        console.log(newV)
+        let id = this.tabs.filter(tab => tab.name === newV)[0].id
+        this.getItem(id)
       }
     }
 }
@@ -93,26 +116,20 @@ export default {
     padding: 12px 42px 12px 17px;
     line-height: 44px;
     position: relative;
-    font-size: 14px;
 }
 >>>.cube-tab{
   padding: 12px 42px 12px 17px;
+  line-height: 44px;
+  position: relative;
 }
-/*>>>.cube-tab_active:after {*/
-/*    content:'';*/
-/*    position: absolute;*/
-/*    height: 30px;*/
-/*    width: 4px;*/
-/*    top: 50%;*/
-/*    left: 0;*/
-/*    transform: translateY(-50%);*/
-/*    z-index: 20;*/
-/*    background: rgb(244,128,0);*/
-/*}*/
+
 </style>
 
 <style lang="stylus" scoped>
 
+#TopicList
+  height 100vh
+  background #fff
 
 .scroll-tab-view
   .cube-tab-bar
@@ -163,7 +180,6 @@ export default {
     display flex
     padding 5px 12px
     font-size 14px
-    border-bottom 1px solid rgba($custom-border-color,.3)
     z-index 70
     position: relative;
     background-color: #fff;

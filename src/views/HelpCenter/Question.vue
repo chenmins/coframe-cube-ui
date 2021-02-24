@@ -5,26 +5,39 @@
       <div class="header">
         <Search :value="value"></Search>
       </div>
-      <ul class="product_list_box" >
-        <li class="list_item" v-for="item in listData" :key="item.id" :data-id="item.id" @click="$router.push({name: 'ProductInc', params: {id: item.id}}).catch(()=>{})">
-          <div style="display: flex;align-items: center;color: #0F1826;height: 48px;">
-            <span>{{ item.title }}</span>
-          </div>
-          <div>
-            <i class="cubeic-arrow icon-arrow"></i>
-          </div>
-        </li>
-      </ul>
+      <Card class="list_item" style="margin:0;border-radius:0;padding:15px" v-for="item in listData" :key="item.id"
+            :data-id="item.id"
+            @clicked="$router.push({name: 'ProductInc', params: {id: item.id}}).catch(()=>{})"
+      >
+        <span style="display: flex;align-items: center;color: #0F1826;height: 48px;">{{ item.title }}</span>
+        <i class="cubeic-arrow icon-arrow"></i>
+      </Card>
+      <Card class="list_item" style="margin:0;border-radius:0;padding:15px" v-for="item in listData" :key="item.id"
+            :data-id="item.id"
+            @clicked="$router.push({name: 'ProductInc', params: {id: item.id}}).catch(()=>{})"
+      >
+        <span style="display: flex;align-items: center;color: #0F1826;height: 48px;">{{ item.title }}</span>
+        <i class="cubeic-arrow icon-arrow"></i>
+      </Card>
+      <Card class="list_item" style="margin:0;border-radius:0;padding:15px" v-for="item in listData" :key="item.id"
+            :data-id="item.id"
+            @clicked="$router.push({name: 'ProductInc', params: {id: item.id}}).catch(()=>{})"
+      >
+        <span style="display: flex;align-items: center;color: #0F1826;height: 48px;">{{ item.title }}</span>
+        <i class="cubeic-arrow icon-arrow"></i>
+      </Card>
     </div>
   </div>
 </template>
 
 <script>
 import Search from "@/components/UI/Search";
+import Card from "@/components/UI/Card";
 
 export default {
   name: "Question",
   components: {
+    Card,
     Search
   },
   data() {
@@ -62,14 +75,16 @@ export default {
   padding 8px 16px 8px 12px
   position: relative;
   background-color #fff
+
   &:after
     content ''
-    border-bottom 1px solid rgba(#ccc,.4)
+    border-bottom 1px solid rgba(#ccc, .4)
     position absolute
     bottom 0
     left 64px
     display block
     width 100%
+
 .header
   position absolute
   top -30px

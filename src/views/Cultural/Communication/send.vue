@@ -1,7 +1,8 @@
 <template>
   <div class="send_app">
     <NavLayOut
-      bgc-color="#fff"
+        bgc-color="#fff"
+        @back="$router.push({name:'交流圈'})"
     >
       <template v-slot:right>
         <button class="submit" @click="submit">
@@ -11,7 +12,7 @@
       <div class="container">
         <cube-textarea
             class="textarea"
-            v-model="value"
+            v-model="query.body"
             :placeholder="placeholder"
             :maxlength="maxlength"
             :autofocus="autofocus"
@@ -19,7 +20,7 @@
         <cube-upload
             ref="upload"
             v-model="files"
-            :action="action"
+            action="www.baidu.com"
             @files-added="filesAdded"
             @file-success="filesSuccess"
             @file-removed="filesRemove"
@@ -36,60 +37,71 @@
         </cube-upload>
       </div>
     </NavLayOut>
-      <div class="footer">
-        <div class="album" style="margin-right: 20px">
-          <Icon svg-name="addComment" style="margin-left:15px;height: 20px;width: 20px"></Icon>
-        </div>
-        <div class="topic_list" @click="topic" >
-          <div ># 打标签</div>
-        </div>
+    <div class="footer">
+      <div class="album" style="margin-right: 20px">
+        <Icon svg-name="addComment" style="margin-left:15px;height: 20px;width: 20px"></Icon>
       </div>
+      <div class="topic_list" @click="selectTopic">
+        <div v-if="topic.length===0"># 打标签</div>
+        <div v-else>#{{topic[0].name}}</div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 
 import {PipCcoCciController} from '@controller'
-import { CulturalControllerImpl } from '@controller'
+import {CulturalControllerImpl,DictApiController} from '@controller'
 import {BaseVue} from "@/libs";
 
 export default {
-name: "send",
-  mixins:[BaseVue],
+  name: "send",
+  mixins: [BaseVue],
   data() {
     return {
       value: '',
       placeholder: '选最棒的照片作为主图，帖子更容易被追捧~',
       maxlength: 300,
       autofocus: true,
-      action: '//jsonplaceholder.typicode.com/photos/',
       files: [],
-      hasNine:false,
+      hasNine: false,
+      topic: [],
+      query:{}
+    }
+  },
+  created() {
+    this.query = this.$store.state.Cultural.sendForm
 
+    if(this.$store.state.Cultural.selectedTopic.length!==0){
+      this.topic=this.$store.state.Cultural.selectedTopic
     }
   },
   methods: {
-    async submit(){
-      console.log('submit')
+    async submit() {
       let userInfo = JSON.parse(localStorage.getItem('userInfo'))
+      let resp
       let data = {
-        body: this.value,
-        choice: "京还马思",
-        picture: "并却维术运",
-        title: "13十大技术吧",
-        topicOfConversationId: "",
-        type: "通大广经儿",
+        ...this.query,
         userId: userInfo.id,
         userName: userInfo.name,
-
       }
-      let resp = await this.dispatch(CulturalControllerImpl.addCommunicationCircle, data)
-        if(!resp.error){
-          console.log(resp)
-          // this.$router.push({name:'交流圈'})
-        }else{
-          console.log('failure')
-        }
+      this.$store.commit('Cultural/setSendForm',data)
+      resp = await this.dispatch(CulturalControllerImpl.addCommunicationCircle, this.$store.state.Cultural.sendForm)
+      if (!resp.error) {
+        this.$store.commit('Cultural/clearSendForm')
+        this.$createToast({
+          txt: '发表成功',
+          type: 'correct',
+          time: 1000,
+        }).show()
+        setTimeout(() => {
+          this.query = this.$store.state.Cultural.sendForm
+          this.$router.push({name:'交流圈'})
+        },1000)
+      } else {
+        console.log('failure')
+      }
 
 
     },
@@ -112,7 +124,6 @@ name: "send",
         txt: message
       }).show()
     },
-
     errHandler(file) {
       // const msg = file.response.message
       this.$createToast({
@@ -121,12 +132,12 @@ name: "send",
         time: 1000
       }).show()
     },
-    filesSuccess(){
+    filesSuccess() {
       let message
       let hasIgnore = false
-      if(this.files.length ===9){
+      if (this.files.length === 9) {
         this.hasNine = true
-      }else if(this.files.length >9){
+      } else if (this.files.length > 9) {
         file.ignore = true
         hasIgnore = true
         message = '图片数量不能多于9张'
@@ -139,12 +150,13 @@ name: "send",
       }).show()
     },
     filesRemove() {
-      if (this.files.length <=9) {
+      if (this.files.length <= 9) {
         this.hasNine = false
       }
     },
-    topic(){
-      this.$router.push({name:'话题列表'})
+
+    selectTopic() {
+      this.$router.push({name: '话题列表'})
     }
   }
 }
@@ -156,14 +168,18 @@ name: "send",
   border none
   background-color #F7F7F7
   border-radius 6px
->>>.cube-upload-file-def
+
+>>> .cube-upload-file-def
   height 100%
   width 100%
+
 .send_app
   background-color #fff
   height 100%
->>>.cube-textarea-wrapper::after
+
+>>> .cube-textarea-wrapper::after
   border none
+
 .submit
   position absolute
   width 50px
@@ -172,44 +188,55 @@ name: "send",
   border-radius 15px
   font-size 14px
   right 0
-  transform translate(-50%,-50%)
+  transform translate(-50%, -50%)
   background-color $custom-active-color
   color #fff
   border none
   outline none
+
 .container
   height 100%
+
 .textarea
   height 200px
+
 .cube-upload
-  border-bottom 1px solid rgba(#000000,.1)
+  border-bottom 1px solid rgba(#000000, .1)
+
   .clear-fix
     flex-wrap wrap
+
   .cube-upload-file, .cube-upload-btn
     float left
     height: calc(100vw / 3 - 22px)
     width calc(100vw / 3 - 22px)
     margin 10px
+
   .cube-upload-file
     margin: 10px
     display flex
     flex-direction row
+
   .cube-upload-file-def
     width: 100%
     height: 100%
+
     .cubeic-wrong
       display: none
+
   .cube-upload-btn
-    border 1px solid rgba(#333,.3)
+    border 1px solid rgba(#333, .3)
 
     flex-shrink 0
     display: flex
     align-items: center
     justify-content: center
+
     > div
       text-align: center
-      color rgba(#333,.5)
+      color rgba(#333, .5)
       font-size 10px
+
     i
       display: inline-flex
       align-items: center
@@ -220,14 +247,16 @@ name: "send",
       font-size: 32px
       line-height: 1
       font-style: normal
-      background-color: rgba(#333,.3)
-      color  #fff
+      background-color: rgba(#333, .3)
+      color #fff
       border-radius: 50%
+
 .clear-fix
   display flex
+
 .footer
   background-color #fff
-  border-top 1px solid rgba(#000,.1)
+  border-top 1px solid rgba(#000, .1)
   width 100%
   display flex
   justify-content space-between
@@ -239,6 +268,7 @@ name: "send",
   bottom 0
   left 0
   z-index 70
+
   .topic_list
     border 1px solid #333
     font-size 12px

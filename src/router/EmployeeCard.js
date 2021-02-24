@@ -1,7 +1,7 @@
 export default [
     {
         path:'/EmployeeCard',
-        name:'EmployeeCard',
+        name:'员工卡申请',
         meta:{
             name:'EmployeeCard',
             tag:'员工卡申请',

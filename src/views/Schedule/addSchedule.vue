@@ -136,6 +136,29 @@ export default {
           props: {
             options: ['不重复','每天', '工作日', '每周', '每两周', '每年','自定义']
           },
+          events:{
+            input:(e)=>{
+              console.log(new Date(),this.$dayjs())
+              if(e==='自定义'){
+                if (!this.formatPicker) {
+                  this.formatPicker = this.$createDatePicker({
+                    title: '选择自定义时间',
+                    min: new Date(),
+                    max: new Date(2022, 1, 1),
+                    value: new Date(),
+                    format: {
+                      year: 'YYYY年',
+                      month: 'MM月',
+                      date: '第 D 日'
+                    },
+                    onSelect: this.selectHandle,
+                    onCancel: this.cancelHandle
+                  })
+                }
+                this.formatPicker.show()
+              }
+            }
+          },
           rules: {
             required: true
           }

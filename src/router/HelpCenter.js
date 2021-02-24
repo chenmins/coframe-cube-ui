@@ -2,6 +2,8 @@
 export default [
     {
         path:'/HelpCenter',
+        redirect:'HelpCenter/',
+        name:'帮助中心',
         component:()=>import('@/views/HelpCenter/index'),
         children:[
             {

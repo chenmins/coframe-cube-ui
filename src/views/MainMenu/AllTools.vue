@@ -6,176 +6,21 @@
       <header>
         <span class="title">管理常用工具</span>
         <div class="num" @click="$router.push({name:'ManageTool'})">
-          <div>8</div>
+          <div>{{ this.$store.state.ToolsManager.allTools.filter(tool => tool.isCommonly === true).length }}</div>
           <i class="cubeic-arrow"></i>
         </div>
       </header>
-
-      <ul class="tools_list"  >
-        <li>
-          <div @click="goRouter({name:'常见问题'})">
-            <Icon svg-name="Tools-HelpCenter" class-name="svg"></Icon>
-            <span>帮助中心</span>
+      <ul class="tools_list">
+        <li v-for="(Tool,index) in allTools" :key="index">
+          <div @click="goRouter({name:Tool.text})">
+            <Icon :svg-name="'Tools-'+Tool.icon" class-name="svg"></Icon>
+            <span>{{ Tool.text }}</span>
           </div>
-          <span class="commonly tag" v-if="commonly">
+          <span class="commonly tag" v-if="!Tool.isCommonly" @click="addCommonly(Tool)">
                 <Icon svg-name="add" height="14" width="14" class-name="add"></Icon>
                 添加常用
               </span>
           <span class="is-commonly tag" v-else>已添加常用</span>
-        </li>
-        <li>
-          <div @click="goRouter({name:'Cultural'})">
-            <Icon svg-name="Tools-CulrturalBuild" class-name="svg"></Icon>
-            <span>文化建设</span>
-          </div>
-          <span class="commonly tag" v-if="commonly">
-                <Icon svg-name="add" height="14" width="14" class-name="add"></Icon>
-                添加常用
-              </span> <span class="is-commonly tag" v-else>已添加常用</span>
-        </li>
-        <li>
-          <div @click="goRouter({name:'电商采购'})">
-            <Icon svg-name="Tools-DianShang" class-name="svg"></Icon>
-            <span>电商采购</span>
-          </div>
-          <span class="commonly tag" v-if="commonly">
-                <Icon svg-name="add" height="14" width="14" class-name="add"></Icon>
-                添加常用
-              </span> <span class="is-commonly tag" v-else>已添加常用</span>
-        </li>
-        <li>
-          <div @click="goRouter({name:'Guest'})">
-            <Icon svg-name="Tools-Guest" class-name="svg"></Icon>
-            <span>访客预约</span>
-          </div>
-          <span class="commonly tag" v-if="commonly">
-                <Icon svg-name="add" height="14" width="14" class-name="add"></Icon>
-                添加常用
-              </span> <span class="is-commonly tag" v-else>已添加常用</span>
-        </li>
-        <li>
-          <div @click="goRouter({name:'homepage'})">
-            <Icon svg-name="Tools-AddressBook" class-name="svg"></Icon>
-            <span>通讯录</span>
-          </div>
-          <span class="commonly tag" v-if="commonly">
-                <Icon svg-name="add" height="14" width="14" class-name="add"></Icon>
-                添加常用
-              </span> <span class="is-commonly tag" v-else>已添加常用</span>
-        </li>
-        <li>
-          <div @click="goRouter({name:'Report'})">
-            <Icon svg-name="Tools-Report" class-name="svg"></Icon>
-            <span>员工信息报备</span>
-          </div>
-          <span class="commonly tag" v-if="commonly">
-                <Icon svg-name="add" height="14" width="14" class-name="add"></Icon>
-                添加常用
-              </span> <span class="is-commonly tag" v-else>已添加常用</span>
-        </li>
-        <li>
-          <div @click="goRouter({name:'YuYueItem'})">
-            <Icon svg-name="Tools-YuYue" class-name="svg"></Icon>
-            <span>预约中心</span>
-          </div>
-          <span class="commonly tag" v-if="commonly">
-                <Icon svg-name="add" height="14" width="14" class-name="add"></Icon>
-                添加常用
-              </span>
-          <span class="is-commonly tag" v-else>已添加常用</span>
-        </li>
-        <li>
-          <div @click="goRouter({name:'EmployeeCard'})">
-            <Icon svg-name="Tools-EmployeeCard" class-name="svg"></Icon>
-            <span>员工卡申请</span>
-          </div>
-          <span class="commonly tag" v-if="commonly">
-                <Icon svg-name="add" height="14" width="14" class-name="add"></Icon>
-                添加常用
-              </span>
-          <span class="is-commonly tag" v-else>已添加常用</span>
-        </li>
-        <li>
-          <div @click="goRouter({name:'去哪吃'})">
-            <Icon svg-name="Tools-Food" class-name="svg"></Icon>
-            <span>去哪吃</span>
-          </div>
-          <span class="commonly tag" v-if="commonly">
-                <Icon svg-name="add" height="14" width="14" class-name="add"></Icon>
-                添加常用
-              </span>
-          <span class="is-commonly tag" v-else>已添加常用</span>
-        </li>
-        <li>
-          <div @click="goRouter({name:'园区导航'})">
-            <Icon svg-name="Tools-DaoHang" class-name="svg"></Icon>
-            <span>园区导航</span>
-          </div>
-          <span class="commonly tag" v-if="commonly">
-                <Icon svg-name="add" height="14" width="14" class-name="add"></Icon>
-                添加常用
-              </span>
-          <span class="is-commonly tag" v-else>已添加常用</span>
-        </li>
-        <li>
-          <div @click="goRouter({name:'便利店'})">
-            <Icon svg-name="Tools-BianLiDian" class-name="svg"></Icon>
-            <span>便利店</span>
-          </div>
-          <span class="commonly tag" v-if="commonly">
-                <Icon svg-name="add" height="14" width="14" class-name="add"></Icon>
-                添加常用
-              </span> <span class="is-commonly tag" v-else>已添加常用</span>
-        </li>
-        <li>
-          <div @click="goRouter({name:'Schedule'})">
-            <Icon svg-name="Tools-XieTong" class-name="svg"></Icon>
-            <span>日程协同</span>
-          </div>
-          <span class="commonly tag" v-if="commonly">
-                <Icon svg-name="add" height="14" width="14" class-name="add"></Icon>
-                添加常用
-              </span> <span class="is-commonly tag" v-else>已添加常用</span>
-        </li>
-        <li>
-          <div @click="goRouter({name:'我的二维码'})">
-            <Icon svg-name="Tools-QR" class-name="svg"></Icon>
-            <span>我的二维码</span>
-          </div>
-          <span class="commonly tag" v-if="commonly">
-                <Icon svg-name="add" height="14" width="14" class-name="add"></Icon>
-                添加常用
-              </span> <span class="is-commonly tag" v-else>已添加常用</span>
-        </li>
-        <li>
-          <div @click="goRouter({name:'物业'})">
-            <Icon svg-name="Tools-WuYe" class-name="svg"></Icon>
-            <span>物业</span>
-          </div>
-          <span class="commonly tag" v-if="commonly">
-                <Icon svg-name="add" height="14" width="14" class-name="add"></Icon>
-                添加常用
-              </span> <span class="is-commonly tag" v-else>已添加常用</span>
-        </li>
-        <li>
-          <div @click="goRouter({name:'Parking'})">
-            <Icon svg-name="Tools-Parking" class-name="svg"></Icon>
-            <span>智能停车场</span>
-          </div>
-          <span class="commonly tag" v-if="commonly">
-                <Icon svg-name="add" height="14" width="14" class-name="add"></Icon>
-                添加常用
-              </span> <span class="is-commonly tag" v-else>已添加常用</span>
-        </li>
-        <li>
-          <div @click="goRouter({name:'发布'})">
-            <Icon svg-name="Tools-Data" class-name="svg"></Icon>
-            <span>数据统计</span>
-          </div>
-          <span class="commonly tag" v-if="commonly">
-                <Icon svg-name="add" height="14" width="14" class-name="add"></Icon>
-                添加常用
-              </span> <span class="is-commonly tag" v-else>已添加常用</span>
         </li>
       </ul>
 
@@ -189,14 +34,32 @@ export default {
   name: "AllTools",
   data() {
     return {
-      commonly: true
+      commonly: true,
+      allTools: []
     }
   },
-  methods:{
-    goList(e){
+  created() {
+    this.allTools = this.$store.state.ToolsManager.allTools
+  },
+  methods: {
+    addCommonly(Tool) {
+
+      if (this.$store.getters["ToolsManager/currentTools"].length >= 8) {
+        this.$createToast({
+          txt: '最多只能添加8个常用功能',
+          type: 'warn',
+          time: 1000
+        }).show()
+        return
+      }
+      this.$store.commit('ToolsManager/addisCommonly', Tool)
+
+
+    },
+    goList(e) {
       console.log(e.currentTarget)
     },
-    goRouter(e){
+    goRouter(e) {
       this.$router.push(e)
     }
   }

@@ -1,6 +1,8 @@
 export default [
     {
         path:'/Guest',
+        redirect:'Guest/',
+        name:'访客预约',
         meta:{
             name:'访客预约',
             tag:'Guest',

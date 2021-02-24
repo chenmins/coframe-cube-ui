@@ -1,15 +1,13 @@
 <template>
 
   <div class="communication_app">
-    <Common>
       <div style="background-color:#fff">
         <div class="topic_title">热门话题</div>
         <div class="topics">
-          <div class="topic" v-for="(topic,index) in topics">
+          <div class="topic" v-for="(topic,index) in topics" @click="goTopic(topic,index)">
             <span>0{{ index + 1 }}</span>
-            <div>{{ topic.topicTitle }}</div>
+            <div>{{ topic.name }}</div>
           </div>
-          <div class="topic more" @click="$router.push({name:'话题列表'})">更多话题 ></div>
         </div>
       </div>
       <SlideNav @changeHandle="changeHandle"
@@ -19,49 +17,52 @@
         <div class="scroll-list-wrap">
           <cube-scroll
               ref="scroll">
-            <Card :is-comment="false" :is-like="comment.fabulousForUser" v-for="comment in comments"
+            <transition-group name="list-complete" >
+            <Card class="list-complete-item" :is-comment="false" :is-like="comment.fabulousForUser" v-for="(comment,index) in comments"
+                  :key="index"
                   @checkComments="checkComments(comment)"
                   @goComment="goComment(comment)"
-                  @toggleLike="toggleLike(comment)" @remove="remove(comment.id)"
+                  @toggleLike="toggleLike(comment)"
+                  @remove="remove(comment.id,index)"
             >
-              <template v-slot:time>{{$dayjs(comment.releaseTime).format('YYYY-MM-DD')}}</template>
               <template v-slot:username>{{ comment.userName }}</template>
+              <template v-slot:time>{{ $dayjs(comment.releaseTime).format('YYYY-MM-DD') }}</template>
               <template v-slot:likeName>{{ comment.fabulousPlusCount }}</template>
               <template v-slot:content>
                 <div>
                   {{ comment.body }}
                   <!--                  <img  width="100%" src="../../../assets/icons/news.png" alt="">-->
                 </div>
-
               </template>
               <template v-slot:card_topic v-if="comment.topicOfConversationId!==0">
                 话题id#{{ comment.topicOfConversationId }}
               </template>
+              <template v-slot:trash >
+                  <Icon    svg-name="delete@2" style="height: 20px;width: 20px" v-if="cardInfo.id === comment.userId"></Icon>
+              </template>
             </Card>
+            </transition-group>
           </cube-scroll>
         </div>
       </SlideNav>
-    </Common>
-
-
   </div>
 </template>
 
 <script>
 import SlideNav from "@/components/Cultural/SlideNav";
 import Card from "@/components/Cultural/Card";
-import Common from "@/views/Cultural/Common";
 import axios from "axios";
 import {allPageSreach} from '@controller'
-import {CulturalControllerImpl} from '@controller'
+import {CulturalControllerImpl, DictApiController} from '@controller'
 
 export default {
   name: "index",
   components: {
-    SlideNav, Card, Common
+    SlideNav, Card
   },
   data() {
     return {
+      cardInfo:JSON.parse(localStorage.getItem('userInfo')),
       like: false,
       selectedLabel: '全部',
       tabs: [
@@ -84,33 +85,37 @@ export default {
   },
 
   created() {
-    this.topics = this.$store.state.Cultural.topics
-    // this.comments = this.$store.state.Cultural.comments
-    this.init('1')
+    this.setTopicLists()
+    this.comments = this.$store.state.Cultural.allData.communicationCircles
   },
   methods: {
-    async remove(e){
-      // console.log(e,this.isComment)
-      // if(!this.isComment){
-      //   let resp = await this.dispatch(CulturalControllerImpl.deleteCommunicationCircle,{id:e}) //朋友圈id
-      // }
+    async setTopicLists() {
+      let resp
+      resp = await this.dispatch(DictApiController.getDictEntryByDictTypeCode, {code: 'pip-ccocci-topic'})
+      if (!resp.error) {
+        this.$store.commit('Cultural/setTopicLists', resp.data)
+        this.topics = this.$store.state.Cultural.topicLists.splice(0, 6)
+      }
+    },
+    goTopic(topic, index) {
+      this.$router.push({name: '话题列表', params: {index: index}})
+    },
 
-      // if(this.isComment){
-        let resp = await this.dispatch(CulturalControllerImpl.deleteCommunicationCircle,{id:e}) //朋友圈id
-        if(!resp.error){
-          console.log(resp)
+    async remove(e,index) {
+      this.comments.splice(index,1)
+        let resp = await this.dispatch(CulturalControllerImpl.deleteCommunicationCircle, {id: e}) //朋友圈id
+        if (!resp.error) {
           await this.init()
-        }else {
+        } else {
           console.log('error')
         }
-      // }
     },
     // todo 点赞
     async toggleLike(e) {
       console.log(e)
       let resp = await this.dispatch(CulturalControllerImpl.fabulousCommunicationCircle, {id: e.id})
       // console.log(resp)
-      if(!resp.error){
+      if (!resp.error) {
         console.log(resp)
         if (e.fabulousForUser) {
           e.fabulousPlusCount -= 1
@@ -122,52 +127,24 @@ export default {
       }
 
     },
-    async init(type) {
-      let resp = await this.dispatch(CulturalControllerImpl.allPageSreach,{
-        pageNo:1,
-        pageSize:20
-      })
-
-      if(!resp.error){
-        this.comments = resp.data.body.communicationCircles1
-      }else{
-        console.log('error')
-      }
-
-
-
-      // let circle = {"type": "1"}
-      // let selComCilList = await this.dispatch(PipCcoCciController.selComCilList, {"type": type}) //获取所有列表
-      //
-      // let res = await this.dispatch(PipCcoCciController.selCommentById, {"type": type}) //获取所有列表
-      // // let resp = await this.dispatch(PipCcoCciController.selComCilPageSortList)
-      //
-      // if (!selComCilList.error) {
-      //   console.log(selComCilList.data)
-      //   this.comments = selComCilList.data.body
-      // } else {
-      //   if (!selComCilList.loading) {
-      //     this.$router.push('/login')
-      //   }
-      // }
-    },
     goComment(e) {
-      console.log(e)
       // if (e.target.classList[0] === 'card_topic') return
-      this.$router.push({name: '交流圈-评论详情', params: {id: e.id,isLike:e.fabulousForUser}})
+      this.$router.push({name: '交流圈-评论详情', params: {id: e.id, isLike: e.fabulousForUser}})
     },
     changeHandle(e) {
       switch (e) {
         case '全部':
-          this.init('1')
+          this.comments = this.$store.state.Cultural.allData.communicationCircles
           break
         case '热门':
-          this.init('2')
+          this.comments = this.$store.state.Cultural.allData.communicationCircles1
           break
         case '精选':
-          this.init('3')
+          this.comments = this.$store.state.Cultural.allData.communicationCircles2
           break
       }
+      console.log(this.comments)
+
     },
     selectItem(e) {
       console.log(e.target.innerHTML)
@@ -179,7 +156,25 @@ export default {
 }
 </script>
 
+<style >
+.list-complete-item {
+  transition: all 1s ;
+  display: inline-block;
+}
+
+.list-complete-enter, .list-complete-leave-to
+  /* .list-complete-leave-active for below version 2.1.8 */ {
+  opacity: 0;
+  width:100%;
+}
+.list-complete-leave-active {
+  //position: absolute;
+}
+
+</style>
+
 <style scoped lang="stylus">
+
 >>> .cube-tab, .tab_item
   color #000 !important
 
@@ -211,8 +206,9 @@ export default {
     position relative
     height 120px
     margin -8px 20px 0
-    text-align center
-    align-content space-between
+    text-align left
+    align-items flex-start
+    justify-content flex-start
 
     .topic
       font-size 14px
@@ -220,6 +216,9 @@ export default {
       display flex
       flex-direction row
       align-items center
+      align-self flex-start
+      justify-self flex-end
+      justify-content space-around
 
       span
         font-size: 15px;

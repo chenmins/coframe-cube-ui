@@ -1,7 +1,7 @@
 export default [
     {
         path:'/Schedule',
-        name:'Schedule',
+        name:'日程协同',
         meta:{
             name:'日程协同',
             leave:2,

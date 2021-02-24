@@ -1,56 +1,18 @@
 <template>
   <div id="manage_tool">
     <NavLayOut
-      bgc-color="#fff"
+        bgc-color="#fff"
     >
       <a @click="$router.back()">完成</a>
       <div class="func clearfix">
-        <div class="tool_item">
-          <Icon svg-name="one" class-name="svg"></Icon>
-          <div>文化建设</div>
-          <Icon svg-name="delete" class-name="remove"></Icon>
-        </div>
-        <div class="tool_item">
-          <Icon svg-name="two" class-name="svg"></Icon>
-          <Icon svg-name="delete" class-name="remove"></Icon>
-          <div>帮助中心</div>
-        </div>
-        <div class="tool_item">
-          <Icon svg-name="three" class-name="svg"></Icon>
-          <Icon svg-name="delete" class-name="remove"></Icon>
-
-          <div>日程协同</div>
-        </div>
-        <div class="tool_item">
-          <Icon svg-name="four" class-name="svg"></Icon>
-          <Icon svg-name="delete" class-name="remove"></Icon>
-          <div>访客预约</div>
-        </div>
-        <div class="tool_item">
-          <Icon svg-name="five" class-name="svg"></Icon>
-          <Icon svg-name="delete" class-name="remove"></Icon>
-
-          <div>通讯录</div>
-        </div>
-        <div class="tool_item">
-          <Icon svg-name="six" class-name="svg"></Icon>
-          <Icon svg-name="delete" class-name="remove"></Icon>
-          <div>员工卡申请</div>
-        </div>
-        <div class="tool_item">
-          <Icon svg-name="seven" class-name="svg"></Icon>
-          <Icon svg-name="delete" class-name="remove"></Icon>
-
-          <div>预约中心</div>
-        </div>
-        <div class="tool_item">
-          <Icon svg-name="eight" class-name="svg"></Icon>
-          <Icon svg-name="delete" class-name="remove"></Icon>
-          <div>信息报备</div>
+        <div class="tool_item" v-for="(Tool,index) in Tools" :key="index">
+          <Icon :svg-name="'Tools-'+Tool.icon" class-name="svg"></Icon>
+          <div>{{Tool.text}}</div>
+          <Icon svg-name="delete" @iconToggle="remove(Tool,index)" class-name="remove"></Icon>
         </div>
       </div>
-      <div slot="right" style="margin-right: 20px">
-        <span style="font-size: 14px">完成</span>
+      <div slot="right" style="margin-right: 20px" @click="complete">
+        <span class="complete" style="font-size: 14px" >完成</span>
       </div>
     </NavLayOut>
   </div>
@@ -59,15 +21,37 @@
 <script>
 export default {
   name: "ManageTool",
-  methods: {}
+  data() {
+    return {
+      Tools:[],
+      deleteArr:[]
+    }
+  },
+  created() {
+    this.Tools = this.$store.state.ToolsManager.allTools.filter(tool => tool.isCommonly === true)
+  },
+  methods: {
+    remove(Tool,index){
+      this.deleteArr.push(this.Tools.splice(index,1)[0])
+    },
+    complete(){
+      this.$store.commit('ToolsManager/removeisCommonly',this.deleteArr)
+      this.$router.replace({name:'Home'})
+    }
+  }
 }
 </script>
 
 <style scoped lang="stylus">
+.complete
+  display inline-block
+  margin-top 35px
+
 .svg
   height 44px
   width 44px
   margin-bottom 6px
+
 #manage_tool
   background-color $my-bgc-color
 
@@ -88,6 +72,7 @@ export default {
   font-size 12px
   position relative
   margin-bottom 27px
+
   .remove
     display inline-block
     width 14px
@@ -98,7 +83,7 @@ export default {
     border-radius 50%
     padding 2px
     position absolute
-    z-index 20
+    z-index 40
     top -5px
     right 10px
     font-weight bold

@@ -43,7 +43,7 @@ const routes = [
             leave: 1
         },
         // component: Home
-        component:()=>import('@/views/MainMenu/index')
+        component: () => import('@/views/MainMenu/index')
     },
     {
         path: '/login',
@@ -66,33 +66,33 @@ const routes = [
     },
     {
         path: "/QR/:id",
-        name:'我的二维码',
-        meta:{
-            name:'我的二维码',
-            leave:2,
-            showNav:true
+        name: '我的二维码',
+        meta: {
+            name: '我的二维码',
+            leave: 2,
+            showNav: true
         },
-        component: ()=>import('@/views/MainMenu/MyQR')
+        component: () => import('@/views/MainMenu/MyQR')
     },
     {
         path: "/Data",
-        name:'发布',
-        meta:{
-            name:'发布',
-            leave:2,
-            showNav:true
+        name: '数据统计',
+        meta: {
+            name: '发布',
+            leave: 2,
+            showNav: true
         },
-        component: ()=>import('@/views/Data/index')
+        component: () => import('@/views/Data/index')
     },
     {
         path: "/fangkeyuyue",
-        name:'fangkeyuyue',
-        meta:{
-            name:'二维码',
-            leave:2,
-            showNav:true
+        name: 'fangkeyuyue',
+        meta: {
+            name: '二维码',
+            leave: 2,
+            showNav: true
         },
-        component: ()=>import('@/views/QR/index')
+        component: () => import('@/views/QR/index')
     },
 ]
 
@@ -104,7 +104,27 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
     NProgress.start()
-
+    if (localStorage.getItem('ToolsManager')) {
+    } else {
+        localStorage.setItem('ToolsManager', JSON.stringify([
+            {icon: 'HelpCenter', text: '帮助中心', isCommonly: true},
+            {icon: 'CulrturalBuild', text: '文化建设', isCommonly: true},
+            {icon: 'DianShang', text: '电商采购', isCommonly: true},
+            {icon: 'Guest', text: '访客预约', isCommonly: true},
+            {icon: 'AddressBook', text: '通讯录', isCommonly: true},
+            {icon: 'Report', text: '员工信息报备', isCommonly: true},
+            {icon: 'YuYue', text: '预约中心', isCommonly: true},
+            {icon: 'EmployeeCard', text: '员工卡申请', isCommonly: true},
+            {icon: 'Food', text: '去哪吃', isCommonly: false},
+            {icon: 'DaoHang', text: '园区导航', isCommonly: false},
+            {icon: 'Parking', text: '智能停车场', isCommonly: false},
+            {icon: 'BianLiDian', text: '便利店', isCommonly: false},
+            {icon: 'XieTong', text: '日程协同', isCommonly: false},
+            {icon: 'WuYe', text: '物业', isCommonly: false},
+            {icon: 'QR', text: '我的二维码', isCommonly: false},
+            {icon: 'Data', text: '数据统计', isCommonly: false},
+        ]))
+    }
     next()
 
 })

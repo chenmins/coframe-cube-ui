@@ -12,6 +12,7 @@
             :title="$route.meta.name"
             v-if="$route.meta.showNav"
             v-show="toggle"
+            @back="$emit('back')"
         >
           <div slot="right"  >
             <slot name="right"></slot>
