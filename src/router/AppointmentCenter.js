@@ -7,7 +7,7 @@ export default [
         meta: {
             name: '预约中心',
             tag: 'AppointmentCenter',
-            leave:2,
+            leave: 2,
             showNav: true
         },
         component: () => import('@/views/AppointmentCenter/index'),
@@ -18,7 +18,7 @@ export default [
                 meta: {
                     name: '预约中心',
                     tag: 'YuYueCenter',
-                    leave:2,
+                    leave: 2,
                     showNav: true
                 },
                 component: () => import('@/views/AppointmentCenter/YuYueCenter')
@@ -29,7 +29,7 @@ export default [
                 meta: {
                     name: '我的预约',
                     tag: 'MyYuYue',
-                    leave:2,
+                    leave: 2,
                     showNav: true
                 },
                 component: () => import('@/views/AppointmentCenter/MyYuYue')
@@ -37,15 +37,141 @@ export default [
         ]
     },
     {
-        path: '/',
-        name: 'AppointmentCenter',
+        path: '/YuYue/:id',
+        name: 'YuYueItem',
         meta: {
-            name: '预约中心',
-            tag: 'AppointmentCenter',
-            leave:2,
+            name: 'YuYueItem',
+            dataType: {
+                yiwushi: [
+                    {
+                        text: '问诊',
+                        value:'问诊',
+                    },
+                    {
+                        text: '理疗',
+                        value:'理疗'
+                    },
+                    {
+                        text: '拿药',
+                        value:'拿药'
+                    }
+                ],
+                lifashi: [
+                    {
+                        text: '理发',
+                        value:'理发'
+                    },
+                    {
+                        text: '护理',
+                        value:'护理'
+                    },
+                    {
+                        text: '洗发',
+                        value:'洗发'
+                    }
+                ],
+                lingdian: [
+                    {
+                        text: '一号餐厅',
+                        value:'一号餐厅'
+
+                    },
+                    {
+                        text: '二号餐厅',
+                        value:'二号餐厅'
+                    },
+                    {
+                        text: '三号餐厅',
+                        value:'三号餐厅'
+                    }
+                ],
+                yiwuganxi: [
+                    {
+                        text: '一号餐厅',
+                        value:'一号餐厅'
+
+                    },
+                    {
+                        text: '二号餐厅',
+                        value:'二号餐厅'
+                    },
+                    {
+                        text: '三号餐厅',
+                        value:'三号餐厅'
+                    }
+                ],
+                huiyishi: [
+                    {
+                        text: '一号餐厅',
+                        value:'一号餐厅'
+
+                    },
+                    {
+                        text: '二号餐厅',
+                        value:'二号餐厅'
+                    },
+                    {
+                        text: '三号餐厅',
+                        value:'三号餐厅'
+                    }
+                ],
+                wenyingshi: [
+                    {
+                        text: '一号餐厅',
+                        value:'一号餐厅'
+
+                    },
+                    {
+                        text: '二号餐厅',
+                        value:'二号餐厅'
+                    },
+                    {
+                        text: '三号餐厅',
+                        value:'三号餐厅'
+                    }
+                ],
+                kufang: [
+                    {
+                        text: '一号餐厅',
+                        value:'一号餐厅'
+
+                    },
+                    {
+                        text: '二号餐厅',
+                        value:'二号餐厅'
+                    },
+                    {
+                        text: '三号餐厅',
+                        value:'三号餐厅'
+                    }
+                ]
+            },
+            leave: 3,
             showNav: true
         },
-        component: () => import('@/views/AppointmentCenter/index')
+        component: () => import('@/views/AppointmentCenter/BusinessPage'),
+    },
+    {
+        path: '/YuYueSuccess',
+        name: 'YuYueSuccess',
+        meta: {
+            name: '预约成功',
+            tag: '预约成功',
+            leave: 3,
+            showNav: true
+        },
+        component: () => import('@/views/AppointmentCenter/YuYueSuccess')
+    },
+    {
+        path: '/ReservePage/:id',
+        name: 'ReservePage',
+        meta: {
+            name: '预约页面',
+            tag: '预约页面',
+            leave: 3,
+            showNav: true
+        },
+        component: () => import('@/views/AppointmentCenter/ReservePage')
     },
     {
         path: '/MyAppointment',
@@ -53,77 +179,10 @@ export default [
         meta: {
             name: '我的预约',
             tag: 'MyAppointment',
-            leave:2,
+            leave: 2,
             showNav: true
         },
         component: () => import('@/views/AppointmentCenter/MyYuYue')
-    },
-    {
-        path: '/func/:id',
-        name: 'func',
-        meta: {
-            name: 'func',
-            dataType:{
-                hospital:[
-                    {
-                        content:'问诊',
-                    },
-                    {
-                        content:'理疗',
-                    },
-                    {
-                        content:'拿药'
-                    }
-                ],
-                barbershop:[
-                    {
-                        content:'理发',
-                    },
-                    {
-                        content:'护理',
-                    },
-                    {
-                        content:'洗发'
-                    }
-                ],
-                restaurant:[
-                    {
-                        content:'一号餐厅',
-                    },
-                    {
-                        content:'二号餐厅',
-                    },
-                    {
-                        content:'三号餐厅'
-                    }
-                ],
-            },
-            leave:3,
-            showNav: true
-        },
-        component: () => import('@/views/AppointmentCenter/BusinessPage'),
-    },
-    {
-        path: '/ReservePage',
-        name: 'ReservePage',
-        meta: {
-            name: '预约页面',
-            tag: '预约页面',
-            leave:3,
-            showNav: true
-        },
-        component: () => import('@/views/AppointmentCenter/ReservePage')
-    },
-    {
-        path: '/BusinessIntroduction',
-        name: 'BusinessIntroduction',
-        meta: {
-            name: '业务介绍',
-            tag: '业务介绍',
-            leave:3,
-            showNav: true
-        },
-        component: () => import('@/views/AppointmentCenter/BusinessIntroduction')
     },
     {
         path: '/ResultPage',
@@ -134,59 +193,96 @@ export default [
         },
         component: () => import('@/views/AppointmentCenter/ResultPage')
     },
-    {
-        path: '/DryClean',
-        name: 'DryClean',
-        meta: {
-            name: '衣物干洗',
-            tag: '衣物干洗',
-            leave:3,
-            showNav: true
-        },
-        component: () => import('@/views/AppointmentCenter/DryClean')
-    },
+
+    //管理员
     {
         path: '/AppointmentAdmin',
         meta: {
-            name: '管理员',
-            tag: '管理员',
-            leave:3,
+            name: '预约管理',
+            tag: '预约管理',
+            leave: 3,
             showNav: true
         },
         component: () => import('@/views/AppointmentCenter/admin/index'),
-        children:[
-            {
-                path: '/',
-                name: 'AppointmentAdminList',
-                meta: {
-                    name: '预约管理',
-                    tag: '预约管理',
-                    leave:3,
-                    showNav: true
-                },
-                component: () => import('@/views/AppointmentCenter/admin/List')
-            }, {
-                path: '/Release',
-                name: 'AppointmentAdminRelease',
-                meta: {
-                    name: '发布管理',
-                    tag: '发布管理',
-                    leave:3,
-                    showNav: true
-                },
-                component: () => import('@/views/AppointmentCenter/admin/Release')
-            },
-        ]
     },
     {
-        path: '/ReleaseEdit',
-        name: 'AppointmentAdminReleaseEdit',
+        path: '/AppointmentAdminRelease',
+        name: 'AppointmentAdminRelease',
         meta: {
-            name: '发布',
-            tag: '发布',
-            leave:3,
+            name: '发布管理',
+            tag: '发布管理',
+            leave: 3,
+            showNav: true
+        },
+        component: () => import('@/views/AppointmentCenter/admin/Release')
+    },
+    {
+        path: '/AdminReleaseEdit/:id',
+        name: 'AdminReleaseEdit',
+        meta: {
+            name: '发布时间段管理',
+            tag: '发布时间段管理',
+            leave: 3,
             showNav: true
         },
         component: () => import('@/views/AppointmentCenter/admin/ReleaseEdit')
     },
+    {
+        path: '/AdminRelease',
+        name: 'AdminRelease',
+        meta: {
+            name: '发布',
+            tag: '发布',
+            leave: 3,
+            showNav: true
+        },
+        component: () => import('@/views/AppointmentCenter/admin/addRelease')
+    },
+    {
+        path: '/AdminRelease-yiwuganxi',
+        name: 'AdminRelease-yiwuganxi',
+        meta: {
+            name: '发布-衣物干洗',
+            tag: '发布-衣物干洗',
+            leave: 3,
+            showNav: true
+        },
+        component: () => import('@/views/AppointmentCenter/admin/addRelease-yiwugannxi')
+    },
+    {
+        path: '/AdminRelease-meeting',
+        name: 'AdminRelease-meeting',
+        meta: {
+            name: '添加会议',
+            tag: '添加会议',
+            leave: 3,
+            showNav: true
+        },
+        component: () => import('@/views/AppointmentCenter/admin/addMeeting')
+    },
+    {
+        path: '/meetingConfirm',
+        name: 'meetingConfirm',
+        meta: {
+            name: '会议室预约',
+            tag: '会议室预约',
+            leave: 3,
+            showNav: true
+        },
+        component: () => import('@/views/AppointmentCenter/admin/meetingConfirm')
+    },
+
+    {
+        path: '/meetingSuccess',
+        name: 'meetingSuccess',
+        meta: {
+            name: '',
+            tag: 'AppointmentCenter',
+            leave: 2,
+            showNav: true
+        },
+        component: () => import('@/views/AppointmentCenter/admin/meetingSuccess')
+    },
+
+
 ]

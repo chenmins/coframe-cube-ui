@@ -1,6 +1,6 @@
 <template>
   <ApproveContainer :tabs="tabs" :selectedLabel="selectedLabel">
-    <Card :reserve="approve" v-for="reserve in approves"
+    <Card v-for="reserve in approves"
           @clicked="$router.push({name:'ReserveDetail',params:{id:1}})"
     >
       <div class="title">
@@ -12,7 +12,6 @@
         <p><span class="titou">到访部门 </span> <span v-for="i in reserve.where">{{ i }}，</span></p>
         <p><span class="titou">来访姓名 </span> {{ reserve.time }}</p>
       </div>
-
       <template v-if="arrived">
         <Tag color="#fff" class="tag" :background-color="reserve.approved?'#42b983':'#000'">
           {{ !reserve.approved ? '待审批' : '已完成' }}

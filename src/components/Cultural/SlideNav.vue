@@ -7,15 +7,15 @@
                      :style="center?'width: 100%':''"
                     @change="changeHandle"
                      :showSlider="showSlider"
-                     class="nav_tabbar scroll_container">
+                     class="nav_tabbar scroll_container ">
           <cube-tab   class="tab_item" v-for="(item, index) in tabs" :label="item.label" :icon="item.icon" :key="item.label"></cube-tab>
         <Icon v-show="customer" svg-name="customer" class-name="svg"></Icon>
       </cube-tab-bar>
     </div>
 
     <cube-tab-panels v-model="componentLabel">
-      <cube-tab-panel v-for="(item, index) in tabs" :label="item.label" :key="item.label">
-        <slot :scoped="item"></slot>
+      <cube-tab-panel :ref="'tabs'+index" v-for="(item, index) in tabs" :id="'tabs'+index" :label="item.label" :key="item.label">
+        <slot :scoped="item" ></slot>
       </cube-tab-panel>
     </cube-tab-panels>
   </div>

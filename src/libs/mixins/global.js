@@ -1,5 +1,5 @@
 import {VueUtil} from '@/libs'
-import {Demo} from "@/actions/pipe/Demo";
+// import {Demo} from "@/actions/pipe/Demo";
 
 export default {
     methods: {

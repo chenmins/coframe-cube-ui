@@ -1,6 +1,6 @@
 <template>
   <div class="search clear-fix">
-    <cube-input type="text" :clearable="true" placeholder="# 话题、电影、书、歌曲、地点、股票"
+    <cube-input type="text" :clearable="true" :placeholder="placeholder"
       v-model="value"
     ></cube-input>
     <span @click="$router.back()" v-show="cancel">{{cancel}}</span>

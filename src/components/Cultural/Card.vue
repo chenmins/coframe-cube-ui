@@ -36,7 +36,7 @@
       </div>
       <div class="func">
         <div class="like" @click="toggleLike">
-          <Icon v-if="isLike" svg-name="liked" style="height: 20px;width: 20px"></Icon>
+          <Icon v-if="Like" svg-name="liked" style="height: 20px;width: 20px"></Icon>
           <Icon v-else svg-name="like" style="height: 20px;width: 20px"></Icon>
           <span>
             <slot name="likeName"></slot>
@@ -44,7 +44,7 @@
         </div>
         <div class="comment"
              v-if="$route.meta.name !== '交流圈-评论详情'"
-             @click="$router.push({name: '交流圈-评论详情', params: {id: 1}})">
+             @click="seeComments">
           <Icon svg-name="comment" style="height: 20px;width: 20px"></Icon>
           <span>11</span>
         </div>
@@ -61,11 +61,16 @@ export default {
     isComment:{
       type:Boolean,
       default:true
+    },
+    isLike:{
+      type:Boolean,
+      default:false
     }
+
   },
   data(){
       return{
-        isLike:true
+        Like:this.isLike
       }
   },
   methods: {
@@ -83,18 +88,18 @@ export default {
     },
     async toggleLike(){ //点赞
       this.$emit('toggleLike')
-      this.isLike = !this.isLike
-
-      //TODO 点赞（交流圈）
-      if(!this.isComment){
-        let resp = await this.dispatch(PipCcoCciController.addOrDelPra,{id:5})
-      }
-
-      //todo  点赞（评论）
-      if(this.isComment){
-        let resp = await this.dispatch(PipCcoCciController.addOrDelPraComment,{id:5})
-      }
-
+      this.Like = !this.Like
+      //
+      // //TODO 点赞（交流圈）
+      // if(!this.isComment){
+      //   let resp = await this.dispatch(PipCcoCciController.addOrDelPra,{id:5})
+      // }
+      //
+      // //todo  点赞（评论）
+      // if(this.isComment){
+      //   let resp = await this.dispatch(PipCcoCciController.addOrDelPraComment,{id:5})
+      // }
+      //
 
 
     },

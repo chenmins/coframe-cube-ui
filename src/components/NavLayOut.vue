@@ -8,12 +8,12 @@
             style="font-size: 1em"
             :background-color="bgcColor"
             :color="color"
-            :show-back="!!$route.meta.leave"
+            :show-back="$route.meta.leave!==1"
             :title="$route.meta.name"
             v-if="$route.meta.showNav"
             v-show="toggle"
         >
-          <div slot="right" @click="$emit('emit')" >
+          <div slot="right"  >
             <slot name="right"></slot>
           </div>
         </Nav>
@@ -54,7 +54,6 @@ name: "NavLayOut",
   methods:{
     scroll(e){
       if(this.$route.meta.name === '行政服务工作台'
-          // ||
           // this.$route.meta.name ==='审批列表' ||
           // this.$route.meta.name ==='我的审批'
       ){
@@ -74,10 +73,12 @@ name: "NavLayOut",
 </script>
 
 <style scoped lang="stylus">
-
+#nav_layout
+  height 100vh
+  overflow: hidden;
 .nav_height
   height calc(100vh - 60px)
+.cube-scroll-wrapper
+  height calc(100vh - 80px)
 
->>>.cube-scroll-wrapper
-  height  calc(100vh - 80px)
 </style>

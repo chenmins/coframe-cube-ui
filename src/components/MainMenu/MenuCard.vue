@@ -3,8 +3,8 @@
     <div class="title" :style="'justify-content:'+justifyContent " @click="SeeAll">
       <span :style="'font-size: 18px;color:'+titleColor ">{{ name }}</span>
       <div v-show="!noAll " style="display: flex;align-items: center;">
-        <div v-show="allText" style="font-size: 10px;color: #999999">查看全部</div>
-        <i class="cubeic-arrow" style="font-size:10px;color: #999999;margin-left: 2px"></i>
+        <div v-show="allText" :style="'font-size: 10px;color:'+allTextColor">查看全部</div>
+        <i class="cubeic-arrow" :style="'font-size:10px;margin-left: 2px;color:'+allTextColor" ></i>
       </div>
     </div>
     <div class='content' :style="'background-color:'+bgcColor" :class="shadow?'shadow':''">
@@ -19,7 +19,7 @@ export default {
   name: "MenuCard",
   props: [
     'name', 'src', 'noAll', 'justifyContent',
-    'allText', 'titleColor','shadow','bgcColor'
+    'allText', 'titleColor','shadow','bgcColor','allTextColor'
   ],
   methods: {
     SeeAll() {

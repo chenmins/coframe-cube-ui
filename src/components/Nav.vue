@@ -57,7 +57,8 @@ export default {
     width 20px
 .func
   position absolute
-  top 0
+  top 50%
+  transform translateY(calc(-50% - 19px))
   right 0
 
 

@@ -59,7 +59,6 @@ const routes = [
         name: 'changePassword',
         component: () => import('../views/changePassword')
     },
-
     {
         path: '*',
         name: 'NotFound',
@@ -74,7 +73,27 @@ const routes = [
             showNav:true
         },
         component: ()=>import('@/views/MainMenu/MyQR')
-    }
+    },
+    {
+        path: "/Data",
+        name:'发布',
+        meta:{
+            name:'发布',
+            leave:2,
+            showNav:true
+        },
+        component: ()=>import('@/views/Data/index')
+    },
+    {
+        path: "/fangkeyuyue",
+        name:'fangkeyuyue',
+        meta:{
+            name:'二维码',
+            leave:2,
+            showNav:true
+        },
+        component: ()=>import('@/views/QR/index')
+    },
 ]
 
 const router = new VueRouter({
@@ -85,10 +104,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
     NProgress.start()
-    // let Token = localStorage.getItem('Token')
-    // if (Token === null && to.fullPath !== '/login') {
-    //     router.push('/login')
-    // }
+
     next()
 
 })

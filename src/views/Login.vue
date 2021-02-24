@@ -13,7 +13,9 @@
 
 <script>
 
-import {Demo} from "@/actions/controller";
+import {AuthApiController} from '@controller'
+import {setToken} from "@/utils/auth";
+import router from "@/router";
 
 export default {
   data() {
@@ -100,21 +102,24 @@ export default {
       //   alert('failure')
       // }
     },
-     submitHandler(e, model) {
+
+    async submitHandler(e, model) {
       e.preventDefault()
 
       let data = {
         "username": model.inputValue,
         "password": model.passwordValue
       }
-      this.$store.dispatch('login', data).then(()=>{
-        // 判断是否是管理员
-        // this.dispatch(Demo.isAdmin).then(resp=>{
-        //   console.log(resp)
-        //   localStorage.setItem('isAdmin',resp.data.body)
-        //
-        // })
-      })
+
+      let resp = await this.dispatch(AuthApiController.login, data)
+      if (!resp.error) {
+        localStorage.setItem('userInfo', JSON.stringify(resp.data))
+        localStorage.setItem('Token', resp.data.token)
+        setToken(resp.data.token)
+        this.$router.push('/')
+      } else {
+        console.log('error')
+      }
 
     }
 

@@ -5,6 +5,9 @@ import App from './App.vue'
 import BaseVue from "@/libs/BaseVue";
 import router from './router'
 import axios from  './axios/index'
+import * as echarts from 'echarts';
+
+//组件
 import Nav from '@/components/Nav'
 import Tabbar from "@/components/Tabbar";
 import List from "@/components/List";
@@ -32,6 +35,8 @@ dayjs.extend(isoWeek).extend(DayOfYear).extend(calendar).extend(IsLeapYear)
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios
 Vue.prototype.$dayjs = dayjs
+Vue.prototype.$echarts = echarts
+
 
 Vue.config.silent = true
 Vue.config.productionTip = false
