@@ -7,7 +7,7 @@ export default [
             name: '申请车位',
             tag: '释放车位',
             leave: 2,
-            showNav: true
+            showNav: true,
         },
         component: () => import('@/views/Parking/index'),
         children: [
@@ -15,8 +15,9 @@ export default [
                 path: '/',
                 name: 'Parking',
                 meta: {
-                    name: '申请车位',
+                    name: '车辆申请',
                     tag: '',
+                    showTabbar:true,
                     sliderNav: {
                         selectedLabel: 'B2层',
                         tabs: [
@@ -28,7 +29,7 @@ export default [
                                 label: 'B4层'
                             }
                         ],
-                        center:false
+                        center:false,
                     },
                     leave: 2,
                     showNav: true
@@ -40,6 +41,7 @@ export default [
                 meta: {
                     name: '我的审批',
                     tag: '我的审批',
+                    showTabbar:true,
                     sliderNav: {
                         selectedLabel: 'B2层',
                         tabs: [
@@ -62,6 +64,7 @@ export default [
                 name: 'Parking-ApprovalDetail',
                 meta: {
                     name: '审批详情',
+                    showTabbar:true,
                     tag: '审批详情',
                     leave: 2,
                     showNav: true,
@@ -73,6 +76,7 @@ export default [
                 name: 'OutsideCar',
                 meta: {
                     name: '外来车辆审批',
+                    showTabbar:true,
                     tag: '外来车辆审批',
                     leave: 2,
                     showNav: true,

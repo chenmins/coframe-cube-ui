@@ -9,9 +9,8 @@ import HelpCenter from "@/store/HelpCenter";
 import Schedule from '@/store/Schedule'
 import Guest from "@/store/Guest";
 import axios from "@/axios/index";
-import {setToken} from "@/utils/auth";
+import { setToken } from "@/utils/auth";
 
-// import {Demo} from "@/actions/pipe/Demo";
 import ToolsManager from "@/store/Tools";
 
 

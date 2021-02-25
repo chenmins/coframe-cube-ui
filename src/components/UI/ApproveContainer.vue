@@ -67,7 +67,7 @@ export default {
 
 <style scoped lang="stylus">
 .warp
-  height calc(100vh - 180px)
+  height calc(100vh - 200px)
   >>>.cube-scroll-wrapper
     height  100%
 #todo-list

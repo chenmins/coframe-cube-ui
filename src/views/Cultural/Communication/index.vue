@@ -3,7 +3,7 @@
   <!--  todo 点赞超过一万小数-->
 
   <div class="communication_app">
-    <div style="background-color:#fff">
+    <div v-show="topic_list" style="background-color:#fff">
       <div class="topic_title">热门话题</div>
       <div class="topics">
         <div class="topic" v-for="(topic,index) in topics" @click="goTopic(topic,index)">
@@ -12,13 +12,18 @@
         </div>
       </div>
     </div>
-    <SlideNav @changeHandle="changeHandle"
-              headerClass='com_header'
-              :center="true" show-slider
-              :selected-label="selectedLabel" :tabs="tabs">
+    <SlideNav
+        style="background:#fff"
+        @changeHandle="changeHandle"
+        headerClass='com_header'
+        :center="true" show-slider
+        :selected-label="selectedLabel" :tabs="tabs">
       <div class="scroll-list-wrap">
         <cube-scroll
-            ref="scroll">
+            ref="scroll"
+            @scroll="scroll"
+            :scrollEvents="['scroll']"
+        >
           <transition-group name="list-complete">
             <Card class="list-complete-item" :is-comment="false" :is-like="comment.fabulousForUser"
                   v-for="(comment,index) in comments"
@@ -47,6 +52,7 @@
         </cube-scroll>
       </div>
     </SlideNav>
+
   </div>
 </template>
 
@@ -63,9 +69,10 @@ export default {
   components: {
     SlideNav, Card
   },
-  mixins:[mixins],
+  mixins: [mixins],
   data() {
     return {
+      topic_list: true,
       selectedLabel: '全部',
       tabs: [
         {
@@ -90,6 +97,12 @@ export default {
     this.comments = this.$store.state.Cultural.allData.communicationCircles
   },
   methods: {
+    scroll(e) {
+      this.topic_list = true
+      if (e.y < -250) {
+        this.topic_list = false
+      }
+    },
     goTopic(topic, index) {
       this.$router.push({name: '话题列表', params: {index: index}})
     },
@@ -103,11 +116,6 @@ export default {
 </script>
 
 <style>
-.list-complete-item {
-  transition: all 1s;
-  display: inline-block;
-}
-
 .list-complete-enter, .list-complete-leave-to
   /* .list-complete-leave-active for below version 2.1.8 */
 {
@@ -133,7 +141,7 @@ export default {
   margin-top 20px
   background-color: #fff;
   margin-bottom 0
-  padding-top 10px
+  padding 10px 0
 
 .communication_app
   .topic_title

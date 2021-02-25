@@ -27,6 +27,7 @@ export default {
   },
   mounted() {
     let tag = this.$route.meta.name
+    console.log(tag)
     if(tag){
       this.selectedLabelDefault = this.$route.meta.name
     }else {

@@ -9,7 +9,7 @@
                     class="nav_tabbar scroll_container ">
         <cube-tab class="tab_item" v-for="(item, index) in tabs" :label="item.label" :icon="item.icon"
                   :key="item.label"></cube-tab>
-        <Icon v-show="customer" svg-name="customer" class-name="svg"></Icon>
+        <Icon v-show="customer" @iconToggle="$router.push({name:'我的二维码',params:{id:112}})" svg-name="customer" class-name="svg"></Icon>
       </cube-tab-bar>
     </div>
 

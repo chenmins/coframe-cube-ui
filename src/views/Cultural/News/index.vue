@@ -1,6 +1,7 @@
 <template>
   <div id="notice_app">
       <SlideNav
+          style="background:#fff"
           @changeHandle="changeHandle" :selected-label="selectedLabel" :tabs="tabs">
         <div class="scroll-list-wrap" style="height: calc(100vh - 220px)">
           <cube-scroll

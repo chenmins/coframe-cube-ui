@@ -6,7 +6,6 @@
         class="slide_nav"
         :center="true"
         :show-slider="true"
-        :show-back-icon="true"
         :selected-label="selectedLabel" :tabs="tabs" :showBackIcon="true"
         @changeHandle="changeHandle"
         @back="$router.push({name:'MainMenu'})"
@@ -127,7 +126,7 @@ export default {
 #cultural_app
   height 100%
   padding-top -100px
-
+  background-color #fff
   .bgc
     position: absolute;
     top 0

@@ -5,10 +5,11 @@ export default {
     sendForm: {
         body: "",
         choice: "choice",
-        picture: "111",
+        picture: "picture",
         title: "title",
         topicOfConversationId: '',
-        type: "add",
+        topicOfConversationName: '',
+        type: "type",
         userId: "",
         userName: "",
     },

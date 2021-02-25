@@ -86,6 +86,7 @@ export default {
         userId: userInfo.id,
         userName: userInfo.name,
       })
+
       resp = await this.dispatch(CulturalControllerImpl.addCommunicationCircle, this.$store.state.Cultural.sendForm)
       if (!resp.error) {
         this.$store.commit('Cultural/clearSendForm')

@@ -1,7 +1,7 @@
 <template>
   <div id="Guest">
     <NavLayOut color="#fff" >
-      <main>
+      <main slot="fixed">
         <cube-scroll
             ref="scroll"
         >
@@ -356,6 +356,7 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+
 #Guest
   height: 154px;
   background: linear-gradient(119deg, #19D8FF 0%, #0F97FB 100%);

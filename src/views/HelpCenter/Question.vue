@@ -3,22 +3,8 @@
     <img width="100%" src="../../assets/icons/question.png" alt="">
     <div style="position: relative;padding-top: 47px">
       <div class="header">
-        <Search :value="value"></Search>
+        <Search :value="value" ></Search>
       </div>
-      <Card class="list_item" style="margin:0;border-radius:0;padding:15px" v-for="item in listData" :key="item.id"
-            :data-id="item.id"
-            @clicked="$router.push({name: 'ProductInc', params: {id: item.id}}).catch(()=>{})"
-      >
-        <span style="display: flex;align-items: center;color: #0F1826;height: 48px;">{{ item.title }}</span>
-        <i class="cubeic-arrow icon-arrow"></i>
-      </Card>
-      <Card class="list_item" style="margin:0;border-radius:0;padding:15px" v-for="item in listData" :key="item.id"
-            :data-id="item.id"
-            @clicked="$router.push({name: 'ProductInc', params: {id: item.id}}).catch(()=>{})"
-      >
-        <span style="display: flex;align-items: center;color: #0F1826;height: 48px;">{{ item.title }}</span>
-        <i class="cubeic-arrow icon-arrow"></i>
-      </Card>
       <Card class="list_item" style="margin:0;border-radius:0;padding:15px" v-for="item in listData" :key="item.id"
             :data-id="item.id"
             @clicked="$router.push({name: 'ProductInc', params: {id: item.id}}).catch(()=>{})"

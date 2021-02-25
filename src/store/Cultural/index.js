@@ -13,7 +13,8 @@ const Cultural = {
             state.selectedTopic.push(payload)
         },
         setTopics(state,payload){
-            state.sendForm.topicOfConversationId = payload
+            state.sendForm.topicOfConversationId = payload.topicOfConversationId
+            state.sendForm.topicOfConversationName = payload.topicOfConversationName
         },
         setTopicLists(state,payload){state.topicLists = payload},
         setSendForm(state,payload){
@@ -31,8 +32,6 @@ const Cultural = {
                 userName: "",
             }
         },
-
-        //
 
 
         //all

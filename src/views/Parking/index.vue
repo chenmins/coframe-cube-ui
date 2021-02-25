@@ -1,14 +1,7 @@
 <template>
   <div id="Parking">
     <router-view></router-view>
-    <footer v-show="!$route.meta.showBottom">
-      <span :class="$route.name==='Parking'?'active':''"
-            @click="!($route.name ==='Parking')  && $router.push({name:'Parking'})">车辆申请</span>
-      <span :class="$route.name==='MyApproval'?'active':''"
-            @click="!($route.name==='MyApproval') && $router.push({name:'MyApproval'})">我的审批</span>
-      <span :class="$route.name==='OutsideCar'?'active':''"
-            @click="!($route.name==='OutsideCar') && $router.push({name:'OutsideCar'})">外来车辆备案</span>
-    </footer>
+    <Tabbar v-show="$route.meta.showTabbar" :tabs="tabs" :tabMap="tabMap"></Tabbar>
   </div>
 </template>
 
@@ -21,7 +14,27 @@ export default {
     SlideNav
   },
   data() {
-    return {}
+    return {
+      tabMap:{
+        '车辆申请': 'Parking',
+        '我的审批': 'MyApproval',
+        '外来车辆备案': 'OutsideCar',
+      },
+      tabs: [
+        {
+          label: '车辆申请',
+          icon: 'Parking-home',
+
+        }, {
+          label: '我的审批',
+          icon: 'Parking-shuazi'
+
+        },{
+          label: '外来车辆备案',
+          icon: 'Parking-dui'
+
+        }]
+    }
   },
   methods: {
     demo() {
