@@ -104,11 +104,6 @@ export default {
     async remove(e,index) {
       this.comments.splice(index,1)
         let resp = await this.dispatch(CulturalControllerImpl.deleteCommunicationCircle, {id: e}) //朋友圈id
-        if (!resp.error) {
-          await this.init()
-        } else {
-          console.log('error')
-        }
     },
     // todo 点赞
     async toggleLike(e) {
@@ -143,7 +138,6 @@ export default {
           this.comments = this.$store.state.Cultural.allData.communicationCircles2
           break
       }
-      console.log(this.comments)
 
     },
     selectItem(e) {

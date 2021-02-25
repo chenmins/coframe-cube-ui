@@ -1,8 +1,8 @@
 <template>
-  <div >
+  <div>
     <Calendar
         class="event-calendar"
-        v-model="calendar.value"
+        v-model="selectedDate || calendar.value"
         :disabled-days-of-week="calendar.disabled"
         :format="calendar.format"
         :clear-button="calendar.clear"
@@ -12,15 +12,15 @@
         :on-day-click="onDayClick4"
         :change-pane="changePane2"
     >
-<!--      显示农历-->
-<!--      <div-->
-<!--          class="event"-->
-<!--          v-for="(evt, index) in lurevents"-->
-<!--          :key="index"-->
-<!--          :slot="evt.date"-->
-<!--      >-->
-<!--        <div style="font-size: 12px" v-html="evt.content">{{evt}}</div>-->
-<!--      </div>-->
+      <!--      显示农历-->
+      <!--      <div-->
+      <!--          class="event"-->
+      <!--          v-for="(evt, index) in lurevents"-->
+      <!--          :key="index"-->
+      <!--          :slot="evt.date"-->
+      <!--      >-->
+      <!--        <div style="font-size: 12px" v-html="evt.content">{{evt}}</div>-->
+      <!--      </div>-->
     </Calendar>
   </div>
 </template>
@@ -30,40 +30,52 @@ import lunar from "@/utils/lunar";
 
 export default {
   name: "myCalendar",
-  props:[
-      'format',
-      'placeholder',
-      'date'
+  props: [
+    'format',
+    'placeholder',
+    'date',
+    'selectedDate'
   ],
-  data(){
+  data() {
     return {
       date4: "",
       lurevents: [],
-      calendar:{
-        value: this.stringify(new Date()),
+      calendar: {
+        value: this.stringify(this.selectedDate || new Date()),
         disabled: [],
         clear: true,
-        format:'yyyy-MM-dd',
-        placeholder:'placeholder'
+        format: 'yyyy-MM-dd',
+        placeholder: 'placeholder'
       }
     }
   },
   created() {
     this.date4 = this.stringify(new Date())
+
   },
   mounted() {
-    this.$nextTick(()=>{
-      let dir = document.getElementsByClassName('day-cell')
-      dir.forEach(i=>{
-        console.log(i.dataset.date)
-        if(i.dataset.date === '2021-02-16'){
-          i.classList.add('hasTodo')
-        }
-      })
-
-    })
+    this.getInfo()
   },
-  methods:{
+  updated() {
+    this.getInfo()
+  },
+  methods: {
+    getInfo() {
+      //todo 待办
+      this.$nextTick(() => {
+        let dir = document.getElementsByClassName('day-cell')
+        dir.forEach(i => {
+          i.classList.remove('hasTodo')
+          i.classList.remove('datepicker-dateRange-item-active')
+          if (i.dataset.date == this.$dayjs().format('YYYY-MM-DD')) {
+            i.classList.add('datepicker-dateRange-item-active')
+          }
+          if (i.dataset.date === '2021-02-16') {
+            i.classList.add('hasTodo')
+          }
+        })
+      })
+    },
     toArr(cArr) {
       return [].slice.call(cArr);
     },
@@ -162,11 +174,11 @@ export default {
       this.lurevents = days;
     },
   },
-  watch:{
-    date4:{
-      immediate:true,
-      handler(newV,oldV){
-        this.$emit('getDate',newV)
+  watch: {
+    date4: {
+      immediate: true,
+      handler(newV, oldV) {
+        this.$emit('getDate', newV)
       }
     }
   }
@@ -174,11 +186,32 @@ export default {
 </script>
 
 <style scoped lang="stylus">
->>>.hasTodo
-  color #fff!important
-  background-color #0F97FB
+>>> .hasTodo
+  color #fff !important
+  background-color #FF3285
   box-shadow: 0px 2px 4px 0px rgba(#0F97FB, 0.34);
-
+  position relative
+  z-index 20
+  &:before
+    content ''
+    position absolute
+    background: #47F3E8 !important
+    height 100%
+    width 100%
+    bottom  2px
+    display inline-block
+    border-radius 50%
+    z-index -1
+  &:after
+    content ''
+    position absolute
+    background: #32C7FF !important
+    height 100%
+    width 100%
+    bottom  4px
+    display inline-block
+    border-radius 50%
+    z-index -1
 .lorem {
   visibility: hidden;
 }
@@ -199,9 +232,9 @@ export default {
       display flex
       flex-direction column
       align-items center
+
     .event
       color: #e56700;
-
 
     .low
       color: red;
@@ -214,14 +247,16 @@ export default {
         height: 100px;
         vertical-align: middle;
         line-height: 100px;
-        // font-weight: 600;
 
->>>.datepicker-dateRange
+// font-weight: 600;
+
+>>> .datepicker-dateRange
   span
     transition all .3s ease-in-out
+
   span:hover
-    background-color rgba(#3276b1,.8)
-    box-shadow 1px 2px 6px rgba(#3276b1,.6)
+    background-color rgba(#3276b1, .8)
+    box-shadow 1px 2px 6px rgba(#3276b1, .6)
     border-radius 8px
     color #fff
 
@@ -235,10 +270,11 @@ export default {
   height 30px
   display: flex !important
   justify-content: space-evenly !important
->>>.day-cell,.datepicker-dateRange-item-active
-  position relative!important
 
->>>.datepicker-dateRange-item-active
+>>> .day-cell, .datepicker-dateRange-item-active
+  position relative !important
+
+>>> .datepicker-dateRange-item-active
   border-radius 8px
   box-shadow: 0px 2px 4px 0px rgba(255, 50, 133, 0.34);
 
@@ -249,13 +285,14 @@ export default {
     background-color #fff
     display inline-block
 
-.datepicker-body,.event
-    width 100%
-    transform scale(.7)
-    position: absolute;
-    text-align center
-    bottom 0
-    line-height: 14px;
+.datepicker-body, .event
+  width 100%
+  transform scale(.7)
+  position: absolute;
+  text-align center
+  bottom 0
+  line-height: 14px;
+
 >>> .datepicker-dateRange
   width 100%
   display: flex;

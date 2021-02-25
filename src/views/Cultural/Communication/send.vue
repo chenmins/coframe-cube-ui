@@ -20,8 +20,9 @@
         <cube-upload
             ref="upload"
             v-model="files"
-            action="www.baidu.com"
+            action="https://jsonplaceholder.typicode.com/posts/"
             @files-added="filesAdded"
+            @file-submitted="fileSubmitted"
             @file-success="filesSuccess"
             @file-removed="filesRemove"
             @file-error="errHandler">
@@ -72,7 +73,6 @@ export default {
   },
   created() {
     this.query = this.$store.state.Cultural.sendForm
-
     if(this.$store.state.Cultural.selectedTopic.length!==0){
       this.topic=this.$store.state.Cultural.selectedTopic
     }
@@ -81,12 +81,11 @@ export default {
     async submit() {
       let userInfo = JSON.parse(localStorage.getItem('userInfo'))
       let resp
-      let data = {
+      this.$store.commit('Cultural/setSendForm',{
         ...this.query,
         userId: userInfo.id,
         userName: userInfo.name,
-      }
-      this.$store.commit('Cultural/setSendForm',data)
+      })
       resp = await this.dispatch(CulturalControllerImpl.addCommunicationCircle, this.$store.state.Cultural.sendForm)
       if (!resp.error) {
         this.$store.commit('Cultural/clearSendForm')
@@ -132,7 +131,7 @@ export default {
         time: 1000
       }).show()
     },
-    filesSuccess() {
+    filesSuccess(file) {
       let message
       let hasIgnore = false
       if (this.files.length === 9) {
@@ -142,12 +141,13 @@ export default {
         hasIgnore = true
         message = '图片数量不能多于9张'
       }
-
       hasIgnore && this.$createToast({
         type: 'warn',
         time: 1000,
         txt: message
       }).show()
+
+      console.log(file)
     },
     filesRemove() {
       if (this.files.length <= 9) {

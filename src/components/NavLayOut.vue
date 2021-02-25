@@ -30,7 +30,7 @@
           ref="scroll"
           @scroll="scroll"
           :scrollEvents="['scroll']"
-          :key="randomKey"
+          :key="$route.meta.name"
       >
         <slot></slot>
       </cube-scroll>
