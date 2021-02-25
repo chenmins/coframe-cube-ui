@@ -9,7 +9,7 @@
         <div v-if="disable" class="footer disable" @click="$router.push({name:'CreateCard'})">
           下一步
         </div>
-        <div v-else class="footer " @click="$router.push({name:'CreateCard'})">
+        <div v-else class="footer " @click="$router.push({name:'Preview',params:{id:1}})">
           下一步
         </div>
       </LayOut>

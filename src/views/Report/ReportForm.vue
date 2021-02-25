@@ -3,11 +3,11 @@
     <NavLayOut bgc-color="#fff">
       <cube-form :model="model" @validate="validateHandler" @submit="submitHandler">
         <cube-form-group v-for="(item,index) in question">
-          <h1>{{index+1}}、{{ item.legend }}</h1>
+          <h1>{{ index + 1 }}、{{ item.legend }}</h1>
           <cube-form-item :field="item.field"></cube-form-item>
         </cube-form-group>
-        <cube-form-group >
-          <cube-button type="submit">Submit</cube-button>
+        <cube-form-group>
+          <cube-button type="submit">信息更新</cube-button>
         </cube-form-group>
       </cube-form>
     </NavLayOut>
@@ -18,7 +18,12 @@
 <script>
 import {provinceList, cityList, areaList} from '@/assets/DATA/area'
 import {HealthApiController} from '@controller'
-import { BaseVue } from '@lib'
+import {BaseVue} from '@lib'
+
+let city = {
+  id: 0,
+  name: ''
+}
 
 const cityData = provinceList
 cityData.forEach(province => {
@@ -38,16 +43,17 @@ const PCA = {
   },
   data() {
     return {
-      selected: []
+      selected: [],
+
     }
   },
-
   render(createElement) {
     return createElement('div', {
       on: {
         click: this.showPicker
       }
-    }, this.selected.length ? this.selected.join(' ') : '请选择工作地区')
+    },this.selected.length ? this.selected.join(' '):city.name ? city.name :'请选择工作地区')
+    // city.name ? city.name : this.selected.length ? this.selected.join(' ') : '请选择工作地区')
   },
   mounted() {
     this.picker = this.$createCascadePicker({
@@ -62,6 +68,8 @@ const PCA = {
       this.picker.show()
     },
     selectHandler(selectedVal, selectedIndex, selectedTxt) {
+      city.id = parseInt(selectedVal[2])
+      city.name = selectedTxt[0] +" "+ selectedTxt[1] +" "+ selectedTxt[2]
       this.selected = selectedTxt
       this.$emit('input', selectedVal)
     }
@@ -70,35 +78,21 @@ const PCA = {
 export default {
   data() {
     return {
+      city: {
+        id: 0,
+        name: ''
+      },
       selected4: '1',
-        options4: [
-      {
-        label: '1',
-        value: '1',
-        src: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516805611092&di=80d0f229dd999ffa3be79d6e317832b0&imgtype=0&src=http%3A%2F%2Fimglf0.ph.126.net%2F1EnYPI5Vzo2fCkyy2GsJKg%3D%3D%2F2829667940890114965.jpg'
-      },
-      {
-        label: '2',
-        value: '2',
-        src: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516805611092&di=80d0f229dd999ffa3be79d6e317832b0&imgtype=0&src=http%3A%2F%2Fimglf0.ph.126.net%2F1EnYPI5Vzo2fCkyy2GsJKg%3D%3D%2F2829667940890114965.jpg'
-      },
-      {
-        label: '3',
-        value: '3',
-        src: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1516805611092&di=80d0f229dd999ffa3be79d6e317832b0&imgtype=0&src=http%3A%2F%2Fimglf0.ph.126.net%2F1EnYPI5Vzo2fCkyy2GsJKg%3D%3D%2F2829667940890114965.jpg',
-        disabled: true
-      }
-  ],
       validity: {},
       valid: undefined,
       model: {
-        value1:[],
-        value2:'',
-        value3:'',
-        value4:'',
-        value5:'',
-        value6:'',
-        value7:'',
+        value1: [],
+        value2: '',
+        value3: '',
+        value4: '',
+        value5: '',
+        value6: '',
+        value7: '',
       },
       fields: [
         {
@@ -137,8 +131,8 @@ export default {
           field: {
             component: PCA,
             modelKey: 'value1',
-            props:{
-              class:'pca'
+            props: {
+              class: 'pca'
             },
             rules: {
               required: true
@@ -155,8 +149,8 @@ export default {
             modelKey: 'value2',
             props: {
               options: ['是', '否'],
-              position:'left',
-              horizontal:"true",
+              position: 'left',
+              horizontal: "true",
             },
             rules: {
               required: true
@@ -169,9 +163,10 @@ export default {
             type: 'radio-group',
             modelKey: 'value3',
             props: {
+              'v-model': '是',
               options: ['是', '否'],
-              position:'left',
-              horizontal:"true"
+              position: 'left',
+              horizontal: "true"
             },
             rules: {
               required: true
@@ -185,8 +180,8 @@ export default {
             modelKey: 'value4',
             props: {
               options: ['是', '否'],
-              position:'left',
-              horizontal:"true"
+              position: 'left',
+              horizontal: "true"
             },
             rules: {
               required: true
@@ -200,8 +195,8 @@ export default {
             modelKey: 'value5',
             props: {
               options: ['是', '否'],
-              position:'left',
-              horizontal:"true"
+              position: 'left',
+              horizontal: "true"
             },
             rules: {
               required: true
@@ -218,7 +213,7 @@ export default {
             },
             rules: {
               required: true,
-              type:'number'
+              type: 'number'
             }
           }
         },
@@ -234,42 +229,53 @@ export default {
 
     }
   },
+
   created() {
     this.getHealthInfo()
   },
   mixins: [BaseVue],
-
   methods: {
-    async getHealthInfo(){
+    async getHealthInfo() {
       let resp = await this.dispatch(HealthApiController.getHealthInfo)
-      console.log(resp)
+      if (!resp.error) {
+        city.name = resp.data.body.cityName
+        this.model = {
+          value1: [`${resp.data.body.cityName}`] || [],
+          value2: resp.data.body.answerTwo || '',
+          value3: resp.data.body.answerThree || '',
+          value4: resp.data.body.answerFour || '',
+          value5: resp.data.body.answerFive || '',
+          value6: resp.data.body.answerSix || '',
+          value7: resp.data.body.remarks || '',
+        }
+      }
     },
-    async submitHandler(e,model) {
+    async submitHandler(e, model) {
       e.preventDefault()
-      let template = model.value6+'°C'
-      console.log(e,model)
+      let template = model.value6 + '°C'
 
-      let resp = await this.dispatch(HealthApiController.updateHealthInfo,{
+      let resp = await this.dispatch(HealthApiController.updateHealthInfo, {
         "answerFive": model.value5,
         "answerFour": model.value4,
         "answerSix": model.value6,
         "answerThree": model.value3,
         "answerTwo": model.value2,
-        "cityId": 20841,
-        "cityName": "九明生才",
-        "extendFive": "数无些约方",
-        "extendFour": "转节北价今华",
+        "cityId": city.id,
+        "cityName": city.name,
         "extendOne": model.value7,
-        "extendThree": "动两该图争转次",
-        "extendTwo": "任公问公",
-        "remarks": "年约片把果",
       })
-      if(!resp.error){
-        console.log(resp)
-      }else{
+      if (!resp.error) {
+        this.$createToast({
+          txt: '信息更新成功',
+          type: 'success',
+          time:1000,
+          onTimeout:()=>{
+            this.$router.push('/Report')
+          }
+        }).show()
+      } else {
         console.log('error')
       }
-s
     },
     validateHandler(result) {
       this.validity = result.validity
@@ -286,38 +292,52 @@ s
 }
 </script>
 
-<style lang="stylus"  scoped>
+<style lang="stylus" scoped>
 
 
->>>.cube-radio
+>>> .cube-radio
   max-width: 50px
->>>.cube-radio-ui i::before
+
+>>> .cube-radio-ui i::before
   display none
->>>.cube-radio_selected .cube-radio-ui
+
+>>> .cube-radio_selected .cube-radio-ui
   background-color transparent
   background-image url("../../assets/icons/selected.png")
   background-size 100%
 
->>>.cube-radio-label
+>>> .cube-radio-label
   font-size: 14px;
   font-family: PingFangSC-Regular, PingFang SC;
   font-weight: 400;
   color: #000000;
   line-height: 20px;
   letter-spacing: 1px;
->>>.cube-radio::after
+
+>>> .cube-radio::after
   border none
->>>.pca
+
+>>> .pca
   font-size: 14px;
   font-family: PingFangSC-Regular, PingFang SC;
   color: #CCCCCC;
+  position relative
   line-height: 20px;
   letter-spacing: 1px;
   display flex
   justify-content: space-between;
   &:after
-    content '>'
+    content ''
+    position absolute
+    right 0
+    top 0
+    z-index 30
+    width 20px
+    height 100%
+    background-image url("../../assets/icons/employee-select.webp")
+    background-repeat no-repeat
     display inline-block
+
 .form-custom
   .cube-form-item
     .cube-btn
@@ -331,13 +351,16 @@ s
 .cube-form-group
   background-color: #fff;
   padding 0 10px
-  border-bottom 1px solid rgba(#000000,.1)
+  border-bottom 1px solid rgba(#000000, .1)
+
   h1
     margin 10px 10px 0
     text-align left
+
 .cube-form
   background-color $my-bgc-color
->>>.cube-btn
+
+>>> .cube-btn
   margin-top 18px
   height: 40px;
   background: linear-gradient(90deg, #19E8FF 0%, #0F97FB 100%);
@@ -345,11 +368,13 @@ s
   line-height 0
   font-size: 14px
 
->>>.cube-radio_selected .cube-radio-ui
+>>> .cube-radio_selected .cube-radio-ui
   background-color $custom-active-color
->>>.cube-validator-content
+
+>>> .cube-validator-content
   font-size 18px
->>>.cube-form-group-content
+
+>>> .cube-form-group-content
   font-size: 14px;
   font-family: PingFangSC-Medium, PingFang SC;
   font-weight: 500;

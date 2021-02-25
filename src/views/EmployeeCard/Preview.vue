@@ -11,7 +11,6 @@
       </div>
     </div>
       <FloorSelect bg-color="transparent" style="position: relative;z-index: 10;">
-
         <div class="card">
           <div class="card_content">
             <span class="card_num">02121</span>
@@ -49,6 +48,7 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+
 >>>.bgcolor
   background-color transparent!important
 

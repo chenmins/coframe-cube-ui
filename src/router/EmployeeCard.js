@@ -127,6 +127,17 @@ export default [
             showNav: true
         },
         component: () => import('@/views/EmployeeCard/Preview')
+    },
+    {
+        path:'/PreviewInfo/:id',
+        name:'PreviewInfo',
+        meta: {
+            name: '预览信息',
+            tag: 'Preview',
+            leave:3,
+            showNav: true
+        },
+        component: () => import('@/views/EmployeeCard/PreviewInfo')
     }
 
 ]

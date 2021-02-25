@@ -6,6 +6,7 @@
       <MyTodos @SeeAll="$router.push({name:'MyAppointment'})"></MyTodos>
       <MyApply></MyApply>
     </NavLayOut>
+    <button @click="exitLogin">exitLogin</button>
   </div>
 
 </template>
@@ -28,14 +29,12 @@ export default {
   },
   created() {
     this.getUserInfo()
-
-
   },
   methods: {
     async exitLogin() {
       let resp = await this.dispatch(AuthApiController.logout)
       if (!resp.error) {
-        console.log(resp)
+        this.$router.replace('/login')
       } else {
         console.log('error')
       }

@@ -32,8 +32,8 @@
       <cube-button type="submit" @click="submit">预览确认</cube-button>
     </div>
     <div class="footer two" v-else>
-      <cube-button type="submit" class="cancel" @click="cancel">取消</cube-button>
-      <cube-button type="submit" class="confirm" @click="confirm">提交修改</cube-button>
+      <cube-button type="submit" class="cancel" @click="$router.push({name:'addCard'})">上一步</cube-button>
+      <cube-button type="submit" class="confirm" @click="confirm">预览确认</cube-button>
     </div>
   </div>
 </template>
@@ -268,7 +268,7 @@ export default {
       }).show()
     },
     confirm() {
-      this.$router.push({name: 'Preview', params: {id: 1}})
+      this.$router.push({name: 'PreviewInfo', params: {id: 1}})
     },
     add() {
       let schemaTemplate = {

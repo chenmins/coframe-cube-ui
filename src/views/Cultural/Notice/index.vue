@@ -17,114 +17,6 @@
               </span>
             </div>
           </Card>
-          <Card @clicked="read(notice)" shadow class="content" id="card" v-for="notice in notices">
-            <div class="box">
-              <span class="title">{{ notice.title }}</span>
-              <span class="content">{{ notice.body }}</span>
-              <span class="footer">
-                <span class="date">{{ $dayjs(notice.releaseTime).format('YYYY-MM-DD') }}</span>
-              <span class="from">
-                <span class="read_all">阅读全文</span>
-              </span>
-              </span>
-            </div>
-          </Card>
-          <Card @clicked="read(notice)" shadow class="content" id="card" v-for="notice in notices">
-            <div class="box">
-              <span class="title">{{ notice.title }}</span>
-              <span class="content">{{ notice.body }}</span>
-              <span class="footer">
-                <span class="date">{{ $dayjs(notice.releaseTime).format('YYYY-MM-DD') }}</span>
-              <span class="from">
-                <span class="read_all">阅读全文</span>
-              </span>
-              </span>
-            </div>
-          </Card>
-          <Card @clicked="read(notice)" shadow class="content" id="card" v-for="notice in notices">
-            <div class="box">
-              <span class="title">{{ notice.title }}</span>
-              <span class="content">{{ notice.body }}</span>
-              <span class="footer">
-                <span class="date">{{ $dayjs(notice.releaseTime).format('YYYY-MM-DD') }}</span>
-              <span class="from">
-                <span class="read_all">阅读全文</span>
-              </span>
-              </span>
-            </div>
-          </Card>
-          <Card @clicked="read(notice)" shadow class="content" id="card" v-for="notice in notices">
-            <div class="box">
-              <span class="title">{{ notice.title }}</span>
-              <span class="content">{{ notice.body }}</span>
-              <span class="footer">
-                <span class="date">{{ $dayjs(notice.releaseTime).format('YYYY-MM-DD') }}</span>
-              <span class="from">
-                <span class="read_all">阅读全文</span>
-              </span>
-              </span>
-            </div>
-          </Card>
-          <Card @clicked="read(notice)" shadow class="content" id="card" v-for="notice in notices">
-            <div class="box">
-              <span class="title">{{ notice.title }}</span>
-              <span class="content">{{ notice.body }}</span>
-              <span class="footer">
-                <span class="date">{{ $dayjs(notice.releaseTime).format('YYYY-MM-DD') }}</span>
-              <span class="from">
-                <span class="read_all">阅读全文</span>
-              </span>
-              </span>
-            </div>
-          </Card>
-          <Card @clicked="read(notice)" shadow class="content" id="card" v-for="notice in notices">
-            <div class="box">
-              <span class="title">{{ notice.title }}</span>
-              <span class="content">{{ notice.body }}</span>
-              <span class="footer">
-                <span class="date">{{ $dayjs(notice.releaseTime).format('YYYY-MM-DD') }}</span>
-              <span class="from">
-                <span class="read_all">阅读全文</span>
-              </span>
-              </span>
-            </div>
-          </Card>
-          <Card @clicked="read(notice)" shadow class="content" id="card" v-for="notice in notices">
-            <div class="box">
-              <span class="title">{{ notice.title }}</span>
-              <span class="content">{{ notice.body }}</span>
-              <span class="footer">
-                <span class="date">{{ $dayjs(notice.releaseTime).format('YYYY-MM-DD') }}</span>
-              <span class="from">
-                <span class="read_all">阅读全文</span>
-              </span>
-              </span>
-            </div>
-          </Card>
-          <Card @clicked="read(notice)" shadow class="content" id="card" v-for="notice in notices">
-            <div class="box">
-              <span class="title">{{ notice.title }}</span>
-              <span class="content">{{ notice.body }}</span>
-              <span class="footer">
-                <span class="date">{{ $dayjs(notice.releaseTime).format('YYYY-MM-DD') }}</span>
-              <span class="from">
-                <span class="read_all">阅读全文</span>
-              </span>
-              </span>
-            </div>
-          </Card>
-          <Card @clicked="read(notice)" shadow class="content" id="card" v-for="notice in notices">
-            <div class="box">
-              <span class="title">{{ notice.title }}</span>
-              <span class="content">{{ notice.body }}</span>
-              <span class="footer">
-                <span class="date">{{ $dayjs(notice.releaseTime).format('YYYY-MM-DD') }}</span>
-              <span class="from">
-                <span class="read_all">阅读全文</span>
-              </span>
-              </span>
-            </div>
-          </Card>
         </cube-scroll>
       </div>
     </SlideNav>
@@ -154,11 +46,17 @@ export default {
           label: '物业公告',
         }
       ],
-      notices: []
+      notices:  []
     }
   },
-  mounted() {
-    this.notices = this.$store.state.Cultural.allData.notices
+
+  created() {
+    let Interval =  setInterval(()=>{
+      if(this.$store.state.Cultural.allData.notices){
+        this.notices = this.$store.state.Cultural.allData.notices
+        clearInterval(Interval)
+      }
+    })
   },
   methods: {
     read(notice) {

@@ -34,7 +34,6 @@ const Cultural = {
 
         //all
         setAllData(state,payload){
-            console.log(payload)
             state.allData = payload
         }
     },

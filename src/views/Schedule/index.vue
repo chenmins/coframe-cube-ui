@@ -1,17 +1,20 @@
 <template>
   <div id="schedule">
     <NavLayOut color="#fff">
-      <h1 @click="showFormatPicker"><span>{{ time.month }}月</span>/{{ time.year }}</h1>
-      <mySchedule @getDate="getDate"></mySchedule>
-      <div slot="right" @click="$router.push({name:'addSchedule'})" >
-        <img src="../../assets/icons/addBlack.webp" alt="" >
+      <div slot="fixed" style="margin: 0 12px">
+        <h1 @click="showFormatPicker"><span>{{ time.month }}月</span>/{{ time.year }}</h1>
+        <mySchedule @getDate="getDate" :selected-date="selectedDate"></mySchedule>
+      </div>
+
+      <div slot="right" @click="$router.push({name:'addSchedule'})">
+        <img src="../../assets/icons/addBlack.webp" alt="">
       </div>
       <ul class="list">
         <li class="title">
           今天<span style="font-size: 12px;color:#999999">{{ date }}</span>
-<!--          <div class="add" @click="$router.push({name:'addSchedule'})">-->
-<!--            <span>新建日程</span>-->
-<!--          </div>-->
+          <!--          <div class="add" @click="$router.push({name:'addSchedule'})">-->
+          <!--            <span>新建日程</span>-->
+          <!--          </div>-->
         </li>
         <div class="scroll_container" @click="ScheduleDetail">
           <cube-scroll ref="scroll">
@@ -56,11 +59,12 @@ export default {
   },
   data() {
     return {
+      selectedDate: '',
       date: '',
       meetings: [],
       time: {
         year: this.$dayjs().format('YYYY'),
-        month: this.$dayjs().format('MM'),
+        month: parseInt(this.$dayjs().format('MM')),
         day: this.$dayjs().format('DD'),
       },
     }
@@ -68,20 +72,31 @@ export default {
   created() {
     this.meetings = this.$store.state.Schedule.meeting
   },
+  mounted() {
+
+  },
   methods: {
     showFormatPicker() {
       if (!this.formatPicker) {
         this.formatPicker = this.$createDatePicker({
           title: 'Use format',
-          min: new Date(2008, 7, 8),
-          max: new Date(2020, 9, 20),
+          min: new Date(),
+          max: new Date(2099, 1, 1),
+          columnCount: 2,
           value: new Date(),
           format: {
-            year: 'YY年',
+            year: 'YYYY年',
             month: 'MM月',
-            date: '第 D 日'
+            date: "DD"
           },
-          onSelect: this.selectHandle,
+          onSelect: (e, e2) => {
+            this.time = {
+              year: e2[0],
+              month: e2[1] - 1
+            }
+            this.selectedDate = new Date(this.time.year, this.time.month)
+            this.time.month = e2[1]
+          },
           onCancel: this.cancelHandle
         })
       }
@@ -95,6 +110,7 @@ export default {
       this.$router.push({name: 'addSchedule'})
     },
     getDate(e) {
+      console.log(e)
       let weekMap = [
         '周日',
         '周一',
@@ -104,7 +120,7 @@ export default {
         '周五',
         '周六',
       ]
-      this.date =" "+ e +" "+ weekMap[this.$dayjs(e).day()]
+      this.date = " " + e + " " + weekMap[this.$dayjs(e).day()]
 
     }
   }
@@ -113,19 +129,22 @@ export default {
 
 <style scoped lang="stylus">
 
->>>.datepicker-dateRange-item-active
-  background: #FF3285!important
+>>> .datepicker-dateRange-item-active
+  background: #FF3285 !important
   box-shadow: 0px 2px 4px 0px rgba(255, 50, 133, 0.34);
->>>.datepicker-dateRange-item-active .event
-    color #fff!important
->>>.datepicker-body span
+
+>>> .datepicker-dateRange-item-active .event
+  color #fff !important
+
+>>> .datepicker-body span
   font-size: 14px;
   font-family: PingFangSC-Medium, PingFang SC;
   font-weight: 500;
   color: #000000;
   line-height: 23px;
+
 >>> .cube-scroll-list-wrapper
-  padding 0 12px
+  padding 0 12px 80px
 
 >>> .datepicker-body
   p
@@ -140,7 +159,7 @@ export default {
   border-radius: 27px;
   opacity: 0.92;
 
->>>.func
+>>> .func
   top 50px
   right 20px
 
@@ -153,6 +172,7 @@ export default {
   background-image url("../../assets/icons/Main.webp")
   background-repeat no-repeat
   background-size 100%
+
   .scroll_container
     height: calc(100vh - 470px)
     overflow: hidden;
@@ -201,6 +221,7 @@ export default {
         border: 3px solid #000000;
         border-radius 50%
         position: relative;
+
         &:after
           content ''
           width 2px
