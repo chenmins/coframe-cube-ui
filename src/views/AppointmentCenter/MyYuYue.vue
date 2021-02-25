@@ -1,9 +1,17 @@
 <template>
-  <ApproveContainer style="height: 154px" :tabs="tabs" :selectedLabel="selectedLabel">
+  <ApproveContainer @changeHandle="changeHandle" style="height: 154px" :tabs="tabs" :selectedLabel="selectedLabel">
+
+    <LayOut v-show="toggleBreak" class="switch_box">
+      <span>仅显示违约记录</span>
+      <cube-switch class="switch" v-model="switchValue">
+      </cube-switch>
+    </LayOut>
+
     <Card :reserve="approve" v-for="reserve in approves"
           @clicked="$router.push({name:'ApprovalDetail',params:{id:1}})"
     >
       <div class="title">
+
         <div class="dot"></div>
         <span>{{ reserve.title }}</span>
       </div>
@@ -41,6 +49,7 @@ export default {
   },
   data() {
     return {
+      toggleBreak:false,
       checked: false,
       show: false,
       selectedLabel: '预约成功',
@@ -60,6 +69,12 @@ export default {
 
   },
   methods: {
+    changeHandle(e){
+      this.toggleBreak = false
+      if(e==='已完成'){
+        this.toggleBreak = true
+      }
+    },
     LabelChanged(e) {
       if (e === '已完成') {
         this.show = true
@@ -68,11 +83,31 @@ export default {
       this.show = false
     }
   },
-
 }
 </script>
 
 <style scoped lang="stylus">
+>>>.cube-switch .cube-switch-ui
+  height 20px
+  width 40px
+>>>.cube-switch .cube-switch-ui::after
+  width 20px
+>>>.cube-switch .cube-switch-ui::before
+  background-color #EBEBEB
+>>>.cube-switch .cube-switch-input:checked + .cube-switch-ui
+  background-color #0F97FB
+  border-color #0F97FB
+.switch_box
+  height 20px
+  margin 12px
+  display flex
+  align-items center
+  justify-content: space-between;
+  padding 10px
+  border-radius 6px
+  font-size 14px
+  .switch
+    height 24px
 .right_bottom
   border-radius 20px
   border 1px solid #CCCCCC

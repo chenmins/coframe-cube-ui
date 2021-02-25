@@ -3,9 +3,12 @@ import router from '@/router'
 const ToolsManager = {
     namespaced: true,
     state: {
-        allTools: JSON.parse(localStorage.getItem('ToolsManager'))
+        allTools: null
     },
     mutations: {
+        setAllTools(state, payload) {
+            state.allTools = JSON.parse(localStorage.getItem('ToolsManager'))
+        },
         removeisCommonly(state, payload) {
             payload.forEach((tool)=>{
                 state.allTools.find(item => item.text === tool.text).isCommonly = false
@@ -15,7 +18,6 @@ const ToolsManager = {
         addisCommonly(state, payload) {
             state.allTools.find(item => item.text === payload.text).isCommonly = true
             localStorage.setItem('ToolsManager', JSON.stringify(state.allTools))
-
         }
     },
     actions: {},

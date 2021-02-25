@@ -176,6 +176,7 @@ export default {
 >>>.cube-switch .cube-switch-ui
   height 20px
   width 40px
+
 >>>.cube-switch .cube-switch-ui::after
   width 20px
 >>>.cube-switch .cube-switch-ui::before

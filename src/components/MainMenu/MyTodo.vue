@@ -140,7 +140,7 @@ export default {
     border-radius 20px
     min-width 34px
     position absolute
-    right -15px
+    right -30px
     top 7px
     padding 5px 15px
 </style>

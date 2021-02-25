@@ -28,8 +28,8 @@
 <script type="text/ecmascript-6">
 
 import SlideNav from "@/components/Cultural/SlideNav";
-import {CulturalControllerImpl} from '@controller'
 import {BaseVue} from "@/libs";
+import mixins from './mixins'
 import Send from "@/views/Cultural/components/Send";
 
 export default {
@@ -37,7 +37,7 @@ export default {
     Send,
     SlideNav
   },
-  mixins:[BaseVue],
+  mixins: [BaseVue, mixins],
   data() {
     return {
       selectedLabel: this.$route.meta.name,
@@ -53,19 +53,9 @@ export default {
     }
   },
   created() {
-    this.init()
+    this.initAllData()
   },
   methods: {
-    async init(){
-      let resp
-      resp = await this.dispatch(CulturalControllerImpl.allPageSreach,{
-        pageNo:1,
-        pageSize:20
-      })
-      if(!resp.error) {
-        this.$store.commit('Cultural/setAllData',resp.data.body)
-      }
-    },
     Send() {
       this.$router.push({name: '发帖子'})
     },
@@ -86,6 +76,7 @@ export default {
 #common
   height $custom-bgc-height
   text-align left
+
   .img_box
     height 120px
     margin 0 12px
@@ -136,26 +127,31 @@ export default {
 #cultural_app
   height 100%
   padding-top -100px
+
   .bgc
     position: absolute;
     top 0
     width: 100%;
     height: 154px;
     background: linear-gradient(119deg, #19D4FF 0%, #0F97FB 100%);
-  >>>.cube-tab-bar-slider
-    margin-left 40px
+
+  >>> .cube-tab-bar-slider
     max-width: 20px;
+    margin-left 40px
     height: 4px;
     background: #FFFFFF;
     border-radius: 2px;
-  >>>.cube-tab
+
+  >>> .cube-tab
     min-width 70px
     font-size: 14px;
     font-weight: 500;
     line-height: 22px;
     color #fff
-  >>>.cube-tab_active
+
+  >>> .cube-tab_active
     font-size 16px
+
 .slide_nav
   background-color: #fff;
 

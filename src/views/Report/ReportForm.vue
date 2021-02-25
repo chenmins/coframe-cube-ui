@@ -262,7 +262,7 @@ export default {
         "answerTwo": model.value2,
         "cityId": city.id,
         "cityName": city.name,
-        "extendOne": model.value7,
+        "remarks": model.value7,
       })
       if (!resp.error) {
         this.$createToast({
@@ -270,7 +270,7 @@ export default {
           type: 'success',
           time:1000,
           onTimeout:()=>{
-            this.$router.push('/Report')
+            this.$router.push('/')
           }
         }).show()
       } else {

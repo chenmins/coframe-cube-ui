@@ -27,7 +27,7 @@ export default {
     }
   },
   created() {
-
+    this.$store.commit('ToolsManager/setAllTools')
 
   },
   methods: {

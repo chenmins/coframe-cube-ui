@@ -16,6 +16,8 @@
 import {AuthApiController} from '@controller'
 import {setToken} from "@/utils/auth";
 import router from "@/router";
+//登录跳转路由储存s
+let routerStorage
 
 export default {
   data() {
@@ -24,6 +26,7 @@ export default {
         inputValue: '',
         passwordValue: ''
       },
+
       schema: {
         fields: [
           {
@@ -64,12 +67,16 @@ export default {
             label: '登陆'
           },
         ]
-      }
-
+      },
     }
   },
   created() {
 
+  },
+  beforeRouteEnter(to,from,next){
+    console.log(to,from)
+    routerStorage = from.fullPath
+    next()
   },
   methods: {
     async submitHandler(e, model) {
@@ -86,7 +93,7 @@ export default {
         localStorage.setItem('userInfo', JSON.stringify(resp.data))
         localStorage.setItem('Token', resp.data.token)
         setToken(resp.data.token)
-        this.$router.push('/')
+        this.$router.push(routerStorage?routerStorage:'/')
       } else {
         console.log('error')
       }

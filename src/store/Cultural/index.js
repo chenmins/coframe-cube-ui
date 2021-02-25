@@ -32,6 +32,9 @@ const Cultural = {
             }
         },
 
+        //
+
+
         //all
         setAllData(state,payload){
             state.allData = payload

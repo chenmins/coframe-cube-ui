@@ -144,7 +144,7 @@ export default {
   line-height: 23px;
 
 >>> .cube-scroll-list-wrapper
-  padding 0 12px 80px
+  padding 0 12px
 
 >>> .datepicker-body
   p
@@ -174,7 +174,7 @@ export default {
   background-size 100%
 
   .scroll_container
-    height: calc(100vh - 470px)
+    height: calc(100vh - 400px)
     overflow: hidden;
 
     .item
@@ -184,7 +184,6 @@ export default {
       .right
         width 100%
         margin-left 28px
-        margin-right 28px
         margin-bottom: 18px;
         border-radius 0 17px 17px 17px
         background-color #2BDCA2

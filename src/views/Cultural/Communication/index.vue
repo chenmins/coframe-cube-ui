@@ -1,50 +1,52 @@
 <template>
 
+  <!--  todo 点赞超过一万小数-->
+
   <div class="communication_app">
-      <div style="background-color:#fff">
-        <div class="topic_title">热门话题</div>
-        <div class="topics">
-          <div class="topic" v-for="(topic,index) in topics" @click="goTopic(topic,index)">
-            <span>0{{ index + 1 }}</span>
-            <div>{{ topic.name }}</div>
-          </div>
+    <div style="background-color:#fff">
+      <div class="topic_title">热门话题</div>
+      <div class="topics">
+        <div class="topic" v-for="(topic,index) in topics" @click="goTopic(topic,index)">
+          <span>0{{ index + 1 }}</span>
+          <div>{{ topic.name }}</div>
         </div>
       </div>
-      <SlideNav @changeHandle="changeHandle"
-                headerClass='com_header'
-                :center="true" show-slider
-                :selected-label="selectedLabel" :tabs="tabs">
-        <div class="scroll-list-wrap">
-          <cube-scroll
-              ref="scroll">
-            <transition-group name="list-complete" >
-            <Card class="list-complete-item" :is-comment="false" :is-like="comment.fabulousForUser" v-for="(comment,index) in comments"
+    </div>
+    <SlideNav @changeHandle="changeHandle"
+              headerClass='com_header'
+              :center="true" show-slider
+              :selected-label="selectedLabel" :tabs="tabs">
+      <div class="scroll-list-wrap">
+        <cube-scroll
+            ref="scroll">
+          <transition-group name="list-complete">
+            <Card class="list-complete-item" :is-comment="false" :is-like="comment.fabulousForUser"
+                  v-for="(comment,index) in comments"
                   :key="index"
-                  @checkComments="checkComments(comment)"
                   @goComment="goComment(comment)"
                   @toggleLike="toggleLike(comment)"
                   @remove="remove(comment.id,index)"
             >
               <template v-slot:username>{{ comment.userName }}</template>
               <template v-slot:time>{{ $dayjs(comment.releaseTime).format('YYYY-MM-DD') }}</template>
-              <template v-slot:likeName>{{ comment.fabulousPlusCount }}</template>
+              <template v-slot:likeName>{{ comment.fabulousPlusCount | fabulousCount }}</template>
               <template v-slot:content>
                 <div>
                   {{ comment.body }}
-                  <!--                  <img  width="100%" src="../../../assets/icons/news.png" alt="">-->
+                  <!-- <img  width="100%" src="../../../assets/icons/news.png" alt="">-->
                 </div>
               </template>
               <template v-slot:card_topic v-if="comment.topicOfConversationId!==0">
                 话题id#{{ comment.topicOfConversationId }}
               </template>
-              <template v-slot:trash >
-                  <Icon    svg-name="delete@2" style="height: 20px;width: 20px" v-if="cardInfo.id === comment.userId"></Icon>
+              <template v-slot:trash>
+                <Icon svg-name="delete@2" style="height: 20px;width: 20px" v-if="cardInfo.id === comment.userId"></Icon>
               </template>
             </Card>
-            </transition-group>
-          </cube-scroll>
-        </div>
-      </SlideNav>
+          </transition-group>
+        </cube-scroll>
+      </div>
+    </SlideNav>
   </div>
 </template>
 
@@ -54,16 +56,16 @@ import Card from "@/components/Cultural/Card";
 import axios from "axios";
 import {allPageSreach} from '@controller'
 import {CulturalControllerImpl, DictApiController} from '@controller'
+import mixins from '../mixins'
 
 export default {
   name: "index",
   components: {
     SlideNav, Card
   },
+  mixins:[mixins],
   data() {
     return {
-      cardInfo:JSON.parse(localStorage.getItem('userInfo')),
-      like: false,
       selectedLabel: '全部',
       tabs: [
         {
@@ -79,90 +81,42 @@ export default {
           label: '精选',
         }
       ],
-      topics: [],
-      comments: []
     }
   },
+
 
   created() {
     this.setTopicLists()
     this.comments = this.$store.state.Cultural.allData.communicationCircles
   },
   methods: {
-    async setTopicLists() {
-      let resp
-      resp = await this.dispatch(DictApiController.getDictEntryByDictTypeCode, {code: 'pip-ccocci-topic'})
-      if (!resp.error) {
-        this.$store.commit('Cultural/setTopicLists', resp.data)
-        this.topics = this.$store.state.Cultural.topicLists.splice(0, 6)
-      }
-    },
     goTopic(topic, index) {
       this.$router.push({name: '话题列表', params: {index: index}})
     },
+    async remove(e, index) {
+      this.comments.splice(index, 1)
+      let resp = await this.dispatch(CulturalControllerImpl.deleteCommunicationCircle, {id: e}) //朋友圈id
+    },
 
-    async remove(e,index) {
-      this.comments.splice(index,1)
-        let resp = await this.dispatch(CulturalControllerImpl.deleteCommunicationCircle, {id: e}) //朋友圈id
-    },
-    // todo 点赞
-    async toggleLike(e) {
-      console.log(e)
-      let resp = await this.dispatch(CulturalControllerImpl.fabulousCommunicationCircle, {id: e.id})
-      // console.log(resp)
-      if (!resp.error) {
-        console.log(resp)
-        if (e.fabulousForUser) {
-          e.fabulousPlusCount -= 1
-        } else {
-          e.fabulousPlusCount += 1
-        }
-        await this.init()
-        this.like = !this.like
-      }
-
-    },
-    goComment(e) {
-      // if (e.target.classList[0] === 'card_topic') return
-      this.$router.push({name: '交流圈-评论详情', params: {id: e.id, isLike: e.fabulousForUser}})
-    },
-    changeHandle(e) {
-      switch (e) {
-        case '全部':
-          this.comments = this.$store.state.Cultural.allData.communicationCircles
-          break
-        case '热门':
-          this.comments = this.$store.state.Cultural.allData.communicationCircles1
-          break
-        case '精选':
-          this.comments = this.$store.state.Cultural.allData.communicationCircles2
-          break
-      }
-
-    },
-    selectItem(e) {
-      console.log(e.target.innerHTML)
-    },
-    checkComments(comment) {
-      this.$router.push({name: '交流圈-评论详情', params: {id: comment.id}})
-    },
   }
 }
 </script>
 
-<style >
+<style>
 .list-complete-item {
-  transition: all 1s ;
+  transition: all 1s;
   display: inline-block;
 }
 
 .list-complete-enter, .list-complete-leave-to
-  /* .list-complete-leave-active for below version 2.1.8 */ {
+  /* .list-complete-leave-active for below version 2.1.8 */
+{
   opacity: 0;
-  width:100%;
+  width: 100%;
 }
+
 .list-complete-leave-active {
-  //position: absolute;
+//position: absolute;
 }
 
 </style>
