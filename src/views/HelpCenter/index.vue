@@ -12,6 +12,7 @@
           v-model="value"
           :placeholder="placeholder"
           :maxlength="maxlength"
+          @keyup.enter.native="replay"
       ></cube-textarea>
       <Icon svg-name="helpcenter-emoji" style="margin-right: 10px" height="26px" width="26px"></Icon>
     </div>
@@ -32,6 +33,13 @@ export default {
 
     }
   },
+  methods:{
+    replay(){
+      console.log(this.value)
+      //TODO 发送
+      this.value = ''
+    }
+  }
 
 }
 </script>

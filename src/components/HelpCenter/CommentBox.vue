@@ -2,16 +2,16 @@
   <div class="comment_box">
     <div class="comment_title">
       <div class="left">
-        <img height="42px" width="42px" class="comment_avatar" :src="listData.picture" alt="">
+        <img height="42px" width="42px" class="comment_avatar" src="https://profile.csdnimg.cn/2/F/6/3_helloword182" alt="">
         <div>
           <div class="comment_username">{{listData.userName}}</div>
-          <div class="comment_date">{{$dayjs(listData.feedbackTime).format('YYYY-MM-DD')}}</div>
+          <div class="comment_date">{{$dayjs(this.listData.feedbackTime).format('YYYY-MM-DD HH:mm:ss')}}</div>
         </div>
       </div>
     </div>
     <div class="comment_content">
       <span :class="open?'close':''">
-          {{listData.feedbackTime}}
+          {{listData.body}}
       </span>
       <div class="open" v-show="open" @click='toggle'>{{open?'展开':'关闭'}}</div>
       <div class="reply">
@@ -49,9 +49,7 @@ export default {
     }
   },
   created() {
-    console.log(this.listData)
       if(this.listData.body){
-        console.log(this.listData.feedbackTime)
         if(this.listData.body.length>120){
           this.open = true
         }

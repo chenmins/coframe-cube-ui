@@ -30,7 +30,7 @@ export default {
   },
   methods: {
     go(e) {
-      this.$router.push({name: 'ProductInc', params: {id: e.id}})
+      this.$router.push({name: 'ProductInc', params: {id: e.id,data:e}})
     }
   }
 }

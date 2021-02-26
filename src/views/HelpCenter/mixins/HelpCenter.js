@@ -38,12 +38,21 @@ export default {
     },
     methods: {
         submit(data) {
-            this.$axios.post(`/api/platform/help/addDemandFeedback`, formData).then(res => {
-                console.log(res)
-                this.formData = {
-                    textarea: '',
-                    picture: ''
-                }
+            this.$axios.post(`/api/platform/help/addDemandFeedback`, {
+                body:formData.textarea,
+                picture:formData.picture
+            }).then(res => {
+             if(res.data.body ===1){
+                 formData = {
+                     textarea: '',
+                     picture: ''
+                 }
+                 this.formData = {
+                     textarea: '',
+                     picture: ''
+                 }
+                 this.$router.replace({name:'需求反馈'})
+             }
             })
         },
         initQuestions() {

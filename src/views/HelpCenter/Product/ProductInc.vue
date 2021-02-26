@@ -23,6 +23,14 @@ export default {
   name: "Detail",
   components:{
     LayOut,
+  },
+  data(){
+      return {
+        content:{}
+      }
+  },
+  created() {
+    this.content = this.$route.params.data
   }
 }
 </script>

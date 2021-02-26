@@ -50,7 +50,6 @@ export default {
   font-size 14px
   position relative
   background-color #fff
-  height 100vh
 
 
 .submit

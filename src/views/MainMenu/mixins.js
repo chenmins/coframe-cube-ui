@@ -48,11 +48,13 @@ export default {
     created() {
         let tools = JSON.parse(localStorage.getItem('userInfo'))
 
-        if (!tools || !tools.attrs) {
+        console.log(!tools || !tools.attrs)
+        if (!tools || !tools.attrs || !tools.attrs.length) {
             console.log('没有初始值')
+
             this.getUserInfo().then(() => {
                 this.initTools().then(() => {
-                    this.updateTools()
+
                 })
             })
         } else {
@@ -78,6 +80,9 @@ export default {
         },
         async initTools() {
             let tools = JSON.parse(localStorage.getItem('userInfo'))
+
+            console.log(!tools || !tools.attrs || !tools.attrs.length)
+
             if (!tools || !tools.attrs || !tools.attrs.length) {
                 tools = JSON.parse(localStorage.getItem('userInfo'))
                 let resp
@@ -97,6 +102,9 @@ export default {
                     },
                 ])
             }
+            this.getUserInfo().then(() => {
+                this.updateTools()
+            })
         },
         async getUserInfo() {
             let userInfo = await this.dispatch(AuthApiController.get)
