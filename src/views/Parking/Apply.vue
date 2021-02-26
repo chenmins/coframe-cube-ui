@@ -1,4 +1,4 @@
-<template>
+  <template>
   <div id="Apply">
     <ApproveContainer :selected-label="selectedLabel"
                       :tabs="tabs">

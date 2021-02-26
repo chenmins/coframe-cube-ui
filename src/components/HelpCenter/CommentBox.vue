@@ -2,23 +2,23 @@
   <div class="comment_box">
     <div class="comment_title">
       <div class="left">
-        <img height="42px" width="42px" class="comment_avatar" :src="listData.user.avatar" alt="">
+        <img height="42px" width="42px" class="comment_avatar" :src="listData.picture" alt="">
         <div>
-          <div class="comment_username">{{listData.user.username}}</div>
-          <div class="comment_date">{{listData.createDate}}</div>
+          <div class="comment_username">{{listData.userName}}</div>
+          <div class="comment_date">{{$dayjs(listData.feedbackTime).format('YYYY-MM-DD')}}</div>
         </div>
       </div>
     </div>
     <div class="comment_content">
       <span :class="open?'close':''">
-          {{listData.content}}
+          {{listData.feedbackTime}}
       </span>
       <div class="open" v-show="open" @click='toggle'>{{open?'展开':'关闭'}}</div>
       <div class="reply">
         <slot name="replay"></slot>
         <div class="comment_replay_svg"  @click="openComment">
           <Icon svg-name="comment"  height="20px" width="20px"></Icon>
-          <span style="margin-left: 4px">102</span>
+          <span style="margin-left: 4px">{{listData.replys.length}}</span>
         </div>
       </div>
     </div>
@@ -27,7 +27,7 @@
 
 <script>
 export default {
-  name: "CommentBox",
+    name: "CommentBox",
   props:{
     showReplaySvg:{
       type:Boolean,
@@ -37,33 +37,26 @@ export default {
       type:Object,
       default:()=>{
         return {
-          id: 1,
-          user: {
-            avatar: 'https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__ce77de2733d2f72b27f5abf616a7b5ac.svg',
-            username: 'supperman',
-          },
-          content: '欢迎大家家家家家家家家在家家家家家家家家家家家在家家家家家家在家家家家家家家家家家家家家家在家家家家家家在家家家家家家家家家家家家家家在家家家家家家在家家家家家家 家家家在家家家家家家在家家家家在这里给我们提APP相关的建议，产品经理会在这里查看大家的反馈情况。另外使用过程中遇到的问题或疑问，也可以一起提出来哟，帮助我们更好的改进产品~~~',
-          replay: [
-            {
-              user: '管理员小张',
-              content: '你好，感谢您的建议，我们会在下个版本中改进意见，请您持续关注。'
-            }
-          ],
-          createDate: '2021-12-25',
+
         }
       }
     }
   },
   data(){
     return {
-      open:false,
-      show:false
+      show:false,
+      open:false
     }
   },
   created() {
-    if(this.listData.content.length>120){
-      this.open = true
-    }
+    console.log(this.listData)
+      if(this.listData.body){
+        console.log(this.listData.feedbackTime)
+        if(this.listData.body.length>120){
+          this.open = true
+        }
+      }
+
   },
   methods:{
     toggle(){
@@ -72,7 +65,10 @@ export default {
       }
     },
     openComment(){
-      this.$router.push({name:'ReplayDetail'})
+      if(this.$route.fullPath.includes('ReplayDetail'))return
+      this.$axios.get(`/api/platform/help/demandFeedback/queryByIdJoinReply/${this.listData.id}`).then(res => {
+        this.$router.push({name:'ReplayDetail',params:{id:this.listData.id,data:res.data.body}})
+      })
     }
   }
 }

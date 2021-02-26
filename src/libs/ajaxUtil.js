@@ -1,9 +1,9 @@
 import axios from 'axios'
 import _ from 'lodash'
-import Vue from 'vue'
 import * as auth from '@/utils/auth.js'
 import router from "@/router";
 
+import Vue from 'vue'
 import { Toast } from 'cube-ui'
 
 Vue.use(Toast)
@@ -140,12 +140,13 @@ ajaxUtil.myRequest = (action, payload) => {
             auth.setToken(response.headers.authorization)
           }
         }
+
         resolve(response)
       })
       .catch(res => {
         if(res.response.status===401){
           Toast.$create({
-            txt: '登录已失效',
+            txt: res.response.data.message,
             time: 1000,
             onTimeout: () => {
               router.replace('/login')

@@ -62,7 +62,7 @@ import Card from "@/components/Cultural/Card";
 import axios from "axios";
 import {allPageSreach} from '@controller'
 import {CulturalControllerImpl, DictApiController} from '@controller'
-import mixins from '../mixins'
+import mixins from '../mixins/mixins'
 
 export default {
   name: "index",

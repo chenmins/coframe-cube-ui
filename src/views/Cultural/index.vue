@@ -28,7 +28,7 @@
 
 import SlideNav from "@/components/Cultural/SlideNav";
 import {BaseVue} from "@/libs";
-import mixins from './mixins'
+import mixins from './mixins/mixins'
 import Send from "@/views/Cultural/components/Send";
 
 export default {

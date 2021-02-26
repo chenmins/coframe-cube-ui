@@ -40,7 +40,7 @@ export default [
                 meta:{
                     name:'我的预约',
                     tag:'Reserve',
-                    leave:3,
+                    leave:2,
                     showNav: true,
                     showTabbar:true
                 },
@@ -56,7 +56,8 @@ export default [
             tag:'GuestDetail',
             leave:3,
             showNav:true,
-            showTabbar:true
+            showTabbar:true,
+            backRouter:'Reserve',
         },
         component:()=>import('@/views/Guest/GuestDetil')
     },
@@ -68,7 +69,8 @@ export default [
             tag:'ReserveDetail',
             leave:3,
             showNav:true,
-            showTabbar:true
+            showTabbar:true,
+            backRouter:'Approve',
         },
         component:()=>import('@/views/Guest/ReserveDetail')
     },
@@ -80,6 +82,7 @@ export default [
             tag:'RejectConfirm',
             leave:3,
             showNav:true,
+            backRouter:'Reserve',
         },
         component:()=>import('@/views/Guest/RejectConfirm')
     }

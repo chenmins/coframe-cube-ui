@@ -29,7 +29,8 @@ export default [
             name:'工具管理',
             tag:'工具管理',
             leave:3,
-            showNav: true
+            showNav: true,
+            backRouter:'AllTools',
         },
         component:()=>import('@/views/MainMenu/ManageTool')
     },

@@ -3,11 +3,11 @@
     <NavLayOut
         bgc-color="#fff"
     >
-
       <LayOut style="padding-bottom: 60px" class="bgcolor">
         <slot>
 
         </slot>
+<!--        <cube-textarea type="text" ></cube-textarea>-->
         <LayOut class="item" style="margin-top: 12px;padding: 12px 20px">
           <div class="title">楼层权限</div>
           <div class="item" v-for="(model,index) in groupModel.floorModel">
@@ -28,6 +28,7 @@
         </div>
       </LayOut>
     </NavLayOut>
+
     <div class="footer" v-if="$route.meta.name==='员工卡申请'">
       <cube-button type="submit" @click="submit">预览确认</cube-button>
     </div>
@@ -35,6 +36,7 @@
       <cube-button type="submit" class="cancel" @click="$router.push({name:'addCard'})">上一步</cube-button>
       <cube-button type="submit" class="confirm" @click="confirm">预览确认</cube-button>
     </div>
+
   </div>
 </template>
 

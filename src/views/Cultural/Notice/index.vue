@@ -27,7 +27,7 @@
 <script>
 import Card from "@/components/UI/Card";
 import SlideNav from "@/components/Cultural/SlideNav";
-import mixins from '../mixins'
+import mixins from '../mixins/mixins'
 
 export default {
   name: "index",

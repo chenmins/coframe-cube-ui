@@ -115,6 +115,8 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+>>>.cube-scroll-list-wrapper
+  padding-bottom 100px
 .for_back
   filter: drop-shadow(#999 80px 0);
   transform: translateX(-80px);

@@ -1,7 +1,7 @@
 <template>
   <div class="search clear-fix">
     <cube-input type="text" :clearable="true" :placeholder="placeholder"
-      v-model="value" @keyup.enter.native="submitHandler"
+      v-model="value" @keyup.enter.native="submitHandler" @input="changeValue"
     ></cube-input>
     <span @click="$emit('search')" v-show="cancel">{{cancel}}</span>
     <div class="search_icon">
@@ -19,9 +19,16 @@ export default {
   ],
   methods: {
     submitHandler(e){
-      console.log(e.target.value);
+      this.$emit('search',e.target.value)
+    },
+    changeValue(e){
+      if(e===''){
+        this.$emit('reflash')
+
+      }
     }
-  }
+  },
+
 }
 </script>
 

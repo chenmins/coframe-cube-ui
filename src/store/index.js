@@ -11,7 +11,6 @@ import Guest from "@/store/Guest";
 import axios from "@/axios/index";
 import { setToken } from "@/utils/auth";
 
-import ToolsManager from "@/store/Tools";
 
 
 Vue.use(Vuex)
@@ -36,7 +35,7 @@ const store = new Vuex.Store({
     modules: {
         ...actions,
         AddressBook,
-        MainMenu, Cultural, HelpCenter, Schedule, Guest, ToolsManager
+        MainMenu, Cultural, HelpCenter, Schedule, Guest,
     }
 })
 

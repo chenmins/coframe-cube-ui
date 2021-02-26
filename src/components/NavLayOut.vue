@@ -2,7 +2,7 @@
 
   <div id="nav_layout"
   >
-    <div >
+    <div>
       <div v-if="$route.meta.showNav" style="height: 60px;background-color:transparent;">
         <Nav
             style="font-size: 1em"
@@ -14,7 +14,7 @@
             v-show="toggle"
             @back="$emit('back')"
         >
-          <div slot="right"  >
+          <div slot="right">
             <slot name="right"></slot>
           </div>
         </Nav>
@@ -41,27 +41,27 @@
 
 <script>
 export default {
-name: "NavLayOut",
-  props:[
+  name: "NavLayOut",
+  props: [
     'bgcColor',
     'color'
   ],
-  data(){
-    return{
-      toggle:true,
-      randomKey:0
+  data() {
+    return {
+      toggle: true,
+      randomKey: 0
     }
   },
-  methods:{
-    scroll(e){
-      if(this.$route.meta.name === '行政服务工作台'
+  methods: {
+    scroll(e) {
+      if (this.$route.meta.name === '行政服务工作台'
           // this.$route.meta.name ==='审批列表' ||
           // this.$route.meta.name ==='我的审批'
-      ){
-        if(e.y < -60){
+      ) {
+        if (e.y < -60) {
           this.toggle = false
         }
-        if(e.y > -60){
+        if (e.y > -60) {
           this.toggle = true
         }
       }
@@ -77,8 +77,10 @@ name: "NavLayOut",
 #nav_layout
   height 100vh
   overflow: hidden;
+
 .nav_height
   height calc(100vh - 60px)
+
 .cube-scroll-wrapper
   height calc(100vh - 80px)
 

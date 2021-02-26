@@ -29,9 +29,9 @@ export default {
         this.$router.push({name: 'Home'})
       }
       if (this.$route.meta.leave === 3) {
-        this.$router.back()
+
+        this.$router.push({name: this.$route.meta.backRouter})
       }
-      this.$emit('back')
     }
   }
 

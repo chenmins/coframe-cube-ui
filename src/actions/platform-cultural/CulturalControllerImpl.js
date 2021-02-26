@@ -9,13 +9,13 @@ export default {
             summary: '添加一个交流圈（发帖子）',
             method: 'post',
             url: (payload) => `/api/platform/cultural/addCommunicationCircle`,
-            parameters: [{'name':'body','in':'query','description':'正文','required':true,'type':'string','allowEmptyValue':false},{'name':'picture','in':'query','description':'小图','required':true,'type':'string','allowEmptyValue':false},{'name':'title','in':'query','description':'标题','required':true,'type':'string','allowEmptyValue':false},{'name':'topicOfConversationId','in':'query','description':'话题ID','required':true,'type':'integer','format':'int32','allowEmptyValue':false},{'name':'type','in':'query','description':'类型','required':true,'type':'string','allowEmptyValue':false}],
+            parameters: [{'in':'body','name':'vo','description':'vo','required':true,'schema':{'$ref':'#/definitions/CommunicationCircleVO'}}],
         },
         [CulturalControllerImpl.allPageSreach.method] : {
             summary: '根据分页数据查询公告列表、企业新闻、交流圈',
             method: 'get',
             url: (payload) => `/api/platform/cultural/all/pageSreach/${payload.pageNo}/${payload.pageSize}`,
-            parameters: [{'name':'pageNo','in':'path','description':'当前页码','required':true,'type':'integer','format':'int32'},{'name':'pageSize','in':'path','description':'一页显示条数','required':true,'type':'integer','format':'int32'}],
+            parameters: [{'name':'pageNo','in':'path','description':'当前页码','required':true,'type':'integer','default':1,'format':'int32'},{'name':'pageSize','in':'path','description':'一页显示条数','required':true,'type':'integer','default':10,'format':'int32'}],
         },
         [CulturalControllerImpl.deleteCommunicationCircle.method] : {
             summary: '根据主键删除交流圈',

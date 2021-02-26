@@ -11,7 +11,7 @@
           <Icon svg-name="delete" @iconToggle="remove(Tool,index)" class-name="remove"></Icon>
         </div>
       </div>
-      <div slot="right" style="margin-right: 20px" @click="complete">
+      <div slot="right" style="margin-right: 20px" @click="complete(deleteArr)">
         <span class="complete" style="font-size: 14px" >完成</span>
       </div>
     </NavLayOut>
@@ -19,25 +19,20 @@
 </template>
 
 <script>
+import mixins from './mixins'
 export default {
   name: "ManageTool",
+  mixins: [mixins],
   data() {
     return {
-      Tools:[],
       deleteArr:[]
     }
-  },
-  created() {
-    this.Tools = this.$store.state.ToolsManager.allTools.filter(tool => tool.isCommonly === true)
   },
   methods: {
     remove(Tool,index){
       this.deleteArr.push(this.Tools.splice(index,1)[0])
     },
-    complete(){
-      this.$store.commit('ToolsManager/removeisCommonly',this.deleteArr)
-      this.$router.replace({name:'Home'})
-    }
+
   }
 }
 </script>

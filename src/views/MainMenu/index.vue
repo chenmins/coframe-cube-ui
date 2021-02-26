@@ -1,12 +1,13 @@
 <template>
   <div id="main_menu">
     <NavLayOut color="#fff">
+
       <img width="100%" class="bgc_img" src="../../assets/icons/Main.webp" alt="">
-      <MyTools @SeeAll="$router.push({name:'AllTools'})"></MyTools>
+      <MyTools :Tools="Tools" @SeeAll="$router.push({name:'AllTools'})"></MyTools>
       <MyTodos @SeeAll="$router.push({name:'MyAppointment'})"></MyTodos>
       <MyApply></MyApply>
+      <cube-button class="exit-login" @click="exitLogin">退出登录</cube-button>
     </NavLayOut>
-    <button @click="exitLogin">exitLogin</button>
   </div>
 
 </template>
@@ -17,36 +18,43 @@ import MyTodos from "@/components/MainMenu/MyTodo";
 import MyApply from "@/components/MainMenu/MyApply";
 import {AuthApiController} from '@controller'
 import {BaseVue} from '@lib'
+import mixins from './mixins'
+import {removeToken} from "@/utils/auth";
 
 
 export default {
   name: "index",
-  mixins: [BaseVue],
+  mixins: [BaseVue,mixins],
   components: {
     MyTools,
     MyTodos,
     MyApply,
   },
-  created() {
-    this.getUserInfo()
-  },
+  // created(){
+  //   let tools = JSON.parse(localStorage.getItem('userInfo'))
+  //
+  //   if (tools && tools.attrs) {
+  //
+  //
+  //   }
+  // },
   methods: {
     async exitLogin() {
       let resp = await this.dispatch(AuthApiController.logout)
       if (!resp.error) {
+        localStorage.removeItem('Token')
+        localStorage.removeItem('userInfo')
+        localStorage.removeItem('ToolsManager')
+        removeToken()
+
         this.$router.replace('/login')
       } else {
         console.log('error')
       }
 
     },
-    async getUserInfo() {
-      let userInfo = await this.dispatch(AuthApiController.get)
-      if (!userInfo.error) {
-      } else {
-        console.log('error')
-      }
-    },
+
+
   }
 }
 </script>
@@ -67,6 +75,11 @@ export default {
 </style>
 
 <style scoped lang="stylus">
+
+
+.exit-login
+  position absolute
+  bottom -20px
 
 #main_menu
   background-color #fff

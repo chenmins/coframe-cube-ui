@@ -3,12 +3,10 @@
     <div class="DemanFeedback_app_container">
       <img width="100%" src="../../assets/icons/helpcenter-feedback.png" alt="">
       <div class="chat_wapper">
-          <CommentBox v-for="list in feedback" :list-data="list" :id="list.id">
+          <CommentBox v-for="list in feedback" :list-data="list" :id="list.id" >
             <template v-slot:replay>
-              <ReplayBox v-for="replay in list.replay"></ReplayBox>
+              <ReplayBox v-for="replay in list.replys" :list-data="replay"></ReplayBox>
             </template>
-          </CommentBox>
-          <CommentBox >
           </CommentBox>
       </div>
     </div>
@@ -19,18 +17,18 @@
 <script>
 import CommentBox from "@/components/HelpCenter/CommentBox";
 import ReplayBox from "@/components/HelpCenter/ReplayBox";
+import HelpCenter from './mixins/HelpCenter'
 
 export default {
   name: "DemanFeedback",
   components: {CommentBox,ReplayBox},
-  data(){
-    return{
-      feedback:[]
-    }
-  },
+  mixins:[HelpCenter],
+
   created() {
-    this.feedback = this.$store.state.HelpCenter.feedback
+    this.initFeedback()
   },
+  methods: {
+  }
 }
 </script>
 

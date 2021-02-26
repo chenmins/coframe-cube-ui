@@ -3,7 +3,7 @@
       <div class="container">
         <cube-textarea
             class="textarea"
-            v-model="value"
+            v-model="formData.textarea"
             :placeholder="placeholder"
             :maxlength="maxlength"
             :autofocus="autofocus"
@@ -31,6 +31,8 @@
 </template>
 
 <script>
+import HelpCenter from '../mixins/HelpCenter'
+
 export default {
   name: "send",
   data() {
@@ -44,6 +46,8 @@ export default {
       hasNine:false
     }
   },
+  mixins: [HelpCenter],
+
   methods: {
     filesAdded(files) {
       let hasIgnore = false
@@ -64,7 +68,6 @@ export default {
         txt: message
       }).show()
     },
-
     errHandler(file) {
       // const msg = file.response.message
       this.$createToast({

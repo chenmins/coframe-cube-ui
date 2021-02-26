@@ -3,9 +3,9 @@
     <img width="100%" src="../../assets/icons/question.png" alt="">
     <div style="position: relative;padding-top: 47px">
       <div class="header">
-        <Search :value="value" ></Search>
+        <Search :value="value" @search="search" @reflash="reFlash"></Search>
       </div>
-      <Card class="list_item" style="margin:0;border-radius:0;padding:15px" v-for="item in listData" :key="item.id"
+      <Card class="list_item" style="margin:0;border-radius:0;padding:15px" v-for="item in questionData" :key="item.id"
             :data-id="item.id"
             @clicked="$router.push({name: 'ProductInc', params: {id: item.id}}).catch(()=>{})"
       >
@@ -19,6 +19,7 @@
 <script>
 import Search from "@/components/UI/Search";
 import Card from "@/components/UI/Card";
+import HelpCenter from './mixins/HelpCenter'
 
 export default {
   name: "Question",
@@ -26,11 +27,14 @@ export default {
     Card,
     Search
   },
+  mixins: [HelpCenter],
   data() {
     return {
       value: '',
-      listData: []
     }
+  },
+  created() {
+    this.initQuestions()
   },
   beforeRouteLeave(to, from, next) {
     if (to.fullPath.includes('ProductInc')) {
@@ -38,12 +42,20 @@ export default {
     }
     next()
   },
+
   beforeMount() {
     this.listData = this.$store.state.HelpCenter.listData
   },
   methods: {
-    search() {
-      console.log(this.value)
+    search(e) {
+      this.value = e
+      this.$axios.get(`/api/platform/help/commonProblem/queryByTitle?title=${e}`).then(res=>{
+        this.questionData = res.data.body
+      })
+    },
+    reFlash(e){
+     this.value = ''
+      this.initQuestions()
     },
     goRouter(e) {
       console.log(e)

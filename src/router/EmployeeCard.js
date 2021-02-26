@@ -16,7 +16,8 @@ export default [
         meta:{
             name:'新员工开卡',
             leave:3,
-            showNav: true
+            showNav: true,
+            backRouter:'员工卡申请',
         },
         component:()=>import('@/views/EmployeeCard/CreateCard')
     },
@@ -26,7 +27,8 @@ export default [
         meta:{
             name:'补卡',
             leave:3,
-            showNav: true
+            showNav: true,
+            backRouter:'员工卡申请',
         },
         component:()=>import('@/views/EmployeeCard/AddCard/index')
     },
@@ -37,7 +39,8 @@ export default [
             name:'确认信息',
             tag:'confirm',
             leave:3,
-            showNav: true
+            showNav: true,
+            backRouter:'员工卡申请',
         },
         component:()=>import('@/views/EmployeeCard/CreateCard')
     },
@@ -48,7 +51,8 @@ export default [
             name:'我的申请',
             tag:'Apply',
             leave:3,
-            showNav: true
+            showNav: true,
+            backRouter:'员工卡申请',
         },
         component:()=>import('@/views/EmployeeCard/Apply')
     },
@@ -59,7 +63,8 @@ export default [
             name:'申请记录',
             tag:'ApplyRecord',
             leave:3,
-            showNav: true
+            showNav: true,
+            backRouter:'Apply',
         },
         component:()=>import('@/views/EmployeeCard/ApplyRecord')
     },
@@ -69,7 +74,8 @@ export default [
         meta:{
             name:'挂失',
             leave:3,
-            showNav: true
+            showNav: true,
+            backRouter:'员工卡申请',
         },
         component:()=>import('@/views/EmployeeCard/Loss')
     },
@@ -80,7 +86,8 @@ export default [
             name: '审批列表',
             tag: 'ApprovalList',
             leave:3,
-            showNav: true
+            showNav: true,
+            backRouter:'员工卡申请',
         },
         component: () => import('@/views/EmployeeCard/ApprovalList/index')
     },
@@ -91,7 +98,8 @@ export default [
             name: '审批详情',
             tag: 'ApprovalDetail',
             leave:3,
-            showNav: true
+            showNav: true,
+            backRouter:'ApprovalList',
         },
         component: () => import('@/views/EmployeeCard/ApprovalList/Detail')
     },
@@ -102,7 +110,8 @@ export default [
             name: '员工卡记录',
             tag: 'CardRecord',
             leave:3,
-            showNav: true
+            showNav: true,
+            backRouter:'员工卡申请',
         },
         component: () => import('@/views/EmployeeCard/CardRecord')
     },
@@ -113,7 +122,8 @@ export default [
             name: '员工卡详情',
             tag: 'Card',
             leave:3,
-            showNav: true
+            showNav: true,
+            backRouter:'CardRecord',
         },
         component: () => import('@/views/EmployeeCard/CreateCard')
     },
@@ -124,7 +134,8 @@ export default [
             name: '确认信息',
             tag: 'Preview',
             leave:3,
-            showNav: true
+            showNav: true,
+            backRouter:'员工卡申请',
         },
         component: () => import('@/views/EmployeeCard/Preview')
     },
@@ -135,7 +146,8 @@ export default [
             name: '预览信息',
             tag: 'Preview',
             leave:3,
-            showNav: true
+            showNav: true,
+            backRouter:'CreateCard',
         },
         component: () => import('@/views/EmployeeCard/PreviewInfo')
     }

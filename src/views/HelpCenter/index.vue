@@ -1,9 +1,9 @@
 <template>
   <div id="help_center">
     <NavLayOut bgc-color="#fff" color="#333">
-      <div class="replay" slot="right" v-show="$route.meta.name==='回复'">发表</div>
+      <div class="replay" slot="right" v-show="$route.meta.name==='回复'" @click="submit">发表</div>
       <div class="container">
-        <router-view/>
+        <router-view     />
       </div>
     </NavLayOut>
     <div class="replay_bot" v-show="$route.meta.name==='ReplayDetail'">
@@ -15,37 +15,24 @@
       ></cube-textarea>
       <Icon svg-name="helpcenter-emoji" style="margin-right: 10px" height="26px" width="26px"></Icon>
     </div>
-    <Tabbar :tabs="tabs"></Tabbar>
+    <Tabbar v-show="$route.meta.showTabbar" :tabs="tabs"></Tabbar>
   </div>
 </template>
 
 <script>
+import HelpCenter from './mixins/HelpCenter'
 export default {
   name: "index",
+  mixins:[HelpCenter],
   data() {
     return {
       value: '',
       placeholder: '回复需求',
       maxlength: 200,
-      tabs: [
-        {
-          label: '常见问题',
-          value: 'question',
-          icon: 'helpcenter-question',
 
-        }, {
-          label: '产品介绍',
-          value: 'productInc',
-          icon: 'helpcenter-inc'
-
-        }, {
-          label: '需求反馈',
-          value: 'feedback',
-          icon: 'helpcenter-edit'
-
-        }]
     }
   },
+
 }
 </script>
 

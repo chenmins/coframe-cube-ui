@@ -35,7 +35,8 @@ export default [
                     showNav: true
                 },
                 component: () => import('@/views/Parking/Apply'),
-            }, {
+            },
+            {
                 path: 'MyApproval',
                 name: 'MyApproval',
                 meta: {
@@ -59,19 +60,22 @@ export default [
                     showNav: true
                 },
                 component: () => import('@/views/Parking/MyApproval'),
-            }, {
+            },
+            {
                 path: 'Approval/:id',
                 name: 'Parking-ApprovalDetail',
                 meta: {
                     name: '审批详情',
                     showTabbar:true,
                     tag: '审批详情',
-                    leave: 2,
+                    leave: 3,
                     showNav: true,
-                    showBottom: 'false'
+                    showBottom: 'false',
+                    backRouter:'MyApproval',
                 },
                 component: () => import('@/views/Parking/ApprovalDetail'),
-            }, {
+            },
+            {
                 path: 'OutsideCar',
                 name: 'OutsideCar',
                 meta: {
@@ -82,7 +86,8 @@ export default [
                     showNav: true,
                 },
                 component: () => import('@/views/Parking/OutslideCar/OutsideCar'),
-            }, {
+            },
+            {
                 path: 'Readme',
                 name: 'Readme',
                 meta: {
@@ -93,7 +98,8 @@ export default [
                     showBottom: 'false'
                 },
                 component: () => import('@/views/Parking/OutslideCar/Readme'),
-            }, {
+            },
+            {
                 path: 'CarRegister',
                 name: 'CarRegister',
                 meta: {
@@ -104,7 +110,8 @@ export default [
                     showBottom: 'false'
                 },
                 component: () => import('@/views/Parking/OutslideCar/CarRegister'),
-            }, {
+            },
+            {
                 path: 'Recorded',
                 name: 'Recorded',
                 meta: {
@@ -112,7 +119,8 @@ export default [
                     tag: '车辆备案详情',
                     leave: 3,
                     showNav: true,
-                    showBottom: 'false'
+                    showBottom: 'false',
+                    backRouter:'CarRegister',
                 },
                 component: () => import('@/views/Parking/OutslideCar/Recorded'),
             },

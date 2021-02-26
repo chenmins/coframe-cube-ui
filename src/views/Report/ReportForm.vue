@@ -293,7 +293,8 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-
+#report-form
+  background #fff
 
 >>> .cube-radio
   max-width: 50px
