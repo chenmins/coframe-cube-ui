@@ -31,6 +31,18 @@ export default [
                 component: () => import('@/views/HelpCenter/Product/ProductsInc.vue')
             },
             {
+                path: 'Question/:id',
+                name: 'QuestionDetail',
+                meta: {
+                    name: '常见问题',
+                    leave: 3,
+                    showNav: true,
+                    tag: 'ProductInc',
+                    backRouter: '常见问题',
+                },
+                component: () => import('@/views/HelpCenter/QuestionDetail')
+            },
+            {
                 path: 'ProductInc/:id',
                 name: 'ProductInc',
                 meta: {

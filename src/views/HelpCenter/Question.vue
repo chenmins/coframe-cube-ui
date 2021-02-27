@@ -7,7 +7,7 @@
       </div>
       <Card class="list_item" style="margin:0;border-radius:0;padding:15px" v-for="item in questionData" :key="item.id"
             :data-id="item.id"
-            @clicked="$router.push({name: 'ProductInc', params: {id: item.id}}).catch(()=>{})"
+            @clicked="$router.push({name: 'QuestionDetail', params: {id: item.id,data:item}}).catch(()=>{})"
       >
         <span style="display: flex;align-items: center;color: #0F1826;height: 48px;">{{ item.title }}</span>
         <i class="cubeic-arrow icon-arrow"></i>

@@ -6,15 +6,15 @@
     <div v-show="topic_list" style="background-color:#fff">
       <div class="topic_title">热门话题</div>
       <div class="topics">
-        <div class="topic" v-for="(topic,index) in topics" @click="goTopic(topic,index)">
+        <div class="topic"  v-for="(topic,index) in topics" @click="goTopic(topic,index)">
           <span>0{{ index + 1 }}</span>
-          <div>{{ topic.name }}</div>
+          <div :class="selected===index?'topic-selected':''">{{ topic.name }}</div>
         </div>
       </div>
     </div>
     <SlideNav
         style="background:#fff"
-        @changeHandle="changeHandle"
+        @changeHandle="changeHandle((arguments[0]));setLabel(arguments[0])"
         headerClass='com_header'
         :center="true" show-slider
         :selected-label="selectedLabel" :tabs="tabs">
@@ -72,8 +72,10 @@ export default {
   mixins: [mixins],
   data() {
     return {
+      selected:null,
       topic_list: true,
       selectedLabel: '全部',
+      labelNow:'全部',
       tabs: [
         {
           label: '全部',
@@ -103,8 +105,27 @@ export default {
         this.topic_list = false
       }
     },
+    setLabel(e){
+      this.nowLabel = e
+    },
     goTopic(topic, index) {
-      this.$router.push({name: '话题列表', params: {index: index}})
+      if(this.selected === index) {
+        this.selected = null
+        switch (this.nowLabel) {
+          case '全部':
+            this.comments = this.$store.state.Cultural.allData.communicationCircles;
+            break
+          case '热门':
+            this.comments = this.$store.state.Cultural.allData.communicationCircles1;
+            break
+          case '精选':
+            this.comments = this.$store.state.Cultural.allData.communicationCircles2;
+            break
+        }
+      }else{
+        this.selected = index
+        this.comments = this.comments.filter(comment => comment.topicOfConversationId===topic.id)
+      }
     },
     async remove(e, index) {
       this.comments.splice(index, 1)
@@ -130,7 +151,11 @@ export default {
 </style>
 
 <style scoped lang="stylus">
-
+.topic-selected
+  background #0251fe
+  color #fff
+  padding 5px 10px
+  border-radius 20px
 >>> .cube-tab, .tab_item
   color #000 !important
 

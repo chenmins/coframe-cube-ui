@@ -19,14 +19,14 @@
 <script>
 import LayOut from "@/components/LayOut";
 export default {
-  name: "Detail",
+  name: "QuestionDetail",
   components:{
     LayOut,
   },
   data(){
-      return {
-        content:{}
-      }
+    return {
+      content:{}
+    }
   },
   beforeRouteEnter(to,from,next){
     to.meta.name = to.params.data.title

@@ -59,12 +59,15 @@ export default {
         changeHandle(e) {
             switch (e) {
                 case '公告列表':
+                    this.selectedLabel = e
                     this.$router.push({name: `${e}`})
                     break
                 case '企业新闻':
+                    this.selectedLabel = e
                     this.$router.push({name: `${e}`})
                     break
                 case '交流圈':
+                    this.selectedLabel = e
                     this.$router.push({name: `${e}`})
                     break
             }
