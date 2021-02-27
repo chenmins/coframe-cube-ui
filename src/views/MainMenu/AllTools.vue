@@ -6,12 +6,12 @@
       <header>
         <span class="title">管理常用工具</span>
         <div class="num" @click="$router.push({name:'ManageTool'})">
-          <div>{{ this.$store.state.ToolsManager.allTools.filter(tool => tool.isCommonly === true).length }}</div>
+          <div>{{ commonlyTools.filter(tool => tool.isCommonly === true).length }}</div>
           <i class="cubeic-arrow"></i>
         </div>
       </header>
       <ul class="tools_list">
-        <li v-for="(Tool,index) in allTools" :key="index">
+        <li v-for="(Tool,index) in commonlyTools" :key="index">
           <div @click="goRouter({name:Tool.text})">
             <Icon :svg-name="'Tools-'+Tool.icon" class-name="svg"></Icon>
             <span>{{ Tool.text }}</span>
@@ -30,29 +30,67 @@
 </template>
 
 <script>
+import mixins from './mixins'
+import {AuthApiController} from '@controller'
+
+let isCommonly = []
+
 export default {
   name: "AllTools",
+  mixins: [mixins],
   data() {
     return {
       commonly: true,
-      allTools: []
+      allCommonlyTools: [],
+      isCommonlyTools: []
     }
   },
+
   created() {
-    this.allTools = this.$store.state.ToolsManager.allTools
+    let tools = JSON.parse(localStorage.getItem('userInfo'))
+
+
+    if (tools && tools.attrs) {
+      this.getUserInfo().then(() => {
+        this.updateTools()
+      })
+    }
+
+
   },
   methods: {
-    addCommonly(Tool) {
-
-      if (this.$store.getters["ToolsManager/currentTools"].length >= 8) {
+    async addCommonly(Tool) {
+      if (this.commonlyTools.filter(tool => tool.isCommonly === true).length >= 8) {
         this.$createToast({
           txt: '最多只能添加8个常用功能',
           type: 'warn',
-          time: 1000
+          time: 350
         }).show()
         return
       }
-      this.$store.commit('ToolsManager/addisCommonly', Tool)
+
+      this.commonlyTools.find(item => {
+        if (item.text === Tool.text) {
+          item.isCommonly = true
+        }
+      })
+
+      // this.isCommonly.find(item => item.text === Tool.text).isCommonly = true
+      let data = JSON.stringify(this.commonlyTools.filter(item => item.isCommonly === true))
+      let resp = await this.dispatch(AuthApiController.updateAttrs, [{
+            "attrName": "MyTools",
+            "attrValue": data
+          }]
+      )
+      await this.getUserInfo()
+
+      if (!resp.error) {
+        this.$createToast({
+          txt: '添加成功',
+          type: 'success',
+          time: 350
+        }).show()
+      }
 
 
     },

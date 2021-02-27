@@ -4,9 +4,10 @@
         :model="model"
         :schema="schema"
         @submit="submitHandler"
+        class="login-form"
     >
     </cube-form>
-<!--    <button @click="test"> test</button>-->
+    <!--    <button @click="test"> test</button>-->
   </div>
 </template>
 
@@ -16,6 +17,9 @@
 import {AuthApiController} from '@controller'
 import {setToken} from "@/utils/auth";
 import router from "@/router";
+import {Toast} from "cube-ui";
+//登录跳转路由储存s
+let routerStorage
 
 export default {
   data() {
@@ -24,6 +28,7 @@ export default {
         inputValue: '',
         passwordValue: ''
       },
+
       schema: {
         fields: [
           {
@@ -64,12 +69,16 @@ export default {
             label: '登陆'
           },
         ]
-      }
-
+      },
     }
   },
   created() {
 
+  },
+  beforeRouteEnter(to, from, next) {
+    console.log(to, from)
+    routerStorage = from.fullPath
+    next()
   },
   methods: {
     async submitHandler(e, model) {
@@ -81,12 +90,17 @@ export default {
       }
       let resp = await this.dispatch(AuthApiController.login, data)
       if (!resp.error) {
-        this.$store.commit('setUseInfo',resp.data)
-        localStorage.setItem('admin',resp.data.admin)
-        localStorage.setItem('userInfo', JSON.stringify(resp.data))
+        this.$store.commit('setUseInfo', resp.data)
+        localStorage.setItem('admin', resp.data.admin)
         localStorage.setItem('Token', resp.data.token)
         setToken(resp.data.token)
-        this.$router.push('/')
+        this.$createToast({
+          txt: '登陆成功，正在跳转',
+          time: 500,
+          onTimeout:()=>{
+            this.$router.push(routerStorage ? routerStorage : '/')
+          }
+        }).show()
       } else {
         console.log('error')
       }
@@ -98,9 +112,19 @@ export default {
 }
 </script>
 
-<style scoped>
-.loading {
+<style scoped lang="stylus">
+.login
+  height 100vh
+  position relative
 
-}
-
+  .login-form
+    border-radius 20px
+    position absolute
+    left 50%
+    top 50%
+    width 90%
+    transform translate(-50%,-50%)
+  >>>.cube-btn
+    height 20px
+    line-height 0
 </style>

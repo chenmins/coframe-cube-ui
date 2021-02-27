@@ -149,6 +149,7 @@ export default [
                 ]
             },
             leave: 3,
+            backRouter:'YuYueCenter',
             showNav: true
         },
         component: () => import('@/views/AppointmentCenter/BusinessPage'),
@@ -160,6 +161,7 @@ export default [
             name: '预约成功',
             tag: '预约成功',
             leave: 3,
+            backRouter:'YuYueCenter',
             showNav: true
         },
         component: () => import('@/views/AppointmentCenter/YuYueSuccess')
@@ -171,6 +173,7 @@ export default [
             name: '预约页面',
             tag: '预约页面',
             leave: 3,
+            backRouter:'Home',
             showNav: true
         },
         component: () => import('@/views/AppointmentCenter/ReservePage')
@@ -199,10 +202,12 @@ export default [
     //管理员
     {
         path: '/AppointmentAdmin',
+        name:'AppointmentAdmin',
         meta: {
             name: '预约管理',
             tag: '预约管理',
             leave: 3,
+            backRouter:'Home',
             showNav: true
         },
         component: () => import('@/views/AppointmentCenter/admin/index'),
@@ -214,6 +219,7 @@ export default [
             name: '发布管理',
             tag: '发布管理',
             leave: 3,
+            backRouter:'Home',
             showNav: true
         },
         component: () => import('@/views/AppointmentCenter/admin/Release')
@@ -225,6 +231,7 @@ export default [
             name: '发布时间段管理',
             tag: '发布时间段管理',
             leave: 3,
+            backRouter:'Home',
             showNav: true
         },
         component: () => import('@/views/AppointmentCenter/admin/ReleaseEdit')
@@ -236,6 +243,7 @@ export default [
             name: '发布',
             tag: '发布',
             leave: 3,
+            backRouter:'Home',
             showNav: true
         },
         component: () => import('@/views/AppointmentCenter/admin/addRelease')
@@ -247,6 +255,7 @@ export default [
             name: '发布-衣物干洗',
             tag: '发布-衣物干洗',
             leave: 3,
+            backRouter:'Home',
             showNav: true
         },
         component: () => import('@/views/AppointmentCenter/admin/addRelease-yiwugannxi')
@@ -258,17 +267,31 @@ export default [
             name: '添加会议',
             tag: '添加会议',
             leave: 3,
+            backRouter:'Home',
             showNav: true
         },
         component: () => import('@/views/AppointmentCenter/admin/addMeeting')
     },
     {
+        path: '/AdminRelease-restaurant',
+        name: 'AdminRelease-restaurant',
+        meta: {
+            name: '餐厅',
+            tag: '餐厅',
+            leave: 3,
+            backRouter:'Home',
+            showNav: true
+        },
+        component: () => import('@/views/AppointmentCenter/admin/restaurant')
+    },
+    {
         path: '/meetingConfirm',
         name: 'meetingConfirm',
         meta: {
-            name: '会议室预约',
-            tag: '会议室预约',
+            name: '会议室确认',
+            tag: '会议室确认',
             leave: 3,
+            backRouter:'Home',
             showNav: true
         },
         component: () => import('@/views/AppointmentCenter/admin/meetingConfirm')

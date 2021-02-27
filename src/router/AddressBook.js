@@ -33,6 +33,7 @@ export default [
                     tag:'AddressBook-Staff',
                     tabBarshow:false,
                     leave:3,
+                    backRouter:'homepage',
                     showNav:true
 
                 },
@@ -47,6 +48,7 @@ export default [
                     notShowInRouterView:true,
                     tabBarshow:false,
                     leave:3,
+                    backRouter:'Staff',
                     showNav:true
 
                 },

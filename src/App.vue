@@ -1,7 +1,7 @@
 <template>
   <div id="app"
   >
-    <transition name="slide-fade" >
+    <transition name="slide-fade">
       <router-view/>
     </transition>
 
@@ -13,82 +13,113 @@
 
 <script>
 // import {Demo} from "@controller";
-  export default {
-    provide() {
-      return {
-        reload: this.reload,
-      }
-    },
-    data() {
-      return {
-        isRouterAlive: true,
+export default {
+  provide() {
+    return {
+      reload: this.reload,
+    }
+  },
+  data() {
+    return {
+      isRouterAlive: true,
 
-      }
+    }
+  },
+
+  mounted() {
+    // this.init()
+  },
+  methods: {
+    // async init(){
+    //   let resp = await this.dispatch(Demo.isAdmin)
+    //   if(!resp.error){
+    //     localStorage.setItem('isAdmin',resp.data.body)
+    //   }
+    //
+    // },
+    reload() {
+      this.isRouterAlive = false
+      this.$nextTick(() => {
+        this.isRouterAlive = true
+      })
     },
-    mounted()  {
-      // this.init()
+    Replay() {
+      this.$router.push({name: 'Replay'})
     },
-    methods: {
-      // async init(){
-      //   let resp = await this.dispatch(Demo.isAdmin)
-      //   if(!resp.error){
-      //     localStorage.setItem('isAdmin',resp.data.body)
-      //   }
-      //
-      // },
-      reload() {
-        this.isRouterAlive = false
-        this.$nextTick(() => {
-          this.isRouterAlive = true
-        })
-      },
-      Replay(){
-        this.$router.push({name:'Replay'})
-      },
-    },
+  },
 
 
-  }
+}
 
 </script>
 
 <style lang="stylus">
+
+//按钮渐变
+.cube-btn
+  background: linear-gradient(90deg, #19E8FF 0%, #0F97FB 100%);
+
+//picker 按钮颜色
+.cube-picker-confirm, .cube-picker-cancel
+  font-size 17px
+  font-family PingFangSC-Regular, PingFang SC
+  color #0099FF
+
+//dialog文字颜色
+.cube-dialog-btn
+  font-family PingFangSC-Regular, PingFang SC
+  color #999999
+
+//dialog确定按钮颜色
+.cube-dialog-btn_highlight
+  color #fff
+  background linear-gradient(90deg, #19D4FF 0%, #0F97FB 100%)
+
+
 .schedule-footer
   height 24px
   width 24px
+
 .schedule-avatar
   height 50px
   width 50px
   background-color red
   border-radius 50%
   margin-right 8px
+
 .my-content
   display flex
   justify-content: center;
   margin 30px
+
 .schedule-h1
   font-size: 16px;
   font-family: PingFangSC-Medium, PingFang SC;
   font-weight: 500;
   color: #000000;
   line-height: 22px;
+
 .schedule-content
   font-size: 16px;
   font-family: PingFangSC-Regular, PingFang SC;
   font-weight: 400;
   color: #999999;
   line-height: 24px;
+
 //input边框取消
-.cube-input::after,.cube-select::after
+.cube-input::after, .cube-select::after
   border none
+
 //picker样式
 .cube-picker-panel.cube-safe-area-pb
   border-radius 12px 12px 0 0
+
 //dialog样式
-.cube-dialog-main{
+.cube-dialog-main {
   border-radius 4px
 }
-.cube-dialog-title{
+
+.cube-dialog-title {
   font-size: 16px;
   font-family: PingFangSC-Regular, PingFang SC;
   font-weight: 400;
@@ -96,14 +127,17 @@
   line-height: 24px;
   padding 12px
 }
-.cube-dialog-btn{
+
+.cube-dialog-btn {
   height 48px
 }
-.cube-dialog-btn{
+
+.cube-dialog-btn {
   color: #999999;
   line-height: 22px;
 }
-.cube-dialog-btn_highlight{
+
+.cube-dialog-btn_highlight {
   color #fff
   background: linear-gradient(90deg, #19D4FF 0%, #0F97FB 100%);
 }
@@ -121,37 +155,37 @@
   line-height 42px
   text-align center
   box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.15);
+
   .write_svg
     position absolute
     top 50%
     left 50%
-    transform translate(-50%,-50%)
+    transform translate(-50%, -50%)
 </style>
 
 <style>
-.cube-picker-confirm,.cube-picker-cancel{
-  font-size: 17px;
-  font-family: PingFangSC-Regular, PingFang SC;
-  color: #0099FF;
-}
-.cube-scroll-wrapper{
+.cube-scroll-wrapper {
   overflow: visible;
   z-index: 1;
 }
 
-.cube-action-sheet-list{
-  padding: 31px 15px ;
+.cube-action-sheet-list {
+  padding: 31px 15px;
 }
-.cube-action-sheet-panel.cube-safe-area-pb,.cube-action-sheet-content {
+
+.cube-action-sheet-panel.cube-safe-area-pb, .cube-action-sheet-content {
   border-radius: 12px 12px 0 0;
 }
-.cube-action-sheet-content{
+
+.cube-action-sheet-content {
   padding-bottom: 31px;
 }
-.cube-action-sheet-title,.cube-action-sheet-cancel{
+
+.cube-action-sheet-title, .cube-action-sheet-cancel {
   display: none;
 }
-.cube-action-sheet-item{
+
+.cube-action-sheet-item {
   margin: 7px 11px;
   float: left;
   background: #F7F7F7;
@@ -173,9 +207,10 @@
   text-align: center;
   color: #2c3e50;
   height: 100vh;
-  font-size:16px;
+  font-size: 16px;
   background-color: #F5F6FA
 }
+
 #nav {
   padding: 30px;
 }
@@ -192,9 +227,11 @@
 .slide-fade-enter-active {
   transition: all .3s ease;
 }
+
 .slide-fade-leave-active {
   transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0) revert;
 }
+
 .slide-fade-enter, .slide-fade-leave-to {
   opacity: 0;
 }

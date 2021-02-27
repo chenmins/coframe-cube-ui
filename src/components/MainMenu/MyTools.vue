@@ -6,6 +6,8 @@
       :shadow="true"
       @SeeAll="SeeAll">
     <div class="func clearfix clear-fix"  >
+<!--      <van-skeleton v-if="loading" :row="8 " row-width="calc((100% - 60px) / 4)" />-->
+
       <div class="tool_item" @click="$router.push({name:Tool.text})" v-for="Tool in Tools">
         <Icon :svg-name="'Tools-'+Tool.icon" class-name="svg"></Icon>
         <div>{{Tool.text}}</div>
@@ -16,9 +18,14 @@
 
 <script>
 import MenuCard from "@/components/MainMenu/MenuCard";
+import mixins from '@/views/MainMenu/mixins'
 
 export default {
   name: "MyTools",
+  props:[
+      'Tools'
+  ],
+
   components: {
     MenuCard
   },
@@ -27,8 +34,6 @@ export default {
     }
   },
   created() {
-
-
   },
   methods: {
     SeeAll() {
@@ -38,17 +43,45 @@ export default {
       console.log(e.currentTarget)
     }
   },
-  computed:{
-    Tools:{
-      get:function(){
-        return this.$store.state.ToolsManager.allTools.filter(tool => tool.isCommonly === true)
-      }
-    }
-  }
+  // computed:{
+  //   Tools:{
+  //     get:function(){
+  //       return this.$store.state.ToolsManager.allTools.filter(tool => tool.isCommonly === true)
+  //     }
+  //   }
+  // }
 }
 </script>
 
 <style scoped lang="stylus">
+>>>.van-skeleton__row:not(:first-child)
+  margin-top 0
+>>>.van-skeleton__row
+
+
+  &:nth-child(6)
+    margin-left 20px
+  &:nth-child(7)
+    margin-left 20px
+  &:nth-child(8)
+    margin-left 20px
+
+  height 58px
+  float left
+  font-size 13px
+  display flex
+  flex-direction column
+  align-items center
+  margin-bottom 27px
+
+  &:nth-child(2)
+    margin-left 20px
+  &:nth-child(3)
+    margin-left 20px
+  &:nth-child(4)
+    margin-left 20px
+
+
 .svg
   height 44px
   width 44px

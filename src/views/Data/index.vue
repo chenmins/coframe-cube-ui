@@ -179,23 +179,25 @@ export default {
             emphasis: {
               focus: 'series'
             },
-
-            data: [140, 232, 101, 264, 90, 340, 250]
+            data: [140, 150, 120, 130, 140, 110, 190]
           },
-
         ]
       },
       whichTab:'tab0'
     }
   },
   mounted() {
-    console.log(this.$children)
+
     this.$nextTick(() => {
       chartDom = document.getElementsByClassName('main-echart')[0];
       chartDom.style.width = `${window.innerWidth}`
       myChart = this.$echarts.init(chartDom);
       myChart.setOption(this.option);
     })
+  },
+  updated(){
+    console.log(document.querySelector('.cube-tab-panel'))
+
   },
   methods: {
     LabelChanged(e) {

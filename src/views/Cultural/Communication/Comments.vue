@@ -59,7 +59,6 @@ export default {
     this.init()
   },
   methods:{
-
     async init(){
       //todo 交流圈详情
       let resp = await this.dispatch(CulturalControllerImpl.getCommunicationCircleEntity,{

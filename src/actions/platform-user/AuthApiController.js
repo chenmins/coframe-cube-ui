@@ -5,10 +5,34 @@
 import { AuthApiController } from '../controller';
 export default {
     actions: {
+        [AuthApiController.deleteAttr.method] : {
+            summary: '删除用户属性',
+            method: 'delete',
+            url: (payload) => `/api/platform/user/attr/${payload.attrName}`,
+            parameters: [{'name':'attrName','in':'path','description':'attrName','required':true,'type':'string'}],
+        },
+        [AuthApiController.deleteAttrs.method] : {
+            summary: '删除用户属性列表',
+            method: 'delete',
+            url: (payload) => `/api/platform/user/attrs`,
+            parameters: [{'in':'body','name':'attrs','description':'attrs','required':true,'schema':{'type':'array','items':{'$ref':'#/definitions/用户属性信息'}}}],
+        },
         [AuthApiController.get.method] : {
             summary: '当前登录人信息',
             method: 'get',
             url: (payload) => `/api/platform/user/get`,
+            parameters: [],
+        },
+        [AuthApiController.getAttr.method] : {
+            summary: '获得用户具体属性',
+            method: 'get',
+            url: (payload) => `/api/platform/user/attr/${payload.attrName}`,
+            parameters: [{'name':'attrName','in':'path','description':'attrName','required':true,'type':'string'}],
+        },
+        [AuthApiController.getAttrs.method] : {
+            summary: '获得用户属性列表',
+            method: 'get',
+            url: (payload) => `/api/platform/user/attrs`,
             parameters: [],
         },
         [AuthApiController.login.method] : {
@@ -22,6 +46,18 @@ export default {
             method: 'get',
             url: (payload) => `/api/platform/user/logout`,
             parameters: [],
+        },
+        [AuthApiController.updateAttr.method] : {
+            summary: '更新用户属性',
+            method: 'post',
+            url: (payload) => `/api/platform/user/attr`,
+            parameters: [{'in':'body','name':'attr','description':'attr','required':true,'schema':{'$ref':'#/definitions/用户属性信息'}}],
+        },
+        [AuthApiController.updateAttrs.method] : {
+            summary: '更新用户属性列表',
+            method: 'post',
+            url: (payload) => `/api/platform/user/attrs`,
+            parameters: [{'in':'body','name':'attrs','description':'attrs','required':true,'schema':{'type':'array','items':{'$ref':'#/definitions/用户属性信息'}}}],
         },
     },
     // state: {},

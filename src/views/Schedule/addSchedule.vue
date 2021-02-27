@@ -10,7 +10,7 @@
         <img src="../../assets/icons/addSchedule.webp" alt="">
       </header>
 
-      <Card :shadow="true">
+      <Card :shadow="true" style="padding:0">
         <cube-form
             :model="model"
             :options="{
@@ -21,17 +21,21 @@
           <cube-form-group>
             <cube-form-item :field="fields[0]"></cube-form-item>
             <cube-form-item class="time-from no-margin-bottom">
-              <div class="picker" @click="showDateTimePickerStart">{{ model.start || fields[1].label }}
+              <div class="picker" @click="showDateTimePickerStart">
+                <div class="cube-form-label">{{fields[1].label}}</div>
+                <span class="line">{{ model.start || fields[1].label }}</span>
                 <i class="cubeic-arrow" style="float: right;margin-right: 16px"></i>
               </div>
             </cube-form-item>
             <cube-form-item class="time-from">
-              <div class="picker" @click="showDateTimePickerEnd">{{ model.end || fields[2].label }}
+              <div class="picker" @click="showDateTimePickerEnd">
+                <div class="cube-form-label">{{fields[2].label}}</div>
+                <span class="top_line">{{ model.end || fields[2].label }}</span>
                 <i class="cubeic-arrow" style="float: right;margin-right: 16px"></i>
               </div>
             </cube-form-item>
-            <cube-form-item :field="fields[3]">
-            </cube-form-item>
+
+            <cube-form-item :field="fields[3]"></cube-form-item>
             <cube-form-item :field="fields[4]"></cube-form-item>
             <cube-form-item :field="fields[5]"></cube-form-item>
             <cube-form-item :field="fields[6]"></cube-form-item>
@@ -40,7 +44,6 @@
             <cube-button type="submit">保存</cube-button>
           </cube-form-group>
         </cube-form>
-
       </Card>
 
     </NavLayOut>
@@ -79,6 +82,7 @@ export default {
           }
         },
         {
+          type: 'select',
           modelKey: 'start',
           label: '开始时间',
           rules: {
@@ -86,6 +90,7 @@ export default {
           }
         },
         {
+          type: 'select',
           modelKey: 'end',
           label: '结束时间',
           rules: {
@@ -286,6 +291,10 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+>>>.cube-form-item
+  margin 10px
+.time-from
+  margin 0
 #addSchedule
   background-color #ffffff
 
@@ -328,8 +337,9 @@ export default {
   background: linear-gradient(90deg, #19E8FF 0%, #0F97FB 100%);
   border-radius: 20px;
   width 80%
-  margin 0 auto
+  margin 0 auto 10px
   padding 10px 5px
+
 
 >>> .cube-form-label
   font-size 12px
@@ -343,6 +353,40 @@ export default {
   color #000
   height 100%
   font-weight 500
+  .line:before
+    content ''
+    position absolute
+    background-color rgba(#0099FF, .2)
+    height 100px
+    width 1px
+    left 16px
+    top 20px
+  .top_line:before
+    content ''
+    position absolute
+    background-color rgba(#0099FF, .2)
+    height 20px
+    width 1px
+    left 16px
+    top 0
+  .cube-form-label
+    font-size 14px
+    &:before
+      content ''
+      margin-right 7px
+      display inline-block
+      height 7px
+      width 7px
+      border-radius 50%
+      background-color #0099FF
+  span
+    margin-left 10px
+    font-size: 14px;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    color: #CCCCCC;
+    line-height: 20px;
+    letter-spacing: 1px;
 .no-margin-bottom
   margin-bottom 0!important
 </style>

@@ -15,7 +15,8 @@ export default [
         meta:{
             name:'报备详情',
             leave:3,
-            showNav: true
+            showNav: true,
+            backRouter:'员工信息报备',
         },
         component:()=>import('@/views/Report/ReportForm')
     }

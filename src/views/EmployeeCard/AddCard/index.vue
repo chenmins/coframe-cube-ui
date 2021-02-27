@@ -1,8 +1,7 @@
 <template>
   <div id="add_card">
-    <NavLayOut bgc-color="#fff">
-
-      <LayOut style="height: calc(100vh - 72px)">
+    <NavLayOut bgc-color="#fff" @back="$router.push('/EmployeeCard')">
+        <LayOut style="height: calc(100vh - 72px)">
         <h1>请选择补卡原因</h1>
         <div @click="selected" :class="+select?'item selected':'item'">工卡丢失</div>
         <div @click="selected" :class="select?'item ':'item selected'">以旧换新</div>

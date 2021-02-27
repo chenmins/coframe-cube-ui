@@ -271,6 +271,8 @@ export default {
   display: flex !important
   justify-content: space-evenly !important
 
+>>>.day-cell
+  margin 0 10px!important
 >>> .day-cell, .datepicker-dateRange-item-active
   position relative !important
 

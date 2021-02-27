@@ -1,7 +1,6 @@
 <template>
   <div id="my_approval">
     <ApproveContainer :tabs="tabs" :selected-label="selectLabel">
-
       <LayOut @clicked="$router.push({name:'Parking-ApprovalDetail',params:{id:1}})" class="item">
         <div class="header">
           <div>
@@ -36,8 +35,9 @@
         </Tag>
         <Icon v-if="!complete" svg-name="guest-complete" class-name="complete_svg"></Icon>
       </LayOut>
-
     </ApproveContainer>
+
+
   </div>
 </template>
 

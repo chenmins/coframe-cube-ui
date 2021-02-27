@@ -1,6 +1,7 @@
 <template>
   <div id="notice_app">
       <SlideNav
+          style="background:#fff"
           @changeHandle="changeHandle" :selected-label="selectedLabel" :tabs="tabs">
         <div class="scroll-list-wrap" style="height: calc(100vh - 220px)">
           <cube-scroll
@@ -36,6 +37,7 @@
 import SlideNav from "@/components/Cultural/SlideNav";
 import NewCard from "@/components/Cultural/NewCard";
 import Card from "@/components/UI/Card";
+import mixins from '../mixins/mixins'
 
 export default {
   name: "index",
@@ -44,22 +46,19 @@ export default {
     NewCard,
     SlideNav,
   },
+  mixins:[mixins],
   data() {
     return {
       selectedLabel: '全部',
       tabs: [
         {
           label: '全部',
-          heroes: ['敌法师', '卓尔游侠', '主宰', '米拉娜', '变体精灵']
         }, {
           label: '热点精选',
-          heroes: ['血魔', '影魔', '剃刀', '剧毒术士', '虚空假面', '幻影刺客', '冥界亚龙', '克林克兹', '育母蜘蛛', '编织者', '幽鬼', '司夜刺客', '米波']
         }, {
           label: '时事要闻',
-          heroes: ['血魔', '影魔', '剃刀', '剧毒术士', '虚空假面', '幻影刺客', '冥界亚龙', '克林克兹', '育母蜘蛛', '编织者', '幽鬼', '司夜刺客', '米波']
         }
       ],
-      news: []
     }
   },
   mounted() {
@@ -69,19 +68,7 @@ export default {
     read(notices) {
       this.$router.push({name: '企业新闻详情', params: {id: notices.id,notice:notices}})
     },
-    changeHandle(e) {
-      switch (e) {
-        case '全部':
-          this.news = this.$store.state.Cultural.allData.journalisms
-          break
-        case '热点精选':
-          this.news = this.$store.state.Cultural.allData.journalisms1
-          break
-        case '时事要闻':
-          this.news = this.$store.state.Cultural.allData.journalisms2
-          break
-      }
-    }
+
   }
 }
 </script>

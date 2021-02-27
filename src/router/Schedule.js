@@ -15,7 +15,8 @@ export default [
         meta:{
             name:'添加日程',
             leave:3,
-            showNav: true
+            showNav: true,
+            backRouter:'日程协同',
         },
         component:()=>import('@/views/Schedule/addSchedule')
     },
@@ -25,7 +26,8 @@ export default [
         meta:{
             name:'日程详情',
             leave:3,
-            showNav: true
+            showNav: true,
+            backRouter:'日程协同',
         },
         component:()=>import('@/views/Schedule/ScheduleDetail')
     },
@@ -36,7 +38,8 @@ export default [
         meta:{
             name:'接收详情',
             leave:3,
-            showNav: true
+            showNav: true,
+            backRouter:'日程协同',
         },
         component:()=>import('@/views/Schedule/receive')
     },

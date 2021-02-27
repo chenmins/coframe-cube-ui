@@ -44,10 +44,12 @@ export default {
   },
   data() {
     return {
-      todos: []
+      todos: [],
+      reserves:[]
     }
   },
   created() {
+    this.reserves = this.$store.state.Guest.reserves
     let MainMenu = this.$store.state.MainMenu
     this.todos = MainMenu.todos
   },
@@ -58,6 +60,8 @@ export default {
     clickHandler(item, index) {
       console.log(item, index)
       console.log('当前轮播图序号为:' + index, item)
+      this.$router.push({name: 'GuestDetail', params: {id: index}})
+
     },
     SeeAll(){
       this.$emit('SeeAll')
@@ -140,7 +144,7 @@ export default {
     border-radius 20px
     min-width 34px
     position absolute
-    right -15px
+    right -30px
     top 7px
     padding 5px 15px
 </style>

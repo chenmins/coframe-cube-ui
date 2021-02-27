@@ -62,7 +62,10 @@ export default {
     methods: {
       selectTopic(item){
         this.$store.commit('Cultural/setSelectedTopic',item)
-        this.$store.commit('Cultural/setTopics',item.id)
+        this.$store.commit('Cultural/setTopics',{
+          topicOfConversationId:item.id,
+          topicOfConversationName:item.name
+        })
         this.$router.push({name: '发帖子'})
       },
       async init(){

@@ -52,6 +52,7 @@ export default [
             showNav:true,
             name:'公告详情',
             leave:3,
+            backRouter:'公告列表',
 
         },
         component:()=>import('@/views/Cultural/Notice/Detail'),
@@ -63,6 +64,7 @@ export default [
             showNav:true,
             name:'企业新闻',
             leave:3,
+            backRouter:'企业新闻',
 
         },
         component:()=>import('@/views/Cultural/News/Detail'),
@@ -75,6 +77,7 @@ export default [
             tag:'交流圈-评论详情',
             showNav:true,
             leave:3,
+            backRouter:'交流圈',
 
         },
         component:()=>import('@/views/Cultural/Communication/Comments'),
@@ -87,6 +90,7 @@ export default [
             tag:'发帖子',
             showNav:true,
             leave:3,
+            backRouter:'交流圈',
 
         },
         component:()=>import('@/views/Cultural/Communication/send'),
@@ -98,7 +102,8 @@ export default [
             name:'话题列表',
             tag:'话题列表',
             showNav:true,
-            leave: 3
+            leave: 3,
+            backRouter:'发帖子',
         },
         component:()=>import('@/views/Cultural/Communication/TopicList')
     }

@@ -1,7 +1,7 @@
 <template>
   <div id="Guest">
     <NavLayOut color="#fff" >
-      <main>
+      <main slot="fixed">
         <cube-scroll
             ref="scroll"
         >
@@ -9,8 +9,7 @@
           <cube-form :model="model"
                      :schema="schema"
                      :options="{layout:'classic'}"
-                     @submit="submitHandler"
-                     @validate="validateHandler"
+                     @submit="submitGuestForm"
                      class="form-control"
           >
             <cube-form-group>
@@ -61,8 +60,6 @@
 
 <script>
 import Button from "@/components/UI/Button";
-
-const time = new Date().valueOf() + 1 * 60 * 60 * 1000
 
 export default {
   name: "index",
@@ -196,7 +193,6 @@ export default {
         ]
       },
 
-
     }
   },
   created() {
@@ -214,20 +210,7 @@ export default {
       }
       this.maxPeople = newArr
     },
-    validateHandler(result) {
-      this.validity = result.validity
-      this.valid = result.valid
-      console.log('validity', result.validity, result.valid, result.dirty, result.firstInvalidFieldIndex)
-      if (result.firstInvalidFieldIndex !== -1) {
-        const toast = this.$createToast({
-          txt: '请确认表单是否填写完整',
-          type: 'error'
-        })
-        toast.show()
-      }
-    },
-    submitHandler(e, model, model2) {
-      console.log('信息提交')
+    submitGuestForm(e, model, model2) {
       let length = this.model.peopleNum
       let newObj = {}
       e.preventDefault()
@@ -241,7 +224,6 @@ export default {
         }
         this.model.guests.push(newObj)
       }
-      console.log(this.model)
     },
     showTimePicker() {
       const timePicker = this.$createTimePicker({
@@ -356,6 +338,8 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+>>>.cube-scroll-list-wrapper
+  padding-bottom 50px
 #Guest
   height: 154px;
   background: linear-gradient(119deg, #19D8FF 0%, #0F97FB 100%);

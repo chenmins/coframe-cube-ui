@@ -1,6 +1,7 @@
 <template>
   <div id="notice_app">
     <SlideNav
+        style="background:#fff"
         @changeHandle="changeHandle" :selected-label="selectedLabel" :tabs="tabs">
       <div class="scroll-list-wrap" style="height: calc(100vh - 220px)">
         <cube-scroll
@@ -26,12 +27,14 @@
 <script>
 import Card from "@/components/UI/Card";
 import SlideNav from "@/components/Cultural/SlideNav";
+import mixins from '../mixins/mixins'
 
 export default {
   name: "index",
   components: {
     SlideNav, Card
   },
+  mixins:[mixins],
   data() {
     return {
       selectedLabel: '全部',
@@ -46,15 +49,15 @@ export default {
           label: '物业公告',
         }
       ],
-      notices:  []
     }
   },
-
   created() {
-    let Interval =  setInterval(()=>{
-      if(this.$store.state.Cultural.allData.notices){
+    let Interval = setInterval(() => {
+      if (this.$store.state.Cultural.allData.notices) {
         this.notices = this.$store.state.Cultural.allData.notices
-        clearInterval(Interval)
+        if (this.notices.length) {
+          clearInterval(Interval)
+        }
       }
     })
   },
@@ -62,22 +65,6 @@ export default {
     read(notice) {
       this.$router.push({name: '公告详情', params: {id: notice.id, notice: notice}})
     },
-    changeHandle(e) {
-      switch (e) {
-        case '全部':
-          this.notices = this.$store.state.Cultural.allData.notices
-          break
-        case '系统公告':
-          this.notices = this.$store.state.Cultural.allData.notices1
-          break
-        case '餐厅公告':
-          this.notices = this.$store.state.Cultural.allData.notices2
-          break
-        case '物业公告':
-          this.notices = this.$store.state.Cultural.allData.notices3
-          break
-      }
-    }
   }
 }
 </script>
