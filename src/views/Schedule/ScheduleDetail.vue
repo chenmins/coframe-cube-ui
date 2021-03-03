@@ -23,38 +23,38 @@
               layout: 'classic' // classic fresh
             }">
           <cube-form-item>
-            <div class="picker" @click="status.edit && showPicker('organization')">
+            <div class="picker" @click="status.edit && showPicker('userName')">
               <div class="cube-form-label">{{ fields[0].label }}</div>
-              <span class="line">{{ model.organization || fields[0].label }}</span>
+              <span class="line">{{ model.userName || fields[0].label }}</span>
               <i v-show="status.edit" class="cubeic-arrow" style="float: right;margin-right: 16px"></i>
             </div>
           </cube-form-item>
           <cube-form-item>
-            <div class="picker" @click="status.edit && showPicker('meetingRoom')">
+            <div class="picker" @click="status.edit && showPicker('conferenceRoom')">
               <div class="cube-form-label">{{ fields[1].label }}</div>
-              <span class="line">{{ model.meetingRoom || fields[1].label }}</span>
+              <span class="line">{{ model.conferenceRoom || fields[1].label }}</span>
               <i v-show="status.edit" class="cubeic-arrow" style="float: right;margin-right: 16px"></i>
             </div>
           </cube-form-item>
           <cube-form-item>
-            <div class="picker" @click="status.edit && showPicker('join')">
+            <div class="picker" @click="status.edit && showPicker('scheduleParticipantsEntities')">
               <div class="cube-form-label">{{ fields[2].label }}</div>
-              <span v-if="model.join.length===0">{{ fields[2].label }}</span>
-              <span v-else class="line" v-for="i in model.join">{{ i.userName }}，</span>
+              <span v-if="model.scheduleParticipantsEntities && model.scheduleParticipantsEntities.length===0">{{ fields[2].label }}</span>
+              <span v-else class="line" v-for="i in model.scheduleParticipantsEntities">{{ i.userName }}，</span>
               <i v-show="status.edit" class="cubeic-arrow" style="float: right;margin-right: 16px"></i>
             </div>
           </cube-form-item>
           <cube-form-item v-if="model.notice">
-            <div  class="picker" @click="status.edit && showPicker('notice')">
+            <div class="picker" @click="status.edit && showPicker('remind')">
               <div class="cube-form-label">{{ fields[3].label }}</div>
-              <span class="line">{{ model.notice  }}</span>
+              <span class="line">{{ model.remind }}</span>
               <i v-show="status.edit" class="cubeic-arrow" style="float: right;margin-right: 16px"></i>
             </div>
           </cube-form-item>
           <cube-form-item v-if="model.repeat">
             <div class="picker" @click="status.edit && showPicker('repeat')">
               <div class="cube-form-label">{{ fields[4].label }}</div>
-              <span class="line">{{ model.repeat  }}</span>
+              <span class="line">{{ model.repeat }}</span>
               <i v-show=" status.edit" class="cubeic-arrow" style="float: right;margin-right: 16px"></i>
             </div>
           </cube-form-item>
@@ -62,7 +62,7 @@
         </cube-form>
       </LayOut>
     </NavLayOut>
-    <footer v-if="scheduleData.userId === userInfo.id">
+    <footer v-if="scheduleData.initiator === '是'">
       <div @click="showPicker('share')">
         <Icon svg-name="schedule-footer-1" class-name="schedule-footer schedule-footer-1"></Icon>
       </div>
@@ -73,7 +73,7 @@
         <Icon svg-name="schedule-footer-3" class-name="schedule-footer schedule-footer-3"></Icon>
       </div>
     </footer>
-    <footer v-if="scheduleData.scheduleParticipantsEntities.findIndex(i=>i.userId===userInfo.id) !== -1">
+    <footer v-if="scheduleData.initiator === '否'">
       <div @click="refuse" class="footer-func reject">
         拒绝
       </div>
@@ -98,12 +98,12 @@ export default {
   data() {
     return {
       model: {
-        organization: '',
-        meetingRoom: '',
-        join: '',
-        where: '',
-        notice: '',
+        userName: '',
+        conferenceRoom: '',
+        scheduleParticipantsEntities: [],
+        remind: '',
         repeat: '',
+        share: '',
       },
       status: {
         edit: false,
@@ -124,7 +124,15 @@ export default {
           label: '会议室',
           title: '选择',
           props: {
-            options: [2015, 2016, 2017, 2018, 2019, 2020]
+            options: [
+              {
+                text: '会议室1',
+                value: {
+                  id: 'dsadasd',
+                  name: '会议室1'
+                }
+              }
+            ]
           },
         },
         {
@@ -171,10 +179,12 @@ export default {
   },
   created() {
     this.scheduleData = this.$route.params.data
+    console.log(this.scheduleData)
     this.model = {
+      userName:this.scheduleData.userName,
       organization: this.scheduleData.userName,
-      meetingRoom: this.scheduleData.conferenceRoom,
-      join: this.scheduleData.scheduleParticipantsEntities,
+      conferenceRoom: this.scheduleData.conferenceRoom,
+      scheduleParticipantsEntities: this.scheduleData.scheduleParticipantsEntities,
       notice: this.scheduleData.remind,
       repeat: this.scheduleData.repeat
     }
@@ -184,74 +194,106 @@ export default {
     showPicker(type) {
 
       let typeMap = {
-        "organization": [
+        "userName": [
           {
             text: 'liuwb',
             value: ''
           }
         ],
-        "meetingRoom": [
+        "conferenceRoom": [
           {
             text: '会议室1',
-            value: ''
-          }
+            value: '会议室1'
+          },
+          {
+            text: '会议室2',
+            value: '会议室2'
+          },
+          {
+            text: '会议室3',
+            value: '会议室3'
+          },
         ],
-        "join": [
+        "scheduleParticipantsEntities": [
           {
-            text: '会议室1',
-            value: ''
-          }
+            text: '参与人1',
+            value: {
+              id: 'canyuren1',
+              name: '参与人1'
+            },
+          },
+          {
+            text: '参与人2',
+            value: {
+              id: 'canyuren2',
+              name: '参与人2'
+            },
+          },
         ],
-        "notice": [
+        "remind": [
           {
-            text: '无提醒'
+            text: '无提醒',
+            value:'无提醒',
           },
           {
-            text: '日程发生时'
+            text: '日程发生时',
+            value:'日程发生时',
           },
           {
-            text: '5分钟前'
+            text: '5分钟前',
+            value:'5分钟前',
           },
           {
-            text: '15分钟前'
+            text: '15分钟前',
+            value:'15分钟前',
           },
           {
-            text: '30分钟前'
+            text: '30分钟前',
+            value:'30分钟前',
           },
           {
-            text: '1小时前'
+            text: '1小时前',
+            value:'1小时前',
           }
         ],
         "repeat": [
           {
-            text: '不重复'
+            text: '不重复',
+            value:'不重复',
           },
           {
-            text: '每天'
+            text: '每天',
+            value:'每天',
           },
           {
-            text: '工作日'
+            text: '工作日',
+            value:'工作日',
           },
           {
-            text: '每周'
+            text: '每周',
+            value:'每周',
           },
           {
-            text: '每两周'
+            text: '每两周',
+            value:'每两周',
           },
           {
-            text: '每月'
+            text: '每月',
+            value:'每月',
           },
           {
-            text: '每年'
+            text: '每年',
+            value:'每年',
           },
           {
-            text: '自定义'
+            text: '自定义',
+            value:'自定义',
           }
         ],
         "share": [
           {
-            text: '分享人1',
-            value: '分享人1简介'
+            value: 'cof-user-sysadmin',
+            text: 'sysadmin',
           }
         ]
       }
@@ -264,12 +306,29 @@ export default {
           console.log(v2);
           console.log(v3);
           this.model[type] = v3[0]
+          console.log({
+            [type]:v1[0]
+          })
+          if (type === 'scheduleParticipantsEntities') {
+            this.model.scheduleParticipantsEntities = []
+            this.model.scheduleParticipantsEntities.push(v1[0])
+          }
+
           if (type === 'share') {
             this.$createDialog({
               type: 'confirm',
               confirmBtn: {
                 text: '确定',
                 active: true
+              },
+              onConfirm:()=>{
+                console.log(v1,v2,v3)
+                //todo
+                this.dispatch(ScheduleControllerImpl.addParSchedule,{
+                  id:this.$route.params.id,
+                    userId:v1[0],
+                    name:v3[0]
+                })
               },
               cancelBtn: {
                 text: '取消',
@@ -302,6 +361,7 @@ export default {
                   ])
                 ])
               ]
+
             }).show()
           }
           if (this.model[type] === '自定义') {
@@ -324,48 +384,18 @@ export default {
             this.formatPicker.show()
           }
 
-          console.log(this.model)
-          this.updateSchedule()
+          this.updateSchedule(type)
         },
       })
       this.picker.show()
 
 
     },
-    async updateSchedule(){
+    async updateSchedule(type) {
       let resp
-      resp = await this.dispatch(ScheduleControllerImpl.updateSchedule,
-          {
-            id: "2b6bf149-daea-4f80-ac8b-3161aff14c29",
-            "userId": "8e3f7d5b-5c82-4aec-bae6-af1fedf67013",
-            "userName": "liuwb",
-            "initiator": "是",
-            "title": "这是我修改后的日程",
-            "conferenceRoom": "2016",
-            "agree": "同意",
-            "scheduleParticipantsEntities": [
-              {
-                "id": 268,
-                "scheduleId": "2b6bf149-daea-4f80-ac8b-3161aff14c29",
-                "userId": "cof-user-sysadmin",
-                "userName": "sysadmin",
-                "agree": "同意"
-              },
-              {
-                "id": 269,
-                "scheduleId": "2b6bf149-daea-4f80-ac8b-3161aff14c29",
-                "userId": "8e3f7d5b-5c82-4aec-bae6-af1fedf67013",
-                "userName": "liuwb",
-                "agree": "同意"
-              },
-              {
-                "id": 270,
-                "scheduleId": "2b6bf149-daea-4f80-ac8b-3161aff14c29",
-                "userId": "3",
-                "userName": "people3",
-                "agree": "同意"
-              }
-            ]
+      resp = await this.dispatch(ScheduleControllerImpl.updateSchedule, {
+            id: this.$route.params.id,
+            [type]:this.model[type]
           })
       console.log(resp)
     },
@@ -388,30 +418,10 @@ export default {
       this.scheduleData.agree = '同意'
       this.update(this.scheduleData)
     },
-    async update(e) {
+    async update(data) {
       let resp = await this.dispatch(ScheduleControllerImpl.updateSchedule, {
-        "id": this.scheduleData.id,
-        "title": this.scheduleData.title,
-        "start": this.scheduleData.startTime,
-        "end": this.scheduleData.endTime,
-        "conferenceRoom": this.scheduleData.conferenceRoom,
-        "remind": this.scheduleData.remind,
-        "repeat": this.scheduleData.repeat,
-        "agree": this.scheduleData.agree,
-        "users": [
-          {
-            "id": "idtwo",
-            "name": "678"
-          },
-          {
-            "id": "idhello",
-            "name": "687"
-          },
-          {
-            "id": "idworld",
-            "name": "876"
-          }
-        ]
+        id: this.$route.params.id,
+        agree:'不同意'
       })
     },
     send() {
@@ -469,10 +479,10 @@ export default {
           this.dispatch(ScheduleControllerImpl.deleteSchedule, {id: this.$route.params.id}).then(res => {
             if (res.data.body === 1) {
               this.$createToast({
-                  type: 'normal',
-                txt:'删除成功',
-                time:500,
-                onTimeout:()=>{
+                type: 'normal',
+                txt: '删除成功',
+                time: 500,
+                onTimeout: () => {
                   this.$router.replace({name: '日程协同'})
                 }
               }).show()

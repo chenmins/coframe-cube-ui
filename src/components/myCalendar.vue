@@ -27,11 +27,13 @@ export default {
     'placeholder',
     'date',
     'selectedDate',
+    'allMonthSchedule'
   ],
   data() {
     return {
       date4: "",
       lurevents: [],
+      allMonthData:{},
       calendar: {
         value: this.stringify(this.selectedDate || new Date()),
         disabled: [],
@@ -41,30 +43,28 @@ export default {
       }
     }
   },
-  created() {
+  async created() {
     this.date4 = this.stringify(new Date())
   },
   mounted() {
-    this.getMonthData(this.$dayjs().format('YYYY-M')).then(() => {
-      this.getInfo()
-    })
 
   },
-    updated() {
+  updated() {
     let dir = document.getElementsByClassName('day-cell')
     dir.forEach(v => {
       v.classList.remove('hasTodo')
       v.classList.remove('datepicker-dateRange-item-active')
     })
-    this.getMonthData(this.$dayjs(this.selectedDate).format('YYYY-MM')).then(()=>{
+    this.getMonthData(this.$dayjs(this.selectedDate).format('YYYY-MM')).then(() => {
       this.getInfo()
     })
   },
   methods: {
     async getMonthData(date) {
       let resp
-      resp = await this.dispatch(ScheduleControllerImpl.queryScheduleByMM,{month:date})
-      this.allMonthSchedule = resp.data.body[0]
+      resp = await this.dispatch(ScheduleControllerImpl.queryScheduleByMM, {month: date})
+      this.allMonthData = resp.data.body[0]
+
     },
     getInfo() {
       this.$nextTick(() => {
@@ -78,8 +78,8 @@ export default {
             newDir.push(v)
           }
         })
-          newDir.forEach(i => {
-          if (this.allMonthSchedule[this.$dayjs(i.dataset.date).format('YYYY-M-D')] && this.allMonthSchedule[this.$dayjs(i.dataset.date).format('YYYY-M-D')].length !== 0) {
+        newDir.forEach(i => {
+          if (this.allMonthData[this.$dayjs(i.dataset.date).format('YYYY-M-D')] && this.allMonthData[this.$dayjs(i.dataset.date).format('YYYY-M-D')].length !== 0) {
             i.classList.add('hasTodo')
           }
           if (i.dataset.date === this.$dayjs().format('YYYY-MM-DD')) {
@@ -190,9 +190,16 @@ export default {
   },
   watch: {
     date4: {
-      immediate: false,
+      immediate: true,
       handler(newV, oldV) {
         this.$emit('getDate', newV)
+      }
+    },
+    allMonthSchedule:{
+      immediate: false,
+      handler(newV, oldV) {
+        this.allMonthData  = newV
+        this.getInfo()
       }
     }
   }

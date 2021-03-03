@@ -34,8 +34,9 @@
                 <i class="cubeic-arrow" style="float: right;margin-right: 16px"></i>
               </div>
             </cube-form-item>
-            <Tag @clicked="removePeople(i,index)"  style="margin-right:5px;" background-color="#09f" v-for="(i,index) in join" v-show="join.length">
-              {{i.name}}
+            <Tag @clicked="removePeople(i,index)" style="margin-right:5px;" background-color="#09f"
+                 v-for="(i,index) in join" v-show="join.length">
+              {{ i.name }}
             </Tag>
             <cube-form-item :field="fields[3]"></cube-form-item>
             <cube-form-item :field="fields[4]"></cube-form-item>
@@ -72,7 +73,7 @@ export default {
         end: '',
         join: '',
         where: '',
-        notice: '',
+        remind: '',
         repeat: '',
         username: ''
 
@@ -161,7 +162,7 @@ export default {
           label: '会议室',
           title: '选择',
           props: {
-            options: [2015, 2016, 2017, 2018, 2019, 2020]
+            options: ['2015', '2016', '2017', '2018', '2019', '2020']
           },
           rules: {
             required: true
@@ -169,7 +170,7 @@ export default {
         },
         {
           type: 'select',
-          modelKey: 'notice',
+          modelKey: 'remind',
           label: '提醒',
           title: '选择',
           props: {
@@ -265,64 +266,72 @@ export default {
     }
   },
   methods: {
-    removePeople(i,index){
+    removePeople(i, index) {
       this.$createDialog({
         type: 'confirm',
         title: '确认',
         content: '确认删除此用户吗？',
         confirmBtn: {
-          text: '确定按钮',
+          text: '确定',
           active: true,
           disabled: false,
           href: 'javascript:;'
         },
         cancelBtn: {
-          text: '取消按钮',
+          text: '取消',
           active: false,
           disabled: false,
           href: 'javascript:;'
         },
         onConfirm: () => {
-            this.join.splice(index,1)
+          this.join.splice(index, 1)
           this.model.join = ''
         },
       }).show()
     },
     async submitHandler(e, model, modelSubmit) {
       e.preventDefault()
-      console.log(!this.model.end)
-      if(!this.model.start){
+
+      let data = {}
+
+      if (this.model.remind !== '') {
+        data["remind"] = this.model.remind
+      }
+      if (this.model.repeat !== '') {
+        data["repeat"] = this.model.repeat
+      }
+      console.log(data,this.model)
+      if (!this.model.start) {
         this.$createToast({
-          type:'normal',
-          txt:'请填写开始时间',
-          time:500
+          type: 'normal',
+          txt: '请填写开始时间',
+          time: 500
         }).show()
         return
       }
-      if(!this.model.end){
+      if (!this.model.end) {
         this.$createToast({
-          type:'normal',
-          txt:'请填写结束时间',
-          time:500
+          type: 'normal',
+          txt: '请填写结束时间',
+          time: 500
         }).show()
         return
       }
-      if(this.join.length===0){
+      if (this.join.length === 0) {
         this.$createToast({
-          type:'normal',
-          txt:'请选择参加人',
-          time:500
+          type: 'normal',
+          txt: '请选择参加人',
+          time: 500
         }).show()
         return
       }
       let resp = await this.dispatch(ScheduleControllerImpl.addSchedule, {
         "conferenceRoom": this.model.where,
-        "end": this.model.start.split(' ')[0] + " " + this.model.end,
-        "remind": this.model.notice,
-        "repeat": this.model.repeat,
         "start": this.model.start,
+        "end": this.model.start.split(' ')[0] + " " + this.model.end,
         "title": this.model.theme,
-        "users": this.join
+        "users": this.join,
+        ...data
       })
 
       if (!resp.error) {
@@ -332,7 +341,7 @@ export default {
           end: '',
           join: '',
           where: '',
-          notice: '',
+          remind: '',
           repeat: '',
           username: ''
 

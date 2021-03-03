@@ -1,5 +1,5 @@
 <template>
-  <CardPanel :money="true" title="余额" :loss="false">
+  <CardPanel :money="true" title="余额" :loss="$store.state.EmployeeCard.cardInfo.state==='员工卡办理中'">
     <div class="handle">
       <div class="title">我要办理</div>
       <div class="handle_container">
@@ -61,6 +61,7 @@
 
 <script>
 import CardPanel from "@/views/EmployeeCard/components/CardPanel";
+import {WorkCartControllerImpl} from '@controller'
 
 export default {
   name: "index",
@@ -68,6 +69,18 @@ export default {
   date() {
     return {
       loss: true
+    }
+  },
+  async created() {
+    let resp = await this.getCardStatus()
+    this.$store.commit('EmployeeCard/setCardInfo', resp.data.body)
+
+    console.log(this.$store.state.EmployeeCard.cardInfo)
+
+  },
+  methods: {
+    async getCardStatus() {
+      return await this.dispatch(WorkCartControllerImpl.getWorkCard)
     }
   }
 }

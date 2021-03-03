@@ -8,6 +8,7 @@ import Cultural from "@/store/Cultural";
 import HelpCenter from "@/store/HelpCenter";
 import Schedule from '@/store/Schedule'
 import Guest from "@/store/Guest";
+import EmployeeCard from '@/store/EmployeeCard'
 import axios from "@/axios/index";
 import { setToken } from "@/utils/auth";
 
@@ -35,7 +36,7 @@ const store = new Vuex.Store({
     modules: {
         ...actions,
         AddressBook,
-        MainMenu, Cultural, HelpCenter, Schedule, Guest,
+        MainMenu, Cultural, HelpCenter, Schedule, Guest,EmployeeCard
     }
 })
 

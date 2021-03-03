@@ -5,6 +5,12 @@
 import { ScheduleControllerImpl } from '../controller';
 export default {
     actions: {
+        [ScheduleControllerImpl.addParSchedule.method] : {
+            summary: '新增一个参与人日程',
+            method: 'post',
+            url: (payload) => `/api/platform/schedule/addParSchedule/${payload.id}`,
+            parameters: [{'name':'id','in':'path','description':'非主键','required':true,'type':'string'},{'in':'body','name':'userVO','description':'userVO','required':true,'schema':{'$ref':'#/definitions/UserVO'}}],
+        },
         [ScheduleControllerImpl.addSchedule.method] : {
             summary: '新增一个日程',
             method: 'post',
