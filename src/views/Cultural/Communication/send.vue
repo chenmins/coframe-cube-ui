@@ -12,6 +12,7 @@
       <div class="container">
         <cube-textarea
             class="textarea"
+            url=""
             v-model="query.body"
             :placeholder="placeholder"
             :maxlength="maxlength"
@@ -20,13 +21,12 @@
         <cube-upload
             ref="upload"
             v-model="files"
-            action="https://jsonplaceholder.typicode.com/posts/"
+            :action="url"
+            :multiple="true"
             @files-added="filesAdded"
             @file-submitted="fileSubmitted"
-            @file-success="filesSuccess"
-            @file-removed="filesRemove"
-            @file-error="errHandler">
-          <div class="clear-fix">
+        >
+          <div class="clear-fix row-reverse">
             <cube-upload-file v-for="(file, i) in files" :file="file" :key="i"></cube-upload-file>
             <cube-upload-btn v-show="!hasNine">
               <div>
@@ -42,9 +42,9 @@
       <div class="album" style="margin-right: 20px">
         <Icon svg-name="addComment" style="margin-left:15px;height: 20px;width: 20px"></Icon>
       </div>
-      <div class="topic_list" @click="selectTopic">
-        <div v-if="topic.length===0"># 打标签</div>
-        <div v-else>#{{topic[0].name}}</div>
+      <div class="topic_list" @click="selectTopic" ref="topicBtn">
+        <div v-if="topic.length===0">#打标签</div>
+        <div v-else>#{{ topic[0].name }}</div>
       </div>
     </div>
   </div>
@@ -53,7 +53,7 @@
 <script>
 
 import {PipCcoCciController} from '@controller'
-import {CulturalControllerImpl,DictApiController} from '@controller'
+import {CulturalControllerImpl, DictApiController} from '@controller'
 import {BaseVue} from "@/libs";
 
 export default {
@@ -61,6 +61,7 @@ export default {
   mixins: [BaseVue],
   data() {
     return {
+      url: '',
       value: '',
       placeholder: '选最棒的照片作为主图，帖子更容易被追捧~',
       maxlength: 300,
@@ -68,96 +69,122 @@ export default {
       files: [],
       hasNine: false,
       topic: [],
-      query:{}
+      query: {},
+      picture:''
     }
   },
   created() {
     this.query = this.$store.state.Cultural.sendForm
-    if(this.$store.state.Cultural.selectedTopic.length!==0){
-      this.topic=this.$store.state.Cultural.selectedTopic
+    if (this.$store.state.Cultural.selectedTopic.length !== 0) {
+      this.topic = this.$store.state.Cultural.selectedTopic
     }
   },
   methods: {
-    async submit() {
-      let userInfo = JSON.parse(localStorage.getItem('userInfo'))
-      let resp
-      this.$store.commit('Cultural/setSendForm',{
-        ...this.query,
-        userId: userInfo.id,
-        userName: userInfo.name,
+     submit() {
+      this.getRetrieveNewURL().then(()=>{
+        let userInfo = JSON.parse(localStorage.getItem('userInfo'))
+        let resp
+        this.query.picture = this.picture
+        this.$store.commit('Cultural/setSendForm', {
+          ...this.query,
+          userId: userInfo.id,
+          userName: userInfo.name,
+        })
+        this.dispatch(CulturalControllerImpl.addCommunicationCircle, this.$store.state.Cultural.sendForm).then(resp=>{
+          if (!resp.error) {
+            this.$store.commit('Cultural/clearSendForm')
+            this.$createToast({
+              txt: '发表成功',
+              type: 'correct',
+              time: 1000,
+            }).show()
+            setTimeout(() => {
+              this.query = this.$store.state.Cultural.sendForm
+              this.$router.push({name: '交流圈'})
+            }, 1000)
+          } else {
+            console.log('failure')
+          }
+        })
       })
 
-      resp = await this.dispatch(CulturalControllerImpl.addCommunicationCircle, this.$store.state.Cultural.sendForm)
-      if (!resp.error) {
-        this.$store.commit('Cultural/clearSendForm')
-        this.$createToast({
-          txt: '发表成功',
-          type: 'correct',
-          time: 1000,
-        }).show()
-        setTimeout(() => {
-          this.query = this.$store.state.Cultural.sendForm
-          this.$router.push({name:'交流圈'})
-        },1000)
-      } else {
-        console.log('failure')
-      }
+
 
 
     },
     filesAdded(files) {
       let hasIgnore = false
       let message
-      const maxSize = 1 * 1024 * 1024 // 1M
-      for (let k in files) {
-        const file = files[k]
-        if (file.size > maxSize) {
-          file.ignore = true
-          hasIgnore = true
-          message = '选择的图片不能大于1M'
-        }
-      }
-
-      hasIgnore && this.$createToast({
-        type: 'warn',
-        time: 1000,
-        txt: message
-      }).show()
-    },
-    errHandler(file) {
-      // const msg = file.response.message
-      this.$createToast({
-        type: 'warn',
-        txt: 'Upload fail',
-        time: 1000
-      }).show()
-    },
-    filesSuccess(file) {
-      let message
-      let hasIgnore = false
-      if (this.files.length === 9) {
-        this.hasNine = true
-      } else if (this.files.length > 9) {
-        file.ignore = true
+      const maxSize = 5 * 1024 * 1024 // 1M
+      let hou = files[0].name.split('.').reverse()[0]
+      if (files[0].name.indexOf('.') === -1) {
+        files[0].ignore = true
         hasIgnore = true
-        message = '图片数量不能多于9张'
+        message = '文件格式错误'
+      }
+      if (
+          hou !== 'png' && hou !== 'jpeg' && hou !== 'jpg'
+      ) {
+        files[0].ignore = true
+        hasIgnore = true
+        message = '只能上传jpg/png/jpeg文件'
+      }
+      if (files[0].size > maxSize) {
+        files[0].ignore = true
+        hasIgnore = true
+        message = '选择的图片不能大于5M'
       }
       hasIgnore && this.$createToast({
         type: 'warn',
         time: 1000,
         txt: message
       }).show()
-
-      console.log(file)
     },
-    filesRemove() {
-      if (this.files.length <= 9) {
-        this.hasNine = false
-      }
+    fileSubmitted(file) {
+
+    },
+
+    getRetrieveNewURL(){
+       return new Promise((resolve, reject) => {
+         for (let i = 0; i < this.files.length; i++){
+           let newFileName = JSON.parse(localStorage.getItem('userInfo')).id+ '/'+this.$dayjs().unix() + '.' + this.files[i].name.split('.').reverse()[0]
+           let resultString = '';
+           const bucket = 'jiaoliuquan';
+           this.$axios.get(`/api/minio/presignedUrl?bucket=${bucket}&name=${newFileName}`).then(url => {
+             this.$axios.put(`${url.data}`, this.files[i].file).then(res => {
+               this.picture = this.picture+url.data.substr(0, url.data.indexOf("?"))+','
+               return resolve()
+             })
+           })
+
+         }
+       })
+
     },
 
     selectTopic() {
+      if (this.topic.length) {
+        this.$createDialog({
+          type: 'confirm',
+          title: '确认',
+          content: '确认删除此标签',
+          confirmBtn: {
+            text: '确定按钮',
+            active: true,
+            disabled: false,
+            href: 'javascript:;'
+          },
+          cancelBtn: {
+            text: '取消按钮',
+            active: false,
+            disabled: false,
+            href: 'javascript:;'
+          },
+        })
+        return
+      }
       this.$router.push({name: '话题列表'})
+
     }
   }
 }
@@ -165,6 +192,10 @@ export default {
 
 
 <style scoped lang="stylus">
+.row-reverse
+  flex-direction row-reverse
+  justify-content flex-end
+
 .cube-upload .cube-upload-btn[data-v-570f13b8]
   border none
   background-color #F7F7F7
@@ -206,6 +237,7 @@ export default {
 
   .clear-fix
     flex-wrap wrap
+    flex-direction row-reserve
 
   .cube-upload-file, .cube-upload-btn
     float left

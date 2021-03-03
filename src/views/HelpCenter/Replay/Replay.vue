@@ -16,7 +16,7 @@
             @file-success="filesSuccess"
             @file-removed="filesRemove"
             @file-error="errHandler">
-          <div class="clear-fix">
+          <div class="clear-fix  row-reverse">
             <cube-upload-file v-for="(file, i) in files" :file="file" :key="i"></cube-upload-file>
             <cube-upload-btn v-show="!hasNine">
               <div>
@@ -39,7 +39,7 @@ export default {
     return {
       value: '',
       placeholder: '选最棒的照片作为主图，帖子更容易被追捧~',
-      maxlength: 300,
+      maxlength: 200,
       autofocus: true,
       action: '//jsonplaceholder.typicode.com/photos/',
       files: [],
@@ -107,6 +107,9 @@ export default {
 
 
 <style scoped lang="stylus">
+.row-reverse
+  flex-direction row-reverse
+  justify-content flex-end
 .cube-upload .cube-upload-btn[data-v-bb286220]
   border none
   background-color #F7F7F7

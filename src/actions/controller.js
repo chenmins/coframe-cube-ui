@@ -23,16 +23,6 @@ let AuthApiController = {
     updateAttr: {controller: 'AuthApiController' , method: 'updateAttr'}, // 更新用户属性
     updateAttrs: {controller: 'AuthApiController' , method: 'updateAttrs'}, // 更新用户属性列表
 };
- //文化建设
-let CulturalControllerImpl = {
-    __name: 'CulturalControllerImpl',
-    addCommunicationCircle: {controller: 'CulturalControllerImpl' , method: 'addCommunicationCircle'}, // 添加一个交流圈（发帖子）
-    allPageSreach: {controller: 'CulturalControllerImpl' , method: 'allPageSreach'}, // 根据分页数据查询公告列表、企业新闻、交流圈
-    deleteCommunicationCircle: {controller: 'CulturalControllerImpl' , method: 'deleteCommunicationCircle'}, // 根据主键删除交流圈
-    fabulousCommunicationCircle: {controller: 'CulturalControllerImpl' , method: 'fabulousCommunicationCircle'}, // 根据交流圈主键点赞或取消点赞
-    getCommunicationCircleEntity: {controller: 'CulturalControllerImpl' , method: 'getCommunicationCircleEntity'}, // 根据交流圈主键获取交流圈详细信息与评论列表信息
-    noticePageSreach: {controller: 'CulturalControllerImpl' , method: 'noticePageSreach'}, // 根据分页数据查询公告列表
-};
  //pipe-report-controller
 let PipeReportController = {
     __name: 'PipeReportController',
@@ -51,11 +41,43 @@ let HealthApiController = {
     getHealthInfo: {controller: 'HealthApiController' , method: 'getHealthInfo'}, // 获取人员健康信息
     updateHealthInfo: {controller: 'HealthApiController' , method: 'updateHealthInfo'}, // 根据人员id更新人员健康录入信息
 };
+ //帮助中心
+let HelpControllerImpl = {
+    __name: 'HelpControllerImpl',
+    AddDemandFeedbackReply: {controller: 'HelpControllerImpl' , method: 'AddDemandFeedbackReply'}, // 新增一个需求反馈回复
+    addDemandFeedback: {controller: 'HelpControllerImpl' , method: 'addDemandFeedback'}, // 新增一个需求反馈
+    queryByIdJoinReply: {controller: 'HelpControllerImpl' , method: 'queryByIdJoinReply'}, // 根据ID查询一个需求反馈
+    queryByTitle: {controller: 'HelpControllerImpl' , method: 'queryByTitle'}, // 根据标题模糊查询所有常见问题
+    queryDemandFeedback: {controller: 'HelpControllerImpl' , method: 'queryDemandFeedback'}, // 查询所有需求反馈
+    queryProductIntroduction: {controller: 'HelpControllerImpl' , method: 'queryProductIntroduction'}, // 查询所有产品介绍
+    updateDemandFeedbackType: {controller: 'HelpControllerImpl' , method: 'updateDemandFeedbackType'}, // 更改需求反馈的状态
+};
+ //日程
+let ScheduleControllerImpl = {
+    __name: 'ScheduleControllerImpl',
+    addSchedule: {controller: 'ScheduleControllerImpl' , method: 'addSchedule'}, // 新增一个日程
+    deleteSchedule: {controller: 'ScheduleControllerImpl' , method: 'deleteSchedule'}, // 删除一个日程
+    queryScheduleByMM: {controller: 'ScheduleControllerImpl' , method: 'queryScheduleByMM'}, // 根据时间区间查询日程列表
+    updateAgree: {controller: 'ScheduleControllerImpl' , method: 'updateAgree'}, // 确认同意或拒绝
+    updateSchedule: {controller: 'ScheduleControllerImpl' , method: 'updateSchedule'}, // 修改一个日程
+};
+ //文化建设
+let CulturalControllerImpl = {
+    __name: 'CulturalControllerImpl',
+    addCommunicationCircle: {controller: 'CulturalControllerImpl' , method: 'addCommunicationCircle'}, // 添加一个交流圈（发帖子）
+    allPageSreach: {controller: 'CulturalControllerImpl' , method: 'allPageSreach'}, // 根据分页数据查询公告列表、企业新闻、交流圈
+    deleteCommunicationCircle: {controller: 'CulturalControllerImpl' , method: 'deleteCommunicationCircle'}, // 根据主键删除交流圈
+    fabulousCommunicationCircle: {controller: 'CulturalControllerImpl' , method: 'fabulousCommunicationCircle'}, // 根据交流圈主键点赞或取消点赞
+    getCommunicationCircleEntity: {controller: 'CulturalControllerImpl' , method: 'getCommunicationCircleEntity'}, // 根据交流圈主键获取交流圈详细信息与评论列表信息
+    noticePageSreach: {controller: 'CulturalControllerImpl' , method: 'noticePageSreach'}, // 根据分页数据查询公告列表
+};
 
 export {
     DictApiController,
     AuthApiController,
-    CulturalControllerImpl,
     PipeReportController,
     HealthApiController,
+    HelpControllerImpl,
+    ScheduleControllerImpl,
+    CulturalControllerImpl,
 };

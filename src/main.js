@@ -22,8 +22,7 @@ import ReadConfig from './utils/config'
 
 // import mock from "@/utils/mock/mock"; //mock数据的时候使用
 
-import { Switch } from 'vant';
-import { Skeleton } from 'vant';
+
 
 
 import dayjs from 'dayjs'
@@ -47,7 +46,6 @@ Vue.config.lang = 'zh_CN'
 
 
 
-
 Vue.component('Nav',Nav)
 Vue.component('Tabbar',Tabbar)
 Vue.component('List',List)
@@ -58,10 +56,7 @@ Vue.component('NavLayOut',NavLayOut)
 Vue.component('Icon',Icon)
 
 
-
 Vue.mixin(Global).mixin(BaseVue)
-Vue.use(Switch);
-Vue.use(Skeleton);
 
 
 const create = async () => {

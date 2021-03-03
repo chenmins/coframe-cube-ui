@@ -1,7 +1,7 @@
 <template>
   <div id="card"
   >
-    <div @click="goComment" class="title">
+    <div @click="seeComments" class="title">
       <img
           src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__a63db0a228d80c34501a34fa50d27746.svg"
           alt="">
@@ -14,10 +14,10 @@
           </span>
         </span>
     </div>
-    <div @click="goComment" class="content_box">
+    <div @click="seeComments" class="content_box">
       <div>
+        <slot name="image"></slot>
           <span class="content">
-            <Icon svg-name="great" style="height: 20px;width: 20px;margin-right: 4px"></Icon>
             <slot name="content">
               欢迎大家在这里给我们提APP相关的建议，产品经理会在这里查看大家的反馈情况。另外使用过程中遇到的问题或疑问，也可以一起提出来哟，帮助我们更好的改进产品~~~
             </slot>

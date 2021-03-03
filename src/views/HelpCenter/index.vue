@@ -1,12 +1,12 @@
 <template>
   <div id="help_center">
     <NavLayOut bgc-color="#fff" color="#333">
-      <div class="replay" slot="right" v-show="$route.meta.name==='回复'" @click="submit">发表</div>
+      <div class="replay" slot="right" v-show="$route.meta.name==='发帖子'" @click="submit">发表</div>
       <div class="container">
-        <router-view     />
+        <router-view/>
       </div>
     </NavLayOut>
-    <div class="replay_bot" v-show="$route.meta.name==='ReplayDetail'">
+    <div class="replay_bot" v-show="$route.meta.name==='需求反馈' && show==='true'">
       <cube-textarea
           class="replay_textarea"
           v-model="value"
@@ -14,7 +14,11 @@
           :maxlength="maxlength"
           @keyup.enter.native="replay"
       ></cube-textarea>
-      <Icon svg-name="helpcenter-emoji" style="margin-right: 10px" height="26px" width="26px"></Icon>
+      <button @click="submit"
+              style="margin-right: 10px;border:none;outline:none;padding:5px;background: linear-gradient(90deg, #19D4FF 0%, #0F97FB 100%);color: #fff;font-size: 12px">
+        评论
+      </button>
+      <!--      <Icon svg-name="helpcenter-emoji" style="margin-right: 10px" height="26px" width="26px"></Icon>-->
     </div>
     <Tabbar v-show="$route.meta.showTabbar" :tabs="tabs"></Tabbar>
   </div>
@@ -22,22 +26,49 @@
 
 <script>
 import HelpCenter from './mixins/HelpCenter'
+import {HelpControllerImpl} from '@controller'
+
+
 export default {
   name: "index",
-  mixins:[HelpCenter],
+  mixins: [HelpCenter],
   data() {
     return {
       value: '',
       placeholder: '回复需求',
       maxlength: 200,
-
+      show: ''
     }
   },
-  methods:{
-    replay(){
-      console.log(this.value)
+  created() {
+    this.show = localStorage.getItem('admin')
+  },
+  methods: {
+    replay() {
       //TODO 发送
       this.value = ''
+    },
+    async submit() {
+      if (this.value !== '') {
+
+        let resp
+        resp = await this.dispatch(HelpControllerImpl.AddDemandFeedbackReply, {
+          "body": this.value,
+          "feedbackId": this.$route.params.id,
+        })
+        if (!resp.error) {
+          let Toast = this.$createToast({
+            type: 'success',
+            txt: '回复成功',
+            time:500,
+            onTimeout:()=>{
+              this.value = ''
+              this.$router.push({name: '需求反馈'})
+            }
+          })
+          Toast.show()
+        }
+      }
     }
   }
 

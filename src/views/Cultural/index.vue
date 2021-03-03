@@ -53,80 +53,25 @@ export default {
   },
   created() {
     this.initAllData()
+    this.setTopicLists()
   },
   methods: {
     Send() {
+      this.$store.state.Cultural.selectedTopic.splice(0, 1)
       this.$router.push({name: '发帖子'})
     },
   }
 }
 </script>
 <style lang="stylus" scoped>
-
-.image
-  flex-shrink 0
-  height 94px
-  width 94px
-  overflow hidden
-  display inline-block
-  margin-right 16px
-  border-radius 6px
-
-#common
-  height $custom-bgc-height
-  text-align left
-
-  .img_box
-    height 120px
-    margin 0 12px
-    overflow hidden
-    border-radius: 6px;
-    box-shadow: 0px 3px 7px 0px rgba(17, 157, 252, 0.16);
-    position relative
-
-    img
-      position: absolute;
-      left -80px
-      top -240px
-      transform scale(.9)
-
-  >>> .cube-tab
-    min-width 70px
-    font-weight: 500;
-    font-size 14px
-    line-height: 22px;
-    color #000
-    background-color #F6F6F6
-    border-radius 15px
-    margin-right 12px
-    padding 5px
-
-  >>> .cube-tab_active
-    background-color #0251FE
-    border-radius 15px
-    font-size 14px
-    color #fff
-    font-weight: 500;
-    position relative
-
-    &:after
-      content ''
-      position absolute
-      bottom 2px
-      left 50%
-      transform translateX(-50%)
-      height 5px
-      width 5px
-      border-radius 50%
-      background-color #fff
-
-.content
-  margin 5px 20px 10px
-
 #cultural_app
   height 100%
   padding-top -100px
   background-color #fff
+
+  .slide_nav
+    background-color: #fff;
+
   .bgc
     position: absolute;
     top 0
@@ -151,7 +96,53 @@ export default {
   >>> .cube-tab_active
     font-size 16px
 
-.slide_nav
-  background-color: #fff;
+  #common
+    height $custom-bgc-height
+    text-align left
+
+    .img_box
+      height 120px
+      margin 0 12px
+      overflow hidden
+      border-radius: 6px;
+      box-shadow: 0 3px 7px 0 rgba(17, 157, 252, 0.16);
+      position relative
+
+      img
+        position: absolute;
+        left -80px
+        top -240px
+        transform scale(.9)
+
+    >>> .cube-tab
+      min-width 70px
+      font-weight: 500;
+      font-size 14px
+      line-height: 22px;
+      color #000
+      background-color #F6F6F6
+      border-radius 15px
+      margin-right 12px
+      padding 5px
+
+    >>> .cube-tab_active
+      background-color #0251FE
+      border-radius 15px
+      font-size 14px
+      color #fff
+      font-weight: 500;
+      position relative
+
+      &:after
+        content ''
+        position absolute
+        bottom 2px
+        left 50%
+        transform translateX(-50%)
+        height 5px
+        width 5px
+        border-radius 50%
+        background-color #fff
+
 
 </style>

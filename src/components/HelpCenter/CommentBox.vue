@@ -5,7 +5,7 @@
         <img height="42px" width="42px" class="comment_avatar" src="https://profile.csdnimg.cn/2/F/6/3_helloword182" alt="">
         <div>
           <div class="comment_username">{{listData.userName}}</div>
-          <div class="comment_date">{{$dayjs(this.listData.feedbackTime).format('YYYY-MM-DD HH:mm:ss')}}</div>
+          <div class="comment_date">{{$dayjs(this.listData.feedbackTime).subtract(14, 'hour').format('YYYY-MM-DD HH:mm:ss')}}</div>
         </div>
       </div>
     </div>
@@ -63,10 +63,10 @@ export default {
       }
     },
     openComment(){
-      if(this.$route.fullPath.includes('ReplayDetail'))return
-      this.$axios.get(`/api/platform/help/demandFeedback/queryByIdJoinReply/${this.listData.id}`).then(res => {
-        this.$router.push({name:'ReplayDetail',params:{id:this.listData.id,data:res.data.body}})
-      })
+        if(this.$route.fullPath.includes('ReplayDetail'))return
+        this.$axios.get(`/api/platform/help/demandFeedback/queryByIdJoinReply/${this.listData.id}`).then(res => {
+          this.$router.push({name:'ReplayDetail',params:{id:this.listData.id,data:res.data.body}})
+        })
     }
   }
 }

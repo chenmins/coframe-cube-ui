@@ -12,21 +12,13 @@
         :on-day-click="onDayClick4"
         :change-pane="changePane2"
     >
-      <!--      显示农历-->
-      <!--      <div-->
-      <!--          class="event"-->
-      <!--          v-for="(evt, index) in lurevents"-->
-      <!--          :key="index"-->
-      <!--          :slot="evt.date"-->
-      <!--      >-->
-      <!--        <div style="font-size: 12px" v-html="evt.content">{{evt}}</div>-->
-      <!--      </div>-->
     </Calendar>
   </div>
 </template>
 
 <script>
 import lunar from "@/utils/lunar";
+import {ScheduleControllerImpl} from '@controller'
 
 export default {
   name: "myCalendar",
@@ -34,7 +26,7 @@ export default {
     'format',
     'placeholder',
     'date',
-    'selectedDate'
+    'selectedDate',
   ],
   data() {
     return {
@@ -45,35 +37,57 @@ export default {
         disabled: [],
         clear: true,
         format: 'yyyy-MM-dd',
-        placeholder: 'placeholder'
+        placeholder: 'placeholder',
       }
     }
   },
   created() {
     this.date4 = this.stringify(new Date())
-
   },
   mounted() {
-    this.getInfo()
+    this.getMonthData(this.$dayjs().format('YYYY-M')).then(() => {
+      this.getInfo()
+    })
+
   },
-  updated() {
-    this.getInfo()
+    updated() {
+    let dir = document.getElementsByClassName('day-cell')
+    dir.forEach(v => {
+      v.classList.remove('hasTodo')
+      v.classList.remove('datepicker-dateRange-item-active')
+    })
+    this.getMonthData(this.$dayjs(this.selectedDate).format('YYYY-MM')).then(()=>{
+      this.getInfo()
+    })
   },
   methods: {
+    async getMonthData(date) {
+      let resp
+      resp = await this.dispatch(ScheduleControllerImpl.queryScheduleByMM,{month:date})
+      this.allMonthSchedule = resp.data.body[0]
+    },
     getInfo() {
-      //todo 待办
       this.$nextTick(() => {
         let dir = document.getElementsByClassName('day-cell')
-        dir.forEach(i => {
-          i.classList.remove('hasTodo')
-          i.classList.remove('datepicker-dateRange-item-active')
-          if (i.dataset.date == this.$dayjs().format('YYYY-MM-DD')) {
-            i.classList.add('datepicker-dateRange-item-active')
-          }
-          if (i.dataset.date === '2021-02-16') {
-            i.classList.add('hasTodo')
+        let toMonth = this.selectedDate ? this.$dayjs(this.selectedDate).format('MM') : this.$dayjs().format('MM')
+        let newDir = []
+        dir.forEach(v => {
+          v.classList.remove('hasTodo')
+          v.classList.remove('datepicker-dateRange-item-active')
+          if (v.dataset.date.split('-')[1] === toMonth) {
+            newDir.push(v)
           }
         })
+          newDir.forEach(i => {
+          if (this.allMonthSchedule[this.$dayjs(i.dataset.date).format('YYYY-M-D')] && this.allMonthSchedule[this.$dayjs(i.dataset.date).format('YYYY-M-D')].length !== 0) {
+            i.classList.add('hasTodo')
+          }
+          if (i.dataset.date === this.$dayjs().format('YYYY-MM-DD')) {
+            i.classList.remove('hasTodo')
+            i.classList.add('datepicker-dateRange-item-active')
+          }
+        })
+
       })
     },
     toArr(cArr) {
@@ -176,7 +190,7 @@ export default {
   },
   watch: {
     date4: {
-      immediate: true,
+      immediate: false,
       handler(newV, oldV) {
         this.$emit('getDate', newV)
       }
@@ -186,32 +200,19 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+
 >>> .hasTodo
-  color #fff !important
-  background-color #FF3285
-  box-shadow: 0px 2px 4px 0px rgba(#0F97FB, 0.34);
   position relative
   z-index 20
-  &:before
-    content ''
-    position absolute
-    background: #47F3E8 !important
-    height 100%
-    width 100%
-    bottom  2px
-    display inline-block
-    border-radius 50%
-    z-index -1
+
   &:after
     content ''
-    position absolute
-    background: #32C7FF !important
-    height 100%
-    width 100%
-    bottom  4px
+    height 5px
+    width 5px
+    background-color #FF3285
     display inline-block
     border-radius 50%
-    z-index -1
+
 .lorem {
   visibility: hidden;
 }
@@ -257,7 +258,7 @@ export default {
   span:hover
     background-color rgba(#3276b1, .8)
     box-shadow 1px 2px 6px rgba(#3276b1, .6)
-    border-radius 8px
+    border-radius 50%
     color #fff
 
 >>> .datepicker-wrapper
@@ -271,8 +272,9 @@ export default {
   display: flex !important
   justify-content: space-evenly !important
 
->>>.day-cell
-  margin 0 10px!important
+>>> .day-cell
+  margin 0 10px !important
+
 >>> .day-cell, .datepicker-dateRange-item-active
   position relative !important
 
@@ -280,12 +282,6 @@ export default {
   border-radius 8px
   box-shadow: 0px 2px 4px 0px rgba(255, 50, 133, 0.34);
 
-  &:after
-    content ''
-    height 3px
-    width 3px
-    background-color #fff
-    display inline-block
 
 .datepicker-body, .event
   width 100%

@@ -5,7 +5,7 @@
       <div class="chat_wapper">
           <CommentBox v-for="list in feedback" :list-data="list" :id="list.id" >
             <template v-slot:replay>
-              <ReplayBox v-for="replay in list.replys" :list-data="replay"></ReplayBox>
+              <ReplayBox   v-for="replay in list.replys" :list-data="replay"></ReplayBox>
             </template>
           </CommentBox>
       </div>
@@ -23,7 +23,11 @@ export default {
   name: "DemanFeedback",
   components: {CommentBox,ReplayBox},
   mixins:[HelpCenter],
-
+  data(){
+    return {
+      userInfo:{}
+    }
+  },
   created() {
     this.initFeedback()
   },

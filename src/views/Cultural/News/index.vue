@@ -7,22 +7,22 @@
           <cube-scroll
               ref="scroll">
             <Card @clicked="read(notice)" class="content"  id="card" v-for="notice in news">
-              <img style="margin-right: 16px;max-width: 94px;" height="94px"  src="../../../assets/icons/news.png" alt="">
+              <img style="margin-right: 16px;max-width: 94px;-webkit-border-radius: 6px;-moz-border-radius: 6px;border-radius: 6px;" height="94px" width="94px"  src="../../../assets/icons/news.png" alt="">
               <div class="box">
                 <span class="title">
                 {{ notice.title }}
                 </span>
                 <span class="content">
-                  <Icon svg-name="hot" style="height: 15px;width: 15px"></Icon>
+                  <Icon v-show="notice.choice==='1'" svg-name="hot" style="height: 15px;width: 15px"></Icon>
                   {{ notice.title }}
                 </span>
                 <span class="footer">
                     <span class="date">
-                      {{ notice.time }}
+                      {{ $dayjs(notice.releaseTime).format('YYYY/MM/DD') }}
                     </span>
                     <span class="from">
                       <span>来源:</span>
-                        {{ notice.from }}
+                        {{ notice.choice }}
                     </span>
                   </span>
               </div>
@@ -62,7 +62,7 @@ export default {
     }
   },
   mounted() {
-    this.news = this.$store.state.Cultural.allData.journalisms
+    this.news = this.$store.state.Cultural.allData.journalisms.reverse()
   },
   methods: {
     read(notices) {
@@ -85,6 +85,7 @@ export default {
     display flex
     flex-direction column
     justify-content: space-between;
+    width 100%
     .read_all
       font-size 12px
       color #0099FF
@@ -120,38 +121,10 @@ export default {
       justify-content: space-between;
 
 
-
-
 >>> .cube-tab, .tab_item
   color #000 !important
-
 >>> .cube-tab_active
   color #fff !important
-
-#New_card
-  display flex
-  padding-bottom 10px
-  border-bottom 1px solid rgba($custom-gray, .3)
-
-  .logo
-    flex 0
-
-  .box
-    margin 0 10px
-
-  .title
-    display flex
-    align-items flex-start
-    text-align left
-    line-height 20px
-    font-size 14px
-
-  .footer
-    margin-top 5px
-    display flex
-    justify-content: space-between;
-    font-size 10px
-    color $custom-gray
 
 
 </style>

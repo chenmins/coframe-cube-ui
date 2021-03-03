@@ -6,7 +6,19 @@
       <div class="scroll-list-wrap" style="height: calc(100vh - 220px)">
         <cube-scroll
             ref="scroll">
-          <Card @clicked="read(notice)" shadow class="content" id="card" v-for="notice in notices">
+          <Card @clicked="read(notice)" shadow :class="readed?'content':'content not-read'" id="card" v-for="notice in notices">
+            <div class="box">
+              <span class="title">{{ notice.title }}</span>
+              <span class="content">{{ notice.body }}</span>
+              <span class="footer">
+                <span class="date">{{ $dayjs(notice.releaseTime).format('YYYY-MM-DD') }}</span>
+              <span class="from">
+                <span class="read_all">阅读全文</span>
+              </span>
+              </span>
+            </div>
+          </Card>
+          <Card @clicked="read(notice)" shadow :class="!readed?'content':'content not-read'" id="card" v-for="notice in notices">
             <div class="box">
               <span class="title">{{ notice.title }}</span>
               <span class="content">{{ notice.body }}</span>
@@ -49,6 +61,7 @@ export default {
           label: '物业公告',
         }
       ],
+      readed:false,
     }
   },
   created() {
@@ -70,73 +83,12 @@ export default {
 </script>
 
 <style scoped lang="stylus">
->>> .cube-scroll-wrapper
-  height calc(100vh - 250px)
-
-#card
-  display flex
-  padding 21px 16px
-  margin 12px
-  max-width 100vh
-  box-shadow: 0px 1px 12px 0px rgba(0, 0, 0, 0.04), 0px -1px 12px 0px rgba(0, 0, 0, 0.04);
-  border-radius: 6px;
-
-  .box
-    width 100%
-    display flex
-    flex-direction column
-    justify-content: space-between;
-
-    .read_all
-      font-size 12px
-      color #0099FF
-
-    .title
-      font-size 16px
-      margin-bottom: 8px;
-      font-weight: 500;
-      color: #000000;
-      line-height: 22px;
-      letter-spacing: 1px;
-      display: -webkit-box;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 1;
-      overflow: hidden;
-
-    .content
-      margin 0 0 12px 0
-      font-size 14px
-      font-weight: 300;
-      color: #666666;
-      line-height: 22px;
-      display: -webkit-box;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 2;
-      overflow: hidden;
-
-    .footer
-      font-size 12px
-      font-weight: 300;
-      color: #999999;
-      line-height: 17px;
-      display flex
-      justify-content: space-between;
-
->>> .cube-tab, .tab_item
-  color #000 !important
-
-.image
-  flex-shrink 0
-  height 94px
-  width 94px
-  overflow hidden
-  display inline-block
-  margin-right 16px
-  border-radius 6px
 
 #notice_app
   height $custom-bgc-height
-
+  .not-read
+    span
+      color gray!important
   .img_box
     height 120px
     margin 0 12px
@@ -162,6 +114,8 @@ export default {
     margin-right 12px
     padding 5px
 
+  >>> .cube-tab, .tab_item
+    color #000 !important
   >>> .cube-tab_active
     background-color #0251FE
     border-radius 15px
@@ -181,6 +135,59 @@ export default {
       border-radius 50%
       background-color #fff
 
-.content
-  margin 5px 20px 10px
+  >>> .cube-scroll-wrapper
+    height calc(100vh - 250px)
+  .content
+    margin 5px 20px 10px
+  #card
+    display flex
+    padding 21px 16px
+    margin 12px
+    max-width 100vh
+    box-shadow: 0px 1px 12px 0px rgba(0, 0, 0, 0.04), 0px -1px 12px 0px rgba(0, 0, 0, 0.04);
+    border-radius: 6px;
+    .box
+      width 100%
+      //display flex
+      flex-direction column
+      justify-content: space-between;
+      display: box;
+      display: -webkit-box;
+
+      .read_all
+        font-size 12px
+        color #0099FF
+
+      .title
+        font-size 16px
+        margin-bottom: 8px;
+        font-weight: 500;
+        color: #000000;
+        line-height: 22px;
+        letter-spacing: 1px;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+        overflow: hidden;
+
+      .content
+        margin 0 0 12px 0
+        font-size 14px
+        font-weight: 300;
+        color: #666666;
+        line-height: 22px;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+
+      .footer
+        font-size 12px
+        font-weight: 300;
+        color: #999999;
+        line-height: 17px;
+        display flex
+        justify-content: space-between;
+
+
 </style>

@@ -17,13 +17,9 @@
 
 <script>
 import {provinceList, cityList, areaList} from '@/assets/DATA/area'
-import {HealthApiController} from '@controller'
 import {BaseVue} from '@lib'
+import mixins from './mixins.js'
 
-let city = {
-  id: 0,
-  name: ''
-}
 
 const cityData = provinceList
 cityData.forEach(province => {
@@ -41,6 +37,7 @@ const PCA = {
       }
     }
   },
+  mixins: [mixins],
   data() {
     return {
       selected: [],
@@ -52,7 +49,7 @@ const PCA = {
       on: {
         click: this.showPicker
       }
-    },this.selected.length ? this.selected.join(' '):city.name ? city.name :'请选择工作地区')
+    },this.selected.length ? this.selected.join(' '):this.city.name ? this.city.name :'请选择工作地区')
     // city.name ? city.name : this.selected.length ? this.selected.join(' ') : '请选择工作地区')
   },
   mounted() {
@@ -68,8 +65,8 @@ const PCA = {
       this.picker.show()
     },
     selectHandler(selectedVal, selectedIndex, selectedTxt) {
-      city.id = parseInt(selectedVal[2])
-      city.name = selectedTxt[0] +" "+ selectedTxt[1] +" "+ selectedTxt[2]
+      this.city.id = parseInt(selectedVal[2])
+      this.city.name = selectedTxt[0] +" "+ selectedTxt[1] +" "+ selectedTxt[2]
       this.selected = selectedTxt
       this.$emit('input', selectedVal)
     }
@@ -85,15 +82,7 @@ export default {
       selected4: '1',
       validity: {},
       valid: undefined,
-      model: {
-        value1: [],
-        value2: '',
-        value3: '',
-        value4: '',
-        value5: '',
-        value6: '',
-        value7: '',
-      },
+
       fields: [
         {
           type: 'radio-group',
@@ -125,7 +114,6 @@ export default {
         }
       ],
       question: [
-
         {
           legend: '您的工作城市？',
           field: {
@@ -230,26 +218,8 @@ export default {
     }
   },
 
-  created() {
-    this.getHealthInfo()
-  },
-  mixins: [BaseVue],
+  mixins: [BaseVue,mixins],
   methods: {
-    async getHealthInfo() {
-      let resp = await this.dispatch(HealthApiController.getHealthInfo)
-      if (!resp.error) {
-        city.name = resp.data.body.cityName
-        this.model = {
-          value1: [`${resp.data.body.cityName}`] || [],
-          value2: resp.data.body.answerTwo || '',
-          value3: resp.data.body.answerThree || '',
-          value4: resp.data.body.answerFour || '',
-          value5: resp.data.body.answerFive || '',
-          value6: resp.data.body.answerSix || '',
-          value7: resp.data.body.remarks || '',
-        }
-      }
-    },
     async submitHandler(e, model) {
       e.preventDefault()
       let template = model.value6 + '°C'
@@ -260,8 +230,8 @@ export default {
         "answerSix": model.value6,
         "answerThree": model.value3,
         "answerTwo": model.value2,
-        "cityId": city.id,
-        "cityName": city.name,
+        "cityId": this.city.id,
+        "cityName": this.city.name,
         "remarks": model.value7,
       })
       if (!resp.error) {

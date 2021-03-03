@@ -1,5 +1,5 @@
 <template>
-<div class="tag" :style="'background-color:'+backgroundColor+';color:'+color">
+<div class="tag" @click="$emit('clicked')" :style="'background-color:'+backgroundColor+';color:'+color">
     <slot>Tag</slot>
 </div>
 </template>

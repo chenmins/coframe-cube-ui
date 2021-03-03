@@ -12,20 +12,20 @@
         <div style="background-color:#fff;color:#999;font-size:15px;text-align: right;padding: 8px 20px">{{userTableData.comments.length}}条评论</div>
         <Card class="card" :isComment="true" v-for="comment in userTableData.comments" :key="userTableData.id">
           <div slot="content" class="content">
-            dsadsadnaskdasdasd
+            {{comment.body}}
           </div>
         </Card>
 
       </div>
     </NavLayOut>
     <div class="go_comment">
-      <form style="width: 100%">
+      <form style="width: 100%" class="comment_submit" @submit="submitHandler">
         <cube-textarea v-model="value"
                        class="inputarea"
                        :placeholder="placeholder"
                        :maxlength="maxlength" >
-
         </cube-textarea>
+        <button type="submit" >发送</button>
       </form>
 
     </div>
@@ -57,8 +57,14 @@ export default {
   },
   created() {
     this.init()
+
   },
   methods:{
+    async submitHandler(e){
+      e.preventDefault()
+      // let resp = await this.dispatch(PipCcoCciController.)
+
+    },
     async init(){
       //todo 交流圈详情
       let resp = await this.dispatch(CulturalControllerImpl.getCommunicationCircleEntity,{
@@ -81,7 +87,19 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+.comment_submit
+  display flex
+  align-items center
+  padding-left  10px
 
+  button
+    border none
+    outline none
+    margin-right 10px
+    font-size 12px
+    background: linear-gradient(90deg, #19E8FF 0%, #0F97FB 100%);
+    color #fff
+    height 20px
 .comments_app
   background-color $my-bgc-color
   position: relative;
@@ -97,7 +115,7 @@ export default {
   width 100%
   z-index 65
   background: #FFFFFF;
-  padding 15px 14px 13px 15px
+  padding 15px 0 13px 0
   box-shadow: 0px -1px 9px 0px rgba(0, 0, 0, 0.12);
 .inputarea
   flex-grow 1
@@ -106,6 +124,7 @@ export default {
   background: #F5F6FA;
   border-radius 32px
   >>>textarea
+    display inline-block
     background: #F5F6FA;
     line-height: 15px;
     border-radius 32px

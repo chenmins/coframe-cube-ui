@@ -5,7 +5,7 @@ export default {
     sendForm: {
         body: "",
         choice: "choice",
-        picture: "picture",
+        picture: '',
         title: "title",
         topicOfConversationId: '',
         topicOfConversationName: '',

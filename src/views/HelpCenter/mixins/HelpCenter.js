@@ -1,3 +1,5 @@
+
+
 let formData
 export default {
     data() {
@@ -67,7 +69,7 @@ export default {
         },
         initFeedback() {
             this.$axios.get('/api/platform/help/queryDemandFeedback').then(res => {
-                this.feedback = res.data.body
+                this.feedback = res.data.body.reverse()
             })
         },
     }

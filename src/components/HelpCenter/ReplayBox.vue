@@ -1,7 +1,7 @@
 <template>
   <div class="replay_box">
     <span class="replay_username">
-      @管理员小张：
+      @admin：
     </span>
     <span class="replay_content">
       {{listData.body}}
@@ -13,7 +13,7 @@
 export default {
   name: "ReplayBox",
   props: {
-    listData:{
+      listData:{
       type:Object,
       default:()=>{
         return {
@@ -32,6 +32,11 @@ export default {
           createDate: '2021-12-25',
         }
       }
+    }
+  },
+  data(){
+    return{
+      userInfo:JSON.parse(localStorage.getItem('userInfo'))
     }
   }
 }

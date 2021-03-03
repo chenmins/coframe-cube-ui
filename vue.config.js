@@ -105,8 +105,17 @@ module.exports = {
     port:8081,
     open: true, //配置自动启动浏览器
     proxy: {
+      "/api/minio":{
+        target: "http://tx.chenmin.org:9080/api/minio",
+        ws: false,// 启用websockets
+        changeOrigin: true, //跨域
+        pathRewrite: {
+          '^/api/minio': '' // 将/api开头的请求地址的/api替换为''
+        },
+      },
       "/api": { //是否使用代理标识,/api开头的才用代理
         target: "http://c94.cn:3003/api/",
+        // target: "http://192.168.200.153:9090/api/",
         ws: false,// 启用websockets
         changeOrigin: true, //跨域
         pathRewrite: {

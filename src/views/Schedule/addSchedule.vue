@@ -20,21 +20,23 @@
             @submit="submitHandler">
           <cube-form-group>
             <cube-form-item :field="fields[0]"></cube-form-item>
-            <cube-form-item class="time-from no-margin-bottom">
+            <cube-form-item class="time-from no-margin-bottom" style="margin-top: 30px;">
               <div class="picker" @click="showDateTimePickerStart">
-                <div class="cube-form-label">{{fields[1].label}}</div>
+                <div class="cube-form-label">{{ fields[1].label }}</div>
                 <span class="line">{{ model.start || fields[1].label }}</span>
                 <i class="cubeic-arrow" style="float: right;margin-right: 16px"></i>
               </div>
             </cube-form-item>
             <cube-form-item class="time-from">
               <div class="picker" @click="showDateTimePickerEnd">
-                <div class="cube-form-label">{{fields[2].label}}</div>
+                <div class="cube-form-label">{{ fields[2].label }}</div>
                 <span class="top_line">{{ model.end || fields[2].label }}</span>
                 <i class="cubeic-arrow" style="float: right;margin-right: 16px"></i>
               </div>
             </cube-form-item>
-
+            <Tag @clicked="removePeople(i,index)"  style="margin-right:5px;" background-color="#09f" v-for="(i,index) in join" v-show="join.length">
+              {{i.name}}
+            </Tag>
             <cube-form-item :field="fields[3]"></cube-form-item>
             <cube-form-item :field="fields[4]"></cube-form-item>
             <cube-form-item :field="fields[5]"></cube-form-item>
@@ -52,11 +54,16 @@
 
 <script>
 import Card from "@/components/UI/Card";
+import {ScheduleControllerImpl} from '@controller'
+import {BaseVue} from '@lib'
 
+
+let minTime = [0, 0, 0]
 export default {
   components: {Card},
   data() {
     return {
+      join: [],
       validity: {},
       valid: undefined,
       model: {
@@ -66,7 +73,8 @@ export default {
         join: '',
         where: '',
         notice: '',
-        repeat:''
+        repeat: '',
+        username: ''
 
       },
       fields: [
@@ -102,8 +110,46 @@ export default {
           modelKey: 'join',
           label: '参与人',
           title: '选择',
+          events: {
+            change: (v1, v2, v3) => {
+              this.model.username = v3
+              // v1 value
+              // v2 index
+              // v3 key
+
+              if (this.join.findIndex(i => i.name === v3) === -1) {
+                this.join.push({
+                  id: v1,
+                  name: v3
+                })
+              } else {
+                this.$createToast({
+                  type: 'normal',
+                  txt: '已经存在此用户',
+                  time: 500
+                }).show()
+              }
+            }
+          },
           props: {
-            options: ['无提醒', '日程发生时', '5分钟前', '15分钟前', '30分钟前', '1小时前']
+            options: [
+              {
+                value: 'cof-user-sysadmin',
+                text: 'sysadmin',
+              },
+              {
+                value: '8e3f7d5b-5c82-4aec-bae6-af1fedf67013',
+                text: 'liuwb',
+              },
+              {
+                value: 3,
+                text: 'people3',
+              },
+              {
+                value: 4,
+                text: 'people4',
+              },
+            ]
           },
           rules: {
             required: true
@@ -112,7 +158,7 @@ export default {
         {
           type: 'select',
           modelKey: 'where',
-          label: '会议人',
+          label: '会议室',
           title: '选择',
           props: {
             options: [2015, 2016, 2017, 2018, 2019, 2020]
@@ -130,7 +176,7 @@ export default {
             options: ['无提醒', '日程发生时', '5分钟前', '15分钟前', '30分钟前', '1小时前']
           },
           rules: {
-            required: true
+            required: false
           }
         },
         {
@@ -139,12 +185,11 @@ export default {
           label: '重复',
           title: '选择',
           props: {
-            options: ['不重复','每天', '工作日', '每周', '每两周', '每年','自定义']
+            options: ['不重复', '每天', '工作日', '每周', '每两周', '每年', '自定义']
           },
-          events:{
-            input:(e)=>{
-              console.log(new Date(),this.$dayjs())
-              if(e==='自定义'){
+          events: {
+            input: (e) => {
+              if (e === '自定义') {
                 if (!this.formatPicker) {
                   this.formatPicker = this.$createDatePicker({
                     title: '选择自定义时间',
@@ -165,7 +210,7 @@ export default {
             }
           },
           rules: {
-            required: true
+            required: false
           }
         },
       ],
@@ -217,13 +262,84 @@ export default {
           }
         ]
       },
-
     }
   },
   methods: {
-    submitHandler(e, model, modelSubmit) {
+    removePeople(i,index){
+      this.$createDialog({
+        type: 'confirm',
+        title: '确认',
+        content: '确认删除此用户吗？',
+        confirmBtn: {
+          text: '确定按钮',
+          active: true,
+          disabled: false,
+          href: 'javascript:;'
+        },
+        cancelBtn: {
+          text: '取消按钮',
+          active: false,
+          disabled: false,
+          href: 'javascript:;'
+        },
+        onConfirm: () => {
+            this.join.splice(index,1)
+          this.model.join = ''
+        },
+      }).show()
+    },
+    async submitHandler(e, model, modelSubmit) {
       e.preventDefault()
-      console.log('submit', modelSubmit)
+      console.log(!this.model.end)
+      if(!this.model.start){
+        this.$createToast({
+          type:'normal',
+          txt:'请填写开始时间',
+          time:500
+        }).show()
+        return
+      }
+      if(!this.model.end){
+        this.$createToast({
+          type:'normal',
+          txt:'请填写结束时间',
+          time:500
+        }).show()
+        return
+      }
+      if(this.join.length===0){
+        this.$createToast({
+          type:'normal',
+          txt:'请选择参加人',
+          time:500
+        }).show()
+        return
+      }
+      let resp = await this.dispatch(ScheduleControllerImpl.addSchedule, {
+        "conferenceRoom": this.model.where,
+        "end": this.model.start.split(' ')[0] + " " + this.model.end,
+        "remind": this.model.notice,
+        "repeat": this.model.repeat,
+        "start": this.model.start,
+        "title": this.model.theme,
+        "users": this.join
+      })
+
+      if (!resp.error) {
+        this.model = {
+          theme: '',
+          start: '',
+          end: '',
+          join: '',
+          where: '',
+          notice: '',
+          repeat: '',
+          username: ''
+
+        }
+        this.$router.push({name: '日程协同'})
+      }
+
     },
     validateHandler(result) {
       this.validity = result.validity
@@ -231,11 +347,30 @@ export default {
       console.log('validity', result.validity, result.valid, result.dirty, result.firstInvalidFieldIndex)
     },
     showDateTimePickerStart() {
+      let time = this.$dayjs().format('YYYY,MM,DD,HH,MM,ss')
+      time = time.split(',')
+      let year = parseInt(time[0])
+      let a = new Date(
+          parseInt(time[0]),
+          parseInt(time[1]),
+          parseInt(time[2]),
+          parseInt(time[3]),
+          parseInt(time[4]),
+          parseInt(time[5]),
+      )
       if (!this.dateTimePickerStart) {
         this.dateTimePickerStart = this.$createDatePicker({
-          title: '选择开始时间',
-          min: new Date(2008, 7, 8, 8, 0, 0),
-          max: new Date(2020, 9, 20, 20, 59, 59),
+          title: '',
+          min: new Date(2000, 1, 1, 0, 0, 0),
+          max: new Date(2099, 1, 1, 0, 0, 0),
+          format: {
+            year: 'YYYY',
+            month: 'MM',
+            date: 'DD',
+            hour: 'hh',
+            minute: 'mm',
+            second: 'ss'
+          },
           value: new Date(),
           columnCount: 6,
           onSelect: this.startTime,
@@ -249,9 +384,10 @@ export default {
       if (!this.dateTimePickerEnd) {
         this.dateTimePickerEnd = this.$createDatePicker({
           title: '选择结束时间',
-          min: new Date(2008, 7, 8, 8, 0, 0),
-          max: new Date(2020, 9, 20, 20, 59, 59),
+          min: minTime,
+          max: [23, 59, 59],
           value: new Date(),
+          startColumn: 'hour',
           columnCount: 6,
           onSelect: this.endTime,
           onCancel: this.cancelHandle
@@ -261,10 +397,13 @@ export default {
       this.dateTimePickerEnd.show()
     },
     startTime(date, selectedVal, selectedText) {
-      this.model.start = `${selectedVal[1]}-${selectedVal[2]}-${selectedVal[3]}:${selectedVal[4]}`
+      this.model.start = `${selectedVal[0]}-${selectedVal[1]}-${selectedVal[2]} ${selectedVal[3]}:${selectedVal[4]}:${selectedVal[5]}`
+      minTime = [selectedVal[3], selectedVal[4], selectedVal[5]]
+
     },
     endTime(date, selectedVal, selectedText) {
-      this.model.end = `${selectedVal[1]}-${selectedVal[2]}-${selectedVal[3]}:${selectedVal[4]}`
+      this.model.end = `${selectedVal[0]}:${selectedVal[1]}:${selectedVal[2]}`
+
     },
     cancelHandle() {
       this.$createToast({
@@ -291,10 +430,12 @@ export default {
 </script>
 
 <style scoped lang="stylus">
->>>.cube-form-item
+>>> .cube-form-item
   margin 10px
+
 .time-from
   margin 0
+
 #addSchedule
   background-color #ffffff
 
@@ -325,14 +466,16 @@ export default {
         opacity: 0.22;
 
 
-  >>>.cube-form-label span
+  >>> .cube-form-label span
     font-size: 14px;
     font-family: PingFangSC-Medium, PingFang SC;
     font-weight: 500;
     color: #000000;
     line-height: 20px;
-  >>>.cube-form-item
+
+  >>> .cube-form-item
     margin-bottom 20px
+
 .cube-btn
   background: linear-gradient(90deg, #19E8FF 0%, #0F97FB 100%);
   border-radius: 20px;
@@ -348,11 +491,12 @@ export default {
   padding 0
 
 .picker
-  background: rgb(241,249,255);
+  background: rgb(241, 249, 255);
   padding 13px 0 13px 13px
   color #000
   height 100%
   font-weight 500
+
   .line:before
     content ''
     position absolute
@@ -361,6 +505,7 @@ export default {
     width 1px
     left 16px
     top 20px
+
   .top_line:before
     content ''
     position absolute
@@ -369,8 +514,10 @@ export default {
     width 1px
     left 16px
     top 0
+
   .cube-form-label
     font-size 14px
+
     &:before
       content ''
       margin-right 7px
@@ -379,6 +526,7 @@ export default {
       width 7px
       border-radius 50%
       background-color #0099FF
+
   span
     margin-left 10px
     font-size: 14px;
@@ -387,6 +535,7 @@ export default {
     color: #CCCCCC;
     line-height: 20px;
     letter-spacing: 1px;
+
 .no-margin-bottom
-  margin-bottom 0!important
+  margin-bottom 0 !important
 </style>

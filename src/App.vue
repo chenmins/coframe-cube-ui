@@ -1,11 +1,12 @@
 <template>
   <div id="app"
   >
+
     <transition name="slide-fade">
       <router-view/>
     </transition>
 
-    <div class="write" v-if="$route.meta.name==='需求反馈'" @click="Replay">
+    <div class="write" v-if="$route.meta.tag==='需求反馈'" @click="Replay">
       <Icon class-name="write_svg" svg-name="edit" height="24px" width="24px"></Icon>
     </div>
   </div>
@@ -13,6 +14,7 @@
 
 <script>
 // import {Demo} from "@controller";
+
 export default {
   provide() {
     return {
@@ -25,18 +27,7 @@ export default {
 
     }
   },
-
-  mounted() {
-    // this.init()
-  },
   methods: {
-    // async init(){
-    //   let resp = await this.dispatch(Demo.isAdmin)
-    //   if(!resp.error){
-    //     localStorage.setItem('isAdmin',resp.data.body)
-    //   }
-    //
-    // },
     reload() {
       this.isRouterAlive = false
       this.$nextTick(() => {
@@ -54,7 +45,18 @@ export default {
 </script>
 
 <style lang="stylus">
-
+.loading_cover
+  height 100%
+  width 100%
+  background hsla(0,0%,100%,.9)
+  position absolute
+  z-index:98
+  .loading
+    position fixed
+    top 50%
+    left 50%
+    transform translate(-50%,-50%)
+    z-index 99
 //按钮渐变
 .cube-btn
   background: linear-gradient(90deg, #19E8FF 0%, #0F97FB 100%);

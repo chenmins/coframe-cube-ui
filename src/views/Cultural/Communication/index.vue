@@ -24,31 +24,40 @@
             @scroll="scroll"
             :scrollEvents="['scroll']"
         >
-          <transition-group name="list-complete">
-            <Card class="list-complete-item" :is-comment="false" :is-like="comment.fabulousForUser"
-                  v-for="(comment,index) in comments"
-                  :key="index"
-                  @goComment="goComment(comment)"
-                  @toggleLike="toggleLike(comment)"
-                  @remove="remove(comment.id,index)"
-            >
-              <template v-slot:username>{{ comment.userName }}</template>
-              <template v-slot:time>{{ $dayjs(comment.releaseTime).format('YYYY-MM-DD') }}</template>
-              <template v-slot:likeName>{{ comment.fabulousPlusCount | fabulousCount }}</template>
-              <template v-slot:content>
-                <div>
-                  {{ comment.body }}
-                  <!-- <img  width="100%" src="../../../assets/icons/news.png" alt="">-->
-                </div>
-              </template>
-              <template v-slot:card_topic v-if="comment.topicOfConversationId!==0">
-                话题id#{{ comment.topicOfConversationId }}
-              </template>
-              <template v-slot:trash>
-                <Icon svg-name="delete@2" style="height: 20px;width: 20px" v-if="cardInfo.id === comment.userId"></Icon>
-              </template>
-            </Card>
-          </transition-group>
+              <Card class="list-complete-item" :is-comment="false" :is-like="comment.fabulousForUser"
+                    v-for="(comment,index) in comments"
+                    :key="index"
+                    @checkComments="goComment(comment)"
+                    @toggleLike="toggleLike(comment)"
+                    @remove="remove(comment.id,index)"
+              >
+                <template v-slot:username>{{ comment.userName }}</template>
+                <template v-slot:time>{{ $dayjs(comment.releaseTime).format('YYYY-MM-DD DD:HH:ss') }}</template>
+                <template v-slot:likeName>{{ comment.fabulousPlusCount | fabulousCount }}</template>
+                <template v-slot:image>
+                  <div style="border:1px solid red;">
+                    <img v-for="i in comment.picture"
+                         width="100%"
+                         :src="i"
+                         alt="">
+                  </div>
+                </template>
+                <template v-slot:content>
+                  {{comment.picture}}
+                  <Icon v-show="comment.choice!=='0'" svg-name="great" style="height: 20px;width: 20px;margin-right: 4px"></Icon>
+
+                  <div>
+                    {{ comment.body }}
+                  </div>
+
+                </template>
+                <template v-slot:card_topic v-if="comment.topicOfConversationId!==0">
+                  话题id#{{ comment.topicOfConversationId }}
+                </template>
+                <template v-slot:trash>
+                  <Icon svg-name="delete@2" style="height: 20px;width: 20px" v-if="cardInfo.id === comment.userId || isAdmin==='true' " ></Icon>
+                </template>
+              </Card>
         </cube-scroll>
       </div>
     </SlideNav>
@@ -72,6 +81,7 @@ export default {
   mixins: [mixins],
   data() {
     return {
+      isAdmin:'false',
       selected:null,
       topic_list: true,
       selectedLabel: '全部',
@@ -92,13 +102,17 @@ export default {
       ],
     }
   },
-
-
   created() {
+    this.isAdmin = localStorage.getItem('admin')
     this.setTopicLists()
-    this.comments = this.$store.state.Cultural.allData.communicationCircles
+    this.$store.commit('Cultural/clearSendForm')
+    this.comments = this.$store.state.Cultural.allData.communicationCircles?.reverse()
+
   },
   methods: {
+    goComment(e) {
+      this.$router.push({name: '交流圈-评论详情', params: {id: e.id, isLike: e.fabulousForUser}})
+    },
     scroll(e) {
       this.topic_list = true
       if (e.y < -250) {
@@ -107,19 +121,41 @@ export default {
     },
     setLabel(e){
       this.nowLabel = e
+      switch (this.nowLabel) {
+        case '全部':
+          this.comments = this.$store.state.Cultural.allData.communicationCircles?.reverse()
+
+          break
+        case '热门':
+          this.comments = this.$store.state.Cultural.allData.communicationCircles1?.reverse()
+          this.comments.forEach(i=>{
+            if(i.picture.split){
+              i.picture = i.picture.split(',')
+              i.picture.pop()
+            }
+            console.log(i)
+          })
+          break
+        case '精选':
+          this.comments = this.$store.state.Cultural.allData.communicationCircles2?.reverse()
+          break
+      }
+
     },
     goTopic(topic, index) {
+
       if(this.selected === index) {
         this.selected = null
         switch (this.nowLabel) {
           case '全部':
-            this.comments = this.$store.state.Cultural.allData.communicationCircles;
+            this.comments = this.$store.state.Cultural.allData.communicationCircles?.reverse()
+
             break
           case '热门':
-            this.comments = this.$store.state.Cultural.allData.communicationCircles1;
+            this.comments = this.$store.state.Cultural.allData.communicationCircles1?.reverse()
             break
           case '精选':
-            this.comments = this.$store.state.Cultural.allData.communicationCircles2;
+            this.comments = this.$store.state.Cultural.allData.communicationCircles2?.reverse()
             break
         }
       }else{
@@ -128,8 +164,14 @@ export default {
       }
     },
     async remove(e, index) {
-      this.comments.splice(index, 1)
       let resp = await this.dispatch(CulturalControllerImpl.deleteCommunicationCircle, {id: e}) //朋友圈id
+        if(!resp.error && resp.data.statusCodeValue===200){
+          this.$createToast({
+            time: 1000,
+            txt: '删除成功'
+          }).show()
+          this.comments.splice(index, 1)
+        }
     },
 
   }
@@ -137,16 +179,6 @@ export default {
 </script>
 
 <style>
-.list-complete-enter, .list-complete-leave-to
-  /* .list-complete-leave-active for below version 2.1.8 */
-{
-  opacity: 0;
-  width: 100%;
-}
-
-.list-complete-leave-active {
-//position: absolute;
-}
 
 </style>
 
