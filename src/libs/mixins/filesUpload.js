@@ -38,7 +38,7 @@ export default {
       let newFileName =
         JSON.parse(localStorage.getItem("userInfo")).id +
         "/" +
-        this.$dayjs().unix() +
+        this.$dayjs().valueOf() +
         "." +
         file.name.split(".").reverse()[0];
       let requestUrl = `/api/minio/presignedUrl?bucket=${bucket}&name=${newFileName}`
@@ -57,7 +57,9 @@ export default {
         url: url,
         data: this.files[0].file
       })
-      
+
     },
+
+
   }
 }

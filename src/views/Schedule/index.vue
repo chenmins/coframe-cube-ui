@@ -30,7 +30,7 @@
               @click="scheduleDetail(meeting)"
             >
               <div class="left">
-                <div v-if="meeting.agree !== '同意'" class="dot"></div>
+                <div v-if="meeting.agree === '同意'" class="dot"></div>
                 <div v-else class="did-dot"></div>
               </div>
               <div class="right">
@@ -86,7 +86,7 @@ export default {
   components: {
     mySchedule,
   },
-  mixins: [BaseVue,],
+  mixins: [BaseVue],
   data() {
     return {
       selectedDate: "",
@@ -101,7 +101,6 @@ export default {
     };
   },
   async created() {
-
     let res = await this.init(this.$dayjs().format("YYYY-M"));
     this.allMonthSchedule = res;
     this.meetings =

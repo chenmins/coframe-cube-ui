@@ -1,6 +1,7 @@
+import {HelpControllerImpl} from '@controller'
+import filesUpload from "@/libs/mixins/filesUpload";
 
-
-let formData
+let formData, files
 export default {
     data() {
         return {
@@ -28,49 +29,80 @@ export default {
                 textarea: '',
                 picture: ''
             },
+            files: []
         }
     },
+    mixins: [filesUpload],
     watch: {
         formData: {
             deep: true,
             handler: (e1, e2) => {
                 formData = e1
             }
+        },
+        files: {
+            handler: function (v1, v2) {
+                files = v1
+                this.files = v1
+            }
         }
     },
     methods: {
-        submit(data) {
-            this.$axios.post(`/api/platform/help/addDemandFeedback`, {
-                body:formData.textarea,
-                picture:formData.picture
-            }).then(res => {
-             if(res.data.body ===1){
-                 formData = {
-                     textarea: '',
-                     picture: ''
-                 }
-                 this.formData = {
-                     textarea: '',
-                     picture: ''
-                 }
-                 this.$router.replace({name:'需求反馈'})
-             }
+        async addDemandFeedback(data) {
+            let message = '发送中'
+            let toast = this.$createToast({
+                txt: message,
+
+            }).show()
+            let uploadTime = files.length
+            let url,resp
+            for (let i = 0; i < uploadTime; i++) {
+                url = await this.getRetrieveNewURL(files[i].file)
+                this.formData.picture = this.formData.picture + url.split("?")[0] + ",";
+            }
+            resp = await this.dispatch(HelpControllerImpl.addDemandFeedback, {
+                body: formData.textarea,
+                picture: formData.picture
             })
+            if (!resp.error) {
+                if (resp.data.body === 1) {
+                    message = '发送成功'
+                    formData = {
+                        textarea: '',
+                        picture: ''
+                    }
+                    this.formData = {
+                        textarea: '',
+                        picture: ''
+                    }
+                    this.$router.replace({name: '需求反馈'}).then(() => {
+                        toast.hide()
+                    })
+
+                }
+            }
         },
-        initQuestions() {
-            this.$axios.get('/api/platform/help/commonProblem/queryByTitle').then(res => {
-                this.questionData = res.data.body
-            })
+        async initQuestions() {
+            let resp
+            resp = await this.dispatch(HelpControllerImpl.queryByTitle)
+            if (!resp.error) {
+                this.questionData = resp.data.body;
+            }
         },
-        initProduct() {
-            this.$axios.get('/api/platform/help/queryProductIntroduction').then(res => {
-                this.productData = res.data.body
-            })
+        async initProduct() {
+            let resp
+            resp = await this.dispatch(HelpControllerImpl.queryProductIntroduction)
+            console.log(resp);
+            if (!resp.error) {
+                this.productData = resp.data.body;
+            }
         },
-        initFeedback() {
-            this.$axios.get('/api/platform/help/queryDemandFeedback').then(res => {
-                this.feedback = res.data.body.reverse()
-            })
+        async initFeedback() {
+            let resp
+            resp = await this.dispatch(HelpControllerImpl.queryDemandFeedback)
+            if (!resp.error) {
+                this.feedback = resp.data.body;
+            }
         },
     }
 }

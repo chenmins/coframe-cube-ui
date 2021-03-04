@@ -5,6 +5,10 @@ module.exports = {
             swaggerUrl: 'http://192.168.200.150:18080/v2/api-docs',
         },
         {
+            name: 'platform-dal',
+            swaggerUrl: 'http://192.168.200.150:18082/v2/api-docs',
+        },
+        {
             name: 'platform-health',
             swaggerUrl: 'http://192.168.200.150:18081/v2/api-docs',
         },
@@ -20,7 +24,6 @@ module.exports = {
             name: 'platform-schedule',
             swaggerUrl: 'http://192.168.200.150:18085/v2/api-docs',
         },
-
         {
             name: 'platform-card',
             swaggerUrl: 'http://192.168.1.199:8085/v2/api-docs',

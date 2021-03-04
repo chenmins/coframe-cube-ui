@@ -126,6 +126,7 @@ export default {
       let url = await this.getRetrieveNewURL(file.file);
       this.picture = this.picture + url.split("?")[0] + ",";
     },
+
     selectTopic() {
       if (this.topic.length) {
         this.$createDialog({

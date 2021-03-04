@@ -59,7 +59,7 @@ export default [
                 name: '需求反馈',
                 meta: {
                     name: '需求反馈',
-                    tag:'需求反馈',
+                    tag: '需求反馈',
                     showTabbar: true,
                     leave: 2,
                     showNav: true,
@@ -71,7 +71,7 @@ export default [
                 path: 'Replay',
                 name: 'Replay',
                 meta: {
-                    name: '发帖子',
+                    name: '反馈',
                     leave: 3,
                     showTabbar: false,
                     showNav: true,

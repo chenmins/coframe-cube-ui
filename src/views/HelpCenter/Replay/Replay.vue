@@ -12,8 +12,7 @@
         ref="upload"
         v-model="files"
         :multiple="true"
-        @files-added="filesAdded"
-        @file-submitted="fileSubmitted"
+        @files-added="filterFiles"
       >
         <div class="clear-fix row-reverse">
           <cube-upload-file
@@ -35,6 +34,7 @@
 
 <script>
 import HelpCenter from "../mixins/HelpCenter";
+import filesUpload from "@/libs/mixins/filesUpload";
 
 export default {
   name: "send",
@@ -45,64 +45,13 @@ export default {
       maxlength: 200,
       autofocus: true,
       action: "//jsonplaceholder.typicode.com/photos/",
-      files: [],
       hasNine: false,
+
     };
   },
-  mixins: [HelpCenter],
-
+  mixins: [HelpCenter, filesUpload],
   methods: {
-    filesAdded(files) {
-      let hasIgnore = false;
-      let message;
-      const maxSize = 1 * 1024 * 1024; // 1M
-      for (let k in files) {
-        const file = files[k];
-        if (file.size > maxSize) {
-          file.ignore = true;
-          hasIgnore = true;
-          message = "选择的图片不能大于1M";
-        }
-      }
 
-      hasIgnore &&
-        this.$createToast({
-          type: "warn",
-          time: 1000,
-          txt: message,
-        }).show();
-    },
-    errHandler(file) {
-      // const msg = file.response.message
-      this.$createToast({
-        type: "warn",
-        txt: "Upload fail",
-        time: 1000,
-      }).show();
-    },
-    filesSuccess() {
-      let message;
-      let hasIgnore = false;
-      if (this.files.length === 9) {
-        this.hasNine = true;
-      } else if (this.files.length > 9) {
-        file.ignore = true;
-        hasIgnore = true;
-        message = "图片数量不能多于9张";
-      }
-
-      hasIgnore &&
-        this.$createToast({
-          type: "warn",
-          time: 1000,
-          txt: message,
-        }).show();
-    },
-    filesRemove() {
-      if (this.files.length <= 9) {
-        this.hasNine = false;
-      }
-    },
     topic() {
       this.$router.push({ name: "话题列表" });
     },
