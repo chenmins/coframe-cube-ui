@@ -91,7 +91,7 @@ export default {
       for (let i = 0; i < this.files.length; i++) {
         let file = this.files[i];
         let url = await this.getRetrieveNewURL(file);
-        await this.imageUpload(url);
+        await this.imageUpload(url,file);
       }
 
       let userInfo = JSON.parse(localStorage.getItem("userInfo"));

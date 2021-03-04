@@ -6,16 +6,22 @@ import { ScheduleControllerImpl } from '../controller';
 export default {
     actions: {
         [ScheduleControllerImpl.addParSchedule.method] : {
-            summary: '新增一个参与人日程',
+            summary: '新增一个参与人',
             method: 'post',
             url: (payload) => `/api/platform/schedule/addParSchedule/${payload.id}`,
-            parameters: [{'name':'id','in':'path','description':'非主键','required':true,'type':'string'},{'in':'body','name':'userVO','description':'userVO','required':true,'schema':{'$ref':'#/definitions/UserVO'}}],
+            parameters: [{'name':'id','in':'path','description':'日程id','required':true,'type':'string'},{'in':'body','name':'userVO','description':'userVO','required':true,'schema':{'$ref':'#/definitions/UserVO'}}],
         },
         [ScheduleControllerImpl.addSchedule.method] : {
             summary: '新增一个日程',
             method: 'post',
             url: (payload) => `/api/platform/schedule/addSchedule`,
             parameters: [{'in':'body','name':'scheduleVO','description':'scheduleVO','required':true,'schema':{'$ref':'#/definitions/ScheduleVO'}}],
+        },
+        [ScheduleControllerImpl.delParSchedule.method] : {
+            summary: '删除一个参与人',
+            method: 'delete',
+            url: (payload) => `/api/platform/schedule/delParSchedule/${payload.id}/${payload.userId}`,
+            parameters: [{'name':'id','in':'path','description':'日程id','required':true,'type':'string'},{'name':'userId','in':'path','description':'日程id','required':true,'type':'string'}],
         },
         [ScheduleControllerImpl.deleteSchedule.method] : {
             summary: '删除一个日程',

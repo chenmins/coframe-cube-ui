@@ -36,7 +36,7 @@ const store = new Vuex.Store({
     modules: {
         ...actions,
         AddressBook,
-        MainMenu, Cultural, HelpCenter, Schedule, Guest,EmployeeCard
+        MainMenu, Cultural, HelpCenter, Schedule, Guest, EmployeeCard
     }
 })
 

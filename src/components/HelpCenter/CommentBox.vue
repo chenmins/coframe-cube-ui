@@ -14,11 +14,11 @@
     </div>
     <div class="comment_content">
       <div>
-        <img width="100%" :src="listData.picture" alt="">
+        <img width="33.33%" v-for="url in listData.picture.split(',')" :src="url  " alt="">
       </div>
-      <span :class="open?'close':''">
+      <div :class="open?'close':''">
                 {{ listData.body }}
-      </span>
+      </div>
       <div class="open" v-show="open" @click='toggle'>{{ open ? '展开' : '关闭' }}</div>
       <div class="reply">
         <slot name="replay"></slot>

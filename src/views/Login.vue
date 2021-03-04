@@ -28,7 +28,6 @@ export default {
         inputValue: '',
         passwordValue: ''
       },
-
       schema: {
         fields: [
           {
@@ -72,11 +71,7 @@ export default {
       },
     }
   },
-  created() {
-
-  },
   beforeRouteEnter(to, from, next) {
-    console.log(to, from)
     routerStorage = from.fullPath
     next()
   },

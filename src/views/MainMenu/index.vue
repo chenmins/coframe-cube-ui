@@ -32,14 +32,6 @@ export default {
     MyTodos,
     MyApply,
   },
-  // created(){
-  //   let tools = JSON.parse(localStorage.getItem('userInfo'))
-  //
-  //   if (tools && tools.attrs) {
-  //
-  //
-  //   }
-  // },
   methods: {
     async exitLogin() {
       let resp = await this.dispatch(AuthApiController.logout)
@@ -47,8 +39,8 @@ export default {
         localStorage.removeItem('Token')
         localStorage.removeItem('userInfo')
         localStorage.removeItem('ToolsManager')
+        localStorage.removeItem('admin')
         removeToken()
-
         this.$router.replace('/login')
       } else {
         console.log('error')

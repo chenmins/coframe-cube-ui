@@ -1,9 +1,9 @@
 <template>
 
-  <FloorSelect>
+  <FloorSelect @confirm="confirm" :showAdd="true" :showClose="true" >
     <LayOut style="margin-top: 12px;padding: 12px 20px">
       <div class="title">选择新员工</div>
-      <!--        @submit="submitHandler"-->
+      <!--      @submit="submitHandler"-->
       <!--        @validate="validateHandler"-->
       <cube-form :model="groupModel.firstModel"
                  :schema="groupSchema.fristSchema"
@@ -18,6 +18,7 @@
 <script>
 import Preview from "@/components/EmployeeCard/Preview";
 import FloorSelect from "@/views/EmployeeCard/components/FloorSelect";
+import EmployeeCard from "@/libs/mixins/EmployeeCard";
 
 const column1 = [
   {text: '行政楼A座-一层-南门', value: '剧毒'},
@@ -39,318 +40,24 @@ const column3 = [
 
 export default {
   name: "CreateCard",
+  mixins:[EmployeeCard],
   components: {
     Preview, FloorSelect
   },
   created() {
-    this.groupModel.firstModel = {
-      companyName: 2016,
-      position: 2016,
-      name: 2016,
-      cardType: 2016
-    }
-    this.groupModel.floorModel = [
-      {
-        which: 2016,
-        floor: 2016,
-        num: 2016,
-      }
-    ]
   },
   data() {
     return {
-      schema: {
-        groups: [
-          {
-            legend: '选择新员工',
-            fields: [
-              {
-                type: 'select',
-                modelKey: 'cardType',
-                label: '卡片类型',
-                props: {
-                  options: [2015, 2016, 2017, 2018, 2019, 2020]
-                },
-                rules: {
-                  required: true
-                }
-              },
-              {
-                type: 'select',
-                modelKey: 'companyName',
-                label: '所属公司',
-                props: {
-                  options: [2015, 2016, 2017, 2018, 2019, 2020],
-                },
-                rules: {
-                  required: true
-                }
-              },
-              {
-                type: 'select',
-                modelKey: 'position',
-                label: '所属部门',
-                props: {
-                  options: [2015, 2016, 2017, 2018, 2019, 2020]
-                },
-                rules: {
-                  required: true
-                }
-              },
-              {
-                type: 'select',
-                modelKey: 'name',
-                label: '员工姓名',
-                props: {
-                  options: [2015, 2016, 2017, 2018, 2019, 2020]
-                },
-                rules: {
-                  required: true
-                }
-              },
-
-            ]
-          },
-
-        ]
-      },
       preview: false,
-      groupModel: {
-        firstModel: {
-          companyName: '',
-          position: "",
-          name: "",
-          cardType: ""
-        },
-        floorModel: [
-          {
-            which: "",
-            floor: "",
-            num: ""
-          }
-        ]
-      },
-      groupSchema: {
-        fristSchema: {
-          groups: [
-            {
-              legend: '选择新员工',
-              fields: [
-                {
-                  type: 'select',
-                  modelKey: 'cardType',
-                  label: '卡片类型',
-                  events: {
-                    input: (e) => {
-                      if(e === '新员工卡'){
-                        this.groupSchema.fristSchema.groups[0].fields.splice(1,4,
-                            {
-                              type: 'select',
-                              modelKey: 'companyName',
-                              label: '所属公司',
-                              props: {
-                                options: [2015, 2016, 2017, 2018, 2019, 2020]
-                              },
-                              rules: {
-                                required: true
-                              }
-                            },
-                            {
-                              type: 'select',
-                              modelKey: 'position',
-                              label: '所属部门',
-                              props: {
-                                options: [2015, 2016, 2017, 2018, 2019, 2020]
-                              },
-                              rules: {
-                                required: true
-                              }
-                            },
-                            {
-                              type: 'select',
-                              modelKey: 'name',
-                              label: '员工姓名',
-                              props: {
-                                options: [2015, 2016, 2017, 2018, 2019, 2020]
-                              },
-                              rules: {
-                                required: true
-                              }
-                            },
-                            {
-                              type: 'input',
-                              modelKey: 'name',
-                              label: '员工手机号',
-                              props: {
-                                placeholder: '请输入'
-                              },
-                              rules: {
-                                required: true
-                              }
-                            },
-                        )
-                      }
-                      if (e === '外协/临时卡') {
-                        this.groupSchema.fristSchema.groups[0].fields.splice(1,4,
-                            {
-                              type: 'select',
-                              modelKey: 'companyName',
-                              label: '申请人',
-                              props: {
-                                options: [2015, 2016, 2017, 2018, 2019, 2020]
-                              },
-                              rules: {
-                                required: true
-                              }
-                            },
-                            {
-                              type: 'select',
-                              modelKey: 'companyName',
-                              label: '申请人部门',
-                              props: {
-                                options: [2015, 2016, 2017, 2018, 2019, 2020]
-                              },
-                              rules: {
-                                required: true
-                              }
-                            },
-                            {
-                              type: 'select',
-                              modelKey: 'companyName',
-                              label: '持卡人公司',
-                              props: {
-                                options: [2015, 2016, 2017, 2018, 2019, 2020]
-                              },
-                              rules: {
-                                required: true
-                              }
-                            },
-                            {
-                              type: 'select',
-                              modelKey: 'companyName',
-                              label: '持卡人手机号',
-                              props: {
-                                options: [2015, 2016, 2017, 2018, 2019, 2020]
-                              },
-                              rules: {
-                                required: true
-                              }
-                            },
-                        )
-                      }
-                    }
-                  },
-                  props: {
-                    options: ['新员工卡', '外协/临时卡']
-                  },
-                  rules: {
-                    required: true
-                  }
-                },
-                {
-                  type: 'select',
-                  modelKey: 'companyName',
-                  label: '所属公司',
-                  props: {
-                    options: [2015, 2016, 2017, 2018, 2019, 2020]
-                  },
-                  rules: {
-                    required: true
-                  }
-                },
-                {
-                  type: 'select',
-                  modelKey: 'position',
-                  label: '所属部门',
-                  props: {
-                    options: [2015, 2016, 2017, 2018, 2019, 2020]
-                  },
-                  rules: {
-                    required: true
-                  }
-                },
-                {
-                  type: 'select',
-                  modelKey: 'name',
-                  label: '员工姓名',
-                  props: {
-                    options: [2015, 2016, 2017, 2018, 2019, 2020]
-                  },
-                  rules: {
-                    required: true
-                  }
-                },
-                {
-                  type: 'input',
-                  modelKey: 'name',
-                  label: '员工手机号',
-                  props: {
-                    placeholder: '请输入'
-                  },
-                  rules: {
-                    required: true
-                  }
-                },
-                {
-                  type: 'textarea',
-                  modelKey: 'name',
-                  label: '备注',
-                  props: {
-                    placeholder: '请输入'
-                  },
-                  rules: {
-                    required: false
-                  }
-                },
-              ]
-            },
 
-          ]
-        },
-        floorSchema: [
-          {
-            fields: [
-              {
-                type: 'select',
-                modelKey: 'which',
-                label: '楼栋',
-                props: {
-                  options: [2015, 2016, 2017, 2018, 2019, 2020]
-                },
-                rules: {
-                  required: true
-                }
-              },
-              {
-                type: 'select',
-                modelKey: 'floor',
-                label: '楼层',
-                props: {
-                  options: [2015, 2016, 2017, 2018, 2019, 2020]
-                },
-                rules: {
-                  required: true
-                }
-              },
-              {
-                type: 'select',
-                modelKey: 'num',
-                label: '楼门',
-                props: {
-                  options: [2015, 2016, 2017, 2018, 2019, 2020]
-                },
-                rules: {
-                  required: true
-                }
-              },
-            ]
-          }
-        ]
-      },
 
     }
   },
   methods: {
+    submitHandler(e, e1) {
+      console.log(arguments)
+
+    },
     cancel() {
       this.$createDialog({
         type: 'confirm',
@@ -365,8 +72,9 @@ export default {
         }
       }).show()
     },
-    confirm() {
-      this.$router.push({name: 'Preview', params: {id: 1}})
+    confirm(e) {
+      this.groupModel.floorModel = e
+      this.$router.push({name: 'PreviewConfirm',params: {id: this.userInfo.id,data:this.groupModel}})
     },
     add() {
       let schemaTemplate = {
@@ -490,7 +198,8 @@ export default {
 </script>
 
 <style scoped lang="stylus">
-
+>>>.cube-textarea-wrapper::after
+  border none
 >>> .cube-form-group-legend, >>> .cube-select::after
   display none
 

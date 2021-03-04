@@ -1,125 +1,125 @@
 <template>
   <CardPanel
-    :money="true"
-    title="余额"
-    :loss="$store.state.EmployeeCard.cardInfo.state === '员工卡办理中'"
+      :money="true"
+      title="余额"
+      :loss="cardInfo.state"
   >
-    <div class="handle">
-      <div class="title">我要办理</div>
-      <div class="handle_container">
-        <div class="box_content" @click="$router.push({ name: 'addCard' })">
-          <div class="box_content_item">
-            <Icon
-              class-name="func_icon"
-              svg-name="EmployeeCard-addCard"
-              heigth="40px"
-              width="40px"
-            ></Icon>
-            <div>办理补卡</div>
+    <div style="background-color:#F5F6FA;height:calc(100vh - 240px);padding-top: 8px">
+      <Card class="handle">
+        <div class="title">我要办理</div>
+        <div class="handle_container">
+          <div class="box_content" @click="$router.push({ name: 'addCard' })">
+            <div class="box_content_item">
+              <Icon
+                  class-name="func_icon"
+                  svg-name="EmployeeCard-addCard"
+                  heigth="40px"
+                  width="40px"
+              ></Icon>
+              <div>办理补卡</div>
+            </div>
+          </div>
+          <div class="box_content" @click="$router.push({ name: 'Loss' })">
+            <div class="box_content_item">
+              <Icon
+                  class-name="func_icon"
+                  svg-name="EmployeeCard-lossCard"
+                  heigth="40px"
+                  width="40px"
+              ></Icon>
+              <div>我要挂失</div>
+            </div>
+          </div>
+          <div class="box_content" @click="$router.push({ name: 'Apply' })">
+            <div class="box_content_item">
+              <Icon
+                  class-name="func_icon"
+                  svg-name="EmployeeCard-shenqing"
+                  heigth="40px"
+                  width="40px"
+              ></Icon>
+              <div>我的申请</div>
+            </div>
           </div>
         </div>
-        <div class="box_content" @click="$router.push({ name: 'Loss' })">
-          <div class="box_content_item">
-            <Icon
-              class-name="func_icon"
-              svg-name="EmployeeCard-lossCard"
-              heigth="40px"
-              width="40px"
-            ></Icon>
-            <div>我要挂失</div>
-          </div>
-        </div>
-        <div class="box_content" @click="$router.push({ name: 'Apply' })">
-          <div class="box_content_item">
-            <Icon
-              class-name="func_icon"
-              svg-name="EmployeeCard-shenqing"
-              heigth="40px"
-              width="40px"
-            ></Icon>
-            <div>我的申请</div>
-          </div>
-        </div>
-      </div>
-      <!--        <div class="func clear-fix">-->
+        <!--        <div class="func clear-fix">-->
 
-      <!--          <div class="item" @click="$router.push({name:'addCard'})">申请办卡</div>-->
-      <!--          <div class="item" @click="$router.push({name:'Loss'})">我要挂失</div>-->
-      <!--          <div class="item" @click="$router.push({name:'Apply'})">我的申请</div>-->
-      <!--        </div>-->
-    </div>
-    <div class="handle">
-      <div class="title">我的待办</div>
-      <div class="handle_container">
-        <div
-          class="box_content"
-          @click="$router.push({ name: 'ApprovalList' })"
-        >
-          <div class="box_content_item">
-            <Icon
-              class-name="func_icon"
-              svg-name="EmployeeCard-myshenpi"
-              heigth="40px"
-              width="40px"
-            ></Icon>
-            <div>我的审批</div>
+        <!--          <div class="item" @click="$router.push({name:'addCard'})">申请办卡</div>-->
+        <!--          <div class="item" @click="$router.push({name:'Loss'})">我要挂失</div>-->
+        <!--          <div class="item" @click="$router.push({name:'Apply'})">我的申请</div>-->
+        <!--        </div>-->
+      </Card>
+      <Card v-show="isAdmin" class="handle">
+        <div class="title">我的待办</div>
+        <div class="handle_container">
+          <div
+              class="box_content"
+              @click="$router.push({ name: 'ApprovalList' })"
+          >
+            <div class="box_content_item">
+              <Icon
+                  class-name="func_icon"
+                  svg-name="EmployeeCard-myshenpi"
+                  heigth="40px"
+                  width="40px"
+              ></Icon>
+              <div>我的审批</div>
+            </div>
+          </div>
+          <div class="box_content" @click="$router.push({ name: 'CreateCard' })">
+            <div class="box_content_item">
+              <Icon
+                  class-name="func_icon"
+                  svg-name="EmployeeCard-createCard"
+                  heigth="40px"
+                  width="40px"
+              ></Icon>
+              <div>员工开卡</div>
+            </div>
+          </div>
+          <div
+              class="box_content"
+              @click="$router.push({ name: 'CardRecord', params: { id: 1 } })"
+          >
+            <div class="box_content_item">
+              <Icon
+                  class-name="func_icon"
+                  svg-name="EmployeeCard-manageCard"
+                  heigth="40px"
+                  width="40px"
+              ></Icon>
+              <div>员工卡管理</div>
+            </div>
           </div>
         </div>
-        <div class="box_content" @click="$router.push({ name: 'CreateCard' })">
-          <div class="box_content_item">
-            <Icon
-              class-name="func_icon"
-              svg-name="EmployeeCard-createCard"
-              heigth="40px"
-              width="40px"
-            ></Icon>
-            <div>员工开卡</div>
-          </div>
-        </div>
-        <div
-          class="box_content"
-          @click="$router.push({ name: 'CardRecord', params: { id: 1 } })"
-        >
-          <div class="box_content_item">
-            <Icon
-              class-name="func_icon"
-              svg-name="EmployeeCard-manageCard"
-              heigth="40px"
-              width="40px"
-            ></Icon>
-            <div>员工卡管理</div>
-          </div>
-        </div>
-      </div>
-      <!--        <div class="func">-->
-      <!--          <div class="item" @click="$router.push({name:'ApprovalList'})">我的审批</div>-->
-      <!--          <div class="item" @click="$router.push({name:'CreateCard'})">新员工开卡</div>-->
-      <!--        </div>-->
+      </Card>
     </div>
   </CardPanel>
 </template>
 
 <script>
 import CardPanel from "@/views/EmployeeCard/components/CardPanel";
-import { HelpControllerImpl, WorkCartControllerImpl } from "@controller";
-import { BaseVue } from "@lib";
+import Card from "@/components/UI/Card"
+import {HelpControllerImpl, WorkCartControllerImpl} from "@controller";
 
 export default {
   name: "index",
-  components: { CardPanel },
-  mixins: [BaseVue],
-  date() {
+  components: {CardPanel, Card},
+  data() {
     return {
       loss: true,
+      cardInfo:{}
     };
   },
-  created() {
-    console.log(this.getCardStatus());
+  async created() {
+    let resp = await this.getCardStatus()
+    this.$store.commit('EmployeeCard/setCardInfo', resp.data.body)
+    this.cardInfo = this.$store.state.EmployeeCard.cardInfo
+
   },
   methods: {
     async getCardStatus() {
-      let resp = await this.dispatch(WorkCartControllerImpl.getWorkCard);
-      return resp;
+      return await this.dispatch(WorkCartControllerImpl.getWorkCard);
     },
   },
 };
@@ -127,7 +127,7 @@ export default {
 
 <style scoped lang="stylus">
 .title {
-  margin: 20px 0;
+  margin: 0 0 20px;
 }
 
 .handle, .todo {
@@ -137,6 +137,10 @@ export default {
 .todo {
   margin: 20px;
 }
+
+>>> #card
+  margin-top 8px
+  margin-bottom 8px
 
 .handle {
   margin: 0 20px;

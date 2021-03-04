@@ -19,6 +19,8 @@ export default {
   provide() {
     return {
       reload: this.reload,
+      userInfo: JSON.parse(localStorage.getItem('userInfo')),
+      isAdmin:  JSON.parse(localStorage.getItem('userInfo')).admin,
     }
   },
   data() {
@@ -26,6 +28,9 @@ export default {
       isRouterAlive: true,
 
     }
+  },
+  mounted() {
+
   },
   methods: {
     reload() {
@@ -48,15 +53,17 @@ export default {
 .loading_cover
   height 100%
   width 100%
-  background hsla(0,0%,100%,.9)
+  background hsla(0, 0%, 100%, .9)
   position absolute
-  z-index:98
+  z-index: 98
+
   .loading
     position fixed
     top 50%
     left 50%
-    transform translate(-50%,-50%)
+    transform translate(-50%, -50%)
     z-index 99
+
 //按钮渐变
 .cube-btn
   background: linear-gradient(90deg, #19E8FF 0%, #0F97FB 100%);

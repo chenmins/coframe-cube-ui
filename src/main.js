@@ -7,6 +7,8 @@ import router from './router'
 import axios from  './axios/index'
 import * as echarts from 'echarts';
 
+import registerComponents from '/src/plugins/registerComponents'
+
 //组件
 import Nav from '@/components/Nav'
 import Tabbar from "@/components/Tabbar";
@@ -19,6 +21,7 @@ import Calendar from 'vue2-slot-calendar';
 import NavLayOut from "@/components/NavLayOut";
 import Icon from "@/components/Icon";
 import ReadConfig from './utils/config'
+import loading from "@/components/UI/loading";
 
 // import mock from "@/utils/mock/mock"; //mock数据的时候使用
 
@@ -54,13 +57,17 @@ Vue.component('LayOut',LayOut)
 Vue.component('Calendar',Calendar)
 Vue.component('NavLayOut',NavLayOut)
 Vue.component('Icon',Icon)
-
+Vue.component('loading',loading)
 
 Vue.mixin(Global).mixin(BaseVue)
 
 
-const create = async () => {
+Vue.use(registerComponents,[
+    'Nav',
+    ''
+])
 
+const create = async () => {
   await ReadConfig(Vue)
   new Vue({
     router,

@@ -2,11 +2,10 @@
   <div id="employee_card">
     <NavLayOut>
       <div class="status_box">
-        <img :class="!loss?'':'close'" width="100%" src="../../../assets/icons/card_ui.webp" alt="">
+        <img :class="loss==='启用'?'':'close'" width="100%" src="../../../assets/icons/card_ui.webp" alt="">
         <div class="right_top content">
-          <div :class="!loss?'dot':'close dot'"></div>
-          <span v-if="!loss">启用</span>
-          <span v-else>挂失</span>
+          <div :class="loss==='启用'?'dot':'close dot'"></div>
+          <span >{{loss}}</span>
         </div>
         <div class="center content">
           <div>{{title}}</div>
@@ -39,7 +38,7 @@ export default {
 >>>.cube-scroll-list-wrapper
   overflow: visible;
 #employee_card
-  background-color #fff
+  background-color #ffffff
   height 100vh
   overflow: hidden;
   .status_box

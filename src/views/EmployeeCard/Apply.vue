@@ -15,7 +15,7 @@
           <Icon svg-name="EmployeeCard_apply1" class-name="svg_name"></Icon>
           <div class="li_item">
             <div>
-              <div class="title">申请办卡</div>
+              <div class="title">挂失</div>
               <div class="time">2021/01/22 15:10:10</div>
             </div>
             <i class="cubeic-arrow"></i>
@@ -25,7 +25,7 @@
           <Icon svg-name="EmployeeCard_apply2" class-name="svg_name"></Icon>
           <div class="li_item">
             <div>
-              <div class="title">申请办卡</div>
+              <div class="title">补卡</div>
               <div class="time">2021/01/22 15:10:10</div>
             </div>
             <i class="cubeic-arrow"></i>

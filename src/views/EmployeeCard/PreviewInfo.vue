@@ -36,7 +36,10 @@
 import NavLayOut from "@/components/NavLayOut";
 export default {
   name: "PreviewInfo",
-  components: {NavLayOut}
+  components: {NavLayOut},
+  created(){
+    console.log(this.$route.params)
+  }
 }
 </script>
 

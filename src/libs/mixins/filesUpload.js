@@ -47,7 +47,7 @@ export default {
     },
 
     //上传图片
-    async imageUpload(url) {
+    async imageUpload(url,file) {
       let resp = await this.$axios({
         headers: {
           'Content-Type': 'image/png',
@@ -55,7 +55,7 @@ export default {
         },
         method: 'put',
         url: url,
-        data: this.files[0].file
+        data: file
       })
 
     },

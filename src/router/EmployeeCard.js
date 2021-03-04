@@ -129,7 +129,7 @@ export default [
     },
     {
         path:'/Preview/:id',
-        name:'Preview',
+        name:'PreviewConfirm',
         meta: {
             name: '确认信息',
             tag: 'Preview',

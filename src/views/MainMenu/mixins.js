@@ -43,10 +43,7 @@ export default {
         }
         next()
     },
-
-
     created() {
-        console.log(this.firstLoading)
         let tools = JSON.parse(localStorage.getItem('userInfo'))
         if (!tools || !tools.attrs || !tools.attrs.length) {
             console.log('没有初始值')
@@ -59,7 +56,6 @@ export default {
             //     this.updateTools()
             // })
             this.setCommonly(JSON.parse(JSON.parse(localStorage.getItem('userInfo')).attrs.find(i => i.attrName === 'MyTools').attrValue))
-
         }
     },
     methods: {

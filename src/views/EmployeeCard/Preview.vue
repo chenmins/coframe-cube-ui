@@ -1,6 +1,5 @@
 <template>
   <div id="Preview">
-<!--    <NavLayOut>-->
     <div class="top">
       <div class="dot one"></div>
       <div class="dot two"></div>
@@ -10,40 +9,69 @@
       <div class="avatar_group">
       </div>
     </div>
-      <FloorSelect bg-color="transparent" style="position: relative;z-index: 10;">
+      <FloorSelect
+          @confirm="submit" bg-color="transparent" style="position: relative;z-index: 10;">
         <div class="card">
           <div class="card_content">
-            <span class="card_num">02121</span>
+            <span class="card_num">{{cardInfo.name.id}}</span>
             <div class="card_avatar">
               <!--            <img src="" alt="">-->
               <div class="avatar_img"></div>
               <img class="avatar_edit" src="../../assets/icons/employee_edit.webp" alt="">
-              <span class="avatar_name">易烊千玺</span>
+              <span class="avatar_name">{{cardInfo.name.userName}}</span>
             </div>
           </div>
           <div class="card_content_bottom">
             <div class="content_left">
-              <span>国家管道局新能技术部</span>
+              <span>{{cardInfo.companyName}}</span>
               <span>厚德载物楼4栋303</span>
             </div>
             <div class="content_right">
               <!--            <img src="" alt="">-->
               <div class="content_img"></div>
-              <span>国家管道局</span>
+              <span>{{cardInfo.position}}</span>
             </div>
           </div>
         </div>
       </FloorSelect>
-<!--    </NavLayOut>-->
   </div>
 </template>
 
 <script>
-
+import {WorkCartControllerImpl} from '@controller'
+import EmployeeCard from "@/libs/mixins/EmployeeCard";
 import FloorSelect from "@/views/EmployeeCard/components/FloorSelect";
 export default {
   name: "Preview",
-  components: {FloorSelect}
+  components: {FloorSelect},
+  mixins:[EmployeeCard],
+  data(){
+    return {
+      cardInfo:{},
+
+    }
+  },
+  created(){
+    this.cardInfo = {...this.$route.params.data.firstModel}
+    this.groupModel.floorModel = this.$route.params.data.floorModel
+  },
+  methods:{
+    async submit(){
+
+      let resp
+      let data = {
+        userId:this.cardInfo.name.id,
+        userName:this.cardInfo.name.userName,
+        type:this.cardInfo.cardType,
+        reasonsName:this.cardInfo.companyName,
+        reasonsCode:this.cardInfo.position,
+        floorAuthority:JSON.stringify(this.$route.params.data.floorModel)
+      }
+      resp = await this.dispatch(WorkCartControllerImpl.open,data)
+
+      console.log(resp)
+    }
+  }
 }
 </script>
 

@@ -19,8 +19,12 @@
 import {provinceList, cityList, areaList} from '@/assets/DATA/area'
 import {BaseVue} from '@lib'
 import mixins from './mixins.js'
+import {HealthApiController} from '@controller'
 
-
+let city ={
+  id:'',
+  name:""
+}
 const cityData = provinceList
 cityData.forEach(province => {
   province.children = cityList[province.value]
@@ -65,10 +69,9 @@ const PCA = {
       this.picker.show()
     },
     selectHandler(selectedVal, selectedIndex, selectedTxt) {
-      this.city.id = parseInt(selectedVal[2])
-      this.city.name = selectedTxt[0] +" "+ selectedTxt[1] +" "+ selectedTxt[2]
+      city.id = parseInt(selectedVal[2])
+      city.name = selectedTxt[0] +" "+ selectedTxt[1] +" "+ selectedTxt[2]
       this.selected = selectedTxt
-      this.$emit('input', selectedVal)
     }
   }
 }
@@ -76,13 +79,12 @@ export default {
   data() {
     return {
       city: {
-        id: 0,
-        name: ''
+        id: city.id,
+        name: city.name
       },
       selected4: '1',
       validity: {},
       valid: undefined,
-
       fields: [
         {
           type: 'radio-group',
@@ -223,15 +225,14 @@ export default {
     async submitHandler(e, model) {
       e.preventDefault()
       let template = model.value6 + '°C'
-
       let resp = await this.dispatch(HealthApiController.updateHealthInfo, {
         "answerFive": model.value5,
         "answerFour": model.value4,
         "answerSix": model.value6,
         "answerThree": model.value3,
         "answerTwo": model.value2,
-        "cityId": this.city.id,
-        "cityName": this.city.name,
+        "cityId": city.id,
+        "cityName": city.name,
         "remarks": model.value7,
       })
       if (!resp.error) {

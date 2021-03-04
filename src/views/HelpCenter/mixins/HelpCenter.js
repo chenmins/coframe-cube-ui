@@ -1,7 +1,7 @@
 import {HelpControllerImpl} from '@controller'
 import filesUpload from "@/libs/mixins/filesUpload";
 
-let formData, files
+let formData, files = []
 export default {
     data() {
         return {
@@ -48,39 +48,60 @@ export default {
         }
     },
     methods: {
+        async uploadAsync(uploadTime, files) {
+            let picture = ''
+            for (let i = 0; i < uploadTime; i++) {
+                let url
+                url = await this.getRetrieveNewURL(files[i].file)
+                await this.imageUpload(url, files[i].file)
+                picture = picture + url.split("?")[0] + ",";
+            }
+            return picture
+        },
         async addDemandFeedback(data) {
             let message = '发送中'
             let toast = this.$createToast({
                 txt: message,
-
+                time: 0
             }).show()
-            let uploadTime = files.length
-            let url,resp
-            for (let i = 0; i < uploadTime; i++) {
-                url = await this.getRetrieveNewURL(files[i].file)
-                this.formData.picture = this.formData.picture + url.split("?")[0] + ",";
+            let uploadTime = files.length, resp
+            try {
+                formData.picture = await this.uploadAsync(uploadTime, files)
+                resp = await this.dispatch(HelpControllerImpl.addDemandFeedback, {
+                    body: formData.textarea,
+                    picture: formData.picture
+                })
+            } catch (e) {
+                toast.hide()
+                message = '反馈失败'
+                this.$createToast({
+                    type:'normal',
+                    txt: message,
+                    time: 1000
+                }).show()
             }
-            resp = await this.dispatch(HelpControllerImpl.addDemandFeedback, {
-                body: formData.textarea,
-                picture: formData.picture
-            })
-            if (!resp.error) {
-                if (resp.data.body === 1) {
-                    message = '发送成功'
-                    formData = {
-                        textarea: '',
-                        picture: ''
-                    }
-                    this.formData = {
-                        textarea: '',
-                        picture: ''
-                    }
-                    this.$router.replace({name: '需求反馈'}).then(() => {
-                        toast.hide()
-                    })
-
+            if (!resp.error && resp.data.body === 1) {
+                message = '发送成功'
+                formData = {
+                    textarea: '',
+                    picture: ''
                 }
+                this.formData = {
+                    textarea: '',
+                    picture: ''
+                }
+                await this.$router.replace({name: '需求反馈'})
+                toast.hide()
+            } else {
+                toast.hide()
+                message = '反馈失败'
+                this.$createToast({
+                    txt: message,
+                    time: 500
+                }).show()
+
             }
+
         },
         async initQuestions() {
             let resp
@@ -92,7 +113,6 @@ export default {
         async initProduct() {
             let resp
             resp = await this.dispatch(HelpControllerImpl.queryProductIntroduction)
-            console.log(resp);
             if (!resp.error) {
                 this.productData = resp.data.body;
             }

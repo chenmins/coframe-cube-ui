@@ -7,22 +7,21 @@
         <slot>
 
         </slot>
-<!--        <cube-textarea type="text" ></cube-textarea>-->
         <LayOut class="item" style="margin-top: 12px;padding: 12px 20px">
+          <div v-if="!showAdd" class="cover" ></div>
           <div class="title">楼层权限</div>
-          <div class="item" v-for="(model,index) in groupModel.floorModel">
-            <cube-form :model="groupModel.floorModel[index]"
+          <div class="item" v-for="(model,index) in floorModel">
+            <cube-form :model="floorModel[index]"
                        :schema="groupSchema.floorSchema[index]"
                        :options="{layout:'classic'}"
                        class="form-control floor-root"
             >
 
             </cube-form>
-            <Icon svg-name="employee-close" class-name="close" @iconToggle="close(index)"></Icon>
+            <Icon v-show="showClose" svg-name="employee-close" class-name="close" @iconToggle="close(index)"></Icon>
           </div>
-
         </LayOut>
-        <div class="add" @click="add">
+        <div v-show ="showAdd" class="add" @click="add">
           <i class="cubeic-close add_svg"></i>
           <span>添加</span>
         </div>
@@ -41,217 +40,43 @@
 </template>
 
 <script>
-import Preview from "@/components/EmployeeCard/Preview";
-
-const column1 = [
-  {text: '行政楼A座-一层-南门', value: '剧毒'},
-  {text: '行政楼B座-七层-南门', value: '蚂蚁'},
-  {text: '综合楼-七层-东门', value: '幽鬼'}
-]
-const column2 = [
-  {text: '输出', value: '输出'},
-  {text: '控制', value: '控制'},
-  {text: '核心', value: '核心'},
-  {text: '爆发', value: '爆发'}
-]
-const column3 = [
-  {text: '梅肯', value: '梅肯'},
-  {text: '秘法鞋', value: '秘法鞋'},
-  {text: '假腿', value: '假腿'},
-  {text: '飞鞋', value: '飞鞋'}
-]
+import  Preview from "@/components/EmployeeCard/Preview";
+import EmployeeCard from "@/libs/mixins/EmployeeCard";
 
 export default {
   name: "FloorSelect",
-  props: [
-    'bgColor'
-  ],
+  mixins:[EmployeeCard],
+  props: {
+    bgColor: {
+      type: String,
+      default: ''
+    },
+    showAdd: {
+      type: Boolean,
+      default: false
+    },
+    showClose: {
+      type: Boolean,
+      default: false
+    },
+    floorModel:{
+      type:Array,
+      default:[
+        {
+          which: "",
+          floor: "",
+          num: ""
+        }
+      ]
+    }
+  },
+
   components: {
     Preview
   },
-  created() {
-    this.groupModel.firstModel = {
-      companyName: 2016,
-      position: 2016,
-      name: 2016,
-      cardType: 2016
-    }
-    this.groupModel.floorModel = [
-      {
-        which: 2016,
-        floor: 2016,
-        num: 2016,
-      }
-    ]
-  },
   data() {
     return {
-      schema: {
-        groups: [
-          {
-            legend: '选择新员工',
-            fields: [
-              {
-                type: 'select',
-                modelKey: 'companyName',
-                label: '所属公司',
-                props: {
-                  options: [2015, 2016, 2017, 2018, 2019, 2020],
-                },
-                rules: {
-                  required: true
-                }
-              },
-              {
-                type: 'select',
-                modelKey: 'position',
-                label: '所属部门',
-                props: {
-                  options: [2015, 2016, 2017, 2018, 2019, 2020]
-                },
-                rules: {
-                  required: true
-                }
-              },
-              {
-                type: 'select',
-                modelKey: 'name',
-                label: '员工姓名',
-                props: {
-                  options: [2015, 2016, 2017, 2018, 2019, 2020]
-                },
-                rules: {
-                  required: true
-                }
-              },
-              {
-                type: 'select',
-                modelKey: 'cardType',
-                label: '卡片类型',
-                props: {
-                  options: [2015, 2016, 2017, 2018, 2019, 2020]
-                },
-                rules: {
-                  required: true
-                }
-              },
-            ]
-          },
-
-        ]
-      },
       preview: false,
-      groupModel: {
-        firstModel: {
-          companyName: '',
-          position: "",
-          name: "",
-          cardType: ""
-        },
-        floorModel: [
-          {
-            which: "",
-            floor: "",
-            num: ""
-          }
-        ]
-      },
-      groupSchema: {
-        fristSchema: {
-          groups: [
-            {
-              legend: '选择新员工',
-              fields: [
-                {
-                  type: 'select',
-                  modelKey: 'companyName',
-                  label: '所属公司',
-                  props: {
-                    options: [2015, 2016, 2017, 2018, 2019, 2020]
-                  },
-                  rules: {
-                    required: true
-                  }
-                },
-                {
-                  type: 'select',
-                  modelKey: 'position',
-                  label: '所属部门',
-                  props: {
-                    options: [2015, 2016, 2017, 2018, 2019, 2020]
-                  },
-                  rules: {
-                    required: true
-                  }
-                },
-                {
-                  type: 'select',
-                  modelKey: 'name',
-                  label: '员工姓名',
-                  props: {
-                    options: [2015, 2016, 2017, 2018, 2019, 2020]
-                  },
-                  rules: {
-                    required: true
-                  }
-                },
-                {
-                  type: 'select',
-                  modelKey: 'cardType',
-                  label: '卡片类型',
-                  props: {
-                    options: [2015, 2016, 2017, 2018, 2019, 2020]
-                  },
-                  rules: {
-                    required: true
-                  }
-                },
-              ]
-            },
-
-          ]
-        },
-        floorSchema: [
-          {
-            fields: [
-              {
-                type: 'select',
-                modelKey: 'which',
-                label: '楼栋',
-                props: {
-                  options: [2015, 2016, 2017, 2018, 2019, 2020]
-                },
-                rules: {
-                  required: true
-                }
-              },
-              {
-                type: 'select',
-                modelKey: 'floor',
-                label: '楼层',
-                props: {
-                  options: [2015, 2016, 2017, 2018, 2019, 2020]
-                },
-                rules: {
-                  required: true
-                }
-              },
-              {
-                type: 'select',
-                modelKey: 'num',
-                label: '楼门',
-                props: {
-                  options: [2015, 2016, 2017, 2018, 2019, 2020]
-                },
-                rules: {
-                  required: true
-                }
-              },
-            ]
-          }
-        ]
-      },
-
     }
   },
   methods: {
@@ -270,7 +95,7 @@ export default {
       }).show()
     },
     confirm() {
-      this.$router.push({name: 'PreviewInfo', params: {id: 1}})
+      this.$emit('confirm', this.groupModel.floorModel)
     },
     add() {
       let schemaTemplate = {
@@ -280,7 +105,7 @@ export default {
             modelKey: 'which',
             label: '楼栋',
             props: {
-              options: [2015, 2016, 2017, 2018, 2019, 2020]
+              options: ['楼栋1', '楼栋2', '楼栋3', '楼栋4', '楼栋5', '楼栋6']
             },
             rules: {
               required: true
@@ -291,7 +116,7 @@ export default {
             modelKey: 'floor',
             label: '楼层',
             props: {
-              options: [2015, 2016, 2017, 2018, 2019, 2020]
+              options: ['楼层1', '楼层2', '楼层3', '楼层4', '楼层5']
             },
             rules: {
               required: true
@@ -302,7 +127,7 @@ export default {
             modelKey: 'num',
             label: '楼门',
             props: {
-              options: [2015, 2016, 2017, 2018, 2019, 2020]
+              options: ['楼门1', '楼门2', '楼门3', '楼门4', '楼门5']
             },
             rules: {
               required: true
@@ -511,7 +336,14 @@ export default {
 
 .item
   position: relative;
-
+  .cover
+    position: absolute
+    background-color transparent;
+    z-index: 99
+    height 100%
+    width 100%
+    top 0
+    left 0
   .floor-root
     border-radius 6px
     background-color rgba(#0099FF, .05)
