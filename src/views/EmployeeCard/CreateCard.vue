@@ -1,11 +1,11 @@
 <template>
-  <FloorSelect   @confirm="confirm" :showAdd="true" :showClose="true" >
+  <FloorSelect @confirm="confirm" :showAdd="true" :showClose="true">
     <LayOut style="margin-top: 12px;padding: 12px 20px">
       <div class="title">选择新员工</div>
       <!--      @submit="submitHandler"-->
       <!--        @validate="validateHandler"-->
-      <cube-form :model="groupModel.firstModel"
-                 :schema="groupSchema.fristSchema"
+      <cube-form :model="$store.state.EmployeeCard.groupModel.firstModel"
+                 :schema="$store.state.EmployeeCard.groupSchema.fristSchema"
                  :options="{layout:'classic'}"
                  class="form-control new-employee"
       >
@@ -17,23 +17,11 @@
 <script>
 import Preview from "@/components/EmployeeCard/Preview";
 import FloorSelect from "@/views/EmployeeCard/components/FloorSelect";
-import EmployeeCard from "@/libs/mixins/EmployeeCard";
 
 export default {
   name: "CreateCard",
-  mixins:[EmployeeCard],
-  watch:{
-    groupModel:{
-      deep:true,
-      handler:(newV,oldV)=>{
-        console.log(newV)
-      }
-    }
-  },
   components: {
     Preview, FloorSelect
-  },
-  created() {
   },
   data() {
     return {
@@ -41,9 +29,6 @@ export default {
     }
   },
   methods: {
-    submitHandler(e, e1) {
-
-    },
     cancel() {
       this.$createDialog({
         type: 'confirm',
@@ -59,12 +44,15 @@ export default {
       }).show()
     },
     confirm(e) {
-      this.$router.push({name: 'PreviewConfirm',params: {
-          id: this.userInfo.id,
-          firstModel:this.groupModel.firstModel,
-          floorModel:e.floorModel,
-          floorSchema:e.floorSchema
-      }})
+      this.$router.push({
+            name: 'PreviewConfirm',
+            params: {
+              id: this.userInfo.id,
+            //   firstModel: this.$store.state.EmployeeCard.groupModel,
+            //   floorModel: e.floorModel,
+            //   floorSchema: e.floorSchema
+            }
+          })
     },
     add() {
       let schemaTemplate = {
@@ -188,8 +176,9 @@ export default {
 </script>
 
 <style scoped lang="stylus">
->>>.cube-textarea-wrapper::after
+>>> .cube-textarea-wrapper::after
   border none
+
 >>> .cube-form-group-legend, >>> .cube-select::after
   display none
 

@@ -379,13 +379,6 @@ export default {
     validateHandler(result) {
       this.validity = result.validity;
       this.valid = result.valid;
-      console.log(
-        "validity",
-        result.validity,
-        result.valid,
-        result.dirty,
-        result.firstInvalidFieldIndex
-      );
     },
     showDateTimePickerStart() {
       let time = this.$dayjs().format("YYYY,MM,DD,HH,MM,ss");

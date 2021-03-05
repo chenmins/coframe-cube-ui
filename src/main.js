@@ -23,10 +23,6 @@ import Icon from "@/components/Icon";
 import ReadConfig from './utils/config'
 import loading from "@/components/UI/loading";
 
-// import mock from "@/utils/mock/mock"; //mock数据的时候使用
-
-
-
 
 import dayjs from 'dayjs'
 import isoWeek from 'dayjs/plugin/isoWeek'
@@ -48,13 +44,13 @@ Vue.config.sys_error_show = true
 Vue.config.lang = 'zh_CN'
 
 
-
-
 Vue.mixin(Global).mixin(BaseVue)
 Vue.use(registerComponents, [
   Nav, Tabbar, List, Tag, LayOut, NavLayOut, Icon, loading, calendar
 ])
-
+window.vue =  new Vue({
+  store
+})
 
 
 const create = async () => {
@@ -68,8 +64,3 @@ const create = async () => {
 create()
 Vue.prototype.$config = Vue.config
 
-// new Vue({
-//   router,
-//   store,
-//   render: h => h(App)
-// }).$mount('#app')

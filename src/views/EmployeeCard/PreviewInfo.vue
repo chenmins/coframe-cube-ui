@@ -3,61 +3,110 @@
     <div class="cover"></div>
     <div class="card">
       <div class="card_content">
-        <span class="card_num">02121</span>
+        <span class="card_num">{{ cardInfo.name.id }}</span>
         <div class="card_avatar">
           <!--            <img src="" alt="">-->
           <div class="avatar_img"></div>
-          <img class="avatar_edit" src="../../assets/icons/employee_edit.webp" alt="">
-          <span class="avatar_name">易烊千玺</span>
+          <img
+            class="avatar_edit"
+            src="../../assets/icons/employee_edit.webp"
+            alt=""
+          />
+          <span class="avatar_name">{{ cardInfo.name.userName }}</span>
         </div>
       </div>
       <div class="card_content_bottom">
         <div class="content_left">
-          <span>国家管道局新能技术部</span>
+          <span>{{ cardInfo.companyName }}</span>
           <span>厚德载物楼4栋303</span>
         </div>
         <div class="content_right">
           <!--            <img src="" alt="">-->
           <div class="content_img"></div>
-          <span>国家管道局</span>
+          <span>{{ cardInfo.position }}</span>
         </div>
       </div>
     </div>
     <div class="footer">
-
       <div>信息有误</div>
-      <div class="confirm" @click="$router.push('/EmployeeCard')">确认信息</div>
-
+      <div class="confirm" @click="confirm">确认信息</div>
     </div>
   </NavLayOut>
 </template>
 
 <script>
 import NavLayOut from "@/components/NavLayOut";
+import { WorkCartControllerImpl } from "@controller";
+
 export default {
   name: "PreviewInfo",
-  components: {NavLayOut},
-  created(){
-    console.log(this.$route.params)
-  }
-}
+  components: { NavLayOut },
+  data() {
+    return {
+      cardInfo: {},
+    };
+  },
+  created() {
+    this.cardInfo = this.$store.state.EmployeeCard.groupModel.firstModel;
+  },
+  methods: {
+    async confirm() {
+      let resp;
+      let data = {
+        userId: this.cardInfo.name.id,
+        userName: this.cardInfo.name.userName,
+        type: this.cardInfo.cardType,
+        reasonsName: this.cardInfo.companyName,
+        reasonsCode: this.cardInfo.position,
+        floorAuthority: JSON.stringify(
+          this.$store.state.EmployeeCard.groupModel.floorModel
+        ),
+      };
+      if (this.$route.params.func === "补卡") {
+        resp = await this.dispatch(WorkCartControllerImpl.replacement);
+        if (resp.data.body === 0) {
+          this.$createToast({
+            type: "normal",
+            txt: "补卡失败",
+            time: 1000,
+          }).show();
+        }
+        return;
+      }
+      resp = await this.dispatch(WorkCartControllerImpl.open, data);
+      if (!resp.error) {
+        this.$createToast({
+          type: "normal",
+          txt: "补卡成功",
+          time: 1000,
+          onTimeout: () => {
+            this.$router.push({ name: "员工卡申请" });
+          },
+        }).show();
+      }
+    },
+  },
+};
 </script>
 
 <style scoped lang="stylus" >
-.cover
-  background-color #000
-  opacity: .5;
-  height 100vh
-  width 100vw
-  position absolute
-  z-index -1
-.footer
-  display flex
+.cover {
+  background-color: #000;
+  opacity: 0.5;
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  z-index: -1;
+}
+
+.footer {
+  display: flex;
   justify-content: space-around;
-  align-items: center
-  div
+  align-items: center;
+
+  div {
     width: 160px;
-    line-height:40px
+    line-height: 40px;
     height: 40px;
     background: #F5F6FA;
     border-radius: 20px;
@@ -65,87 +114,116 @@ export default {
     font-family: PingFangSC-Regular, PingFang SC;
     font-weight: 400;
     color: #000000;
-  .confirm
+  }
+
+  .confirm {
     background: linear-gradient(90deg, #19E8FF 0%, #0F97FB 100%);
     border-radius: 20px;
-    color #fff
-.card
+    color: #fff;
+  }
+}
+
+.card {
   box-shadow: 0px 7px 14px 0px rgba(104, 171, 255, 0.35);
-  margin 49px 27px
-  border-radius 20px
+  margin: 49px 27px;
+  border-radius: 20px;
   overflow: hidden;
-  .card_content
-    color #fff
+
+  .card_content {
+    color: #fff;
     height: 350px;
     background: linear-gradient(108deg, #89F7FE 0%, #66A6FF 100%);
-    position relative
-    .card_num
-      font-size 12px
-      text-align right
-      display block
-      padding 13px 9px
-    .card_avatar
+    position: relative;
+
+    .card_num {
+      font-size: 12px;
+      text-align: right;
+      display: block;
+      padding: 13px 9px;
+    }
+
+    .card_avatar {
       width: 185px;
       height: 185px;
-      border-radius 50%
-      position absolute
-      top 45%
-      left 50%
-      transform translate(-50%,-50%)
-      .avatar_img
+      border-radius: 50%;
+      position: absolute;
+      top: 45%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      .avatar_img {
         width: 185px;
         height: 185px;
-        background-color #42b983
-        border-radius 50%
-      .avatar_edit
-        height 20px
-        width 20px
-        padding 5px
-        position absolute
-        background-color #0099FF
-        border-radius 50%
-        bottom  10px
-        right 10px
-      .avatar_name
+        background-color: #42b983;
+        border-radius: 50%;
+      }
+
+      .avatar_edit {
+        height: 20px;
+        width: 20px;
+        padding: 5px;
+        position: absolute;
+        background-color: #0099FF;
+        border-radius: 50%;
+        bottom: 10px;
+        right: 10px;
+      }
+
+      .avatar_name {
         font-size: 22px;
         font-family: PingFangSC-Medium, PingFang SC;
         font-weight: 500;
         color: #FFFFFF;
         line-height: 30px;
-        display inline-block
-        margin-top 10px
-  .card_content_bottom
-    height 94px
-    background-color #fff
-    display flex
-    align-items center
+        display: inline-block;
+        margin-top: 10px;
+      }
+    }
+  }
+
+  .card_content_bottom {
+    height: 94px;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
     justify-content: space-around;
-    .content_left
-      text-align left
-      display flex
-      flex-direction column
-      span:first-child
-        font-size 14px
+
+    .content_left {
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+
+      span:first-child {
+        font-size: 14px;
         font-family: PingFangSC-Medium, PingFang SC;
         font-weight: 500;
         color: #000000;
         line-height: 20px;
-      span:nth-child(2)
-        font-size 12px
+      }
+
+      span:nth-child(2) {
+        font-size: 12px;
         font-family: PingFangSC-Regular, PingFang SC;
         color: #999999;
         line-height: 17px;
-    .content_right
-      .content_img
-        height 31px
-        width 31px
-        background-color #42b983
-        margin 0 auto
-        border-radius 3px
-      span
-        font-size 12px
+      }
+    }
+
+    .content_right {
+      .content_img {
+        height: 31px;
+        width: 31px;
+        background-color: #42b983;
+        margin: 0 auto;
+        border-radius: 3px;
+      }
+
+      span {
+        font-size: 12px;
         font-family: PingFangSC-Regular, PingFang SC;
         line-height: 17px;
-
-
+      }
+    }
+  }
+}
 </style>

@@ -66,12 +66,18 @@
                         class-name="schedule-time schedule"
                       ></Icon>
                       <span
-                        >{{ $dayjs(meeting.startDate).format("HH:ss") }}-{{
-                          $dayjs(meeting.endDate).format("HH:ss")
+                        >{{ $dayjs(meeting.startDate).format("HH:mm") }}-{{
+                          $dayjs(meeting.endDate).format("HH:mm")
                         }}</span
                       >
                     </div>
-                    <div class="row_2">PM</div>
+                    <div class="row_2">
+                      {{
+                        $dayjs(meeting.startDate).format("HH") <= 12
+                          ? "AM"
+                          : "PM"
+                      }}
+                    </div>
                   </div>
                 </div>
               </div>

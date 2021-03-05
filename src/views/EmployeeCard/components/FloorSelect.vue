@@ -10,9 +10,9 @@
         <LayOut class="item" style="margin-top: 12px;padding: 12px 20px">
           <div v-if="!showAdd" class="cover"></div>
           <div class="title">楼层权限</div>
-          <div class="item" v-for="(model,index) in groupModel.floorModel">
-            <cube-form  :model="groupModel.floorModel[index]"
-                         :schema="groupSchema.floorSchema[index]"
+          <div class="item" v-for="(model,index) in $store.state.EmployeeCard.groupModel.floorModel">
+            <cube-form :model="$store.state.EmployeeCard.groupModel.floorModel[index]"
+                       :schema="$store.state.EmployeeCard.groupSchema.floorSchema[index]"
                        :options="{layout:'classic'}"
                        class="form-control floor-root"
             >
@@ -29,7 +29,7 @@
     </NavLayOut>
 
     <div class="footer" v-if="$route.meta.name==='员工卡申请'">
-      <cube-button type="submit" @click="submit">预览确认</cube-button>
+      <cube-button type="submit">预览确认</cube-button>
     </div>
     <div class="footer two" v-else>
       <cube-button type="submit" class="cancel" @click="$router.back()">上一步</cube-button>
@@ -41,11 +41,9 @@
 
 <script>
 import Preview from "@/components/EmployeeCard/Preview";
-import EmployeeCard from "@/libs/mixins/EmployeeCard";
 
 export default {
   name: "FloorSelect",
-  mixins: [EmployeeCard],
   props: {
     bgColor: {
       type: String,
@@ -70,13 +68,6 @@ export default {
       preview: false,
     }
   },
-  mounted(){
-    if(JSON.stringify(this.$route.params)!=="{}"){
-      this.groupModel.floorModel = this.$route.params.floorModel
-      this.groupSchema.floorSchema = this.$route.params.floorSchema
-    }
-
-  },
   methods: {
     cancel() {
       this.$createDialog({
@@ -93,7 +84,7 @@ export default {
       }).show()
     },
     confirm() {
-      this.$emit('confirm', {floorModel:this.groupModel.floorModel,floorSchema:this.groupSchema.floorSchema})
+      this.$emit('confirm',)
     },
     add() {
       let schemaTemplate = {
@@ -138,16 +129,16 @@ export default {
         floor: "",
         num: ""
       }
-      this.groupModel.floorModel.push(modelTemplate)
-      this.groupSchema.floorSchema.push(schemaTemplate)
+      this.$store.commit('EmployeeCard/addFormItem', {
+        modelTemplate, schemaTemplate
+      })
+
     },
     close(index) {
-      this.floorModel.splice(index, 1)
-      this.groupSchema.floorSchema.splice(index, 1)
+      this.$store.state.EmployeeCard.groupModel.floorModel.splice(index, 1)
+      this.$store.state.EmployeeCard.groupSchema.floorSchema.splice(index, 1)
     },
-    submit(e, model, model2) {
-      console.log(this.model.time)
-    },
+
     showTimePicker() {
       const timePicker = this.$createTimePicker({
         showNow: true,
@@ -162,7 +153,6 @@ export default {
           this.model.time = formatedTime
         },
       })
-      // timePicker.setTime(time)
       timePicker.show()
     },
     selectItem2() {

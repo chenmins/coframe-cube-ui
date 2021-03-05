@@ -101,7 +101,21 @@
         </cube-form>
       </LayOut>
     </NavLayOut>
-    <footer v-if="scheduleData.userName === userInfo.name">
+
+    <footer
+      v-if="
+        scheduleData.scheduleParticipantsEntities.filter(
+          (i) => i.userId === userInfo.id
+        )[0].agree === '待确认'
+      "
+    >
+      <div @click="refuse" class="footer-func reject">拒绝</div>
+      <div @click="$router.push({ name: '日程协同' })" class="footer-func">
+        待处理
+      </div>
+      <div @click="agree" class="footer-func">接受</div>
+    </footer>
+    <footer v-if="scheduleData.userId === userInfo.id">
       <div @click="showPicker('share')">
         <Icon
           svg-name="schedule-footer-1"
@@ -120,13 +134,6 @@
           class-name="schedule-footer schedule-footer-3"
         ></Icon>
       </div>
-    </footer>
-    <footer v-else>
-      <div @click="refuse" class="footer-func reject">拒绝</div>
-      <div @click="$router.push({ name: '日程协同' })" class="footer-func">
-        待处理
-      </div>
-      <div @click="agree" class="footer-func">接受</div>
     </footer>
     <!--    普通-->
     <!--接收人-->
@@ -213,7 +220,6 @@ export default {
   },
   created() {
     this.scheduleData = this.$route.params.data;
-    console.log(this.scheduleData);
     this.model = {
       userName: this.scheduleData.userName,
       organization: this.scheduleData.userName,

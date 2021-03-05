@@ -75,7 +75,7 @@ ajaxUtil.stitchingParams = (url, payload, all) => {
     .join('&')
   let s = url + (params === '' ? '?' : '?' + params + '&') + '_timestamp=' + Math.random(10)
   if (process.env.NODE_ENV === `development`) {
-    console.log(s)
+    console.log('请求' + url)
   }
   return s
 }
@@ -122,7 +122,7 @@ ajaxUtil.myRequest = (action, payload) => {
     ajaxUtil
       .headers({
         Authorization: localStorage.getItem('Token'),
-        'X-EOS-SourceSysKey':Vue.config['X-EOS-SourceSysKey'],
+        'X-EOS-SourceSysKey': Vue.config['X-EOS-SourceSysKey'],
         Locale: Vue.config.lang,
         Channel: 'website',
         overflow: false,
@@ -144,7 +144,7 @@ ajaxUtil.myRequest = (action, payload) => {
         resolve(response)
       })
       .catch(res => {
-        if(res.response.status===401){
+        if (res.response.status === 401) {
           Toast.$create({
             txt: res.response.data.message,
             time: 1000,
@@ -158,7 +158,7 @@ ajaxUtil.myRequest = (action, payload) => {
   })
 }
 
-ajaxUtil.apiHandler = ({data}) => {
+ajaxUtil.apiHandler = ({ data }) => {
   let error = null
   let keys = _.keys(data)
   if (_.includes(keys, 'offset') && _.includes(keys, 'limit')) {

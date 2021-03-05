@@ -215,7 +215,7 @@ export default {
     content: '';
     height: 5px;
     width: 5px;
-    background-color: #FF3285;
+    background-color: #3E4FFF;
     display: inline-block;
     border-radius: 50%;
   }
