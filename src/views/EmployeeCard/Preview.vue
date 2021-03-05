@@ -52,8 +52,7 @@ export default {
     }
   },
   created(){
-    this.cardInfo = {...this.$route.params.data.firstModel}
-    this.groupModel.floorModel = this.$route.params.data.floorModel
+    this.cardInfo = {...this.$route.params.firstModel}
   },
   methods:{
     async submit(){
@@ -65,18 +64,20 @@ export default {
         type:this.cardInfo.cardType,
         reasonsName:this.cardInfo.companyName,
         reasonsCode:this.cardInfo.position,
-        floorAuthority:JSON.stringify(this.$route.params.data.floorModel)
+        floorAuthority:JSON.stringify(this.$route.params.floorModel)
       }
       resp = await this.dispatch(WorkCartControllerImpl.open,data)
 
-      console.log(resp)
     }
   }
 }
 </script>
 
 <style scoped lang="stylus">
-
+>>>.cube-validator-msg
+  display none
+>>>.cube-form-item_required .cube-form-label::before
+  display none
 >>>.bgcolor
   background-color transparent!important
 

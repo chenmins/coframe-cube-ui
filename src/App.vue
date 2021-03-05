@@ -1,11 +1,9 @@
 <template>
   <div id="app"
   >
-
     <transition name="slide-fade">
-      <router-view/>
+      <router-view />
     </transition>
-
     <div class="write" v-if="$route.meta.tag==='需求反馈'" @click="Replay">
       <Icon class-name="write_svg" svg-name="edit" height="24px" width="24px"></Icon>
     </div>
@@ -19,8 +17,6 @@ export default {
   provide() {
     return {
       reload: this.reload,
-      userInfo: JSON.parse(localStorage.getItem('userInfo')),
-      isAdmin:  JSON.parse(localStorage.getItem('userInfo')).admin,
     }
   },
   data() {
@@ -29,9 +25,7 @@ export default {
 
     }
   },
-  mounted() {
 
-  },
   methods: {
     reload() {
       this.isRouterAlive = false

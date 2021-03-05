@@ -1,6 +1,5 @@
 <template>
-
-  <FloorSelect @confirm="confirm" :showAdd="true" :showClose="true" >
+  <FloorSelect   @confirm="confirm" :showAdd="true" :showClose="true" >
     <LayOut style="margin-top: 12px;padding: 12px 20px">
       <div class="title">选择新员工</div>
       <!--      @submit="submitHandler"-->
@@ -20,27 +19,17 @@ import Preview from "@/components/EmployeeCard/Preview";
 import FloorSelect from "@/views/EmployeeCard/components/FloorSelect";
 import EmployeeCard from "@/libs/mixins/EmployeeCard";
 
-const column1 = [
-  {text: '行政楼A座-一层-南门', value: '剧毒'},
-  {text: '行政楼B座-七层-南门', value: '蚂蚁'},
-  {text: '综合楼-七层-东门', value: '幽鬼'}
-]
-const column2 = [
-  {text: '输出', value: '输出'},
-  {text: '控制', value: '控制'},
-  {text: '核心', value: '核心'},
-  {text: '爆发', value: '爆发'}
-]
-const column3 = [
-  {text: '梅肯', value: '梅肯'},
-  {text: '秘法鞋', value: '秘法鞋'},
-  {text: '假腿', value: '假腿'},
-  {text: '飞鞋', value: '飞鞋'}
-]
-
 export default {
   name: "CreateCard",
   mixins:[EmployeeCard],
+  watch:{
+    groupModel:{
+      deep:true,
+      handler:(newV,oldV)=>{
+        console.log(newV)
+      }
+    }
+  },
   components: {
     Preview, FloorSelect
   },
@@ -49,13 +38,10 @@ export default {
   data() {
     return {
       preview: false,
-
-
     }
   },
   methods: {
     submitHandler(e, e1) {
-      console.log(arguments)
 
     },
     cancel() {
@@ -73,8 +59,12 @@ export default {
       }).show()
     },
     confirm(e) {
-      this.groupModel.floorModel = e
-      this.$router.push({name: 'PreviewConfirm',params: {id: this.userInfo.id,data:this.groupModel}})
+      this.$router.push({name: 'PreviewConfirm',params: {
+          id: this.userInfo.id,
+          firstModel:this.groupModel.firstModel,
+          floorModel:e.floorModel,
+          floorSchema:e.floorSchema
+      }})
     },
     add() {
       let schemaTemplate = {

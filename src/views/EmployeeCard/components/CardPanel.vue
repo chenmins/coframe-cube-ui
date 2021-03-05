@@ -5,7 +5,7 @@
         <img :class="loss==='启用'?'':'close'" width="100%" src="../../../assets/icons/card_ui.webp" alt="">
         <div class="right_top content">
           <div :class="loss==='启用'?'dot':'close dot'"></div>
-          <span >{{loss}}</span>
+          <span >{{loss==='员工卡办理中'?'新增审批中':loss}}</span>
         </div>
         <div class="center content">
           <div>{{title}}</div>

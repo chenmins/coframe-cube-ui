@@ -101,7 +101,7 @@
         </cube-form>
       </LayOut>
     </NavLayOut>
-    <footer v-if="scheduleData.initiator === '是'">
+    <footer v-if="scheduleData.userName === userInfo.name">
       <div @click="showPicker('share')">
         <Icon
           svg-name="schedule-footer-1"
@@ -121,9 +121,11 @@
         ></Icon>
       </div>
     </footer>
-    <footer v-if="scheduleData.initiator === '否'">
+    <footer v-else>
       <div @click="refuse" class="footer-func reject">拒绝</div>
-      <div @click="handle" class="footer-func">待处理</div>
+      <div @click="$router.push({ name: '日程协同' })" class="footer-func">
+        待处理
+      </div>
       <div @click="agree" class="footer-func">接受</div>
     </footer>
     <!--    普通-->
@@ -428,7 +430,6 @@ export default {
             }
             this.formatPicker.show();
           }
-
           this.updateSchedule(type);
         },
       });
@@ -452,12 +453,31 @@ export default {
     refuse() {
       this.edit = false;
       this.scheduleData.agree = "不同意";
-      this.update(this.scheduleData.agree);
+      this.update(this.scheduleData.agree).then(() => {
+        this.$createToast({
+          type: "normal",
+          txt: "已拒绝",
+          time: 1000,
+          onTimeout: () => {
+            this.$router.push({ name: "日程协同" });
+          },
+        }).show();
+        this.$router.push({ name: "日程协同" });
+      });
     },
     agree() {
       this.edit = false;
       this.scheduleData.agree = "同意";
-      this.update(this.scheduleData.agree);
+      this.update(this.scheduleData.agree).then(() => {
+        this.$createToast({
+          type: "normal",
+          time: 1000,
+          txt: "已同意",
+          onTimeout: () => {
+            this.$router.push({ name: "日程协同" });
+          },
+        }).show();
+      });
     },
     async update(data) {
       let resp = await this.dispatch(ScheduleControllerImpl.updateAgree, {

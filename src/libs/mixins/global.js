@@ -5,9 +5,10 @@ export default {
     data(){
         return {
             firstLoading:true,
+            userInfo:JSON.parse(localStorage.getItem('userInfo')),
+            isAdmin: JSON.parse(localStorage.getItem('admin'))
         }
     },
-    inject:['isAdmin','userInfo'],
     methods: {
         async dispatch(action, data, fn) {
             return await VueUtil(this).dispatchAsync(action, data, fn || null)

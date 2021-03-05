@@ -4,7 +4,7 @@ import "@/libs/XgeneCloudOptions";
 import App from './App.vue'
 import BaseVue from "@/libs/BaseVue";
 import router from './router'
-import axios from  './axios/index'
+import axios from './axios/index'
 import * as echarts from 'echarts';
 
 import registerComponents from '/src/plugins/registerComponents'
@@ -17,7 +17,7 @@ import Global from '@/libs/mixins/global'
 import Tag from "@/components/Tag";
 import LayOut from "@/components/LayOut";
 import store from './store'
-import Calendar from 'vue2-slot-calendar';
+import calendar from 'vue2-slot-calendar';
 import NavLayOut from "@/components/NavLayOut";
 import Icon from "@/components/Icon";
 import ReadConfig from './utils/config'
@@ -31,9 +31,9 @@ import loading from "@/components/UI/loading";
 import dayjs from 'dayjs'
 import isoWeek from 'dayjs/plugin/isoWeek'
 import DayOfYear from 'dayjs/plugin/dayOfYear'
-import calendar from 'dayjs/plugin/calendar'
+import useCalendar from 'dayjs/plugin/calendar'
 import IsLeapYear from 'dayjs/plugin/isLeapYear'
-dayjs.extend(isoWeek).extend(DayOfYear).extend(calendar).extend(IsLeapYear)
+dayjs.extend(isoWeek).extend(DayOfYear).extend(useCalendar).extend(IsLeapYear)
 
 
 Vue.config.productionTip = false
@@ -49,23 +49,13 @@ Vue.config.lang = 'zh_CN'
 
 
 
-Vue.component('Nav',Nav)
-Vue.component('Tabbar',Tabbar)
-Vue.component('List',List)
-Vue.component('Tag',Tag)
-Vue.component('LayOut',LayOut)
-Vue.component('Calendar',Calendar)
-Vue.component('NavLayOut',NavLayOut)
-Vue.component('Icon',Icon)
-Vue.component('loading',loading)
 
 Vue.mixin(Global).mixin(BaseVue)
-
-
-Vue.use(registerComponents,[
-    'Nav',
-    ''
+Vue.use(registerComponents, [
+  Nav, Tabbar, List, Tag, LayOut, NavLayOut, Icon, loading, calendar
 ])
+
+
 
 const create = async () => {
   await ReadConfig(Vue)

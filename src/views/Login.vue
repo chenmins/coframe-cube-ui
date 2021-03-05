@@ -93,7 +93,8 @@ export default {
           txt: '登陆成功，正在跳转',
           time: 500,
           onTimeout:()=>{
-            this.$router.push(routerStorage ? routerStorage : '/')
+            // this.$router.go(0)
+            this.$router.replace(routerStorage ? routerStorage : '/')
           }
         }).show()
       } else {

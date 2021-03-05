@@ -8,11 +8,11 @@
 
         </slot>
         <LayOut class="item" style="margin-top: 12px;padding: 12px 20px">
-          <div v-if="!showAdd" class="cover" ></div>
+          <div v-if="!showAdd" class="cover"></div>
           <div class="title">楼层权限</div>
-          <div class="item" v-for="(model,index) in floorModel">
-            <cube-form :model="floorModel[index]"
-                       :schema="groupSchema.floorSchema[index]"
+          <div class="item" v-for="(model,index) in groupModel.floorModel">
+            <cube-form  :model="groupModel.floorModel[index]"
+                         :schema="groupSchema.floorSchema[index]"
                        :options="{layout:'classic'}"
                        class="form-control floor-root"
             >
@@ -21,7 +21,7 @@
             <Icon v-show="showClose" svg-name="employee-close" class-name="close" @iconToggle="close(index)"></Icon>
           </div>
         </LayOut>
-        <div v-show ="showAdd" class="add" @click="add">
+        <div v-show="showAdd" class="add" @click="add">
           <i class="cubeic-close add_svg"></i>
           <span>添加</span>
         </div>
@@ -32,7 +32,7 @@
       <cube-button type="submit" @click="submit">预览确认</cube-button>
     </div>
     <div class="footer two" v-else>
-      <cube-button type="submit" class="cancel" @click="$router.push({name:'addCard'})">上一步</cube-button>
+      <cube-button type="submit" class="cancel" @click="$router.back()">上一步</cube-button>
       <cube-button type="submit" class="confirm" @click="confirm">预览确认</cube-button>
     </div>
 
@@ -40,12 +40,12 @@
 </template>
 
 <script>
-import  Preview from "@/components/EmployeeCard/Preview";
+import Preview from "@/components/EmployeeCard/Preview";
 import EmployeeCard from "@/libs/mixins/EmployeeCard";
 
 export default {
   name: "FloorSelect",
-  mixins:[EmployeeCard],
+  mixins: [EmployeeCard],
   props: {
     bgColor: {
       type: String,
@@ -59,16 +59,7 @@ export default {
       type: Boolean,
       default: false
     },
-    floorModel:{
-      type:Array,
-      default:[
-        {
-          which: "",
-          floor: "",
-          num: ""
-        }
-      ]
-    }
+
   },
 
   components: {
@@ -78,6 +69,13 @@ export default {
     return {
       preview: false,
     }
+  },
+  mounted(){
+    if(JSON.stringify(this.$route.params)!=="{}"){
+      this.groupModel.floorModel = this.$route.params.floorModel
+      this.groupSchema.floorSchema = this.$route.params.floorSchema
+    }
+
   },
   methods: {
     cancel() {
@@ -95,7 +93,7 @@ export default {
       }).show()
     },
     confirm() {
-      this.$emit('confirm', this.groupModel.floorModel)
+      this.$emit('confirm', {floorModel:this.groupModel.floorModel,floorSchema:this.groupSchema.floorSchema})
     },
     add() {
       let schemaTemplate = {
@@ -144,7 +142,7 @@ export default {
       this.groupSchema.floorSchema.push(schemaTemplate)
     },
     close(index) {
-      this.groupModel.floorModel.splice(index, 1)
+      this.floorModel.splice(index, 1)
       this.groupSchema.floorSchema.splice(index, 1)
     },
     submit(e, model, model2) {
@@ -336,6 +334,7 @@ export default {
 
 .item
   position: relative;
+
   .cover
     position: absolute
     background-color transparent;
@@ -344,6 +343,7 @@ export default {
     width 100%
     top 0
     left 0
+
   .floor-root
     border-radius 6px
     background-color rgba(#0099FF, .05)

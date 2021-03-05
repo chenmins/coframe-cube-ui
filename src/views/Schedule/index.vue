@@ -30,7 +30,14 @@
               @click="scheduleDetail(meeting)"
             >
               <div class="left">
-                <div v-if="meeting.agree === '同意'" class="dot"></div>
+                <div
+                  v-if="
+                    meeting.scheduleParticipantsEntities.filter(
+                      (i) => i.userId === userInfo.id
+                    )[0].agree === '同意'
+                  "
+                  class="dot"
+                ></div>
                 <div v-else class="did-dot"></div>
               </div>
               <div class="right">

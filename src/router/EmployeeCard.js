@@ -107,7 +107,7 @@ export default [
         path:'/CardRecord/:id',
         name:'CardRecord',
         meta: {
-            name: '员工卡记录',
+            name: '员工卡管理',
             tag: 'CardRecord',
             leave:3,
             showNav: true,
