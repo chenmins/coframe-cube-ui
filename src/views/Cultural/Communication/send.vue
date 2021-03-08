@@ -1,33 +1,31 @@
 <template>
   <div class="send_app">
-    <NavLayOut
-        bgc-color="#fff"
-        @back="$router.push({name:'交流圈'})"
-    >
+    <NavLayOut bgc-color="#fff" @back="$router.push({ name: '交流圈' })">
       <template v-slot:right>
-        <button class="submit" @click="submit">
-          发表
-        </button>
+        <button class="submit" @click="submit">发表</button>
       </template>
       <div class="container">
         <cube-textarea
-            class="textarea"
-            v-model="query.body"
-            :placeholder="placeholder"
-            :maxlength="maxlength"
-            :autofocus="autofocus"
+          class="textarea"
+          v-model="query.body"
+          :placeholder="placeholder"
+          :maxlength="maxlength"
+          :autofocus="autofocus"
         ></cube-textarea>
         <cube-upload
-            ref="upload"
-            v-model="files"
-            action="https://jsonplaceholder.typicode.com/posts/"
-            @files-added="filesAdded"
-            @file-submitted="fileSubmitted"
-            @file-success="filesSuccess"
-            @file-removed="filesRemove"
-            @file-error="errHandler">
-          <div class="clear-fix">
-            <cube-upload-file v-for="(file, i) in files" :file="file" :key="i"></cube-upload-file>
+          ref="upload"
+          v-model="files"
+          :action="url"
+          :multiple="true"
+          @files-added="filterFiles"
+          @file-submitted="fileSubmitted"
+        >
+          <div class="clear-fix row-reverse">
+            <cube-upload-file
+              v-for="(file, i) in files"
+              :file="file"
+              :key="i"
+            ></cube-upload-file>
             <cube-upload-btn v-show="!hasNine">
               <div>
                 <i>＋</i>
@@ -40,240 +38,249 @@
     </NavLayOut>
     <div class="footer">
       <div class="album" style="margin-right: 20px">
-        <Icon svg-name="addComment" style="margin-left:15px;height: 20px;width: 20px"></Icon>
+        <Icon
+          svg-name="addComment"
+          style="margin-left: 15px; height: 20px; width: 20px"
+        ></Icon>
       </div>
-      <div class="topic_list" @click="selectTopic">
-        <div v-if="topic.length===0"># 打标签</div>
-        <div v-else>#{{topic[0].name}}</div>
+      <div class="topic_list" @click="selectTopic" ref="topicBtn">
+        <div v-if="topic.length === 0">#打标签</div>
+        <div v-else>#{{ topic[0].name }}</div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-
-import {PipCcoCciController} from '@controller'
-import {CulturalControllerImpl,DictApiController} from '@controller'
-import {BaseVue} from "@/libs";
+import { PipCcoCciController } from "@controller";
+import { CulturalControllerImpl, DictApiController } from "@controller";
+import { BaseVue } from "@/libs";
+import filesUpload from "@/libs/mixins/filesUpload";
 
 export default {
   name: "send",
-  mixins: [BaseVue],
+  mixins: [BaseVue, filesUpload],
   data() {
     return {
-      value: '',
-      placeholder: '选最棒的照片作为主图，帖子更容易被追捧~',
+      url: "",
+      value: "",
+      placeholder: "选最棒的照片作为主图，帖子更容易被追捧~",
       maxlength: 300,
       autofocus: true,
       files: [],
       hasNine: false,
       topic: [],
-      query:{}
-    }
+      query: {
+        body: "",
+        choice: "choice"+Math.random(),
+        picture: '',
+        title:  "title"+Math.random(),
+        topicOfConversationId: '',
+        topicOfConversationName: '',
+        type: "type"+Math.random(),
+      },
+      picture: "",
+    };
   },
   created() {
-    this.query = this.$store.state.Cultural.sendForm
-    if(this.$store.state.Cultural.selectedTopic.length!==0){
-      this.topic=this.$store.state.Cultural.selectedTopic
+  // 优化
+    if(this.$store.state.Cultural.files?.length){
+      this.files = this.$store.state.Cultural.files
+    }
+    if(this.$store.state.Cultural.sendForm.body){
+      this.query = this.$store.state.Cultural.sendForm
+    }
+    if (this.$store.state.Cultural.selectedTopic?.length) {
+      this.topic = this.$store.state.Cultural.selectedTopic;
     }
   },
   methods: {
-    async submit() {
-      let userInfo = JSON.parse(localStorage.getItem('userInfo'))
-      let resp
-      this.$store.commit('Cultural/setSendForm',{
-        ...this.query,
-        userId: userInfo.id,
-        userName: userInfo.name,
-      })
-
-      resp = await this.dispatch(CulturalControllerImpl.addCommunicationCircle, this.$store.state.Cultural.sendForm)
-      if (!resp.error) {
-        this.$store.commit('Cultural/clearSendForm')
-        this.$createToast({
-          txt: '发表成功',
-          type: 'correct',
-          time: 1000,
-        }).show()
-        setTimeout(() => {
-          this.query = this.$store.state.Cultural.sendForm
-          this.$router.push({name:'交流圈'})
-        },1000)
-      } else {
-        console.log('failure')
-      }
-
-
-    },
-    filesAdded(files) {
-      let hasIgnore = false
-      let message
-      const maxSize = 1 * 1024 * 1024 // 1M
-      for (let k in files) {
-        const file = files[k]
-        if (file.size > maxSize) {
-          file.ignore = true
-          hasIgnore = true
-          message = '选择的图片不能大于1M'
-        }
-      }
-
-      hasIgnore && this.$createToast({
-        type: 'warn',
-        time: 1000,
-        txt: message
-      }).show()
-    },
-    errHandler(file) {
-      // const msg = file.response.message
-      this.$createToast({
-        type: 'warn',
-        txt: 'Upload fail',
-        time: 1000
-      }).show()
-    },
-    filesSuccess(file) {
-      let message
-      let hasIgnore = false
-      if (this.files.length === 9) {
-        this.hasNine = true
-      } else if (this.files.length > 9) {
-        file.ignore = true
-        hasIgnore = true
-        message = '图片数量不能多于9张'
-      }
-      hasIgnore && this.$createToast({
-        type: 'warn',
-        time: 1000,
-        txt: message
-      }).show()
-
-      console.log(file)
-    },
-    filesRemove() {
-      if (this.files.length <= 9) {
-        this.hasNine = false
-      }
-    },
-
+    fileSubmitted(file) {},
     selectTopic() {
-      this.$router.push({name: '话题列表'})
+      this.$store.commit('Cultural/setSendForm',this.query)
+      this.$store.commit('Cultural/setFiles',this.files)
+      this.$router.push({ name: "话题列表" });
+    },
+    async submit(data) {
+      if(!this.query.body.length){
+        this.$createToast({
+          type:'normal',
+          txt:'请填写内容',
+          time:1000
+        }).show()
+        return
+      }
+      let message = "发送中";
+      let toast = this.$createToast({
+        txt: message,
+        time: 0,
+      }).show();
+      let files = this.files;
+      let uploadTime = files.length,
+        resp;
+      this.query.picture = await this.uploadAsync(uploadTime, files);
+      try {
+        resp = await this.dispatch(CulturalControllerImpl.addCommunicationCircle, {
+          ...this.$store.state.Cultural.sendForm,
+        });
+        if (!resp.error && resp.data.body === 1) {
+          message = "发送成功";
+          this.$router.replace({name: "交流圈"}).then(()=>{
+            this.$store.commit('Cultural/clearSendForm')
+          })
+          toast.hide();
+        } else {
+          toast.hide();
+          message = "反馈失败";
+          this.$createToast({
+            txt: message,
+            time: 500,
+          }).show();
+        }
+      }catch (e) {
+        toast.hide()
+        message = '反馈失败'
+        this.$createToast({
+          type: 'normal',
+          txt: message,
+          time: 1000
+        }).show()
+      }
+
+    },
+  },
+};
+</script>
+
+<style scoped lang="stylus">
+.cube-upload .cube-upload-btn[data-v-570f13b8] {
+  border: none;
+  background-color: #F7F7F7;
+  border-radius: 6px;
+}
+
+>>> .cube-upload-file-def {
+  height: 100%;
+  width: 100%;
+}
+
+.send_app {
+  background-color: #fff;
+  height: 100%;
+}
+
+>>> .cube-textarea-wrapper::after {
+  border: none;
+}
+
+.submit {
+  position: absolute;
+  width: 50px;
+  top: 30px;
+  line-height: 30px;
+  border-radius: 15px;
+  font-size: 14px;
+  right: 0;
+  transform: translate(-50%, -50%);
+  background-color: $custom-active-color;
+  color: #fff;
+  border: none;
+  outline: none;
+}
+
+.container {
+  height: 100%;
+}
+
+.textarea {
+  height: 200px;
+}
+
+.cube-upload {
+  border-bottom: 1px solid rgba(#000000, 0.1);
+
+  .clear-fix {
+    flex-wrap: wrap;
+    flex-direction: row-reserve;
+  }
+
+  .cube-upload-file, .cube-upload-btn {
+    float: left;
+    height: calc(100vw / 3 - 22px);
+    width: calc(100vw / 3 - 22px);
+    margin: 10px;
+  }
+
+  .cube-upload-file {
+    margin: 10px;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .cube-upload-file-def {
+    width: 100%;
+    height: 100%;
+
+    .cubeic-wrong {
+      display: none;
+    }
+  }
+
+  .cube-upload-btn {
+    border: 1px solid rgba(#333, 0.3);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    > div {
+      text-align: center;
+      color: rgba(#333, 0.5);
+      font-size: 10px;
+    }
+
+    i {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 35px;
+      height: 35px;
+      margin-bottom: 20px;
+      font-size: 32px;
+      line-height: 1;
+      font-style: normal;
+      background-color: rgba(#333, 0.3);
+      color: #fff;
+      border-radius: 50%;
     }
   }
 }
-</script>
 
+.clear-fix {
+  display: flex;
+}
 
-<style scoped lang="stylus">
-.cube-upload .cube-upload-btn[data-v-570f13b8]
-  border none
-  background-color #F7F7F7
-  border-radius 6px
+.footer {
+  background-color: #fff;
+  border-top: 1px solid rgba(#000, 0.1);
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  height: 40px;
+  align-items: center;
+  color: $custom-gray;
+  font-size: 14px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 70;
 
->>> .cube-upload-file-def
-  height 100%
-  width 100%
-
-.send_app
-  background-color #fff
-  height 100%
-
->>> .cube-textarea-wrapper::after
-  border none
-
-.submit
-  position absolute
-  width 50px
-  top 30px
-  line-height 30px
-  border-radius 15px
-  font-size 14px
-  right 0
-  transform translate(-50%, -50%)
-  background-color $custom-active-color
-  color #fff
-  border none
-  outline none
-
-.container
-  height 100%
-
-.textarea
-  height 200px
-
-.cube-upload
-  border-bottom 1px solid rgba(#000000, .1)
-
-  .clear-fix
-    flex-wrap wrap
-
-  .cube-upload-file, .cube-upload-btn
-    float left
-    height: calc(100vw / 3 - 22px)
-    width calc(100vw / 3 - 22px)
-    margin 10px
-
-  .cube-upload-file
-    margin: 10px
-    display flex
-    flex-direction row
-
-  .cube-upload-file-def
-    width: 100%
-    height: 100%
-
-    .cubeic-wrong
-      display: none
-
-  .cube-upload-btn
-    border 1px solid rgba(#333, .3)
-
-    flex-shrink 0
-    display: flex
-    align-items: center
-    justify-content: center
-
-    > div
-      text-align: center
-      color rgba(#333, .5)
-      font-size 10px
-
-    i
-      display: inline-flex
-      align-items: center
-      justify-content: center
-      width: 35px
-      height: 35px
-      margin-bottom: 20px
-      font-size: 32px
-      line-height: 1
-      font-style: normal
-      background-color: rgba(#333, .3)
-      color #fff
-      border-radius: 50%
-
-.clear-fix
-  display flex
-
-.footer
-  background-color #fff
-  border-top 1px solid rgba(#000, .1)
-  width 100%
-  display flex
-  justify-content space-between
-  height 40px
-  align-items center
-  color $custom-gray
-  font-size 14px
-  position absolute
-  bottom 0
-  left 0
-  z-index 70
-
-  .topic_list
-    border 1px solid #333
-    font-size 12px
-    padding 4px 9px
-    border-radius 12.5px
-    margin 8px 14px
+  .topic_list {
+    border: 1px solid #333;
+    font-size: 12px;
+    padding: 4px 9px;
+    border-radius: 12.5px;
+    margin: 8px 14px;
+  }
+}
 </style>

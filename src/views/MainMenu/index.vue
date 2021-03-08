@@ -1,8 +1,10 @@
 <template>
   <div id="main_menu">
+    <div class="loading_cover" v-if="firstLoading">
+      <cube-loading class="loading" :size="40"></cube-loading>
+    </div>
     <NavLayOut color="#fff">
-
-      <img width="100%" class="bgc_img" src="../../assets/icons/Main.webp" alt="">
+      <img width="100%"  class="bgc_img" src="../../assets/icons/Main.webp" alt="">
       <MyTools :Tools="Tools" @SeeAll="$router.push({name:'AllTools'})"></MyTools>
       <MyTodos @SeeAll="$router.push({name:'MyAppointment'})"></MyTodos>
       <MyApply></MyApply>
@@ -30,14 +32,6 @@ export default {
     MyTodos,
     MyApply,
   },
-  // created(){
-  //   let tools = JSON.parse(localStorage.getItem('userInfo'))
-  //
-  //   if (tools && tools.attrs) {
-  //
-  //
-  //   }
-  // },
   methods: {
     async exitLogin() {
       let resp = await this.dispatch(AuthApiController.logout)
@@ -45,8 +39,8 @@ export default {
         localStorage.removeItem('Token')
         localStorage.removeItem('userInfo')
         localStorage.removeItem('ToolsManager')
+        localStorage.removeItem('admin')
         removeToken()
-
         this.$router.replace('/login')
       } else {
         console.log('error')
@@ -60,6 +54,7 @@ export default {
 </script>
 
 <style lang="stylus">
+
 .main_menu-tag
   flex-shrink 0
   border-radius 20px

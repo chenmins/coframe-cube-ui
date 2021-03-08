@@ -31,6 +31,18 @@ export default [
                 component: () => import('@/views/HelpCenter/Product/ProductsInc.vue')
             },
             {
+                path: 'Question/:id',
+                name: 'QuestionDetail',
+                meta: {
+                    name: '常见问题',
+                    leave: 3,
+                    showNav: true,
+                    tag: 'QuestionDetail',
+                    backRouter: '常见问题',
+                },
+                component: () => import('@/views/HelpCenter/QuestionDetail')
+            },
+            {
                 path: 'ProductInc/:id',
                 name: 'ProductInc',
                 meta: {
@@ -47,9 +59,11 @@ export default [
                 name: '需求反馈',
                 meta: {
                     name: '需求反馈',
+                    tag: 'DemanFeedback',
                     showTabbar: true,
                     leave: 2,
                     showNav: true,
+                    show:true
 
                 },
                 component: () => import('@/views/HelpCenter/DemanFeedback.vue')
@@ -58,7 +72,8 @@ export default [
                 path: 'Replay',
                 name: 'Replay',
                 meta: {
-                    name: '回复',
+                    name: '反馈',
+                    tag: 'Replay',
                     leave: 3,
                     showTabbar: false,
                     showNav: true,
@@ -70,7 +85,8 @@ export default [
                 path: 'ReplayDetail/:id',
                 name: 'ReplayDetail',
                 meta: {
-                    name: 'ReplayDetail',
+                    name: '需求反馈',
+                    tag: 'ReplayDetail',
                     leave: 3,
                     showNav: true,
                     backRouter: '需求反馈',

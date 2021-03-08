@@ -2,6 +2,13 @@ import {VueUtil} from '@/libs'
 // import {Demo} from "@/actions/pipe/Demo";
 
 export default {
+    data(){
+        return {
+            firstLoading:true,
+            userInfo:JSON.parse(localStorage.getItem('userInfo')),
+            isAdmin: JSON.parse(localStorage.getItem('admin'))
+        }
+    },
     methods: {
         async dispatch(action, data, fn) {
             return await VueUtil(this).dispatchAsync(action, data, fn || null)

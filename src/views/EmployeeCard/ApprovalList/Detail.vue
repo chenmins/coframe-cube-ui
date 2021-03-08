@@ -97,7 +97,7 @@
         </ul>
       </LayOut>
     </NavLayOut>
-    <div class="footer two" >
+    <div class="footer two" v-show="isAdmin" >
       <cube-button type="submit" class="cancel" @click="cancel">拒绝</cube-button>
       <cube-button type="submit" class="confirm" @click="confirm">通过</cube-button>
     </div>

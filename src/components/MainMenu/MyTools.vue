@@ -6,8 +6,6 @@
       :shadow="true"
       @SeeAll="SeeAll">
     <div class="func clearfix clear-fix"  >
-<!--      <van-skeleton v-if="loading" :row="8 " row-width="calc((100% - 60px) / 4)" />-->
-
       <div class="tool_item" @click="$router.push({name:Tool.text})" v-for="Tool in Tools">
         <Icon :svg-name="'Tools-'+Tool.icon" class-name="svg"></Icon>
         <div>{{Tool.text}}</div>

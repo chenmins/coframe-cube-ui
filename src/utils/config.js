@@ -19,9 +19,9 @@ let get = function (url) {
 
 
 export default async (vue) => {
-  if(!vue.config.login_type){
-    let resp =  await get('/config/app-config.json')
-    if(resp){
+  if (!vue.config.login_type) {
+    let resp = await get('/config/app-config.json')
+    if (resp) {
       vue.config.login_type = resp.loginType || 'normal' //normal ,iam, pass
       vue.config.server_url = resp.serverUrl || '' //后台服务地址, 当login_type 为 iam时, 用于接受 iframe 跨域信息,
       vue.config.title = resp.title || ''
@@ -30,6 +30,9 @@ export default async (vue) => {
       vue.config.coframe = resp.coframe || ''
       vue.config['X-EOS-SourceSysKey'] = resp['X-EOS-SourceSysKey'] || ''
       vue.config.login = resp.login || ''
+      vue.config.pictureUrl = resp.pictureUrl || ""
+      vue.config.bucket = resp.bucket || ''
+      vue.config.imgSize = resp.imgSize || ''
     }
   }
 }

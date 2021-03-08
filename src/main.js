@@ -4,8 +4,10 @@ import "@/libs/XgeneCloudOptions";
 import App from './App.vue'
 import BaseVue from "@/libs/BaseVue";
 import router from './router'
-import axios from  './axios/index'
+import axios from './axios/index'
 import * as echarts from 'echarts';
+
+import registerComponents from '/src/plugins/registerComponents'
 
 //组件
 import Nav from '@/components/Nav'
@@ -15,23 +17,19 @@ import Global from '@/libs/mixins/global'
 import Tag from "@/components/Tag";
 import LayOut from "@/components/LayOut";
 import store from './store'
-import Calendar from 'vue2-slot-calendar';
+import calendar from 'vue2-slot-calendar';
 import NavLayOut from "@/components/NavLayOut";
 import Icon from "@/components/Icon";
 import ReadConfig from './utils/config'
-
-// import mock from "@/utils/mock/mock"; //mock数据的时候使用
-
-import { Switch } from 'vant';
-import { Skeleton } from 'vant';
+import loading from "@/components/UI/loading";
 
 
 import dayjs from 'dayjs'
 import isoWeek from 'dayjs/plugin/isoWeek'
 import DayOfYear from 'dayjs/plugin/dayOfYear'
-import calendar from 'dayjs/plugin/calendar'
+import useCalendar from 'dayjs/plugin/calendar'
 import IsLeapYear from 'dayjs/plugin/isLeapYear'
-dayjs.extend(isoWeek).extend(DayOfYear).extend(calendar).extend(IsLeapYear)
+dayjs.extend(isoWeek).extend(DayOfYear).extend(useCalendar).extend(IsLeapYear)
 
 
 Vue.config.productionTip = false
@@ -46,26 +44,16 @@ Vue.config.sys_error_show = true
 Vue.config.lang = 'zh_CN'
 
 
-
-
-Vue.component('Nav',Nav)
-Vue.component('Tabbar',Tabbar)
-Vue.component('List',List)
-Vue.component('Tag',Tag)
-Vue.component('LayOut',LayOut)
-Vue.component('Calendar',Calendar)
-Vue.component('NavLayOut',NavLayOut)
-Vue.component('Icon',Icon)
-
-
-
 Vue.mixin(Global).mixin(BaseVue)
-Vue.use(Switch);
-Vue.use(Skeleton);
+Vue.use(registerComponents, [
+  Nav, Tabbar, List, Tag, LayOut, NavLayOut, Icon, loading, calendar
+])
+window.vue =  new Vue({
+  store
+})
 
 
 const create = async () => {
-
   await ReadConfig(Vue)
   new Vue({
     router,
@@ -76,8 +64,3 @@ const create = async () => {
 create()
 Vue.prototype.$config = Vue.config
 
-// new Vue({
-//   router,
-//   store,
-//   render: h => h(App)
-// }).$mount('#app')

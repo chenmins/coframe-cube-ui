@@ -43,18 +43,12 @@ export default {
         }
         next()
     },
-
-
     created() {
         let tools = JSON.parse(localStorage.getItem('userInfo'))
-
-        console.log(!tools || !tools.attrs)
         if (!tools || !tools.attrs || !tools.attrs.length) {
             console.log('没有初始值')
-
             this.getUserInfo().then(() => {
                 this.initTools().then(() => {
-
                 })
             })
         } else {
@@ -62,7 +56,6 @@ export default {
             //     this.updateTools()
             // })
             this.setCommonly(JSON.parse(JSON.parse(localStorage.getItem('userInfo')).attrs.find(i => i.attrName === 'MyTools').attrValue))
-
         }
     },
     methods: {
@@ -81,7 +74,6 @@ export default {
         async initTools() {
             let tools = JSON.parse(localStorage.getItem('userInfo'))
 
-            console.log(!tools || !tools.attrs || !tools.attrs.length)
 
             if (!tools || !tools.attrs || !tools.attrs.length) {
                 tools = JSON.parse(localStorage.getItem('userInfo'))
@@ -116,6 +108,7 @@ export default {
         },
         setCommonly(data) {
             this.Tools = data
+            this.firstLoading =false
         },
         async complete(data) {
             let resp = await this.dispatch(AuthApiController.updateAttrs, [{

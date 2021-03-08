@@ -107,7 +107,7 @@ export default [
         path:'/CardRecord/:id',
         name:'CardRecord',
         meta: {
-            name: '员工卡记录',
+            name: '员工卡管理',
             tag: 'CardRecord',
             leave:3,
             showNav: true,
@@ -129,7 +129,7 @@ export default [
     },
     {
         path:'/Preview/:id',
-        name:'Preview',
+        name:'PreviewConfirm',
         meta: {
             name: '确认信息',
             tag: 'Preview',
@@ -145,9 +145,8 @@ export default [
         meta: {
             name: '预览信息',
             tag: 'Preview',
-            leave:3,
+            leave:'back',
             showNav: true,
-            backRouter:'CreateCard',
         },
         component: () => import('@/views/EmployeeCard/PreviewInfo')
     }

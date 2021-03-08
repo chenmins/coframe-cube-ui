@@ -28,7 +28,6 @@ export default {
         inputValue: '',
         passwordValue: ''
       },
-
       schema: {
         fields: [
           {
@@ -72,11 +71,7 @@ export default {
       },
     }
   },
-  created() {
-
-  },
   beforeRouteEnter(to, from, next) {
-    console.log(to, from)
     routerStorage = from.fullPath
     next()
   },
@@ -98,7 +93,8 @@ export default {
           txt: '登陆成功，正在跳转',
           time: 500,
           onTimeout:()=>{
-            this.$router.push(routerStorage ? routerStorage : '/')
+            // this.$router.go(0)
+            this.$router.replace(routerStorage ? routerStorage : '/')
           }
         }).show()
       } else {

@@ -1,19 +1,18 @@
 <template>
   <div >
-      <div class="header">
-        <div class="title">
-          关于信息技术中心研发出新的功能，办公效率提升200%
-        </div>
-        <div class="from_box">
-          <div class="from">来源：行政服务平台</div>
-          <div class="date ">2020-12-25</div>
-        </div>
+    <div class="header">
+      <div class="title">
+        {{content.title}}
+      </div>
+      <div class="from_box">
+        <div class="from">来源：{{content.updateUser}}</div>
+        <div class="date ">{{$dayjs(content.updateTime).format('YYYY-MM-DD')}}</div>
+      </div>
 
-      </div>
-      <div class="content">
-        新闻正文部分，新闻正文部分，新闻正文部分，新闻正文部分，新闻正文部分，新闻正文部分，新闻正文部分，新闻正文部分，新闻正文部分，新闻正文部分，大幅度发到付
-        新闻正文部分，新闻正文部分，新闻正文部分，新闻正文部分，新闻正文部分，新闻正文部分，新闻正文部分，新闻正文部分，新闻正文部分，新闻正文部分，大幅度发到付
-      </div>
+    </div>
+    <div class="content">
+      {{content.body}}
+    </div>
   </div>
 </template>
 
@@ -28,6 +27,10 @@ export default {
       return {
         content:{}
       }
+  },
+  beforeRouteEnter(to,from,next){
+    to.meta.name = to.params.data.title
+    next()
   },
   created() {
     this.content = this.$route.params.data
