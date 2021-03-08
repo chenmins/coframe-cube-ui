@@ -1,5 +1,14 @@
 export default {
-    allData: {},
+
+
+    allData: {}, // 
+
+
+    topicLists: [],
+    selectedTopic: [],
+
+
+    files: [],
 
     //交流圈
     sendForm: {
@@ -11,8 +20,4 @@ export default {
         topicOfConversationName: '',
         type: "",
     },
-    selectedTopic: [],
-    topicLists: [],
-    files:[]
-
 }

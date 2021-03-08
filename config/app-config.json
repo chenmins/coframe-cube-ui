@@ -7,6 +7,7 @@
   "coframe": "/api/coframe",
   "X-EOS-SourceSysKey": "bf5a8edbe6134dfc9887df631007ef7a",
   "login": "/api/coframe/users/login",
-  "pictureUrl": "s.c94.cn:8292",
-  "bucket": "aaa"
+  "pictureUrl": "c94.cn:3197",
+  "bucket": "static",
+  "imgSize": "480x480"
 }

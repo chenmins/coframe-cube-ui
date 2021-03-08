@@ -59,9 +59,9 @@ export default {
   },
   methods: {
     Send() {
-      this.$store.commit('Cultural/clearSendForm')
-      this.$store.commit('Cultural/setFiles',null)
-      this.$store.state.Cultural.selectedTopic.splice(0, 1);
+      this.$store.commit("Cultural/setFiles", null);
+      this.$store.state.Cultural.selectedTopic[0] = [];
+      this.$store.commit("Cultural/clearSendForm");
       this.$router.push({ name: "发帖子" });
     },
   },

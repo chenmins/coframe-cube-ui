@@ -206,15 +206,15 @@ const EmployeeCard = {
             state.groupModel.firstModel = payload.firstModel
             state.groupModel.floorModel = payload.floorAuthority
         },
-        iniModel(state,payload){
+        iniModel(state, payload) {
             state.groupModel = {
                 firstModel: {
                     cardType: "",
-                        companyName: '',
-                        position: "",
-                        name: "",
-                        tel: "",
-                        remind: ""
+                    companyName: '',
+                    position: "",
+                    name: "",
+                    tel: "",
+                    remind: ""
                 },
                 floorModel: [
                     {

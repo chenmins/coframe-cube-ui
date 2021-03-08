@@ -1,15 +1,14 @@
 import { CulturalControllerImpl, DictApiController } from '@controller'
 
+
 export default {
     data() {
         return {
-
             //公告列表
             notices: [],
 
             //新闻列表
             news: [],
-
             //交流圈
             comments: [],
             topicLists: [],
@@ -20,11 +19,6 @@ export default {
     },
 
     methods: {
-        async getTopicLists() {
-            let resp
-            resp = await this.dispatch(DictApiController.getDictEntryByDictTypeCode, { code: 'pip-ccocci-topic' })
-            return resp
-        },
         //初始化文化建设全部数据
         async initAllData() {
             let resp
@@ -38,6 +32,13 @@ export default {
                 this.$store.commit('Cultural/setAllData', resp.data.body)
             }
         },
+
+        async getTopicLists() {
+            let resp
+            resp = await this.dispatch(DictApiController.getDictEntryByDictTypeCode, { code: 'pip-ccocci-topic' })
+            return resp
+        },
+
         //  点赞
         async toggleLike(e) {
             let resp = await this.dispatch(CulturalControllerImpl.fabulousCommunicationCircle, { id: e.id })
@@ -51,6 +52,8 @@ export default {
             }
         },
         changeHandle(e) {
+
+
             switch (e) {
                 case '公告列表':
                     this.selectedLabel = e
@@ -109,11 +112,18 @@ export default {
             }
         },
     },
+    computed: {
+        reverseData: function () {
+            set: (value) => {
+                return value.reverse()
+            }
+        }
+    },
     filters: {
         //时间倒序
-        reverseData: function (data) {
-            return data.reverse()
-        },
+        // reverseData: function (data) {
+        //     return data.reverse()
+        // },
         //点赞数超过1w小数
         fabulousCount: function (value) {
             if (value > 10000) {

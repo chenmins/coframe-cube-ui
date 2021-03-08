@@ -95,7 +95,6 @@ export default {
   mixins: [mixins],
   data() {
     return {
-      isAdmin: "false",
       selected: null,
       topic_list: true,
       selectedLabel: "全部",
@@ -120,8 +119,6 @@ export default {
   },
   created() {
     this.topics = this.$store.getters["Cultural/getHotTopLists"];
-    this.isAdmin = localStorage.getItem("admin");
-    this.$store.commit("Cultural/clearSendForm");
     this.comments = this.$store.state.Cultural.allData.communicationCircles?.reverse();
   },
   methods: {

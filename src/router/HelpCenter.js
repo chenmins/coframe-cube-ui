@@ -63,6 +63,7 @@ export default [
                     showTabbar: true,
                     leave: 2,
                     showNav: true,
+                    show:true
 
                 },
                 component: () => import('@/views/HelpCenter/DemanFeedback.vue')

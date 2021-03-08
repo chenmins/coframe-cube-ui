@@ -4,7 +4,7 @@
     <transition name="slide-fade">
       <router-view />
     </transition>
-    <div class="write" v-if="$route.meta.tag==='需求反馈'" @click="Replay">
+    <div class="write" v-if="$route.meta.name==='需求反馈'" @click="Replay">
       <Icon class-name="write_svg" svg-name="edit" height="24px" width="24px"></Icon>
     </div>
   </div>

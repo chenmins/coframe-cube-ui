@@ -32,6 +32,7 @@ export default async (vue) => {
       vue.config.login = resp.login || ''
       vue.config.pictureUrl = resp.pictureUrl || ""
       vue.config.bucket = resp.bucket || ''
+      vue.config.imgSize = resp.imgSize || ''
     }
   }
 }

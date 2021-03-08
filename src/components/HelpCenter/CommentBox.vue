@@ -73,9 +73,18 @@ export default {
     };
   },
   created() {
+    // this.$config.pictureUrl
+    // this.$config.bucket
+    // this.$config.imgSize
+    // this.listData.picture.split(",");
+    //tx.chenmin.org:9000/  jiaoliuquan
+
+    let newArr = `/8e3f7d5b-5c82-4aec-bae6-af1fedf67013/1615167859925.jpg,/8e3f7d5b-5c82-4aec-bae6-af1fedf67013/1615167859925.jpg,/8e3f7d5b-5c82-4aec-bae6-af1fedf67013/1615167859925.jpg,`
     let arr = this.listData.picture.split(",");
-    arr.pop();
-    this.imgs = arr;
+    arr.pop()
+    this.imgs = arr.map(i=>{
+      return `//${this.$config.pictureUrl}/${this.$config.bucket}/${i}_${this.$config.imgSize}`
+    })
     if (this.listData.body) {
       if (this.listData.body.length > 120) {
         this.open = true;

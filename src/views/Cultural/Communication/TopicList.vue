@@ -43,23 +43,12 @@ import * as DATAS from "@/assets/data";
 import axios from "axios";
 import { DictApiController } from "@controller";
 
-const DATA_MAP = {
-  全部: DATAS.ALL_HEROES,
-  法师: DATAS.MAGE_HEROES,
-  战士: DATAS.FIGHTER_HEROES,
-  坦克: DATAS.TANK_HEROES,
-  刺客: DATAS.ASSASSIN_HEROES,
-  辅助: DATAS.SUPPORT_HEROES,
-  射手: DATAS.MARKSMAN_HEROES,
-};
-
 export default {
   data() {
     return {
       selectedLabel: "全部",
       scrollData: [],
       tabs: [],
-      DATA_MAP: [],
       topicItems: [],
     };
   },
@@ -67,14 +56,6 @@ export default {
     this.init();
   },
   methods: {
-    selectTopic(item) {
-      this.$store.commit("Cultural/setSelectedTopic", item);
-      this.$store.commit("Cultural/setTopics", {
-        topicOfConversationId: item.id,
-        topicOfConversationName: item.name,
-      });
-      this.$router.push({ name: "发帖子" });
-    },
     async init() {
       let resp;
       resp = await this.dispatch(DictApiController.getDictEntryByDictTypeCode, {
@@ -96,6 +77,16 @@ export default {
         }
       }
     },
+
+    selectTopic(item) {
+      this.$store.commit("Cultural/setSelectedTopic", item);
+      this.$store.commit("Cultural/setTopics", {
+        topicOfConversationId: item.id,
+        topicOfConversationName: item.name,
+      });
+      this.$router.push({ name: "发帖子" });
+    },
+
     async getItem(id) {
       let resp;
       resp = await this.dispatch(DictApiController.getDictEntryByDictEntryId, {
