@@ -64,20 +64,21 @@ export default {
       };
       if (this.$route.params.func === "补卡") {
         resp = await this.dispatch(WorkCartControllerImpl.replacement);
-        if (resp.data.body === 0) {
-          this.$createToast({
-            type: "normal",
-            txt: "补卡失败",
-            time: 1000,
-          }).show();
-        }
-        return;
+      }else {
+        resp = await this.dispatch(WorkCartControllerImpl.open, data);
       }
-      resp = await this.dispatch(WorkCartControllerImpl.open, data);
+      if (resp.data.body === 0) {
+        this.$createToast({
+          type: "normal",
+          txt: `${this.$route.params.func}失败`,
+          time: 1000,
+        }).show();
+      }
+
       if (!resp.error) {
         this.$createToast({
           type: "normal",
-          txt: "补卡成功",
+          txt: `${this.$route.params.func}成功`,
           time: 1000,
           onTimeout: () => {
             this.$router.push({ name: "员工卡申请" });

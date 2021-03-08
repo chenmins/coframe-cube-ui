@@ -1,6 +1,4 @@
 <template>
-  <!--  todo 点赞超过一万小数-->
-
   <div class="communication_app">
     <div v-show="topic_list" style="background-color: #fff">
       <div class="topic_title">热门话题</div>
@@ -63,11 +61,8 @@
                 {{ comment.body }}
               </div>
             </template>
-            <template
-              v-slot:card_topic
-              v-if="comment.topicOfConversationId !== 0"
-            >
-              话题id#{{ comment.topicOfConversationId }}
+            <template v-slot:card_topic v-if="comment.topicOfConversationId !== ''">
+              #{{ comment.topicOfConversationName }}
             </template>
             <template v-slot:trash>
               <Icon
@@ -124,8 +119,8 @@ export default {
     };
   },
   created() {
+    this.topics = this.$store.getters["Cultural/getHotTopLists"];
     this.isAdmin = localStorage.getItem("admin");
-    this.setTopicLists();
     this.$store.commit("Cultural/clearSendForm");
     this.comments = this.$store.state.Cultural.allData.communicationCircles?.reverse();
   },
@@ -151,15 +146,6 @@ export default {
           break;
         case "热门":
           this.comments = this.$store.state.Cultural.allData.communicationCircles1?.reverse();
-          console.log(this.comments);
-          this.comments.forEach((i) => {
-            console.log(i.picture);
-            // if (i.picture.split) {
-            //   i.picture = i.picture.split(",");
-            //   i.picture.pop();
-            // }
-            // console.log(i);
-          });
           break;
         case "精选":
           this.comments = this.$store.state.Cultural.allData.communicationCircles2?.reverse();
@@ -189,10 +175,9 @@ export default {
       }
     },
     async remove(e, index) {
-      let resp = await this.dispatch(
-        CulturalControllerImpl.deleteCommunicationCircle,
-        { id: e }
-      ); //朋友圈id
+      let resp = await this.dispatch(CulturalControllerImpl.deleteCommunicationCircle, {
+        id: e,
+      }); //朋友圈id
       if (!resp.error && resp.data.statusCodeValue === 200) {
         this.$createToast({
           time: 1000,
@@ -205,8 +190,7 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>
 
 <style scoped lang="stylus">
 .topic-selected {

@@ -5,6 +5,7 @@
       <!--      @submit="submitHandler"-->
       <!--        @validate="validateHandler"-->
       <cube-form :model="$store.state.EmployeeCard.groupModel.firstModel"
+                 @validate="validateHandler"
                  :schema="$store.state.EmployeeCard.groupSchema.fristSchema"
                  :options="{layout:'classic'}"
                  class="form-control new-employee"
@@ -26,7 +27,11 @@ export default {
   data() {
     return {
       preview: false,
+      result:null
     }
+  },
+  created(){
+    this.$store.commit('EmployeeCard/iniModel')
   },
   methods: {
     cancel() {
@@ -43,11 +48,25 @@ export default {
         }
       }).show()
     },
+
+    validateHandler(result) {
+      this.result = result
+    },
     confirm(e) {
+      if(!this.result.valid){
+        this.$createToast({
+          type:'error',
+          txt:'请填写完整表单',
+          time:1000
+        }).show()
+        return
+      }
+
       this.$router.push({
             name: 'PreviewConfirm',
             params: {
               id: this.userInfo.id,
+              func:'开卡'
             //   firstModel: this.$store.state.EmployeeCard.groupModel,
             //   floorModel: e.floorModel,
             //   floorSchema: e.floorSchema

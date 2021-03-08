@@ -12,6 +12,7 @@
           <div class="title">楼层权限</div>
           <div class="item" v-for="(model,index) in $store.state.EmployeeCard.groupModel.floorModel">
             <cube-form :model="$store.state.EmployeeCard.groupModel.floorModel[index]"
+                       @validate="validateHandler"
                        :schema="$store.state.EmployeeCard.groupSchema.floorSchema[index]"
                        :options="{layout:'classic'}"
                        class="form-control floor-root"
@@ -66,9 +67,14 @@ export default {
   data() {
     return {
       preview: false,
+      result: null
     }
   },
   methods: {
+    validateHandler(result) {
+      this.result = result
+
+    },
     cancel() {
       this.$createDialog({
         type: 'confirm',
@@ -84,6 +90,14 @@ export default {
       }).show()
     },
     confirm() {
+      if (!this.result.valid) {
+        this.$createToast({
+          type: 'error',
+          txt: '请填写完整表单',
+          time: 1000
+        }).show()
+        return
+      }
       this.$emit('confirm',)
     },
     add() {

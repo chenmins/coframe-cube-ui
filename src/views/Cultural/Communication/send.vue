@@ -7,7 +7,6 @@
       <div class="container">
         <cube-textarea
           class="textarea"
-          url=""
           v-model="query.body"
           :placeholder="placeholder"
           :maxlength="maxlength"
@@ -71,96 +70,89 @@ export default {
       files: [],
       hasNine: false,
       topic: [],
-      query: {},
+      query: {
+        body: "",
+        choice: "choice"+Math.random(),
+        picture: '',
+        title:  "title"+Math.random(),
+        topicOfConversationId: '',
+        topicOfConversationName: '',
+        type: "type"+Math.random(),
+      },
       picture: "",
     };
   },
   created() {
-    this.query = this.$store.state.Cultural.sendForm;
-    if (this.$store.state.Cultural.selectedTopic.length !== 0) {
+  // 优化
+    if(this.$store.state.Cultural.files?.length){
+      this.files = this.$store.state.Cultural.files
+    }
+    if(this.$store.state.Cultural.sendForm.body){
+      this.query = this.$store.state.Cultural.sendForm
+    }
+    if (this.$store.state.Cultural.selectedTopic?.length) {
       this.topic = this.$store.state.Cultural.selectedTopic;
     }
   },
   methods: {
-    async submit() {
-      const toast = this.$createToast({
-        time: 0,
-        txt: "发帖中",
-      }).show();
-
-      for (let i = 0; i < this.files.length; i++) {
-        let file = this.files[i];
-        let url = await this.getRetrieveNewURL(file);
-        await this.imageUpload(url,file);
-      }
-
-      let userInfo = JSON.parse(localStorage.getItem("userInfo"));
-      let resp;
-      this.query.picture = this.picture;
-      this.$store.commit("Cultural/setSendForm", {
-        ...this.query,
-        userId: userInfo.id,
-        userName: userInfo.name,
-      });
-      let response = await this.dispatch(
-        CulturalControllerImpl.addCommunicationCircle,
-        this.$store.state.Cultural.sendForm
-      );
-      if (!response.error) {
-        this.$store.commit("Cultural/clearSendForm");
-        this.$createToast({
-          txt: "发表成功",
-          type: "correct",
-          time: 1000,
-        }).show();
-        setTimeout(() => {
-          this.query = this.$store.state.Cultural.sendForm;
-          this.$router.push({ name: "交流圈" });
-        }, 1000);
-      } else {
-        console.log("failure");
-      }
-    },
-
-    async fileSubmitted(file) {
-      let url = await this.getRetrieveNewURL(file.file);
-      this.picture = this.picture + url.split("?")[0] + ",";
-    },
-
+    fileSubmitted(file) {},
     selectTopic() {
-      if (this.topic.length) {
-        this.$createDialog({
-          type: "confirm",
-          title: "确认",
-          content: "确认删除此标签",
-          confirmBtn: {
-            text: "确定按钮",
-            active: true,
-            disabled: false,
-            href: "javascript:;",
-          },
-          cancelBtn: {
-            text: "取消按钮",
-            active: false,
-            disabled: false,
-            href: "javascript:;",
-          },
-        });
-        return;
-      }
+      this.$store.commit('Cultural/setSendForm',this.query)
+      this.$store.commit('Cultural/setFiles',this.files)
       this.$router.push({ name: "话题列表" });
+    },
+    async submit(data) {
+      if(!this.query.body.length){
+        this.$createToast({
+          type:'normal',
+          txt:'请填写内容',
+          time:1000
+        }).show()
+        return
+      }
+      let message = "发送中";
+      let toast = this.$createToast({
+        txt: message,
+        time: 0,
+      }).show();
+      let files = this.files;
+      let uploadTime = files.length,
+        resp;
+      this.query.picture = await this.uploadAsync(uploadTime, files);
+      try {
+        resp = await this.dispatch(CulturalControllerImpl.addCommunicationCircle, {
+          ...this.$store.state.Cultural.sendForm,
+        });
+        if (!resp.error && resp.data.body === 1) {
+          message = "发送成功";
+          this.$router.replace({name: "交流圈"}).then(()=>{
+            this.$store.commit('Cultural/clearSendForm')
+          })
+          toast.hide();
+        } else {
+          toast.hide();
+          message = "反馈失败";
+          this.$createToast({
+            txt: message,
+            time: 500,
+          }).show();
+        }
+      }catch (e) {
+        toast.hide()
+        message = '反馈失败'
+        this.$createToast({
+          type: 'normal',
+          txt: message,
+          time: 1000
+        }).show()
+      }
+
     },
   },
 };
 </script>
 
-
 <style scoped lang="stylus">
-.row-reverse {
-  flex-direction: row-reverse;
-  justify-content: flex-end;
-}
-
 .cube-upload .cube-upload-btn[data-v-570f13b8] {
   border: none;
   background-color: #F7F7F7;

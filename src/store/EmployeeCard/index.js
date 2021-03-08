@@ -147,13 +147,9 @@ const EmployeeCard = {
                                 props: {
                                     placeholder: '请输入'
                                 },
-                                rules: {
-                                    required: false
-                                }
                             },
                         ]
                     },
-
                 ]
             },
             floorSchema: [
@@ -209,6 +205,26 @@ const EmployeeCard = {
         setFormModel(state, payload) {
             state.groupModel.firstModel = payload.firstModel
             state.groupModel.floorModel = payload.floorAuthority
+        },
+        iniModel(state,payload){
+            state.groupModel = {
+                firstModel: {
+                    cardType: "",
+                        companyName: '',
+                        position: "",
+                        name: "",
+                        tel: "",
+                        remind: ""
+                },
+                floorModel: [
+                    {
+                        which: "",
+                        floor: "",
+                        num: ""
+                    }
+                ]
+            }
+
         }
     },
 

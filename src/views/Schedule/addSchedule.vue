@@ -4,9 +4,7 @@
       <header>
         <div>
           <h1>想添加点什么</h1>
-          <div style="font-size: 12px; color: #ccc">
-            添加日程可以提高工作效率哦
-          </div>
+          <div style="font-size: 12px; color: #ccc">添加日程可以提高工作效率哦</div>
         </div>
         <img src="../../assets/icons/addSchedule.webp" alt="" />
       </header>
@@ -22,27 +20,18 @@
         >
           <cube-form-group>
             <cube-form-item :field="fields[0]"></cube-form-item>
-            <cube-form-item
-              class="time-from no-margin-bottom"
-              style="margin-top: 30px"
-            >
+            <cube-form-item class="time-from no-margin-bottom" style="margin-top: 30px">
               <div class="picker" @click="showDateTimePickerStart">
                 <div class="cube-form-label">{{ fields[1].label }}</div>
                 <span class="line">{{ model.start || fields[1].label }}</span>
-                <i
-                  class="cubeic-arrow"
-                  style="float: right; margin-right: 16px"
-                ></i>
+                <i class="cubeic-arrow" style="float: right; margin-right: 16px"></i>
               </div>
             </cube-form-item>
             <cube-form-item class="time-from">
               <div class="picker" @click="showDateTimePickerEnd">
                 <div class="cube-form-label">{{ fields[2].label }}</div>
                 <span class="top_line">{{ model.end || fields[2].label }}</span>
-                <i
-                  class="cubeic-arrow"
-                  style="float: right; margin-right: 16px"
-                ></i>
+                <i class="cubeic-arrow" style="float: right; margin-right: 16px"></i>
               </div>
             </cube-form-item>
             <Tag
@@ -178,7 +167,7 @@ export default {
             options: ["2015", "2016", "2017", "2018", "2019", "2020"],
           },
           rules: {
-            required: true,
+            required: false,
           },
         },
         {
@@ -206,15 +195,7 @@ export default {
           label: "重复",
           title: "选择",
           props: {
-            options: [
-              "不重复",
-              "每天",
-              "工作日",
-              "每周",
-              "每两周",
-              "每年",
-              "自定义",
-            ],
+            options: ["不重复", "每天", "工作日", "每周", "每两周", "每年", "自定义"],
           },
           events: {
             input: (e) => {

@@ -4,7 +4,7 @@
 const path = require('path')
 const GenerateAssetPlugin = require('generate-asset-webpack-plugin'); //vue配置外放
 const CompressionWebpackPlugin = require('compression-webpack-plugin') //js压缩
-const productionGzipExtensions = ['js', 'css','webp','ttf','woff']
+const productionGzipExtensions = ['js', 'css', 'webp', 'ttf', 'woff']
 
 
 const config = require('./config/app-config.json');
@@ -12,11 +12,11 @@ const webpack = require("webpack");
 function resolve(dir) {
   return path.join(__dirname, dir)
 }
-function createServerConfig(compilation){
+function createServerConfig(compilation) {
   return JSON.stringify(
-      Object.assign({
-        _hash: compilation.hash
-      },config)
+    Object.assign({
+      _hash: compilation.hash
+    }, config)
   )
 }
 
@@ -35,10 +35,10 @@ module.exports = {
 
 
     },
-    resolve:{
-      alias:{
+    resolve: {
+      alias: {
         '@': '/src',
-        '@myComponents':'/src/components',
+        '@myComponents': '/src/components',
         'vue$': 'vue/dist/vue.esm.js',
         'vue': 'vue/dist/vue.esm.js',
         '@lib': resolve('/src/libs'),
@@ -48,7 +48,7 @@ module.exports = {
         '@controller': resolve('/src/actions/controller.js'),
       }
     },
-    plugins:[
+    plugins: [
       new GenerateAssetPlugin({
         filename: 'config/app-config.json',
         fn: (compilation, cb) => {
@@ -74,39 +74,39 @@ module.exports = {
   chainWebpack: config => {
     const dir = path.resolve(__dirname, 'src/assets/icons')
     config.module
-        .rule('svg-sprite')
-        .test(/\.svg$/)
-        .include
-        .add(dir)
-        .end() //只在icons目录中
-        .use('svg-sprite-loader')
-        .loader('svg-sprite-loader')
-        .options({ extract: false })
-        .end()
-        .use('svgo-loader')
-        .loader('svgo-loader')
-        .tap(options => ({ ...options, }))
-        .end()
+      .rule('svg-sprite')
+      .test(/\.svg$/)
+      .include
+      .add(dir)
+      .end() //只在icons目录中
+      .use('svg-sprite-loader')
+      .loader('svg-sprite-loader')
+      .options({ extract: false })
+      .end()
+      .use('svgo-loader')
+      .loader('svgo-loader')
+      .tap(options => ({ ...options, }))
+      .end()
 
     config.plugin('svg-sprite')
-        .use(require('svg-sprite-loader/plugin'), [{ plainSprite: true }])
+      .use(require('svg-sprite-loader/plugin'), [{ plainSprite: true }])
 
     config.module.rule('svg')
-        .exclude
-        .add(dir) //其他的svg loader排除icons目录
+      .exclude
+      .add(dir) //其他的svg loader排除icons目录
   },
-  pages:{
-    index:{
-      entry:'src/main',
-      title:'cube'
+  pages: {
+    index: {
+      entry: 'src/main',
+      title: 'cube'
     }
   },
   devServer: {
-    port:8081,
+    port: 8081,
     open: true, //配置自动启动浏览器
     proxy: {
-      "/api/minio":{
-        target: "http://tx.chenmin.org:9080/api/minio",
+      "/api/minio": {
+        target: "http://s.c94.cn:8291/api/minio",
         ws: false,// 启用websockets
         changeOrigin: true, //跨域
         pathRewrite: {

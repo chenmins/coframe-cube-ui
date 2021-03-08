@@ -145,9 +145,8 @@ export default [
         meta: {
             name: '预览信息',
             tag: 'Preview',
-            leave:3,
+            leave:'back',
             showNav: true,
-            backRouter:'CreateCard',
         },
         component: () => import('@/views/EmployeeCard/PreviewInfo')
     }

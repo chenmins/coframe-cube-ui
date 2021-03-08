@@ -4,6 +4,7 @@ export default {
   methods: {
     //文件过滤
     filterFiles(files) {
+      console.log('文件过滤');
       let hasIgnore = false;
       let message;
       const maxSize = 5 * 1024 * 1024; // 1M
@@ -34,7 +35,9 @@ export default {
 
     //获得上传url
     async getRetrieveNewURL(file) {
-      let bucket = 'jiaoliuquan'
+      console.log('获得上传url');
+      // let bucket = 'jiaoliuquan'
+      let bucket = this.$config.bucket
       let newFileName =
         JSON.parse(localStorage.getItem("userInfo")).id +
         "/" +
@@ -43,11 +46,14 @@ export default {
         file.name.split(".").reverse()[0];
       let requestUrl = `/api/minio/presignedUrl?bucket=${bucket}&name=${newFileName}`
       let url = await this.$axios.get(requestUrl)
+      //tx.chenmin.org:9000/jiaoliuquan/8e3f7d5b-5c82-4aec-bae6-af1fedf67013/1615167859925.jpg    
+
       return url.data
     },
 
     //上传图片
-    async imageUpload(url,file) {
+    async imageUpload(url, file) {
+      console.log('上传图片');
       let resp = await this.$axios({
         headers: {
           'Content-Type': 'image/png',
@@ -57,9 +63,21 @@ export default {
         url: url,
         data: file
       })
-
     },
 
+    async uploadAsync(uploadTime, files) {
+      let picture = ''
+      for (let i = 0; i < uploadTime; i++) {
+        let url
+        url = await this.getRetrieveNewURL(files[i].file)
+        await this.imageUpload(url, files[i].file)
+        let changedUrl = url.split("?")[0].split('/')
+        changedUrl[2] = this.$config.pictureUrl
+        picture = picture + changedUrl.join('/') + "_480x480,";
+        //tx.chenmin.org:9000/jiaoliuquan/8e3f7d5b-5c82-4aec-bae6-af1fedf67013/1615167859925.jpg
+      }
+      return picture
+    },
 
   }
 }

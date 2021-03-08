@@ -1,4 +1,4 @@
-import {CulturalControllerImpl, DictApiController} from '@controller'
+import { CulturalControllerImpl, DictApiController } from '@controller'
 
 export default {
     data() {
@@ -12,23 +12,18 @@ export default {
 
             //交流圈
             comments: [],
-            topicLists:[],
+            topicLists: [],
             topics: [],
             like: false,
-            cardInfo: JSON.parse(localStorage.getItem('userInfo')) || {id:null},
-
+            cardInfo: JSON.parse(localStorage.getItem('userInfo')) || { id: null },
         }
     },
+
     methods: {
-        //设置前6条话题
-        async setTopicLists() {
+        async getTopicLists() {
             let resp
-            resp = await this.dispatch(DictApiController.getDictEntryByDictTypeCode, {code: 'pip-ccocci-topic'})
-            if (!resp.error) {
-                this.$store.commit('Cultural/setTopicLists', resp.data)
-                this.topics = this.$store.state.Cultural.topicLists.splice(0, 6)
-                return resp
-            }
+            resp = await this.dispatch(DictApiController.getDictEntryByDictTypeCode, { code: 'pip-ccocci-topic' })
+            return resp
         },
         //初始化文化建设全部数据
         async initAllData() {
@@ -37,13 +32,15 @@ export default {
                 pageNo: 1,
                 pageSize: 20
             })
-            if (!resp.error) {
+            let topicLists = await this.dispatch(DictApiController.getDictEntryByDictTypeCode, { code: 'pip-ccocci-topic' })
+            if (!resp.error && !topicLists.error) {
+                this.$store.commit('Cultural/setTopicLists', topicLists.data)
                 this.$store.commit('Cultural/setAllData', resp.data.body)
             }
         },
         //  点赞
         async toggleLike(e) {
-            let resp = await this.dispatch(CulturalControllerImpl.fabulousCommunicationCircle, {id: e.id})
+            let resp = await this.dispatch(CulturalControllerImpl.fabulousCommunicationCircle, { id: e.id })
             if (!resp.error) {
                 if (e.fabulousForUser) {
                     e.fabulousPlusCount -= 1
@@ -53,22 +50,19 @@ export default {
                 this.like = !this.like
             }
         },
-
-
-
         changeHandle(e) {
             switch (e) {
                 case '公告列表':
                     this.selectedLabel = e
-                    this.$router.push({name: `${e}`})
+                    this.$router.push({ name: `${e}` })
                     break
                 case '企业新闻':
                     this.selectedLabel = e
-                    this.$router.push({name: `${e}`})
+                    this.$router.push({ name: `${e}` })
                     break
                 case '交流圈':
                     this.selectedLabel = e
-                    this.$router.push({name: `${e}`})
+                    this.$router.push({ name: `${e}` })
                     break
             }
             if (this.$route.name === '公告列表') {
@@ -115,11 +109,10 @@ export default {
             }
         },
     },
-
     filters: {
         //时间倒序
-        reverseData:function(data){
-          return data.reverse()
+        reverseData: function (data) {
+            return data.reverse()
         },
         //点赞数超过1w小数
         fabulousCount: function (value) {

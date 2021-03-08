@@ -1,19 +1,18 @@
 export default {
-    allData:{},
+    allData: {},
 
     //交流圈
     sendForm: {
         body: "",
-        choice: "choice",
+        choice: "",
         picture: '',
-        title: "title",
+        title: '',
         topicOfConversationId: '',
         topicOfConversationName: '',
-        type: "type",
-        userId: "",
-        userName: "",
+        type: "",
     },
-    selectedTopic:[],
+    selectedTopic: [],
     topicLists: [],
+    files:[]
 
 }

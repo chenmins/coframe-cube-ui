@@ -34,6 +34,9 @@ export default {
       if (this.$route.meta.leave === 3) {
         this.$router.push({ name: this.$route.meta.backRouter });
       }
+      if (this.$route.meta.leave === 'back') {
+        this.$router.back()
+      }
     },
   },
 };

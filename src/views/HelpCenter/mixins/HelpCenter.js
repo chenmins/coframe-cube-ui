@@ -1,4 +1,4 @@
-import {HelpControllerImpl} from '@controller'
+import { HelpControllerImpl } from '@controller'
 import filesUpload from "@/libs/mixins/filesUpload";
 
 let formData, files = []
@@ -48,16 +48,20 @@ export default {
         }
     },
     methods: {
-        async uploadAsync(uploadTime, files) {
-            let picture = ''
-            for (let i = 0; i < uploadTime; i++) {
-                let url
-                url = await this.getRetrieveNewURL(files[i].file)
-                await this.imageUpload(url, files[i].file)
-                picture = picture + url.split("?")[0] + ",";
-            }
-            return picture
-        },
+        // async uploadAsync(uploadTime, files) {
+        //     let picture = ''
+        //     for (let i = 0; i < uploadTime; i++) {
+        //         let url
+        //         url = await this.getRetrieveNewURL(files[i].file)
+        //         await this.imageUpload(url, files[i].file)
+        //         console.log(url.split("?")[0].split('/'))
+        //         let changedUrl = url.split("?")[0].split('/')
+        //         changedUrl[2] = this.$config.pictureUrl
+        //         picture = picture + changedUrl.join('/') + "_480x480,";
+        //         //tx.chenmin.org:9000/jiaoliuquan/8e3f7d5b-5c82-4aec-bae6-af1fedf67013/1615167859925.jpg
+        //     }
+        //     return picture
+        // },
         async addDemandFeedback(data) {
             let message = '发送中'
             let toast = this.$createToast({
@@ -75,7 +79,7 @@ export default {
                 toast.hide()
                 message = '反馈失败'
                 this.$createToast({
-                    type:'normal',
+                    type: 'normal',
                     txt: message,
                     time: 1000
                 }).show()
@@ -90,7 +94,7 @@ export default {
                     textarea: '',
                     picture: ''
                 }
-                await this.$router.replace({name: '需求反馈'})
+                await this.$router.replace({ name: '需求反馈' })
                 toast.hide()
             } else {
                 toast.hide()

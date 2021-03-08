@@ -37,7 +37,7 @@ export default [
                     name: '常见问题',
                     leave: 3,
                     showNav: true,
-                    tag: 'ProductInc',
+                    tag: 'QuestionDetail',
                     backRouter: '常见问题',
                 },
                 component: () => import('@/views/HelpCenter/QuestionDetail')
@@ -59,7 +59,7 @@ export default [
                 name: '需求反馈',
                 meta: {
                     name: '需求反馈',
-                    tag: '需求反馈',
+                    tag: 'DemanFeedback',
                     showTabbar: true,
                     leave: 2,
                     showNav: true,
@@ -72,6 +72,7 @@ export default [
                 name: 'Replay',
                 meta: {
                     name: '反馈',
+                    tag: 'Replay',
                     leave: 3,
                     showTabbar: false,
                     showNav: true,
@@ -84,6 +85,7 @@ export default [
                 name: 'ReplayDetail',
                 meta: {
                     name: '需求反馈',
+                    tag: 'ReplayDetail',
                     leave: 3,
                     showNav: true,
                     backRouter: '需求反馈',

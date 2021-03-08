@@ -13,10 +13,7 @@
         <router-view />
       </div>
     </NavLayOut>
-    <div
-      class="replay_bot"
-      v-show="$route.meta.name === '需求反馈' && show === 'true'"
-    >
+    <div class="replay_bot" v-show="$route.meta.name === '需求反馈' && show === 'true'">
       <cube-textarea
         class="replay_textarea"
         v-model="value"
@@ -64,7 +61,6 @@ export default {
   },
   methods: {
     replay() {
-      //TODO 发送
       this.value = "";
     },
 

@@ -46,26 +46,23 @@ export default {
       autofocus: true,
       action: "//jsonplaceholder.typicode.com/photos/",
       hasNine: false,
-
     };
   },
   mixins: [HelpCenter, filesUpload],
   methods: {
-
     topic() {
       this.$router.push({ name: "话题列表" });
     },
   },
+  updated() {
+    if (this.files.length >= 9) {
+      document.querySelector(".cube-upload-btn").style.display = "none";
+    }
+  },
 };
 </script>
 
-
 <style scoped lang="stylus">
-.row-reverse {
-  flex-direction: row-reverse;
-  justify-content: flex-end;
-}
-
 .cube-upload .cube-upload-btn[data-v-bb286220] {
   border: none;
   background-color: #F7F7F7;

@@ -30,7 +30,7 @@
           ref="scroll"
           @scroll="scroll"
           :scrollEvents="['scroll']"
-          :key="$route.meta.name"
+          :key="$route.meta.tag"
       >
         <slot></slot>
       </cube-scroll>
