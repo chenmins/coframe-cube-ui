@@ -1,4 +1,4 @@
-import {HealthApiController} from '@controller'
+import { HealthApiController } from '@controller'
 
 
 export default {
@@ -26,6 +26,7 @@ export default {
         async getHealthInfo() {
             let resp = await this.dispatch(HealthApiController.getHealthInfo)
             if (!resp.error) {
+                this.city.id = resp.data.body.cityId
                 this.city.name = resp.data.body.cityName
                 this.model = {
                     value1: [`${resp.data.body.cityName}`] || [],

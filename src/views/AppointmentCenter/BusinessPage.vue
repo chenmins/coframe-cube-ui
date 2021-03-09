@@ -1,4 +1,4 @@
-<template>
+  <template>
   <div id="page">
     <NavLayOut>
       <cube-form :model="model"
@@ -21,7 +21,7 @@
           </div>
         </cube-form-item>
         <cube-form-item>
-          <cube-button type="submit"  class="inquire">查询</cube-button>
+          <cube-button type="submit" class="inquire">查询</cube-button>
         </cube-form-item>
       </cube-form>
     </NavLayOut>
@@ -29,8 +29,8 @@
 </template>
 
 <script>
-const time = new Date().valueOf() + 1 * 60 * 60 * 1000
-const week = [
+const time = new Date().valueOf() + 60 * 60 * 1000
+const WEEK_MAP = [
   '周日',
   '周一',
   '周二',
@@ -50,7 +50,7 @@ export default {
   data() {
     return {
       timeFrom: [],
-      closeTypeArr:[],
+      closeTypeArr: [],
       date: this.$dayjs().format('MM月DD日'),
       model: {
         time: '',
@@ -92,20 +92,20 @@ export default {
         value: this.$dayjs().format('MM月DD日')
       },
       {
-        text: week[this.$dayjs().add(1, 'day').day()] + ' ' + this.$dayjs().add(1, 'day').format('MM月DD日'),
+        text: WEEK_MAP[this.$dayjs().add(1, 'day').day()] + ' ' + this.$dayjs().add(1, 'day').format('MM月DD日'),
         value: this.$dayjs().format('MM月DD日')
       },
       {
-        text: week[this.$dayjs().add(2, 'day').day()] + ' ' + this.$dayjs().add(2, 'day').format('MM月DD日'),
+        text: WEEK_MAP[this.$dayjs().add(2, 'day').day()] + ' ' + this.$dayjs().add(2, 'day').format('MM月DD日'),
         value: this.$dayjs().format('MM月DD日')
       },
     ]
   },
   methods: {
-    submitHandler(e,val){
+    submitHandler(e, val) {
       e.preventDefault()
-      console.log(val,this.$route.meta)
-      this.$router.push({name:'ReservePage',params:{id:val.clothesType}})
+      console.log(val, this.$route.meta)
+      this.$router.push({name: 'ReservePage', params: {id: val.clothesType}})
     },
     selectType() {
       if (!this.TypePicker) {
@@ -176,7 +176,6 @@ export default {
 </script>
 
 <style scoped lang="stylus">
-
 >>> .cube-validator-content
   text-align left
   font-size: 14px;
@@ -194,10 +193,12 @@ export default {
   line-height: 20px;
 
 #page
-  height $viewpoint-height
   background-color $my-bgc-color
   border 1px solid transparent
-
+  >>>#nav_layout
+    height auto
+  >>>.nav_height
+    height auto
   .inquire
     background: linear-gradient(90deg, #19E8FF 0%, #0F97FB 100%);
     border-radius 25px

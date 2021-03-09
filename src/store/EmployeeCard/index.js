@@ -52,7 +52,7 @@ const EmployeeCard = {
                                             window.vue.$store.state.EmployeeCard.groupSchema.fristSchema.groups[0].fields[2].label = labelGroup.cardType1.position
                                             window.vue.$store.state.EmployeeCard.groupSchema.fristSchema.groups[0].fields[3].label = labelGroup.cardType1.name
                                         }
-                                        if (e === '外协' || e === '临时卡') {
+                                        if (e === '外协/临时卡') {
                                             window.vue.$store.state.EmployeeCard.groupSchema.fristSchema.groups[0].fields[1].label = labelGroup.cardType2.companyName
                                             window.vue.$store.state.EmployeeCard.groupSchema.fristSchema.groups[0].fields[2].label = labelGroup.cardType2.position
                                             window.vue.$store.state.EmployeeCard.groupSchema.fristSchema.groups[0].fields[3].label = labelGroup.cardType2.name
@@ -60,7 +60,7 @@ const EmployeeCard = {
                                     }
                                 },
                                 props: {
-                                    options: ['新员工卡', '外协', '临时卡']
+                                    options: ['新员工卡', '外协/临时卡']
                                 },
                                 rules: {
                                     required: true

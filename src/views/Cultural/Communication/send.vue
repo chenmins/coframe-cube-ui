@@ -44,7 +44,7 @@
         ></Icon>
       </div>
       <div class="topic_list" @click="selectTopic" ref="topicBtn">
-        <div v-if="topic.length === 0">#打标签</div>
+        <div v-if="topic[0].length === 0">#打标签</div>
         <div v-else>#{{ topic[0].name }}</div>
       </div>
     </div>
@@ -69,26 +69,26 @@ export default {
       autofocus: true,
       files: [],
       hasNine: false,
-      topic: [],
+      topic: null,
       query: {
         body: "",
-        choice: "choice"+Math.random(),
-        picture: '',
-        title:  "title"+Math.random(),
-        topicOfConversationId: '',
-        topicOfConversationName: '',
-        type: "type"+Math.random(),
+        choice: "choice" + Math.random(),
+        picture: "",
+        title: "title" + Math.random(),
+        topicOfConversationId: "",
+        topicOfConversationName: "",
+        type: "type" + Math.random(),
       },
       picture: "",
     };
   },
   created() {
-  // 优化
-    if(this.$store.state.Cultural.files?.length){
-      this.files = this.$store.state.Cultural.files
+    // 优化
+    if (this.$store.state.Cultural.files?.length) {
+      this.files = this.$store.state.Cultural.files;
     }
-    if(this.$store.state.Cultural.sendForm.body){
-      this.query = this.$store.state.Cultural.sendForm
+    if (this.$store.state.Cultural.sendForm.body) {
+      this.query = this.$store.state.Cultural.sendForm;
     }
     if (this.$store.state.Cultural.selectedTopic?.length) {
       this.topic = this.$store.state.Cultural.selectedTopic;
@@ -97,18 +97,18 @@ export default {
   methods: {
     fileSubmitted(file) {},
     selectTopic() {
-      this.$store.commit('Cultural/setSendForm',this.query)
-      this.$store.commit('Cultural/setFiles',this.files)
+      this.$store.commit("Cultural/setSendForm", this.query);
+      this.$store.commit("Cultural/setFiles", this.files);
       this.$router.push({ name: "话题列表" });
     },
     async submit(data) {
-      if(!this.query.body.length){
+      if (!this.query.body.length) {
         this.$createToast({
-          type:'normal',
-          txt:'请填写内容',
-          time:1000
-        }).show()
-        return
+          type: "normal",
+          txt: "请填写内容",
+          time: 1000,
+        }).show();
+        return;
       }
       let message = "发送中";
       let toast = this.$createToast({
@@ -125,9 +125,9 @@ export default {
         });
         if (!resp.error && resp.data.body === 1) {
           message = "发送成功";
-          this.$router.replace({name: "交流圈"}).then(()=>{
-            this.$store.commit('Cultural/clearSendForm')
-          })
+          this.$router.replace({ name: "交流圈" }).then(() => {
+            this.$store.commit("Cultural/clearSendForm");
+          });
           toast.hide();
         } else {
           toast.hide();
@@ -137,16 +137,15 @@ export default {
             time: 500,
           }).show();
         }
-      }catch (e) {
-        toast.hide()
-        message = '反馈失败'
+      } catch (e) {
+        toast.hide();
+        message = "反馈失败";
         this.$createToast({
-          type: 'normal',
+          type: "normal",
           txt: message,
-          time: 1000
-        }).show()
+          time: 1000,
+        }).show();
       }
-
     },
   },
 };

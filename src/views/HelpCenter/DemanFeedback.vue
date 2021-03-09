@@ -30,18 +30,19 @@ export default {
   created() {
     this.initFeedback();
   },
-  mounted() {
-  },
-  updated() {
-    document.querySelector('.cube-scroll-list-wrapper').style.paddingBottom = '100px'
+  mounted() {},
+  beforeUpdate() {
+    document.querySelector(".cube-scroll-list-wrapper").style.paddingBottom = "100px";
   },
   methods: {},
 };
 </script>
 
 <style scoped lang="stylus">
->>>.cube-scroll-list-wrapper
-  padding-bottom 100px
+>>>.cube-scroll-list-wrapper {
+  padding-bottom: 100px;
+}
+
 #DemanFeedback_app {
   font-size: 14px;
   background-color: rgb(249, 249, 249);
