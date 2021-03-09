@@ -1,8 +1,7 @@
 <template>
   <div id="card_record">
-    <NavLayOut
+    <TitleNav
         bgc-color="#fff"
-        class="container"
     >
       <div slot="fixed" class="top_fixed">
 
@@ -41,12 +40,11 @@
       </Card>
 
 
-    </NavLayOut>
+    </TitleNav>
   </div>
 </template>
 
 <script>
-import NavLayOut from "@/components/NavLayOut";
 import Search from "@/components/Search";
 import Card from "@/components/UI/Card";
 
@@ -55,7 +53,6 @@ export default {
   components: {
     Card,
     Search,
-    NavLayOut
 
   },
   data() {
@@ -226,11 +223,8 @@ export default {
 
 #card_record
   background: #F5F6FA;
-  >>>.nav_height
-    height calc(100vh - 170px)
-    overflow: hidden;
-    //>>>.cube-scroll-content
-    //>>>.cube-scroll-list-wrapper
+  height  100vh
+  overflow: hidden;
   .top_fixed
     position: relative;
     z-index: 11;

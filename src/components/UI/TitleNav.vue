@@ -1,6 +1,5 @@
 <template>
-  <div id="nav_layout"
-  >
+  <div id="title_nav">
     <div>
       <div v-if="$route.meta.showNav" style="height: 60px;background-color:transparent;">
         <Nav
@@ -23,27 +22,26 @@
       </div>
     </div>
     <div
-        :class="$route.meta.showNav?'scroll-list-wrap nav_height':'scroll-list-wrap'"
+        class="scroll-list-wrap"
     >
       <cube-scroll
           ref="scroll"
           @scroll="scroll"
           :scrollEvents="['scroll']"
-          :key="$route.meta.tag"
       >
         <slot></slot>
       </cube-scroll>
     </div>
   </div>
-
 </template>
 
 <script>
 export default {
-  name: "NavLayOut",
+  name: "TitleNav",
   props: [
     'bgcColor',
-    'color'
+    'color',
+    'bottom'
   ],
   data() {
     return {
@@ -57,30 +55,20 @@ export default {
           // this.$route.meta.name ==='审批列表' ||
           // this.$route.meta.name ==='我的审批'
       ) {
-        if (e.y < -60) {
-          this.toggle = false
-        }
-        if (e.y > -60) {
-          this.toggle = true
-        }
+        // if (e.y < -60) {
+        //   this.toggle = false
+        // }
+        // if (e.y > -60) {
+        //   this.toggle = true
+        // }
       }
     }
   },
-  mounted() {
-    this.randomKey = Math.random()
-  }
 }
 </script>
 
 <style scoped lang="stylus">
-#nav_layout
-  height 100vh
-  overflow: hidden;
-
-.nav_height
-  height calc(100vh - 60px)
-
-.cube-scroll-wrapper
-  height calc(100vh - 80px)
+.scroll-list-wrap
+  overflow: hidden
 
 </style>

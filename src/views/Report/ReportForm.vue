@@ -1,6 +1,6 @@
 <template>
   <div id="report-form">
-    <NavLayOut bgc-color="#fff">
+    <TitleNav>
       <cube-form :model="model" @validate="validateHandler" @submit="submitHandler">
         <cube-form-group v-for="(item, index) in question">
           <h1>{{ index + 1 }}、{{ item.legend }}</h1>
@@ -10,7 +10,7 @@
           <cube-button type="submit">信息更新</cube-button>
         </cube-form-group>
       </cube-form>
-    </NavLayOut>
+    </TitleNav>
   </div>
 </template>
 
@@ -227,6 +227,9 @@ export default {
   },
   created() {
     city = this.city;
+  },
+  mounted() {
+    this.$children[0].$refs.scroll.$el.style.height = `${this.workspaceRealHeightNum - 60}px`
   },
   mixins: [BaseVue, mixins],
   methods: {

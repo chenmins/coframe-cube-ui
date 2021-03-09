@@ -3,15 +3,14 @@
     <div class="loading_cover" v-if="firstLoading">
       <cube-loading class="loading" :size="40"></cube-loading>
     </div>
-    <NavLayOut color="#fff">
-      <img width="100%"  class="bgc_img" src="../../assets/icons/Main.webp" alt="">
+    <img width="100%" class="bgc_img" src="../../assets/icons/Main.webp" alt="">
+    <TitleNav color="#fff">
       <MyTools :Tools="Tools" @SeeAll="$router.push({name:'AllTools'})"></MyTools>
       <MyTodos @SeeAll="$router.push({name:'MyAppointment'})"></MyTodos>
       <MyApply></MyApply>
       <cube-button class="exit-login" @click="exitLogin">退出登录</cube-button>
-    </NavLayOut>
+    </TitleNav>
   </div>
-
 </template>
 
 <script>
@@ -26,11 +25,14 @@ import {removeToken} from "@/utils/auth";
 
 export default {
   name: "index",
-  mixins: [BaseVue,mixins],
+  mixins: [BaseVue, mixins],
   components: {
     MyTools,
     MyTodos,
     MyApply,
+  },
+  mounted(){
+    this.$children[0].$refs.scroll.$el.style.height = `${this.workspaceRealHeightNum - 60}px`
   },
   methods: {
     async exitLogin() {
@@ -74,7 +76,7 @@ export default {
 
 .exit-login
   position absolute
-  bottom -20px
+  bottom 0
 
 #main_menu
   background-color #fff

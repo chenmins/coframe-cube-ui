@@ -6,8 +6,8 @@
       :selected-label="selectedLabel"
       :tabs="tabs"
     >
-      <div class="scroll-list-wrap" style="height: calc(100vh - 220px)">
-        <cube-scroll ref="scroll">
+      <div class="scroll-list-wrap" >
+        <cube-scroll ref="scroll" style="height: calc(100vh - 250px)">
           <Card @clicked="read(notice)" class="content" id="card" v-for="notice in news">
             <img
               style="
@@ -97,6 +97,7 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+
 #card {
   display: flex;
   padding: 21px 16px;

@@ -1,6 +1,6 @@
 <template>
   <div id="manage_tool">
-    <NavLayOut
+    <TitleNav
         bgc-color="#fff"
     >
       <a @click="$router.back()">完成</a>
@@ -14,7 +14,7 @@
       <div slot="right" style="margin-right: 20px" @click="complete(deleteArr)">
         <span class="complete" style="font-size: 14px" >完成</span>
       </div>
-    </NavLayOut>
+    </TitleNav>
   </div>
 </template>
 

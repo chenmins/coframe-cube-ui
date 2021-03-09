@@ -1,6 +1,6 @@
   <template>
   <div id="employee_card">
-    <NavLayOut>
+    <TitleNav>
       <div class="status_box">
         <img
           :class="loss === '启用' ? '' : 'close'"
@@ -22,7 +22,7 @@
         </div>
       </div>
       <slot></slot>
-    </NavLayOut>
+    </TitleNav>
   </div>
 </template>
 

@@ -1,6 +1,6 @@
 <template>
   <div class="comments_app">
-    <NavLayOut bgc-color="#fff" style="margin-bottom: 100px">
+    <TitleNav bgc-color="#fff" style="margin-bottom: 100px">
       <Card :is-comment="false">
         <div slot="username">{{ userTableData.userName }}</div>
         <div slot="time">
@@ -51,7 +51,7 @@
           </div>
         </Card>
       </div>
-    </NavLayOut>
+    </TitleNav>
     <div class="go_comment">
       <form style="width: 100%" class="comment_submit" @submit="submitHandler">
         <cube-textarea

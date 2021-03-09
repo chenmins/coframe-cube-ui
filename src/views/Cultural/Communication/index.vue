@@ -129,10 +129,10 @@ export default {
       });
     },
     scroll(e) {
-      this.topic_list = true;
-      if (e.y < -250) {
-        this.topic_list = false;
-      }
+      // this.topic_list = true;
+      // if (e.y < -250) {
+      //   this.topic_list = false;
+      // }
     },
     setLabel(e) {
       this.nowLabel = e;
@@ -276,17 +276,14 @@ export default {
   transform: translate(-50%, -50%);
 }
 
-.scroll-list-wrap {
-  height: calc(100vh - 264px);
-  margin-bottom: 20px;
-}
+
 
 >>> .cube-scroll-wrapper {
   height: calc(100vh - 400px);
 }
 
 >>> .cube-scroll-list-wrapper {
-  padding-bottom: 20px;
+  padding-bottom: 30px;
 }
 
 >>> .cube-tab-bar {

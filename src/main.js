@@ -22,6 +22,7 @@ import NavLayOut from "@/components/NavLayOut";
 import Icon from "@/components/Icon";
 import ReadConfig from './utils/config'
 import loading from "@/components/UI/loading";
+import TitleNav from "@/components/UI/TitleNav";
 
 
 import dayjs from 'dayjs'
@@ -46,7 +47,7 @@ Vue.config.lang = 'zh_CN'
 
 Vue.mixin(Global).mixin(BaseVue)
 Vue.use(registerComponents, [
-  Nav, Tabbar, List, Tag, LayOut, NavLayOut, Icon, loading, calendar
+  Nav, Tabbar, List, Tag, LayOut, NavLayOut, Icon, loading, calendar,TitleNav
 ])
 window.vue =  new Vue({
   store

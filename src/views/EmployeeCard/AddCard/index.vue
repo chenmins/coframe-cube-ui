@@ -1,6 +1,6 @@
 <template>
   <div id="add_card">
-    <NavLayOut bgc-color="#fff" @back="$router.push('/EmployeeCard')">
+    <TitleNav bgc-color="#fff" @back="$router.push('/EmployeeCard')">
       <LayOut style="height: calc(100vh - 72px)">
         <h1>请选择补卡原因</h1>
         <div @click="selected" :class="+select ? 'item selected' : 'item'">工卡丢失</div>
@@ -14,7 +14,7 @@
         </div>
         <div v-else class="footer" @click="addCardInit">下一步</div>
       </LayOut>
-    </NavLayOut>
+    </TitleNav>
   </div>
 </template>
 

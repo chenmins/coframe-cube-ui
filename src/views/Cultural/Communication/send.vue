@@ -1,6 +1,6 @@
 <template>
   <div class="send_app">
-    <NavLayOut bgc-color="#fff" @back="$router.push({ name: '交流圈' })">
+    <TitleNav bgc-color="#fff" @back="$router.push({ name: '交流圈' })">
       <template v-slot:right>
         <button class="submit" @click="submit">发表</button>
       </template>
@@ -35,7 +35,7 @@
           </div>
         </cube-upload>
       </div>
-    </NavLayOut>
+    </TitleNav>
     <div class="footer">
       <div class="album" style="margin-right: 20px">
         <Icon

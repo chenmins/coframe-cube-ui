@@ -35,6 +35,17 @@ const routes = [
     ...AppointmentCenter,
     ...Parking,
     {
+        path: '/scrollTest',
+        name: 'scrollTest',
+        meta: {
+            name: 'scrollTest',
+            showNav: true,
+            leave: 1
+        },
+        // component: Home
+        component: () => import('@/views/scrollTest')
+    },
+    {
         path: '/',
         name: 'Home',
         meta: {

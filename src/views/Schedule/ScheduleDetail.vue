@@ -1,6 +1,6 @@
 <template>
   <div id="schedule_detail">
-    <NavLayOut bgc-color="#fff" @back="$router.push({ name: '日程协同' })">
+    <TitleNav bgc-color="#fff" @back="$router.push({ name: '日程协同' })">
       <LayOut class="schedule_group_1">
         <Icon svg-name="schedule-name" class-name="schedule-name"></Icon>
         <div>
@@ -100,7 +100,7 @@
           </cube-form-item>
         </cube-form>
       </LayOut>
-    </NavLayOut>
+    </TitleNav>
 
     <footer
       v-if="

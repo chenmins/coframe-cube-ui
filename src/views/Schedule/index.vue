@@ -1,6 +1,6 @@
 <template>
   <div id="schedule">
-    <NavLayOut color="#fff">
+    <TitleNav color="#fff">
       <div slot="fixed" style="margin: 0 12px">
         <h1 @click="showFormatPicker">
           <span>{{ time.month }}月</span>/{{ time.year }}
@@ -85,7 +85,7 @@
           </cube-scroll>
         </div>
       </ul>
-    </NavLayOut>
+    </TitleNav>
   </div>
 </template>
 

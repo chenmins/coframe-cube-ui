@@ -1,5 +1,5 @@
 <template>
-  <NavLayOut bgc-color="#fff">
+  <TitleNav bgc-color="#fff">
     <div class="cover"></div>
     <div class="card">
       <div class="card_content">
@@ -31,16 +31,14 @@
       <div>信息有误</div>
       <div class="confirm" @click="confirm">确认信息</div>
     </div>
-  </NavLayOut>
+  </TitleNav>
 </template>
 
 <script>
-import NavLayOut from "@/components/NavLayOut";
 import { WorkCartControllerImpl } from "@controller";
 
 export default {
   name: "PreviewInfo",
-  components: { NavLayOut },
   data() {
     return {
       cardInfo: {},

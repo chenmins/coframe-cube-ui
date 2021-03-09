@@ -33,6 +33,9 @@ export default {
   created(){
     this.$store.commit('EmployeeCard/iniModel')
   },
+  mounted() {
+    this.$children[0].$children[0].$refs.scroll.$el.style.height = `${this.workspaceRealHeightNum - 130}px`
+  },
   methods: {
     cancel() {
       this.$createDialog({
@@ -53,7 +56,7 @@ export default {
       this.result = result
     },
     confirm(e) {
-      if(!this.result.valid){
+      if(!this.result.valid && this.$route.fullPath.includes('CreateCard')){
         this.$createToast({
           type:'error',
           txt:'请填写完整表单',
@@ -61,7 +64,6 @@ export default {
         }).show()
         return
       }
-
       this.$router.push({
             name: 'PreviewConfirm',
             params: {

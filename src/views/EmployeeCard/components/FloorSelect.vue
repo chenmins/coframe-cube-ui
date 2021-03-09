@@ -1,6 +1,6 @@
 <template>
   <div id="floor_select" :style="'background-color'+bgColor">
-    <NavLayOut
+    <TitleNav
         bgc-color="#fff"
     >
       <LayOut style="padding-bottom: 60px" class="bgcolor">
@@ -27,7 +27,7 @@
           <span>添加</span>
         </div>
       </LayOut>
-    </NavLayOut>
+    </TitleNav>
 
     <div class="footer" v-if="$route.meta.name==='员工卡申请'">
       <cube-button type="submit">预览确认</cube-button>
@@ -70,11 +70,15 @@ export default {
       result: null
     }
   },
+  mounted() {
+    this.$children[0].$refs.scroll.$el.style.height = `${this.workspaceRealHeightNum - 130}px`
+  },
   methods: {
     validateHandler(result) {
       this.result = result
 
     },
+
     cancel() {
       this.$createDialog({
         type: 'confirm',
@@ -90,7 +94,7 @@ export default {
       }).show()
     },
     confirm() {
-      if (!this.result.valid) {
+      if (!this.result.valid && this.$route.fullPath.includes('CreateCard')) {
         this.$createToast({
           type: 'error',
           txt: '请填写完整表单',

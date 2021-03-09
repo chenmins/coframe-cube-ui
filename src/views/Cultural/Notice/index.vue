@@ -1,27 +1,27 @@
 <template>
   <div id="notice_app">
     <SlideNav
-      style="background: #fff"
-      @changeHandle="changeHandle"
-      :selected-label="selectedLabel"
-      :tabs="tabs"
+        style="background: #fff"
+        @changeHandle="changeHandle"
+        :selected-label="selectedLabel"
+        :tabs="tabs"
     >
-      <div class="scroll-list-wrap" style="height: calc(100vh - 220px)">
+      <div class="scroll-list-wrap">
         <cube-scroll ref="scroll">
           <Card
-            @clicked="read(notice)"
-            shadow
-            :class="readed ? 'content' : 'content not-read'"
-            id="card"
-            v-for="notice in notices"
+              @clicked="read(notice)"
+              shadow
+              :class="readed ? 'content' : 'content not-read'"
+              id="card"
+              v-for="notice in notices"
           >
             <div class="box">
               <span class="title">{{ notice.title }}</span>
               <span class="content">{{ notice.body }}</span>
               <span class="footer">
                 <span class="date">{{
-                  $dayjs(notice.releaseTime).format("YYYY-MM-DD")
-                }}</span>
+                    $dayjs(notice.releaseTime).format("YYYY-MM-DD")
+                  }}</span>
                 <span class="from">
                   <span class="read_all">阅读全文</span>
                 </span>
@@ -29,19 +29,19 @@
             </div>
           </Card>
           <Card
-            @clicked="read(notice)"
-            shadow
-            :class="!readed ? 'content' : 'content not-read'"
-            id="card"
-            v-for="notice in notices"
+              @clicked="read(notice)"
+              shadow
+              :class="!readed ? 'content' : 'content not-read'"
+              id="card"
+              v-for="notice in notices"
           >
             <div class="box">
               <span class="title">{{ notice.title }}</span>
               <span class="content">{{ notice.body }}</span>
               <span class="footer">
                 <span class="date">{{
-                  $dayjs(notice.releaseTime).format("YYYY-MM-DD")
-                }}</span>
+                    $dayjs(notice.releaseTime).format("YYYY-MM-DD")
+                  }}</span>
                 <span class="from">
                   <span class="read_all">阅读全文</span>
                 </span>
@@ -58,6 +58,65 @@
 import Card from "@/components/UI/Card";
 import SlideNav from "@/components/Cultural/SlideNav";
 import mixins from "../mixins/mixins";
+
+const example = [
+  {
+    "id": 1,
+    "type": "1",
+    "title": "1",
+    "body": "2",
+    "releaseTime": 1613777338000
+  },
+  {
+    "id": 1,
+    "type": "1",
+    "title": "1",
+    "body": "2",
+    "releaseTime": 1613777338000
+  },
+  {
+    "id": 1,
+    "type": "1",
+    "title": "1",
+    "body": "2",
+    "releaseTime": 1613777338000
+  },
+  {
+    "id": 1,
+    "type": "1",
+    "title": "1",
+    "body": "2",
+    "releaseTime": 1613777338000
+  },
+  {
+    "id": 1,
+    "type": "1",
+    "title": "1",
+    "body": "2",
+    "releaseTime": 1613777338000
+  },
+  {
+    "id": 1,
+    "type": "1",
+    "title": "1",
+    "body": "2",
+    "releaseTime": 1613777338000
+  },
+  {
+    "id": 1,
+    "type": "1",
+    "title": "1",
+    "body": "2",
+    "releaseTime": 1613777338000
+  },
+  {
+    "id": 1,
+    "type": "1",
+    "title": "1",
+    "body": "2",
+    "releaseTime": 1613777338000
+  }
+]
 
 export default {
   name: "index",
@@ -89,6 +148,7 @@ export default {
     let Interval = setInterval(() => {
       if (this.$store.state.Cultural.allData.notices) {
         this.notices = this.$store.state.Cultural.allData.notices;
+        // this.$store.state.Cultural.allData.notices;
         if (this.notices.length) {
           clearInterval(Interval);
         }
@@ -99,7 +159,7 @@ export default {
     read(notice) {
       this.$router.push({
         name: "公告详情",
-        params: { id: notice.id, notice: notice },
+        params: {id: notice.id, notice: notice},
       });
     },
   },
@@ -108,8 +168,6 @@ export default {
 
 <style scoped lang="stylus">
 #notice_app {
-  height: $custom-bgc-height;
-
   .not-read {
     span {
       color: gray !important;

@@ -1,6 +1,6 @@
 <template>
   <div id="addSchedule">
-    <NavLayOut bgc-color="#fff">
+    <TitleNav bgc-color="#fff">
       <header>
         <div>
           <h1>想添加点什么</h1>
@@ -8,7 +8,6 @@
         </div>
         <img src="../../assets/icons/addSchedule.webp" alt="" />
       </header>
-
       <Card :shadow="true" style="padding: 0">
         <cube-form
           :model="model"
@@ -53,7 +52,7 @@
           </cube-form-group>
         </cube-form>
       </Card>
-    </NavLayOut>
+    </TitleNav>
   </div>
 </template>
 
@@ -274,6 +273,9 @@ export default {
       },
     };
   },
+  mounted() {
+    this.$children[0].$refs.scroll.$el.style.height = `${this.workspaceRealHeightNum - 60}px`
+  },
   methods: {
     removePeople(i, index) {
       this.$createDialog({
@@ -457,8 +459,7 @@ export default {
 
 #addSchedule {
   background-color: #ffffff;
-
-  header {
+    header {
     display: flex;
     justify-content: space-around;
     align-items: center;

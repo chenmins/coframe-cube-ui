@@ -1,6 +1,6 @@
 <template>
   <div id="floor_select" :style="'background-color'+bgColor">
-    <NavLayOut
+    <TitleNav
         bgc-color="#fff"
     >
       <LayOut  class="bgcolor">
@@ -96,7 +96,7 @@
           </li>
         </ul>
       </LayOut>
-    </NavLayOut>
+    </TitleNav>
     <div class="footer two" v-show="isAdmin" >
       <cube-button type="submit" class="cancel" @click="cancel">拒绝</cube-button>
       <cube-button type="submit" class="confirm" @click="confirm">通过</cube-button>
@@ -541,7 +541,7 @@ export default {
 
 
 >>>.cube-scroll-wrapper
-  height  calc(100vh - 180px)
+  height  calc(100vh - 130px)
 </style>
 
 

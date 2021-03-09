@@ -1,18 +1,19 @@
 <template>
   <div id="help_center">
-    <NavLayOut bgc-color="#fff" color="#333">
+    <TitleNav :bottom="70" bgc-color="#fff">
       <div
-        class="replay"
-        slot="right"
-        v-show="$route.meta.name === '反馈'"
-        @click="addDemandFeedback"
+          class="replay"
+          slot="right"
+          v-show="$route.meta.name === '反馈'"
+          @click="addDemandFeedback"
       >
         发表
       </div>
-      <div class="container">
-        <router-view />
-      </div>
-    </NavLayOut>
+      <template v-slot:default>
+          <router-view />
+      </template>
+    </TitleNav>
+    <Tabbar v-show="$route.meta.showTabbar" :tabs="tabs"></Tabbar>
     <div class="replay_bot" v-show="$route.meta.name === '需求反馈' && show === 'true'">
       <cube-textarea
         class="replay_textarea"
@@ -37,16 +38,17 @@
       </button>
       <!--      <Icon svg-name="helpcenter-emoji" style="margin-right: 10px" height="26px" width="26px"></Icon>-->
     </div>
-    <Tabbar v-show="$route.meta.showTabbar" :tabs="tabs"></Tabbar>
   </div>
 </template>
 
 <script>
 import HelpCenter from "./mixins/HelpCenter";
 import { HelpControllerImpl } from "@controller";
+import TitleNav from "@/components/UI/TitleNav";
 
 export default {
   name: "index",
+  components: {TitleNav},
   mixins: [HelpCenter],
   data() {
     return {
@@ -59,11 +61,13 @@ export default {
   created() {
     this.show = localStorage.getItem("admin");
   },
+  mounted(){
+    this.$children[0].$refs.scroll.$el.style.height = `${this.workspaceRealHeightNum - 130}px`
+  },
   methods: {
     replay() {
       this.value = "";
     },
-
     async submit() {
       if (this.value !== "") {
         let resp;
@@ -90,9 +94,9 @@ export default {
 </script>
 
 <style scoped lang="stylus">
->>> .cube-scroll-wrapper {
-  height: calc(100vh - 300px);
-}
+//>>> .cube-scroll-wrapper {
+//  height: calc(100vh - 300px);
+//}
 
 .replay_bot {
   box-shadow: 0px -2px 7px 0px rgba(0, 0, 0, 0.15);

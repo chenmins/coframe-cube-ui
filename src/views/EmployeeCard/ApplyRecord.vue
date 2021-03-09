@@ -1,15 +1,14 @@
 <template>
   <div id="ApplyRecord">
-    <NavLayOut bgc-color="#fff">
+    <TitleNav bgc-color="#fff">
       <Application></Application>
       <Patch></Patch>
       <Loss></Loss>
-    </NavLayOut>
+    </TitleNav>
   </div>
 </template>
 
 <script>
-import NavLayOut from "@/components/NavLayOut";
 import Application from "@/views/EmployeeCard/components/Application";
 import Patch from "@/views/EmployeeCard/components/Patch";
 import Loss from "@/views/EmployeeCard/components/Loss";
@@ -19,7 +18,10 @@ export default {
     Loss,
     Patch,
     Application,
-    NavLayOut
+  },
+  mounted() {
+    console.log(this)
+    this.$children[0].$refs.scroll.$el.style.height = `${this.workspaceRealHeightNum - 60}px`
   }
 }
 </script>

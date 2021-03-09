@@ -1,11 +1,11 @@
 <template>
   <div id="todo-list">
-    <NavLayOut bgc-color="transparent" color="#fff">
+    <TitleNav  bgc-color="transparent" color="#fff">
       <SlideNav
-        @LabelChanged="changeHandle"
-        show-slider
-        :selected-label="selectedLabel"
-        :tabs="tabs"
+          @LabelChanged="changeHandle"
+          show-slider
+          :selected-label="selectedLabel"
+          :tabs="tabs"
       >
         <div class="scroll-list-wrap warp custom">
           <cube-scroll ref="scroll">
@@ -13,7 +13,7 @@
           </cube-scroll>
         </div>
       </SlideNav>
-    </NavLayOut>
+    </TitleNav>
   </div>
 </template>
 
@@ -52,6 +52,7 @@ export default {
       (i) => i.approved === false
     );
   },
+
   methods: {
     GuestDetail() {
       this.$router.push({ name: "ReserveDetail", params: { id: 1 } });
@@ -76,11 +77,7 @@ export default {
 
 <style scoped lang="stylus">
 .warp {
-  height: calc(100vh - 150px);
-
-  >>>.cube-scroll-wrapper {
-    height: 100%;
-  }
+  height: calc(100vh - 120px);
 }
 
 #todo-list {
