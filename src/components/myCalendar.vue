@@ -19,6 +19,7 @@
 <script>
 import lunar from "@/utils/lunar";
 import { ScheduleControllerImpl } from "@controller";
+import {mapState} from 'vuex'
 
 export default {
   name: "myCalendar",
@@ -40,27 +41,17 @@ export default {
   async created() {
     this.date4 = this.stringify(new Date());
   },
-  mounted() {},
+  computed:{
+    ...mapState('Schedule',['allMonthSchedule'])
+  },
   updated() {
     let dir = document.getElementsByClassName("day-cell");
     dir.forEach((v) => {
       v.classList.remove("hasTodo");
       v.classList.remove("datepicker-dateRange-item-active");
     });
-    this.getMonthData(this.$dayjs(this.selectedDate).format("YYYY-MM")).then(
-      () => {
-        this.getInfo();
-      }
-    );
   },
   methods: {
-    async getMonthData(date) {
-      let resp;
-      resp = await this.dispatch(ScheduleControllerImpl.queryScheduleByMM, {
-        month: date,
-      });
-      this.allMonthData = resp.data.body[0];
-    },
     getInfo() {
       this.$nextTick(() => {
         let dir = document.getElementsByClassName("day-cell");
@@ -77,8 +68,8 @@ export default {
         });
         newDir.forEach((i) => {
           if (
-            this.allMonthData[this.$dayjs(i.dataset.date).format("YYYY-M-D")] &&
-            this.allMonthData[this.$dayjs(i.dataset.date).format("YYYY-M-D")]
+              this.allMonthSchedule[this.$dayjs(i.dataset.date).format("YYYY-M-D")] &&
+              this.allMonthSchedule[this.$dayjs(i.dataset.date).format("YYYY-M-D")]
               .length !== 0
           ) {
             i.classList.add("hasTodo");

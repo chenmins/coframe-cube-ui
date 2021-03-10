@@ -3,7 +3,7 @@
     <div class="DemanFeedback_app_container">
       <img width="100%" src="../../assets/icons/helpcenter-feedback.png" alt="" />
       <div class="chat_wapper">
-        <CommentBox v-for="list in feedback" :list-data="list" :id="list.id">
+        <CommentBox v-for="list in FeedbacksData" :list-data="list" :id="list.id">
           <template v-slot:replay>
             <ReplayBox v-for="replay in list.replys" :list-data="replay"></ReplayBox>
           </template>
@@ -16,25 +16,29 @@
 <script>
 import CommentBox from "@/components/HelpCenter/CommentBox";
 import ReplayBox from "@/components/HelpCenter/ReplayBox";
-import HelpCenter from "./mixins/HelpCenter";
+import {mapActions, mapState} from "vuex";
 
 export default {
   name: "DemanFeedback",
   components: { CommentBox, ReplayBox },
-  mixins: [HelpCenter],
   data() {
     return {
       userInfo: {},
     };
   },
   created() {
-    this.initFeedback();
+    this.initData({dispatch:this.dispatch,type:'Feedbacks',controller:'queryDemandFeedback'})
   },
-
   beforeUpdate() {
     // document.querySelector(".cube-scroll-list-wrapper").style.paddingBottom = "100px";
   },
-  methods: {},
+  methods: {
+    ...mapActions('HelpCenter',['initData'])
+
+  },
+  computed:{
+    ...mapState('HelpCenter',['FeedbacksData']),
+  }
 };
 </script>
 

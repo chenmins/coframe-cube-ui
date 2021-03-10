@@ -59,7 +59,7 @@ export default [
                 name: '需求反馈',
                 meta: {
                     name: '需求反馈',
-                    tag: 'DemanFeedback',
+                    tag: '需求反馈',
                     showTabbar: true,
                     leave: 2,
                     showNav: true,

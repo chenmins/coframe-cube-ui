@@ -9,6 +9,8 @@ import HelpCenter from "@/store/HelpCenter";
 import Schedule from '@/store/Schedule'
 import Guest from "@/store/Guest";
 import EmployeeCard from '@/store/EmployeeCard'
+import ReportForm from "@/store/ReportForm";
+
 import axios from "@/axios/index";
 import { setToken } from "@/utils/auth";
 
@@ -36,7 +38,8 @@ const store = new Vuex.Store({
     modules: {
         ...actions,
         AddressBook,
-        MainMenu, Cultural, HelpCenter, Schedule, Guest, EmployeeCard
+        MainMenu, Cultural, HelpCenter, Schedule, Guest, EmployeeCard,
+        ReportForm
     }
 })
 

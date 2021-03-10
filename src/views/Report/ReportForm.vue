@@ -1,7 +1,7 @@
 <template>
   <div id="report-form">
     <TitleNav>
-      <cube-form :model="model" @validate="validateHandler" @submit="submitHandler">
+      <cube-form :model="model"  @submit="updateForm({e:arguments[0],dispatch:dispatch})">
         <cube-form-group v-for="(item, index) in question">
           <h1>{{ index + 1 }}、{{ item.legend }}</h1>
           <cube-form-item :field="item.field"></cube-form-item>
@@ -15,10 +15,10 @@
 </template>
 
 <script>
-import { provinceList, cityList, areaList } from "@/assets/DATA/area";
-import { BaseVue } from "@lib";
-import mixins from "./mixins.js";
-import { HealthApiController } from "@controller";
+import {provinceList, cityList, areaList} from "@/assets/DATA/area";
+import {BaseVue} from "@lib";
+import {HealthApiController} from "@controller";
+import {mapActions, mapState} from "vuex";
 
 let city = {
   id: "",
@@ -41,7 +41,6 @@ const PCA = {
       },
     },
   },
-  mixins: [mixins],
   data() {
     return {
       selected: [],
@@ -49,17 +48,17 @@ const PCA = {
   },
   render(createElement) {
     return createElement(
-      "div",
-      {
-        on: {
-          click: this.showPicker,
+        "div",
+        {
+          on: {
+            click: this.showPicker,
+          },
         },
-      },
-      this.selected.length
-        ? this.selected.join(" ")
-        : this.city.name
-        ? this.city.name
-        : "请选择工作地区"
+        this.selected.length
+            ? this.selected.join(" ")
+            : city.name
+            ? city.name
+            : "请选择工作地区"
     );
     // city.name ? city.name : this.selected.length ? this.selected.join(' ') : '请选择工作地区')
   },
@@ -88,6 +87,15 @@ export default {
       city: {
         id: city.id,
         name: city.name,
+      },
+      model: {
+        value1: [],
+        value2: '',
+        value3: '',
+        value4: '',
+        value5: '',
+        value6: '',
+        value7: '',
       },
       selected4: "1",
       validity: {},
@@ -132,7 +140,7 @@ export default {
               class: "pca",
             },
             rules: {
-              required: true,
+              required: false,
             },
             messages: {
               required: "请选择",
@@ -225,14 +233,24 @@ export default {
       ],
     };
   },
-  created() {
-    city = this.city;
+  async created() {
+    let toast = this.$createToast({
+      txt: '加载中',
+      time: 0
+    }).show()
+    await this.getHealthFormInfo({
+      dispatch: this.dispatch
+    })
+    toast.hide()
+    this.model = this.$store.state.ReportForm.model
+    city = this.$store.state.ReportForm.city
+
   },
   mounted() {
-    this.$children[0].$refs.scroll.$el.style.height = `${this.workspaceRealHeightNum - 60}px`
+    this.$children[1].$refs.scroll.$el.style.height = `${this.workspaceRealHeightNum - 60}px`
   },
-  mixins: [BaseVue, mixins],
   methods: {
+    ...mapActions('ReportForm', ['getHealthFormInfo','updateForm']),
     async submitHandler(e, model) {
       e.preventDefault();
       let template = model.value6 + "°C";
@@ -258,20 +276,6 @@ export default {
       } else {
         console.log("error");
       }
-    },
-    validateHandler(result) {
-      this.validity = result.validity;
-      this.valid = result.valid;
-    },
-    showDatePicker() {
-      this.$refs.datePicker.show();
-    },
-    dateSelectHandler(selectedVal) {
-      this.model.dateValue = new Date(
-        selectedVal[0],
-        selectedVal[1] - 1,
-        selectedVal[2]
-      ).toDateString();
     },
   },
 };

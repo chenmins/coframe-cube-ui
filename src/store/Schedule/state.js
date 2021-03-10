@@ -2,7 +2,7 @@
 
 
 export default {
-    oneDaySchedule:[],
-    allMonthSchedule:[],
-
+    oneDaySchedule:{},
+    allMonthSchedule:{},
+    test:'成功获得'
 }

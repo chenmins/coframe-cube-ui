@@ -22,11 +22,13 @@
 </template>
 
 <script>
+import {mapActions} from "vuex";
+
 export default {
   name: "index",
   mounted() {
-    this.$children[0].$refs.scroll.$el.style.height = `${this.workspaceRealHeightNum}px`
-  }
+    this.$children[1].$refs.scroll.$el.style.height = `${this.workspaceRealHeightNum}px`
+  },
 }
 </script>
 

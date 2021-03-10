@@ -5,13 +5,13 @@
         <Icon svg-name="schedule-name" class-name="schedule-name"></Icon>
         <div>
           <header>
-            {{ scheduleData.title }}
+            {{ oneDaySchedule.title }}
           </header>
           <main>
-            {{ $dayjs(scheduleData.startTime).format("MM月DD日") + " " }}
-            {{ weeks[$dayjs(scheduleData.startTime).isoWeekday()] + " " }}
-            {{ $dayjs(scheduleData.startTime).format("HH:mm") + " - " }}
-            {{ $dayjs(scheduleData.endTime).format("HH:mm") }}
+            {{ $dayjs(oneDaySchedule.startTime).format("MM月DD日") + " " }}
+            {{ weeks[$dayjs(oneDaySchedule.startTime).isoWeekday()] + " " }}
+            {{ $dayjs(oneDaySchedule.startTime).format("HH:mm") + " - " }}
+            {{ $dayjs(oneDaySchedule.endTime).format("HH:mm") }}
           </main>
         </div>
       </LayOut>
@@ -103,7 +103,7 @@
     </TitleNav>
     <footer
         v-if="
-        scheduleData.scheduleParticipantsEntities.filter(
+        oneDaySchedule.scheduleParticipantsEntities.filter(
           (i) => i.userId === userInfo.id
         )[0].agree === '待确认'
       "
@@ -114,7 +114,7 @@
       </div>
       <div @click="agree" class="footer-func">接受</div>
     </footer>
-    <footer v-if="scheduleData.userId === userInfo.id">
+    <footer v-if="oneDaySchedule.userId === userInfo.id">
       <div @click="showPicker('share')">
         <Icon
             svg-name="schedule-footer-1"
@@ -140,6 +140,7 @@
 <script>
 import {Dialog} from "vant";
 import {ScheduleControllerImpl} from "@controller";
+import {mapState} from "vuex";
 
 export default {
   name: "ScheduleDetail",
@@ -216,19 +217,21 @@ export default {
     };
   },
   created() {
-    this.scheduleData = this.$route.params.data;
     this.model = {
-      userName: this.scheduleData.userName,
-      organization: this.scheduleData.userName,
-      conferenceRoom: this.scheduleData.conferenceRoom,
-      scheduleParticipantsEntities: this.scheduleData
+      userName: this.oneDaySchedule.userName,
+      organization: this.oneDaySchedule.userName,
+      conferenceRoom: this.oneDaySchedule.conferenceRoom,
+      scheduleParticipantsEntities: this.oneDaySchedule
           .scheduleParticipantsEntities,
-      remind: this.scheduleData.remind,
-      repeat: this.scheduleData.repeat,
+      remind: this.oneDaySchedule.remind,
+      repeat: this.oneDaySchedule.repeat,
     };
   },
   mounted() {
     this.$children[0].$refs.scroll.$el.style.height = `${this.workspaceRealHeight - 60}px`
+  },
+  computed:{
+    ...mapState('Schedule',['oneDaySchedule'])
   },
   methods: {
     showPicker(type) {
@@ -342,9 +345,8 @@ export default {
         data: [typeMap[type]],
         onSelect: (v1, v2, v3) => {
           this.model[type] = v3[0];
-
           let modelSchEn =  this.model.scheduleParticipantsEntities
-          let schDataEn = this.scheduleData.scheduleParticipantsEntities;
+          let schDataEn = this.oneDaySchedule.scheduleParticipantsEntities;
           if (type === "scheduleParticipantsEntities") {
             modelSchEn = schDataEn
             if (modelSchEn.findIndex(i =>
@@ -364,7 +366,7 @@ export default {
                 onConfirm: (e1, e2, e3) => {
                   modelSchEn.splice(schDataEn.findIndex(i => i.userName === v1[0].name), 1)
                   this.dispatch(ScheduleControllerImpl.delParSchedule, {
-                    id: this.scheduleData.id,
+                    id: this.oneDaySchedule.id,
                     userId: v1[0].id
                   }).then((res) => {
 
@@ -377,7 +379,7 @@ export default {
                 userId: v1[0].id,
               })
               this.dispatch(ScheduleControllerImpl.addParSchedule, {
-                id: this.scheduleData.id,
+                id: this.oneDaySchedule.id,
                 userId: v1[0].id,
                 name: v1[0].name,
               })
@@ -467,6 +469,7 @@ export default {
             }
             this.formatPicker.show();
           }
+          this.model.scheduleParticipantsEntities = modelSchEn
           this.updateSchedule(type);
         },
       });
@@ -478,20 +481,19 @@ export default {
         id: this.$route.params.id,
         [type]: this.model[type],
       });
-      console.log(resp);
     },
     init() {
     },
     getterData() {
       return {
-        id: this.scheduleData.id,
-        agree: this.scheduleData.agree,
+        id: this.oneDaySchedule.id,
+        agree: this.oneDaySchedule.agree,
       };
     },
     refuse() {
       this.edit = false;
-      this.scheduleData.agree = "不同意";
-      this.update(this.scheduleData.agree).then(() => {
+      this.oneDaySchedule.agree = "不同意";
+      this.update(this.oneDaySchedule.agree).then(() => {
         this.$createToast({
           type: "normal",
           txt: "已拒绝",
@@ -505,8 +507,8 @@ export default {
     },
     agree() {
       this.edit = false;
-      this.scheduleData.agree = "同意";
-      this.update(this.scheduleData.agree).then(() => {
+      this.oneDaySchedule.agree = "同意";
+      this.update(this.oneDaySchedule.agree).then(() => {
         this.$createToast({
           type: "normal",
           time: 1000,

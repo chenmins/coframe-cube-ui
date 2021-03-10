@@ -5,26 +5,29 @@
           class="replay"
           slot="right"
           v-show="$route.meta.name === '反馈'"
-          @click="addDemandFeedback"
+          @click="addFeedBack({
+              dispatch:dispatch,
+                uploadAsync:uploadAsync,
+          })"
       >
         发表
       </div>
       <template v-slot:default>
-          <router-view />
+        <router-view/>
       </template>
     </TitleNav>
     <Tabbar v-show="$route.meta.showTabbar" :tabs="tabs"></Tabbar>
-    <div class="replay_bot" v-show="$route.meta.name === '需求反馈' && show === 'true'">
+    <div class="replay_bot" v-show="$route.meta.tag === 'ReplayDetail' ">
       <cube-textarea
-        class="replay_textarea"
-        v-model="value"
-        :placeholder="placeholder"
-        :maxlength="maxlength"
-        @keyup.enter.native="replay"
+          class="replay_textarea"
+          v-model="value"
+          :placeholder="placeholder"
+          :maxlength="maxlength"
+          @keyup.enter.native="replay"
       ></cube-textarea>
       <button
-        @click="submit"
-        style="
+          @click="submit"
+          style="
           margin-right: 10px;
           border: none;
           outline: none;
@@ -42,29 +45,45 @@
 </template>
 
 <script>
-import HelpCenter from "./mixins/HelpCenter";
-import { HelpControllerImpl } from "@controller";
+import {HelpControllerImpl} from "@controller";
 import TitleNav from "@/components/UI/TitleNav";
+import {mapActions} from 'vuex'
+import filesUpload from "@/libs/mixins/filesUpload";
 
 export default {
   name: "index",
   components: {TitleNav},
-  mixins: [HelpCenter],
+  mixins: [filesUpload],
   data() {
     return {
+      tabs: [
+        {
+          label: '常见问题',
+          value: 'question',
+          icon: 'helpcenter-question',
+
+        }, {
+          label: '产品介绍',
+          value: 'productInc',
+          icon: 'helpcenter-inc'
+
+        }, {
+          label: '需求反馈',
+          value: 'feedback',
+          icon: 'helpcenter-edit'
+
+        }],
       value: "",
       placeholder: "回复需求",
       maxlength: 200,
-      show: "",
     };
   },
-  created() {
-    this.show = localStorage.getItem("admin");
-  },
-  mounted(){
+
+  mounted() {
     this.$children[0].$refs.scroll.$el.style.height = `${this.workspaceRealHeightNum - 130}px`
   },
   methods: {
+    ...mapActions('HelpCenter', ['addFeedBack',]),
     replay() {
       this.value = "";
     },
@@ -82,7 +101,7 @@ export default {
             time: 500,
             onTimeout: () => {
               this.value = "";
-              this.$router.push({ name: "需求反馈" });
+              this.$router.push({name: "需求反馈"});
             },
           });
           Toast.show();
@@ -94,10 +113,6 @@ export default {
 </script>
 
 <style scoped lang="stylus">
-//>>> .cube-scroll-wrapper {
-//  height: calc(100vh - 300px);
-//}
-
 .replay_bot {
   box-shadow: 0px -2px 7px 0px rgba(0, 0, 0, 0.15);
   position: fixed;

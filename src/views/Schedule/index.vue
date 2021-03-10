@@ -93,6 +93,7 @@
 import mySchedule from "@/components/myCalendar";
 import {ScheduleControllerImpl} from "@controller";
 import {BaseVue} from "@lib";
+import {mapState, mapMutations} from 'vuex'
 
 export default {
   name: "index",
@@ -104,7 +105,6 @@ export default {
     return {
       selectedDate: "",
       date: "",
-      allMonthSchedule: {},
       meetings: [],
       time: {
         year: this.$dayjs().format("YYYY"),
@@ -114,21 +114,23 @@ export default {
     };
   },
   async created() {
-    let res = await this.init(this.$dayjs().format("YYYY-M"));
-    this.allMonthSchedule = res;
+    await this.init(this.$dayjs().format("YYYY-M"));
+    let allData = this.allMonthSchedule
     this.meetings =
-        res[this.$dayjs().format("YYYY-M-D")] === undefined
+        allData[this.$dayjs().format("YYYY-M-D")] === undefined
             ? ""
-            : res[this.$dayjs().format("YYYY-M-D")];
+            : allData[this.$dayjs().format("YYYY-M-D")];
   },
   mounted() {
     this.$children[0].$refs.scroll.$el.style.height = `${this.workspaceRealHeightNum - 130}px`
   },
   methods: {
+    ...mapMutations('Schedule', ['setAllMonthSchedule','setOneDaySchedule']),
     async init(date) {
       let res = await this.dispatch(ScheduleControllerImpl.queryScheduleByMM, {
         month: date || this.$dayjs().format("YYYY-M"),
       });
+      this.setAllMonthSchedule(res.data.body[0]);
       return res.data.body[0];
     },
     showFormatPicker() {
@@ -169,10 +171,10 @@ export default {
           onCancel: this.cancelHandle,
         });
       }
-
       this.formatPicker.show();
     },
     scheduleDetail(e) {
+      this.setOneDaySchedule(e)
       this.$router
           .push({name: "ScheduleDetail", params: {id: e.id, data: e}})
           .catch((err) => {
@@ -188,6 +190,9 @@ export default {
       this.meetings = this.allMonthSchedule[this.$dayjs(e).format("YYYY-M-D")];
     },
   },
+  computed: {
+    ...mapState('Schedule', ["allMonthSchedule", "oneDaySchedule"])
+  }
 };
 </script>
 
@@ -251,6 +256,7 @@ export default {
   background-size: 100%;
   height: 100vh
   overflow hidden
+
   .scroll_container {
     height: calc(100vh - 400px);
     overflow: hidden;

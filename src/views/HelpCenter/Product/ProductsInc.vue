@@ -1,6 +1,6 @@
 <template>
   <div id="product_inc">
-    <List :show-title="false" :data="productData" @goRouter="go">
+    <List :show-title="false" :data="ProductsData" @goRouter="go">
       <template slot-scope="scoped">
         <div style="display: flex;align-items: center;color: #0F1826;height: 48px;">
           <span>{{ scoped.scoped.title }}</span>
@@ -14,24 +14,28 @@
 </template>
 
 <script>
-import HelpCenter from '../mixins/HelpCenter.js'
+import {mapActions, mapState} from "vuex";
 export default {
   name: "ProductsInc",
-
-  mixins: [HelpCenter],
-  created() {
-    this.initProduct()
-  },
   beforeRouteLeave(to, from, next) {
     if (to.fullPath.includes('ProductInc')) {
       to.meta.name = from.meta.name
     }
     next()
   },
+  created() {
+    this.initData({dispatch:this.dispatch,type:'Products',controller:'queryProductIntroduction'})
+  },
   methods: {
     go(e) {
       this.$router.push({name: 'ProductInc', params: {id: e.id,data:e}})
-    }
+    },
+    ...mapActions('HelpCenter',['initData'])
+
+  },
+  computed:{
+    ...mapState('HelpCenter',['ProductsData']),
+
   }
 }
 </script>

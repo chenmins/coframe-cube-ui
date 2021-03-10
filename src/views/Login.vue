@@ -83,10 +83,13 @@ export default {
     }
   },
   methods: {
-
     async submitHandler(e, model) {
+      let toast = this.$createToast({
+        txt:'登陆中',
+        time:0
+      })
       e.preventDefault()
-
+      toast.show()
       let data = {
         "username": model.inputValue,
         "password": model.passwordValue
@@ -97,6 +100,7 @@ export default {
         localStorage.setItem('admin', resp.data.admin)
         localStorage.setItem('Token', resp.data.token)
         setToken(resp.data.token)
+        toast.hide()
         this.$createToast({
           txt: '登陆成功，正在跳转',
           time: 500,

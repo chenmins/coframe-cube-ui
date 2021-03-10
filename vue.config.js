@@ -29,11 +29,7 @@ module.exports = {
             amd: false
           }
         },
-
-
       ],
-
-
     },
     resolve: {
       alias: {

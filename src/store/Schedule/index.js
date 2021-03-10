@@ -13,11 +13,6 @@ const Schedule = {
             state.allMonthSchedule = payload
         }
     },
-    actions:{
-        getMonthSchedule(context,payload){
-
-        }
     }
-}
 
 export default Schedule
