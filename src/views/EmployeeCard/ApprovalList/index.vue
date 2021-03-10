@@ -1,9 +1,9 @@
 <template>
   <ApproveContainer :tabs="tabs" :selectedLabel="selectedLabel">
     <Card
-      :reserve="approve"
-      v-for="reserve in approves"
-      @clicked="$router.push({ name: 'ApprovalDetail', params: { id: 1 } })"
+        :reserve="approve"
+        v-for="reserve in approves"
+        @clicked="$router.push({ name: 'ApprovalDetail', params: { id: 1 } })"
     >
       <div class="title">
         <div class="dot"></div>
@@ -12,13 +12,13 @@
       <div class="content font-normal">
         <p>
           <span class="titou">申请人姓名 </span>
-          <span v-for="i in reserve.name">{{ i }}，</span>
+          <span v-for="i in reserve.userName.split(',')">{{ i }}，</span>
         </p>
         <p>
           <span class="titou">所在部门 </span>
-          <span v-for="i in reserve.where">{{ i }}，</span>
+          <span v-for="i in reserve.reasonsCode.split(',')">{{ i }}，</span>
         </p>
-        <p><span class="titou">申请日期 </span> {{ reserve.time }}</p>
+        <p><span class="titou">申请日期 </span> {{ $dayjs(reserve.handleTime).format('YYYY-MM-DD') }}</p>
       </div>
       <div class="right_bottom">
         <template v-if="type === '卡申请'">
@@ -36,21 +36,21 @@
       </div>
       <template v-if="arrived">
         <Tag
-          v-if="!reserve.approved"
-          color="#fff"
-          class="tag"
-          :background-color="reserve.approved ? '#42b983' : '#000'"
+            v-if="reserve.state!=='启用中'"
+            color="#fff"
+            class="tag"
+            :background-color="reserve.state==='启用中' ? '#42b983' : '#000'"
         >
-          待审批
+          {{reserve.state}}
         </Tag>
         <Icon v-else svg-name="guest-complete" class-name="svg_complete"></Icon>
       </template>
       <template v-else>
         <Icon
-          class-name="tag"
-          svg-name="guest-arrived"
-          height="80px"
-          width="80px"
+            class-name="tag"
+            svg-name="guest-arrived"
+            height="80px"
+            width="80px"
         ></Icon>
       </template>
     </Card>
@@ -63,6 +63,8 @@ import SlideNav from "@/components/Cultural/SlideNav";
 import Search from "@/components/Search";
 import Card from "@/components/UI/Card";
 import ApproveContainer from "@/components/UI/ApproveContainer";
+
+import {WorkCartControllerImpl} from "@controller";
 
 export default {
   components: {
@@ -90,23 +92,32 @@ export default {
   },
   created() {
     this.approves = this.$store.state.Guest.approves.filter(
-      (i) => i.approved === false
+        (i) => i.approved === false
     );
+    this.getList()
   },
   methods: {
+    async getList() {
+      let resp
+      resp = await this.dispatch(WorkCartControllerImpl.getReviewList)
+      if (!resp.body) {
+        this.approves = resp.data.body
+        console.log(resp.data.body)
+      }
+    },
     GuestDetail() {
-      this.$router.push({ name: "ReserveDetail", params: { id: 1 } });
+      this.$router.push({name: "ReserveDetail", params: {id: 1}});
     },
     changeHandle(e) {
       switch (e) {
         case "待审批":
           this.approves = this.$store.state.Guest.approves.filter(
-            (i) => i.approved === false
+              (i) => i.approved === false
           );
           break;
         case "已完成":
           this.approves = this.$store.state.Guest.approves.filter(
-            (i) => i.approved === true
+              (i) => i.approved === true
           );
       }
     },

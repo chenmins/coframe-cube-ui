@@ -1,6 +1,6 @@
 <template>
   <div id="floor_select" :style="'background-color'+bgColor">
-    <NavLayOut
+    <TitleNav
         bgc-color="#fff"
     >
       <LayOut class="bgcolor">
@@ -28,7 +28,7 @@
       <func-btn>
         添加
       </func-btn>
-    </NavLayOut>
+    </TitleNav>
     <div class="footer two">
       <cube-button type="submit" class="confirm" @click="confirm">提交</cube-button>
     </div>

@@ -1,7 +1,7 @@
 <template>
   <div id="data">
 
-    <NavLayOut bgc-color="#fff">
+    <TitleNav bgc-color="#fff">
       <LayOut>
         <h1>行政服务子系统线上办公数据</h1>
         <div class="header_num">
@@ -63,7 +63,7 @@
           </div>
         </main>
       </Card>
-    </NavLayOut>
+    </TitleNav>
   </div>
 </template>
 
@@ -218,7 +218,8 @@ export default {
 </script>
 
 <style scoped lang="stylus">
-
+>>>.scroll-height-set
+  height calc(100vh - 60px)
 #data
   header
     font-family: PingFangSC-Medium, PingFang SC;

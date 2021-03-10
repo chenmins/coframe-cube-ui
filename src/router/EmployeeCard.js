@@ -104,7 +104,7 @@ export default [
         component: () => import('@/views/EmployeeCard/ApprovalList/Detail')
     },
     {
-        path: '/CardRecord/:id',
+        path: '/CardRecord',
         name: 'CardRecord',
         meta: {
             name: '员工卡管理',

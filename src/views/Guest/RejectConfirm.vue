@@ -1,8 +1,8 @@
 <template>
   <div id="confirm">
-    <NavLayOut bgc-color="#fff">
+    <TitleNav bgc-color="#fff">
       <cube-textarea placeholder="请输入审批意见" :maxlength="300"></cube-textarea>
-    </NavLayOut>
+    </TitleNav>
 
     <footer>
       <button>残忍拒绝</button>

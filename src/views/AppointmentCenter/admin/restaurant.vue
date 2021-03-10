@@ -16,7 +16,7 @@
           </span>
       </LayOut>
     </div>
-    <NavLayOut color="#fff" >
+    <TitleNav color="#fff" >
       <!--    @CardDetail-->
       <Card>
           <cube-checkbox  v-model="selected4">
@@ -52,7 +52,7 @@
           </div>
         </cube-checkbox>
       </Card>
-    </NavLayOut>
+    </TitleNav>
 
 
     <cube-button>立即预约</cube-button>

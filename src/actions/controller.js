@@ -33,6 +33,17 @@ let CulturalControllerImpl = {
     getCommunicationCircleEntity: {controller: 'CulturalControllerImpl' , method: 'getCommunicationCircleEntity'}, // 根据交流圈主键获取交流圈详细信息与评论列表信息
     noticePageSreach: {controller: 'CulturalControllerImpl' , method: 'noticePageSreach'}, // 根据分页数据查询公告列表
 };
+ //帮助中心
+let HelpControllerImpl = {
+    __name: 'HelpControllerImpl',
+    AddDemandFeedbackReply: {controller: 'HelpControllerImpl' , method: 'AddDemandFeedbackReply'}, // 新增一个需求反馈回复
+    addDemandFeedback: {controller: 'HelpControllerImpl' , method: 'addDemandFeedback'}, // 新增一个需求反馈
+    queryByIdJoinReply: {controller: 'HelpControllerImpl' , method: 'queryByIdJoinReply'}, // 根据ID查询一个需求反馈
+    queryByTitle: {controller: 'HelpControllerImpl' , method: 'queryByTitle'}, // 根据标题模糊查询所有常见问题
+    queryDemandFeedback: {controller: 'HelpControllerImpl' , method: 'queryDemandFeedback'}, // 查询所有需求反馈
+    queryProductIntroduction: {controller: 'HelpControllerImpl' , method: 'queryProductIntroduction'}, // 查询所有产品介绍
+    updateDemandFeedbackType: {controller: 'HelpControllerImpl' , method: 'updateDemandFeedbackType'}, // 更改需求反馈的状态
+};
  //pipe-report-controller
 let PipeReportController = {
     __name: 'PipeReportController',
@@ -51,27 +62,6 @@ let HealthApiController = {
     getHealthInfo: {controller: 'HealthApiController' , method: 'getHealthInfo'}, // 获取人员健康信息
     updateHealthInfo: {controller: 'HealthApiController' , method: 'updateHealthInfo'}, // 根据人员id更新人员健康录入信息
 };
- //帮助中心
-let HelpControllerImpl = {
-    __name: 'HelpControllerImpl',
-    AddDemandFeedbackReply: {controller: 'HelpControllerImpl' , method: 'AddDemandFeedbackReply'}, // 新增一个需求反馈回复
-    addDemandFeedback: {controller: 'HelpControllerImpl' , method: 'addDemandFeedback'}, // 新增一个需求反馈
-    queryByIdJoinReply: {controller: 'HelpControllerImpl' , method: 'queryByIdJoinReply'}, // 根据ID查询一个需求反馈
-    queryByTitle: {controller: 'HelpControllerImpl' , method: 'queryByTitle'}, // 根据标题模糊查询所有常见问题
-    queryDemandFeedback: {controller: 'HelpControllerImpl' , method: 'queryDemandFeedback'}, // 查询所有需求反馈
-    queryProductIntroduction: {controller: 'HelpControllerImpl' , method: 'queryProductIntroduction'}, // 查询所有产品介绍
-    updateDemandFeedbackType: {controller: 'HelpControllerImpl' , method: 'updateDemandFeedbackType'}, // 更改需求反馈的状态
-};
- //员工卡
-let WorkCartControllerImpl = {
-    __name: 'WorkCartControllerImpl',
-    getWorkCard: {controller: 'WorkCartControllerImpl' , method: 'getWorkCard'}, // 获取当前员工的员工卡状态
-    open: {controller: 'WorkCartControllerImpl' , method: 'open'}, // 员工开卡
-    queryWorkCardRecord: {controller: 'WorkCartControllerImpl' , method: 'queryWorkCardRecord'}, // 查询员工卡记录
-    replacement: {controller: 'WorkCartControllerImpl' , method: 'replacement'}, // 补卡
-    reportTheLoss: {controller: 'WorkCartControllerImpl' , method: 'reportTheLoss'}, // 挂失
-    review: {controller: 'WorkCartControllerImpl' , method: 'review'}, // 审核
-};
  //日程
 let ScheduleControllerImpl = {
     __name: 'ScheduleControllerImpl',
@@ -84,80 +74,26 @@ let ScheduleControllerImpl = {
     updateSchedule: {controller: 'ScheduleControllerImpl' , method: 'updateSchedule'}, // 修改一个日程
 };
  //员工卡
-let WorkCardFeignImpl = {
-    __name: 'WorkCardFeignImpl',
-    addWorkCard: {controller: 'WorkCardFeignImpl' , method: 'addWorkCard'}, // 新增一个员工卡
-    addWorkCardRecord: {controller: 'WorkCardFeignImpl' , method: 'addWorkCardRecord'}, // 新增一个员工卡记录
-    getWorkCard: {controller: 'WorkCardFeignImpl' , method: 'getWorkCard'}, // 查询一个员工卡
-    queryWorkCard: {controller: 'WorkCardFeignImpl' , method: 'queryWorkCard'}, // 使用code查询一个员工卡
-    queryWorkCardRecord: {controller: 'WorkCardFeignImpl' , method: 'queryWorkCardRecord'}, // 查询员工卡记录
-    replacement: {controller: 'WorkCardFeignImpl' , method: 'replacement'}, // 员工卡补卡
-    updateWorkCard: {controller: 'WorkCardFeignImpl' , method: 'updateWorkCard'}, // 修改一个员工卡
-};
- //帮助中心
-let HelpFeignImpl = {
-    __name: 'HelpFeignImpl',
-    AddDemandFeedbackReply: {controller: 'HelpFeignImpl' , method: 'AddDemandFeedbackReply'}, // 新增一个需求反馈回复
-    addDemandFeedback: {controller: 'HelpFeignImpl' , method: 'addDemandFeedback'}, // 新增一个需求反馈
-    getDemandFeedback: {controller: 'HelpFeignImpl' , method: 'getDemandFeedback'}, // 根据ID查询一条需求反���
-    queryByTitle: {controller: 'HelpFeignImpl' , method: 'queryByTitle'}, // 根据标题模糊查询所有常见问题
-    queryDemandFeedback: {controller: 'HelpFeignImpl' , method: 'queryDemandFeedback'}, // 查询所有需求反馈
-    queryDemandFeedbackReply: {controller: 'HelpFeignImpl' , method: 'queryDemandFeedbackReply'}, // 根据需求反馈ID查询需求反馈回复列表
-    queryProductIntroduction: {controller: 'HelpFeignImpl' , method: 'queryProductIntroduction'}, // 查询所有产品介绍
-    queryUserDemandFeedback: {controller: 'HelpFeignImpl' , method: 'queryUserDemandFeedback'}, // 查询当前用户的所有需求反馈
-    updateDemandFeedback: {controller: 'HelpFeignImpl' , method: 'updateDemandFeedback'}, // 修改一个需求反馈
-};
- //文化建设
-let CulturalFeignImpl = {
-    __name: 'CulturalFeignImpl',
-    addCommunicationCircle: {controller: 'CulturalFeignImpl' , method: 'addCommunicationCircle'}, // 添加一个交流圈（发帖子）
-    deleteCommunicationCircle: {controller: 'CulturalFeignImpl' , method: 'deleteCommunicationCircle'}, // 根据主键删除交流圈
-    fabulousCommunicationCircle: {controller: 'CulturalFeignImpl' , method: 'fabulousCommunicationCircle'}, // 根据交流圈主键点赞或取消点赞
-    getCommunicationCircle: {controller: 'CulturalFeignImpl' , method: 'getCommunicationCircle'}, // 根据交流圈主键查询一个交流圈
-    getCommunicationCircleForComment: {controller: 'CulturalFeignImpl' , method: 'getCommunicationCircleForComment'}, // 根据交流圈主键查询评论列表
-    journalismPageSreach: {controller: 'CulturalFeignImpl' , method: 'journalismPageSreach'}, // 根据分页数据查询公告列表
-    noticePageSreach: {controller: 'CulturalFeignImpl' , method: 'noticePageSreach'}, // 根据分页数据查询公告列表
-    queryByPageAndReleaseTimeDescAndChoice: {controller: 'CulturalFeignImpl' , method: 'queryByPageAndReleaseTimeDescAndChoice'}, // 交流圈连接交流圈点赞查询：分页、发布时间排序、精选
-    queryByPageAndTopTimeDescReleaseTimeDesc: {controller: 'CulturalFeignImpl' , method: 'queryByPageAndTopTimeDescReleaseTimeDesc'}, // 交流圈连接交流圈点赞查询：置顶时间+发布时间排序、分页
-    queryCommunicationCircleByPageAndFabulousPlusCountSort: {controller: 'CulturalFeignImpl' , method: 'queryCommunicationCircleByPageAndFabulousPlusCountSort'}, // 交流圈连接交流圈点赞查询：分页、热门排序
-};
- //日程
-let ScheduleFeignImpl = {
-    __name: 'ScheduleFeignImpl',
-    addParSchedule: {controller: 'ScheduleFeignImpl' , method: 'addParSchedule'}, // 新增一个参与人日程
-    addSchedule: {controller: 'ScheduleFeignImpl' , method: 'addSchedule'}, // 新增一个日程
-    addScheduleParticipantsList: {controller: 'ScheduleFeignImpl' , method: 'addScheduleParticipantsList'}, // 批量新增一个日程参与
-    delParSchedule: {controller: 'ScheduleFeignImpl' , method: 'delParSchedule'}, // 删除一个参与人
-    deleteSchedule: {controller: 'ScheduleFeignImpl' , method: 'deleteSchedule'}, // 删除一个日程
-    deleteScheduleParticipants: {controller: 'ScheduleFeignImpl' , method: 'deleteScheduleParticipants'}, // 按照条件删除日程参与
-    getSchedule: {controller: 'ScheduleFeignImpl' , method: 'getSchedule'}, // 查询一个日程
-    querySchedule: {controller: 'ScheduleFeignImpl' , method: 'querySchedule'}, // 根据条件查询日程列表
-    queryScheduleBetweenDate: {controller: 'ScheduleFeignImpl' , method: 'queryScheduleBetweenDate'}, // 根据条件查询日程列表
-    queryScheduleParticipantEntity: {controller: 'ScheduleFeignImpl' , method: 'queryScheduleParticipantEntity'}, // 查询一个参与人
-    updateSchedule: {controller: 'ScheduleFeignImpl' , method: 'updateSchedule'}, // 修改一个日程
-    updateScheduleParticipants: {controller: 'ScheduleFeignImpl' , method: 'updateScheduleParticipants'}, // 修改一个日程参与
-};
- //用户属性API
-let UserAttrApiFeignImpl = {
-    __name: 'UserAttrApiFeignImpl',
-    delete: {controller: 'UserAttrApiFeignImpl' , method: 'delete'}, // 根据用户ID,删除属性名称列表
-    get: {controller: 'UserAttrApiFeignImpl' , method: 'get'}, // 根据用户ID获得属性列表
-    get: {controller: 'UserAttrApiFeignImpl' , method: 'get'}, // 根据用户ID获得属性
-    update: {controller: 'UserAttrApiFeignImpl' , method: 'update'}, // 更新用户属性列表
+let WorkCartControllerImpl = {
+    __name: 'WorkCartControllerImpl',
+    getReviewList: {controller: 'WorkCartControllerImpl' , method: 'getReviewList'}, // 获取审批列表
+    getWorkCard: {controller: 'WorkCartControllerImpl' , method: 'getWorkCard'}, // 获取当前员工的员工卡状态
+    open: {controller: 'WorkCartControllerImpl' , method: 'open'}, // 员工开卡
+    queryWorkCardAll: {controller: 'WorkCartControllerImpl' , method: 'queryWorkCardAll'}, // 查询所有员工卡信息
+    queryWorkCardRecord: {controller: 'WorkCartControllerImpl' , method: 'queryWorkCardRecord'}, // 查询员工卡记录
+    replacement: {controller: 'WorkCartControllerImpl' , method: 'replacement'}, // 补卡
+    reportTheLoss: {controller: 'WorkCartControllerImpl' , method: 'reportTheLoss'}, // 挂失
+    review: {controller: 'WorkCartControllerImpl' , method: 'review'}, // 审核
+    updateWorkCard: {controller: 'WorkCartControllerImpl' , method: 'updateWorkCard'}, // 修改员工卡信息
 };
 
 export {
     DictApiController,
     AuthApiController,
     CulturalControllerImpl,
+    HelpControllerImpl,
     PipeReportController,
     HealthApiController,
-    HelpControllerImpl,
-    WorkCartControllerImpl,
     ScheduleControllerImpl,
-    WorkCardFeignImpl,
-    HelpFeignImpl,
-    CulturalFeignImpl,
-    ScheduleFeignImpl,
-    UserAttrApiFeignImpl,
+    WorkCartControllerImpl,
 };

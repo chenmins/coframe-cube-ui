@@ -1,7 +1,6 @@
 <template>
   <div id="GuestDetail">
-
-    <NavLayOut
+    <TitleNav
       bgc-color="#fff"
     >
       <div class="top">
@@ -81,7 +80,7 @@
           </li>
         </ul>
       </LayOut>
-    </NavLayOut>
+    </TitleNav>
 
     <footer>
       <cube-button >
@@ -115,6 +114,8 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+>>>.scroll-height-set
+  height calc(100vh - 130px)
 >>>.cube-scroll-list-wrapper
   padding-bottom 100px
 .for_back

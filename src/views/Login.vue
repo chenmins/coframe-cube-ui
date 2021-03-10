@@ -16,6 +16,7 @@
 
 import {AuthApiController} from '@controller'
 import {setToken} from "@/utils/auth";
+import axios from "axios";
 import router from "@/router";
 import {Toast} from "cube-ui";
 //登录跳转路由储存s
@@ -73,9 +74,16 @@ export default {
   },
   beforeRouteEnter(to, from, next) {
     routerStorage = from.fullPath
+
     next()
   },
+  created() {
+    if(localStorage.getItem('Token')){
+      this.$router.replace(routerStorage ? routerStorage : '/')
+    }
+  },
   methods: {
+
     async submitHandler(e, model) {
       e.preventDefault()
 

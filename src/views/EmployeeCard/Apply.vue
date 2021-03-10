@@ -1,12 +1,12 @@
 <template>
   <CardPanel
     :count="true"
-    :num="$store.state.EmployeeCard.cardInfo.count"
+    :num="list.length"
     title="当前办卡次数"
     :loss="$store.state.EmployeeCard.cardInfo.state"
   >
     <ul>
-      <li @click="$router.push({ name: 'ApplyRecord' })">
+      <li @click="$router.push({ name: 'ApplyRecord',params:{list} })">
         <Icon svg-name="EmployeeCard_apply" class-name="svg_name"></Icon>
         <div class="li_item">
           <div>
@@ -41,10 +41,28 @@
 </template>
 
 <script>
+import {WorkCartControllerImpl} from '@controller'
 import CardPanel from "@/views/EmployeeCard/components/CardPanel";
 export default {
   name: "Apply",
   components: { CardPanel },
+  data(){
+    return{
+      list:[]
+    }
+  },
+  created(){
+    this.init()
+  },
+  methods:{
+    async init(){
+      let resp
+      resp =await this.dispatch(WorkCartControllerImpl.queryWorkCardRecord)
+      if(!resp.error){
+        this.list = resp.data.body
+      }
+    }
+  }
 };
 </script>
 

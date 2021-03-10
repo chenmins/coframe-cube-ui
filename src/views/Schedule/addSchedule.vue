@@ -311,7 +311,6 @@ export default {
       if (this.model.repeat !== "") {
         data["repeat"] = this.model.repeat;
       }
-      console.log(data, this.model);
       if (!this.model.start) {
         this.$createToast({
           type: "normal",

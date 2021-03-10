@@ -47,6 +47,9 @@ export default {
   created() {
     this.cardInfo = this.$store.state.EmployeeCard.groupModel.firstModel;
   },
+  mounted(){
+    this.$children[0].$refs.scroll.$el.style.height = `${this.workspaceRealHeightNum - 60}px`
+  },
   methods: {
     async confirm() {
       let resp;

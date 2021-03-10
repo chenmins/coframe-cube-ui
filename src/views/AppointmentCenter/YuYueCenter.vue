@@ -1,5 +1,5 @@
 <template>
-  <NavLayOut bgc-color="#fff">
+  <TitleNav bgc-color="#fff">
     <h1 class="font-blod" style="font-size: 20px">行政服务平台预约中心</h1>
     <div class="container clear-fix">
       <Card class="card" v-for="(item,index) in routerMap" :key="index" @clicked="$router.push({name:'YuYueItem',params:{id:item.text,value:item.value}})">
@@ -18,12 +18,11 @@
       <div>3、预约成功后没有按时到场，也没有取消预约视为违约。</div>
       <div>4、每人每月违约5次后不允许使用预约功能；</div>
     </div>
-  </NavLayOut>
+  </TitleNav>
 
 </template>
 
 <script>
-import NavLayOut from "@/components/NavLayOut";
 import Card from "@/components/UI/Card";
 
 const routerMap = [
@@ -74,12 +73,15 @@ const routerMap = [
 export default {
   name: "YuYueCenter",
   components:{
-    NavLayOut,Card
+    Card
   },
   data(){
     return {
       routerMap:routerMap
     }
+  },
+  mounted(){
+    this.$children[0].$refs.scroll.$el.style.height = `${this.workspaceRealHeightNum - 130}px`
   }
 }
 </script>

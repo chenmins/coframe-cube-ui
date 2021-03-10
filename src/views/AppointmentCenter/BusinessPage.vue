@@ -1,6 +1,6 @@
   <template>
   <div id="page">
-    <NavLayOut>
+    <TitleNav bgc-color="#fff">
       <cube-form :model="model"
                  :options="{layout:'classic'}"
                  class="form-control"
@@ -24,7 +24,7 @@
           <cube-button type="submit" class="inquire">查询</cube-button>
         </cube-form-item>
       </cube-form>
-    </NavLayOut>
+    </TitleNav>
   </div>
 </template>
 

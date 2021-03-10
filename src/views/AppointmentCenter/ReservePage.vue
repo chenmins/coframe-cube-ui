@@ -3,26 +3,31 @@
     <ApproveContainer @changeHandle="changeHandle" class="clear-fix" style="height: 154px" :tabs="tabs"
                       :selectedLabel="selectedLabel">
       <template v-if="yuyue">
-        <Card class="card">
-          <header>理发室</header>
-          <cube-radio-group class="time" v-model="selected" :options="['2020/12/18 08:00-13:00']"/>
-          <div class="btn">剩余名额10人</div>
-        </Card>
-        <Card class="card">
-          <header>理发室</header>
-          <cube-radio-group class="time" v-model="selected" :options="['2020/12/18 08:00-13:00']"/>
-          <div class="btn">剩余名额10人</div>
-        </Card>
-        <Card class="card">
-          <header>理发室</header>
-          <cube-radio-group class="time" v-model="selected" :options="['2020/12/18 08:00-13:00']"/>
-          <div class="btn">剩余名额10人</div>
-        </Card>
-        <Card class="card">
-          <header>理发室</header>
-          <cube-radio-group class="time" v-model="selected" :options="['2020/12/18 08:00-13:00']"/>
-          <div class="btn">剩余名额10人</div>
-        </Card>
+        <div style="height:calc(100vh - 190px)">
+          <cube-scroll ref="scroll">
+            <Card class="card">
+              <header>理发室</header>
+              <cube-radio-group class="time" v-model="selected" :options="['2020/12/18 08:00-13:00']"/>
+              <div class="btn">剩余名额10人</div>
+            </Card>
+            <Card class="card">
+              <header>理发室</header>
+              <cube-radio-group class="time" v-model="selected" :options="['2020/12/18 08:00-13:00']"/>
+              <div class="btn">剩余名额10人</div>
+            </Card>
+            <Card class="card">
+              <header>理发室</header>
+              <cube-radio-group class="time" v-model="selected" :options="['2020/12/18 08:00-13:00']"/>
+              <div class="btn">剩余名额10人</div>
+            </Card>
+            <Card class="card">
+              <header>理发室</header>
+              <cube-radio-group class="time" v-model="selected" :options="['2020/12/18 08:00-13:00']"/>
+              <div class="btn">剩余名额10人</div>
+            </Card>
+          </cube-scroll>
+        </div>
+
       </template>
       <template v-else>
         <Card class="inc">
@@ -31,7 +36,7 @@
           <section>
             这是相关的介绍这是相关的介绍这是相关的介绍这是相关的介绍这是相关的介绍这是相关的介绍这是相关的介绍这是相关的介绍这是相关的介绍这是相关的介绍这是相关的介绍这是相关的介绍这是相关的介绍这是相关的介绍这是相关的介绍这是相关的介绍这是相关的介绍这是相关的介绍这是相关的介绍这是相关的介绍这是相关的介绍这是相关的介绍这是相关的介绍这是相关的介绍这是相关的介绍这是相关的介绍这是相关的介绍这是相关的介绍这是相关的介绍这是相关的介绍这是相关的介绍这是相关的介绍这是相关的介绍这是相关的介绍这是相关的介绍这是相关的介绍这是相关的介绍这是相关的介绍这是相关的介绍这是相关的介绍
           </section>
-        </Card >
+        </Card>
       </template>
     </ApproveContainer>
     <footer>
@@ -68,6 +73,8 @@ export default {
       ]
     }
   },
+  mounted(){
+  },
   methods: {
     changeHandle(e) {
       console.log(e)
@@ -78,21 +85,26 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+
+
 .reserve_page
   .inc
     position relative
+
     .inc_bg
       position: absolute;
       transform scale(1.5)
       width 100%
       height 100%
       top 50px
+
     section
       font-size: 14px;
       font-family: PingFangSC-Light, PingFang SC;
       font-weight: 300;
       color: #000000;
       line-height: 24px;
+
     header
       font-size 22px
       margin 30px 0
@@ -100,6 +112,7 @@ export default {
       font-weight: 500;
       color: #000000;
       line-height: 22px;
+
   footer
     position absolute
     bottom 20px

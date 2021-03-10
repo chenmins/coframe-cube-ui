@@ -1,65 +1,134 @@
 <template>
-  <div id="Release">
-    <!--    <div class="bg">-->
-    <!--      <div style="height: 100%;width:100%;border-radius: 50%;background-color: red"></div>-->
-    <!--    </div>-->
-    <NavLayOut color="#fff" bgc-color="#3642FF">
-      <h1>
-        <span>{{ date.month }}月</span>/{{ date.year }}
-      </h1>
-      <Calendar
-        @click="demo"
-        ref="Calendar"
-        title="日历"
-        :default-date="new Date()"
-        :poppable="false"
-        :show-confirm="false"
-        :formatter="formatter"
-        :min-date="minDate"
-        :max-date="maxDate"
-        color="#fff"
-        :style="show ? 'overflow:hidden;height:95px;' : 'height:420px;'"
-      />
+    <TitleNav id="Release" color="#fff" bgc-color="#3642FF">
+      <template v-slot:fixed>
+        <h1>
+          <span>{{ date.month }}月</span>/{{ date.year }}
+        </h1>
+        <Calendar
+            @click="demo"
+            ref="Calendar"
+            title="日历"
+            :default-date="new Date()"
+            :poppable="false"
+            :show-confirm="false"
+            :formatter="formatter"
+            :min-date="minDate"
+            :max-date="maxDate"
+            color="#fff"
+            :style="show ? 'overflow:hidden;height:95px;' : 'height:420px;'"
+        />
+        <i class="cubeic-select" @click="toggle"></i>
+        <div  class="content">
+          <FuncBtn>发布</FuncBtn>
+          <div class="scroll-list-wrap">
+            <cube-scroll
+                ref="scroll"
+                style="height:calc(100% - 80px)"
+            >
+              <LayOut class="item">
+                <header>
+                  <div style="width: 100%">
+                    <div class="type">洗发</div>
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center"
+                    >
+                      <span>美发去屑、保湿护理</span>
+                      <p class="time">2020-12-30</p>
+                    </div>
+                  </div>
+                  <i class="cubeic-edit" @click="releaseEdit"></i>
+                </header>
+                <main>
+                  <div class="num_box clear-fix">
+                    <div class="num">9:00-10:00 <span>1人</span></div>
+                    <div class="num">9:00-10:00 <span>1人</span></div>
+                    <div class="num">9:00-10:00 <span>1人</span></div>
+                    <div class="num">9:00-10:00 <span>1人</span></div>
+                  </div>
+                </main>
+              </LayOut>
+              <LayOut class="item">
+                <header>
+                  <div style="width: 100%">
+                    <div class="type">洗发</div>
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center"
+                    >
+                      <span>美发去屑、保湿护理</span>
+                      <p class="time">2020-12-30</p>
+                    </div>
+                  </div>
+                  <i class="cubeic-edit" @click="releaseEdit"></i>
+                </header>
+                <main>
+                  <div class="num_box clear-fix">
+                    <div class="num">9:00-10:00 <span>1人</span></div>
+                    <div class="num">9:00-10:00 <span>1人</span></div>
+                    <div class="num">9:00-10:00 <span>1人</span></div>
+                    <div class="num">9:00-10:00 <span>1人</span></div>
+                  </div>
+                </main>
+              </LayOut>
+              <LayOut class="item">
+                <header>
+                  <div style="width: 100%">
+                    <div class="type">洗发</div>
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center"
+                    >
+                      <span>美发去屑、保湿护理</span>
+                      <p class="time">2020-12-30</p>
+                    </div>
+                  </div>
+                  <i class="cubeic-edit" @click="releaseEdit"></i>
+                </header>
+                <main>
+                  <div class="num_box clear-fix">
+                    <div class="num">9:00-10:00 <span>1人</span></div>
+                    <div class="num">9:00-10:00 <span>1人</span></div>
+                    <div class="num">9:00-10:00 <span>1人</span></div>
+                    <div class="num">9:00-10:00 <span>1人</span></div>
+                  </div>
+                </main>
+              </LayOut>
+              <LayOut class="item">
+                <header>
+                  <div style="width: 100%">
+                    <div class="type">洗发</div>
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center"
+                    >
+                      <span>美发去屑、保湿护理</span>
+                      <p class="time">2020-12-30</p>
+                    </div>
+                  </div>
+                  <i class="cubeic-edit" @click="releaseEdit"></i>
+                </header>
+                <main>
+                  <div class="num_box clear-fix">
+                    <div class="num">9:00-10:00 <span>1人</span></div>
+                    <div class="num">9:00-10:00 <span>1人</span></div>
+                    <div class="num">9:00-10:00 <span>1人</span></div>
+                    <div class="num">9:00-10:00 <span>1人</span></div>
+                  </div>
+                </main>
+              </LayOut>
+            </cube-scroll>
+          </div>
 
-      <i class="cubeic-select" @click="toggle"></i>
-      <div class="content">
-        <FuncBtn>发布</FuncBtn>
-        <LayOut class="item">
-          <header>
-            <div style="width: 100%">
-              <div class="type">洗发</div>
-              <div
-                style="display: flex; justify-content: space-between; align-items: center"
-              >
-                <span>美发去屑、保湿护理</span>
-                <p class="time">2020-12-30</p>
-              </div>
-            </div>
-            <i class="cubeic-edit" @click="releaseEdit"></i>
-          </header>
-          <main>
-            <div class="num_box clear-fix">
-              <div class="num">9:00-10:00 <span>1人</span></div>
-              <div class="num">9:00-10:00 <span>1人</span></div>
-              <div class="num">9:00-10:00 <span>1人</span></div>
-              <div class="num">9:00-10:00 <span>1人</span></div>
-            </div>
-          </main>
-        </LayOut>
-      </div>
-    </NavLayOut>
-  </div>
+        </div>
+      </template>
+    </TitleNav>
 </template>
 
 <script>
-import { Calendar } from "vant";
-import NavLayOut from "@/components/NavLayOut";
+import {Calendar} from "vant";
 import FuncBtn from "@/views/AppointmentCenter/components/funcBtn";
 
 const WEEK_MAP = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 export default {
   name: "Release",
-  components: { FuncBtn, Calendar, NavLayOut },
+  components: {FuncBtn, Calendar,},
   data() {
     return {
       date: {
@@ -72,18 +141,20 @@ export default {
       maxDate: new Date(2021, 2, 31),
     };
   },
-  created() {},
+  created() {
+  },
   mounted() {
     // van-calendar__days
     this.setScroll();
+
   },
   methods: {
     setScroll() {
       document.querySelector(".van-calendar__days").scrollLeft =
-        59.13 * this.$dayjs().subtract(3, "day").format("D");
+          59.13 * this.$dayjs().subtract(3, "day").format("D");
     },
     releaseEdit() {
-      this.$router.push({ name: "AdminReleaseEdit", params: { id: 1 } });
+      this.$router.push({name: "AdminReleaseEdit", params: {id: 1}});
     },
     demo() {
       console.log("demo");
@@ -95,13 +166,14 @@ export default {
       day.bottomInfo = "问/拿/疗";
       return day;
     },
-    onChange() {},
+    onChange() {
+    },
     toggle() {
       let container = document.querySelector(".van-calendar__days");
 
       container.style.flexWrap === "wrap"
-        ? ((container.style.flexWrap = "nowrap"), this.setScroll())
-        : (container.style.flexWrap = "wrap");
+          ? ((container.style.flexWrap = "nowrap"), this.setScroll())
+          : (container.style.flexWrap = "wrap");
       this.show = !this.show;
     },
   },
@@ -109,19 +181,21 @@ export default {
 </script>
 <style scoped lang="stylus"></style>
 <style scoped lang="stylus">
->>>.van-calendar__top-info, >>>.van-calendar__bottom-info {
+>>>.scroll-list-wrap
+  height calc(100vh - 215px)
+>>> .van-calendar__top-info, >>> .van-calendar__bottom-info {
   color: #fff;
 }
 
->>>.van-calendar__top-info {
+>>> .van-calendar__top-info {
   top: -2px;
 }
 
->>>.van-calendar__bottom-info {
-      bottom: -2px;
+>>> .van-calendar__bottom-info {
+  bottom: -2px;
 }
 
->>>.van-calendar__selected-day {
+>>> .van-calendar__selected-day {
   color: #3642FF;
   height: 23px;
   width: 23px;
@@ -135,13 +209,15 @@ export default {
   background-color: #3642FF;
 }
 
->>>.van-calendar {
+>>> .van-calendar {
   background-color: #3642FF;
   color: #fff;
 }
->>>.my_date
-  margin-bottom:20px
->>>.van-calendar__days {
+
+>>> .my_date
+  margin-bottom: 20px
+
+>>> .van-calendar__days {
   display flex
   flex-wrap nowrap
   display: -webkit-box;
@@ -153,11 +229,11 @@ export default {
   }
 }
 
->>>.van-calendar__month-mark {
+>>> .van-calendar__month-mark {
   display: none;
 }
 
->>>.van-calendar__header {
+>>> .van-calendar__header {
   display: none;
 }
 
@@ -174,11 +250,10 @@ export default {
 }
 
 #Release {
-  height: 231px;
   background: #3642FF;
   border-radius: 1px;
-  padding-bottom: 30px;
-
+  height 100vh
+  overflow: hidden;
   .bg {
     width: 153px;
     height: 138px;
@@ -214,10 +289,8 @@ export default {
 
   .content {
     padding: 20px 12px;
-    height: calc(100vh - 138px);
     background: linear-gradient(131deg, #50FEFF 0%, #CCFFA2 100%);
     border-radius: 20px 20px 0px 0px;
-
     .reserve {
       margin-bottom: 14px;
       height: 30px;
@@ -304,6 +377,7 @@ export default {
           padding: 5px 0;
 
           // border-radius 5px
+
           span {
             font-size: 12px;
             font-family: PingFangSC-Medium, PingFang SC;

@@ -1,3 +1,6 @@
+
+
+
 export default {
     methods: {
         //文件过滤
@@ -42,6 +45,7 @@ export default {
                 this.$dayjs().valueOf() +
                 "." +
                 file.name.split(".").reverse()[0];
+            //todo 更换为dispatch
             let requestUrl = `/api/minio/presignedUrl?bucket=${bucket}&name=${newFileName}`
             let url = await this.$axios.get(requestUrl)
             //tx.chenmin.org:9000/jiaoliuquan/8e3f7d5b-5c82-4aec-bae6-af1fedf67013/1615167859925.jpg
@@ -52,6 +56,7 @@ export default {
         //上传图片
         async imageUpload(url, file) {
             console.log('上传图片');
+            //todo 更换为dispatch
             let resp = await this.$axios({
                 headers: {
                     'Content-Type': 'image/png',

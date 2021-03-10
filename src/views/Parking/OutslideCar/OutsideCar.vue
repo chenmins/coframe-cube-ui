@@ -13,7 +13,7 @@
           </span>
       </LayOut>
     </div>
-    <NavLayOut bgc-color="#3642FF" color="#fff" style="padding-top: 80px;">
+    <TitleNav bgc-color="#3642FF" color="#fff" style="padding-top: 80px;">
       <!--    @CardDetail-->
       <div id="card" v-for="reserve in reserves" @click="$router.push({name:'GuestDetail',params:{id:1}})">
         <div class="header">
@@ -37,7 +37,7 @@
       <div slot="right" class="right" @click="BeiAn">
         新增备案
       </div>
-    </NavLayOut>
+    </TitleNav>
   </div>
 </template>
 

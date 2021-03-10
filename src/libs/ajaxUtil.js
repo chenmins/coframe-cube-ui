@@ -149,6 +149,7 @@ ajaxUtil.myRequest = (action, payload) => {
             txt: res.response.data.message,
             time: 1000,
             onTimeout: () => {
+              localStorage.removeItem('Token')
               router.replace('/login')
             }
           }).show()

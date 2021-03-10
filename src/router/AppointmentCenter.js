@@ -225,7 +225,7 @@ export default [
         component: () => import('@/views/AppointmentCenter/admin/Release')
     },
     {
-        path: '/AdminReleaseEdit/:id',
+        path: '/AdminReleaseEdit',
         name: 'AdminReleaseEdit',
         meta: {
             name: '发布时间段管理',
@@ -296,7 +296,6 @@ export default [
         },
         component: () => import('@/views/AppointmentCenter/admin/meetingConfirm')
     },
-
     {
         path: '/meetingSuccess',
         name: 'meetingSuccess',

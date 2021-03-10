@@ -26,6 +26,7 @@
     >
       <cube-scroll
           ref="scroll"
+          class="scroll-height-set"
           @scroll="scroll"
           :scrollEvents="['scroll']"
       >

@@ -1,6 +1,6 @@
 <template>
   <div id="readme">
-    <NavLayOut>
+    <TitleNav>
       <LayOut class="content">
         <h2>Hi，欢迎！</h2>
         <ul>
@@ -13,7 +13,7 @@
           <li>7、驾驶员应严格按照交通指示标行驶，减速慢行、避让行人，注意安全。</li>
         </ul>
       </LayOut>
-    </NavLayOut>
+    </TitleNav>
     <cube-button  @click="$router.push({name:'CarRegister'})">注册车辆</cube-button>
   </div>
 </template>

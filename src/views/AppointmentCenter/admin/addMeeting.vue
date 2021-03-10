@@ -21,7 +21,7 @@
         </cube-switch>
       </LayOut>
     </div>
-    <NavLayOut color="#fff" style="padding-top: 80px;">
+    <TitleNav color="#fff" style="padding-top: 80px;">
       <!--    @CardDetail-->
       <Card>
         <header>
@@ -48,8 +48,82 @@
           <button>预约</button>
         </main>
       </Card>
-
-    </NavLayOut>
+      <Card>
+        <header>
+          <span>易烊千玺的访客预约</span>
+          <div style="display: flex;padding: 12px 0">
+            <Tag class="tag">5F</Tag>
+            <Tag class="tag">10人</Tag>
+            <Tag class="tag">普通会议室</Tag>
+            <Tag class="tag">可多选</Tag>
+          </div>
+        </header>
+        <main>
+          <div class="time_containner">
+            <div class="active">9:00-10:00</div>
+            <div>12:00-13:00</div>
+            <div>12:00-13:00</div>
+            <div>12:00-13:00</div>
+            <div>12:00-13:00</div>
+            <div>12:00-13:00</div>
+            <div>9:00-10:00</div>
+            <div>9:00-10:00</div>
+            <div>9:00-10:00</div>
+          </div>
+          <button>预约</button>
+        </main>
+      </Card>
+      <Card>
+        <header>
+          <span>易烊千玺的访客预约</span>
+          <div style="display: flex;padding: 12px 0">
+            <Tag class="tag">5F</Tag>
+            <Tag class="tag">10人</Tag>
+            <Tag class="tag">普通会议室</Tag>
+            <Tag class="tag">可多选</Tag>
+          </div>
+        </header>
+        <main>
+          <div class="time_containner">
+            <div class="active">9:00-10:00</div>
+            <div>12:00-13:00</div>
+            <div>12:00-13:00</div>
+            <div>12:00-13:00</div>
+            <div>12:00-13:00</div>
+            <div>12:00-13:00</div>
+            <div>9:00-10:00</div>
+            <div>9:00-10:00</div>
+            <div>9:00-10:00</div>
+          </div>
+          <button>预约</button>
+        </main>
+      </Card>
+      <Card>
+        <header>
+          <span>易烊千玺的访客预约</span>
+          <div style="display: flex;padding: 12px 0">
+            <Tag class="tag">5F</Tag>
+            <Tag class="tag">10人</Tag>
+            <Tag class="tag">普通会议室</Tag>
+            <Tag class="tag">可多选</Tag>
+          </div>
+        </header>
+        <main>
+          <div class="time_containner">
+            <div class="active">9:00-10:00</div>
+            <div>12:00-13:00</div>
+            <div>12:00-13:00</div>
+            <div>12:00-13:00</div>
+            <div>12:00-13:00</div>
+            <div>12:00-13:00</div>
+            <div>9:00-10:00</div>
+            <div>9:00-10:00</div>
+            <div>9:00-10:00</div>
+          </div>
+          <button>预约</button>
+        </main>
+      </Card>
+    </TitleNav>
   </div>
 </template>
 
@@ -167,11 +241,9 @@ export default {
 >>>.nav_height
   margin-top 20px
 >>> .cube-scroll-wrapper
-  height calc(100vh - 220px)
+  height calc(100vh - 150px)
 
->>> .scroll-list-wrap
-  max-height calc(100vh - 210px)
-  padding-bottom: 1px;
+
 
 >>>.cube-switch .cube-switch-ui
   height 20px

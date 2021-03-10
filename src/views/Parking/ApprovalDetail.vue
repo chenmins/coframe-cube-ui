@@ -1,6 +1,6 @@
 <template>
   <div id="approval_detail">
-     <NavLayOut bgc-color="#fff">
+     <TitleNav bgc-color="#fff">
        <LayOut  class="item">
          <div class="header">
            <div>
@@ -21,7 +21,7 @@
            :text-value="model.textareaValue"
        >
        </Reserve>
-     </NavLayOut>
+     </TitleNav>
     <footer>
       <button class="rej" @click="$router.push({name:'RejectConfirm'})">拒绝</button>
       <button class="pass">通过</button>

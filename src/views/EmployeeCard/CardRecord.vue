@@ -47,6 +47,7 @@
 <script>
 import Search from "@/components/Search";
 import Card from "@/components/UI/Card";
+import {WorkCartControllerImpl} from "@controller";
 
 export default {
   name: "CardRecord",
@@ -70,8 +71,15 @@ export default {
       {text: '全部', value: '全部'},
       {text: '自定义时间', value: '自定义时间'},
     ]
+    this.getCardList()
   },
   methods:{
+    //todo 不带参数就会报错;接口问题
+    async getCardList(){
+      let resp
+      resp = await this.dispatch(WorkCartControllerImpl.queryWorkCardAll,{"state":"启用"})
+      console.log(resp)
+    },
     approveStatus1() {
       if (!this.picker) {
         this.picker = this.$createPicker({

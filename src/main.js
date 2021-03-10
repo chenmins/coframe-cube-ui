@@ -18,7 +18,6 @@ import Tag from "@/components/Tag";
 import LayOut from "@/components/LayOut";
 import store from './store'
 import calendar from 'vue2-slot-calendar';
-import NavLayOut from "@/components/NavLayOut";
 import Icon from "@/components/Icon";
 import ReadConfig from './utils/config'
 import loading from "@/components/UI/loading";
@@ -47,7 +46,7 @@ Vue.config.lang = 'zh_CN'
 
 Vue.mixin(Global).mixin(BaseVue)
 Vue.use(registerComponents, [
-  Nav, Tabbar, List, Tag, LayOut, NavLayOut, Icon, loading, calendar,TitleNav
+  Nav, Tabbar, List, Tag, LayOut, Icon, loading, calendar,TitleNav
 ])
 window.vue =  new Vue({
   store

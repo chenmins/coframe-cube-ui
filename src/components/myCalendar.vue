@@ -84,7 +84,6 @@ export default {
             i.classList.add("hasTodo");
           }
           if (i.dataset.date === this.$dayjs().format("YYYY-MM-DD")) {
-            i.classList.remove("hasTodo");
             i.classList.add("datepicker-dateRange-item-active");
           }
         });
@@ -210,7 +209,6 @@ export default {
 >>> .hasTodo {
   position: relative;
   z-index: 20;
-
   &:after {
     content: '';
     height: 5px;
@@ -299,10 +297,20 @@ export default {
 >>> .day-cell, .datepicker-dateRange-item-active {
   position: relative !important;
 }
-
+>>> .datepicker-dateRange-item-active.hasTodo{
+  &:after {
+    content: '';
+    height: 5px;
+    width: 5px;
+    background-color: #fff;
+    display: inline-block;
+    border-radius: 50%;
+  }
+}
 >>> .datepicker-dateRange-item-active {
   border-radius: 8px;
   box-shadow: 0px 2px 4px 0px rgba(255, 50, 133, 0.34);
+
 }
 
 .datepicker-body, .event {

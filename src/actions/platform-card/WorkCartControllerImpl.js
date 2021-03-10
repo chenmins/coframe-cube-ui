@@ -5,6 +5,12 @@
 import { WorkCartControllerImpl } from '../controller';
 export default {
     actions: {
+        [WorkCartControllerImpl.getReviewList.method] : {
+            summary: '获取审批列表',
+            method: 'get',
+            url: (payload) => `/api/platform/workCard/getReviewList`,
+            parameters: [],
+        },
         [WorkCartControllerImpl.getWorkCard.method] : {
             summary: '获取当前员工的员工卡状态',
             method: 'get',
@@ -16,6 +22,12 @@ export default {
             method: 'post',
             url: (payload) => `/api/platform/workCard/open`,
             parameters: [{'in':'body','name':'vo','description':'vo','required':true,'schema':{'$ref':'#/definitions/WorkCardVO'}}],
+        },
+        [WorkCartControllerImpl.queryWorkCardAll.method] : {
+            summary: '查询所有员工卡信息',
+            method: 'get',
+            url: (payload) => `/api/platform/workCard/queryWorkCardAll`,
+            parameters: [{'in':'body','name':'vo','description':'vo','required':false,'schema':{'$ref':'#/definitions/WorkCardVO'}}],
         },
         [WorkCartControllerImpl.queryWorkCardRecord.method] : {
             summary: '查询员工卡记录',
@@ -38,7 +50,13 @@ export default {
         [WorkCartControllerImpl.review.method] : {
             summary: '审核',
             method: 'put',
-            url: (payload) => `/api/platform/workCard/review`,
+            url: (payload) => `/api/platform/workCard/review/${payload.pass}/${payload.reasonsForRefusal}`,
+            parameters: [{'name':'pass','in':'path','description':'pass','required':true,'type':'integer','format':'int32'},{'name':'reasonsForRefusal','in':'path','description':'reasonsForRefusal','required':true,'type':'string'},{'in':'body','name':'vo','description':'vo','required':true,'schema':{'$ref':'#/definitions/WorkCardVO'}}],
+        },
+        [WorkCartControllerImpl.updateWorkCard.method] : {
+            summary: '修改员工卡信息',
+            method: 'post',
+            url: (payload) => `/api/platform/workCard/updateWorkCard`,
             parameters: [{'in':'body','name':'vo','description':'vo','required':true,'schema':{'$ref':'#/definitions/WorkCardVO'}}],
         },
     },

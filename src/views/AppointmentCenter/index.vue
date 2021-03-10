@@ -1,32 +1,27 @@
 <template>
   <div>
-      <router-view></router-view>
+    <router-view></router-view>
     <div class="footer">
       <div @click="$router.push({name:'YuYueCenter'})">
-        <Icon v-if="$route.meta.name==='预约中心'" svg-name="reserve-center-light" class-name="footer_svg" ></Icon>
-        <Icon v-else  svg-name="reserve-center" class-name="footer_svg" ></Icon>
-        <div class="footer_text" >预约中心</div>
+        <Icon v-if="$route.meta.name==='预约中心'" svg-name="reserve-center-light" class-name="footer_svg"></Icon>
+        <Icon v-else svg-name="reserve-center" class-name="footer_svg"></Icon>
+        <div class="footer_text">预约中心</div>
       </div>
       <div @click="$router.push({name:'MyYuYue'})">
         <Icon v-if="$route.meta.name==='我的预约'" svg-name="reserve-myreserve-light" class-name="footer_svg"></Icon>
         <Icon v-else svg-name="reserve-myreserve" class-name="footer_svg"></Icon>
-
         <div class="footer_text">我的预约</div>
       </div>
     </div>
   </div>
-
 </template>
 
 
 <script>
-import NavLayOut from "@/components/NavLayOut";
 
 export default {
   name: 'index',
-  components: {
-    NavLayOut
-  },
+
 
 }
 
@@ -45,6 +40,7 @@ export default {
   display flex
   align-items center
   justify-content: space-evenly;
+
   .footer_svg
     height 24px
     width 24px

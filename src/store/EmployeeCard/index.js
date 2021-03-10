@@ -103,18 +103,18 @@ const EmployeeCard = {
                                             }
                                         },
                                         {
-                                            text: '员工2',
+                                            text: 'sysadmin',
                                             value: {
-                                                id: 'dsaa-dsa234-dsa',
-                                                userName: '员工2',
-                                                tel: 22222
+                                                id: 'cof-user-sysadmin',
+                                                userName: 'sysadmin',
+                                                tel: 11111
                                             }
                                         },
                                         {
-                                            text: '员工3',
+                                            text: 'test',
                                             value: {
-                                                id: 'ada-dsa234-dsa',
-                                                userName: '员工3',
+                                                id: 'd8b36c50-17e2-46cb-8f3d-2c6f51dd62c8',
+                                                userName: 'test',
                                                 tel: 33333
                                             }
                                         }
@@ -192,7 +192,6 @@ const EmployeeCard = {
                 }
             ]
         },
-
     },
     mutations: {
         setCardInfo(state, payload) {

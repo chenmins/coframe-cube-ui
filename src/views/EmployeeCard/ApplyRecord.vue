@@ -12,6 +12,8 @@
 import Application from "@/views/EmployeeCard/components/Application";
 import Patch from "@/views/EmployeeCard/components/Patch";
 import Loss from "@/views/EmployeeCard/components/Loss";
+import {WorkCartControllerImpl} from "@controller";
+
 export default {
   name: "ApplyRecord",
   components:{
@@ -19,8 +21,27 @@ export default {
     Patch,
     Application,
   },
+  data(){
+    return {
+      list:[]
+    }
+  },
+  created(){
+    this.list = this.$route.params.list
+    this.getCardRecord()
+  },
+  methods:{
+    //todo 卡片处理类型
+    async getCardRecord(){
+      let resp
+
+      resp = await this.dispatch(WorkCartControllerImpl.queryWorkCardRecord)
+      if(!resp.error){
+        console.log(resp)
+      }
+    }
+  },
   mounted() {
-    console.log(this)
     this.$children[0].$refs.scroll.$el.style.height = `${this.workspaceRealHeightNum - 60}px`
   }
 }

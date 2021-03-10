@@ -6,14 +6,13 @@
           <span>{{ time.month }}月</span>/{{ time.year }}
         </h1>
         <mySchedule
-          @getDate="getDate"
-          :selected-date="selectedDate"
-          :allMonthSchedule.sync="allMonthSchedule"
+            @getDate="getDate"
+            :selected-date="selectedDate"
+            :allMonthSchedule.sync="allMonthSchedule"
         ></mySchedule>
       </div>
-
       <div slot="right" @click="$router.push({ name: 'addSchedule' })">
-        <img src="../../assets/icons/addBlack.webp" alt="" />
+        <img src="../../assets/icons/addBlack.webp" alt=""/>
       </div>
       <ul class="list">
         <li class="title">
@@ -22,21 +21,22 @@
         <div class="scroll_container">
           <cube-scroll ref="scroll">
             <li
-              class="item"
-              data-type="item"
-              data-id="1"
-              v-for="meeting in meetings"
-              :key="meeting.id"
-              @click="scheduleDetail(meeting)"
+                class="item"
+                data-type="item"
+                data-id="1"
+                v-for="meeting in meetings"
+                :key="meeting.id"
+                @click="scheduleDetail(meeting)"
             >
               <div class="left">
+
                 <div
-                  v-if="
+                    v-if="
                     meeting.scheduleParticipantsEntities.filter(
                       (i) => i.userId === userInfo.id
                     )[0].agree === '同意'
                   "
-                  class="dot"
+                    class="dot"
                 ></div>
                 <div v-else class="did-dot"></div>
               </div>
@@ -48,12 +48,12 @@
                   <div>
                     <div>
                       <Icon
-                        svg-name="Schedule-date"
-                        class-name="schedule-date schedule"
+                          svg-name="Schedule-date"
+                          class-name="schedule-date schedule"
                       ></Icon>
                       <span>{{
-                        $dayjs(meeting.startDate).format("MM月")
-                      }}</span>
+                          $dayjs(meeting.startDate).format("MM月")
+                        }}</span>
                     </div>
                     <div class="row_2">
                       {{ $dayjs(meeting.startDate).format("DD日") }}
@@ -62,11 +62,11 @@
                   <div>
                     <div>
                       <Icon
-                        svg-name="Schedule-time"
-                        class-name="schedule-time schedule"
+                          svg-name="Schedule-time"
+                          class-name="schedule-time schedule"
                       ></Icon>
                       <span
-                        >{{ $dayjs(meeting.startDate).format("HH:mm") }}-{{
+                      >{{ $dayjs(meeting.startDate).format("HH:mm") }}-{{
                           $dayjs(meeting.endDate).format("HH:mm")
                         }}</span
                       >
@@ -74,8 +74,8 @@
                     <div class="row_2">
                       {{
                         $dayjs(meeting.startDate).format("HH") <= 12
-                          ? "AM"
-                          : "PM"
+                            ? "AM"
+                            : "PM"
                       }}
                     </div>
                   </div>
@@ -91,8 +91,8 @@
 
 <script>
 import mySchedule from "@/components/myCalendar";
-import { ScheduleControllerImpl } from "@controller";
-import { BaseVue } from "@lib";
+import {ScheduleControllerImpl} from "@controller";
+import {BaseVue} from "@lib";
 
 export default {
   name: "index",
@@ -117,9 +117,12 @@ export default {
     let res = await this.init(this.$dayjs().format("YYYY-M"));
     this.allMonthSchedule = res;
     this.meetings =
-      res[this.$dayjs().format("YYYY-M-D")] === undefined
-        ? ""
-        : res[this.$dayjs().format("YYYY-M-D")];
+        res[this.$dayjs().format("YYYY-M-D")] === undefined
+            ? ""
+            : res[this.$dayjs().format("YYYY-M-D")];
+  },
+  mounted() {
+    this.$children[0].$refs.scroll.$el.style.height = `${this.workspaceRealHeightNum - 130}px`
   },
   methods: {
     async init(date) {
@@ -148,18 +151,18 @@ export default {
             };
             this.selectedDate = new Date(this.time.year, this.time.month);
             this.init(this.$dayjs(this.selectedDate).format("YYYY-MM")).then(
-              (res) => {
-                this.meetings = [];
-                this.allMonthSchedule = res;
-                if (
-                  this.$dayjs(this.selectedDate).format("MM") ===
-                  this.$dayjs().format("MM")
-                ) {
-                  this.meetings = this.allMonthSchedule[
-                    this.$dayjs().format("YYYY-M-D")
-                  ];
+                (res) => {
+                  this.meetings = [];
+                  this.allMonthSchedule = res;
+                  if (
+                      this.$dayjs(this.selectedDate).format("MM") ===
+                      this.$dayjs().format("MM")
+                  ) {
+                    this.meetings = this.allMonthSchedule[
+                        this.$dayjs().format("YYYY-M-D")
+                        ];
+                  }
                 }
-              }
             );
             this.time.month = e2[1];
           },
@@ -171,13 +174,13 @@ export default {
     },
     scheduleDetail(e) {
       this.$router
-        .push({ name: "ScheduleDetail", params: { id: e.id, data: e } })
-        .catch((err) => {
-          console.log(err);
-        });
+          .push({name: "ScheduleDetail", params: {id: e.id, data: e}})
+          .catch((err) => {
+            console.log(err);
+          });
     },
     addSchedule() {
-      this.$router.push({ name: "addSchedule" });
+      this.$router.push({name: "addSchedule"});
     },
     getDate(e) {
       let weekMap = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
@@ -246,7 +249,8 @@ export default {
   background-image: url('../../assets/icons/Main.webp');
   background-repeat: no-repeat;
   background-size: 100%;
-
+  height: 100vh
+  overflow hidden
   .scroll_container {
     height: calc(100vh - 400px);
     overflow: hidden;
