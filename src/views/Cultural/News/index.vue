@@ -1,26 +1,26 @@
 <template>
   <div id="notice_app">
     <SlideNav
-      style="background: #fff"
-      @changeHandle="changeHandle"
-      :selected-label="selectedLabel"
-      :tabs="tabs"
+        style="background: #fff"
+        @changeHandle="changeHandle"
+        :selected-label="selectedLabel"
+        :tabs="tabs"
     >
-      <div class="scroll-list-wrap" >
+      <div class="scroll-list-wrap">
         <cube-scroll ref="scroll" style="height: calc(100vh - 250px)">
-          <Card @clicked="read(notice)" class="content" id="card" v-for="notice in news">
+          <Card @clicked="read(notice)" class="content" id="card" v-for="notice in listData(type)">
             <img
-              style="
+                style="
                 margin-right: 16px;
                 max-width: 94px;
                 -webkit-border-radius: 6px;
                 -moz-border-radius: 6px;
                 border-radius: 6px;
               "
-              height="94px"
-              width="94px"
-              src="../../../assets/icons/news.png"
-              alt=""
+                height="94px"
+                width="94px"
+                src="../../../assets/icons/news.png"
+                alt=""
             />
             <div class="box">
               <span class="title">
@@ -28,9 +28,9 @@
               </span>
               <span class="content">
                 <Icon
-                  v-show="notice.choice === '1'"
-                  svg-name="hot"
-                  style="height: 15px; width: 15px"
+                    v-show="notice.choice === '1'"
+                    svg-name="hot"
+                    style="height: 15px; width: 15px"
                 ></Icon>
                 {{ notice.title }}
               </span>
@@ -56,6 +56,8 @@ import SlideNav from "@/components/Cultural/SlideNav";
 import NewCard from "@/components/Cultural/NewCard";
 import Card from "@/components/UI/Card";
 import mixins from "../mixins/mixins";
+import {mapActions} from "vuex";
+
 
 export default {
   name: "index",
@@ -67,8 +69,12 @@ export default {
   mixins: [mixins],
   data() {
     return {
+      LABEL_MAP: {
+        "全部": 'journalisms',
+        "热点精选": 'journalisms1',
+        "时事要闻": 'journalisms2'
+      },
       selectedLabel: "全部",
-
       tabs: [
         {
           label: "全部",
@@ -82,14 +88,11 @@ export default {
       ],
     };
   },
-  mounted() {
-    this.news = this.reverseData = this.$store.state.Cultural.allData.journalisms;
-  },
   methods: {
     read(notices) {
       this.$router.push({
         name: "企业新闻详情",
-        params: { id: notices.id, notice: notices },
+        params: {id: notices.id, notice: notices},
       });
     },
   },

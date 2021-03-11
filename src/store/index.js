@@ -3,13 +3,15 @@ import Vuex from 'vuex'
 import router from "@/router";
 import actions from '../actions'
 import AddressBook from "@/store/AddressBook";
-import MainMenu from "@/store/MainMenu";
 import Cultural from "@/store/Cultural";
 import HelpCenter from "@/store/HelpCenter";
 import Schedule from '@/store/Schedule'
 import Guest from "@/store/Guest";
 import EmployeeCard from '@/store/EmployeeCard'
+
+
 import ReportForm from "@/store/ReportForm";
+import MainMenu from "@/store/MainMenu";
 
 import axios from "@/axios/index";
 import { setToken } from "@/utils/auth";
@@ -38,8 +40,9 @@ const store = new Vuex.Store({
     modules: {
         ...actions,
         AddressBook,
-        MainMenu, Cultural, HelpCenter, Schedule, Guest, EmployeeCard,
-        ReportForm
+        Cultural, HelpCenter, Schedule, Guest, EmployeeCard,
+        ReportForm,
+        MainMenu
     }
 })
 

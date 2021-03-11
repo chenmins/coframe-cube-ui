@@ -1,4 +1,4 @@
-<template>
+<template xmlns="">
   <div id="notice_app">
     <SlideNav
         style="background: #fff"
@@ -9,11 +9,12 @@
       <div class="scroll-list-wrap">
         <cube-scroll ref="scroll">
           <Card
-              @clicked="read(notice)"
               shadow
               :class="readed ? 'content' : 'content not-read'"
               id="card"
-              v-for="notice in notices"
+              v-for="notice in listData(type)"
+              @click="read(notice)"
+
           >
             <div class="box">
               <span class="title">{{ notice.title }}</span>
@@ -28,26 +29,27 @@
               </span>
             </div>
           </Card>
-          <Card
-              @clicked="read(notice)"
-              shadow
-              :class="!readed ? 'content' : 'content not-read'"
-              id="card"
-              v-for="notice in notices"
-          >
-            <div class="box">
-              <span class="title">{{ notice.title }}</span>
-              <span class="content">{{ notice.body }}</span>
-              <span class="footer">
-                <span class="date">{{
-                    $dayjs(notice.releaseTime).format("YYYY-MM-DD")
-                  }}</span>
-                <span class="from">
-                  <span class="read_all">阅读全文</span>
-                </span>
-              </span>
-            </div>
-          </Card>
+<!--          //未读-->
+<!--          <Card-->
+<!--              @clicked="read(notice)"-->
+<!--              shadow-->
+<!--              :class="!readed ? 'content' : 'content not-read'"-->
+<!--              id="card"-->
+<!--              v-for="notice in notices"-->
+<!--          >-->
+<!--            <div class="box">-->
+<!--              <span class="title">{{ notice.title }}</span>-->
+<!--              <span class="content">{{ notice.body }}</span>-->
+<!--              <span class="footer">-->
+<!--                <span class="date">{{-->
+<!--                    $dayjs(notice.releaseTime).format("YYYY-MM-DD")-->
+<!--                  }}</span>-->
+<!--                <span class="from">-->
+<!--                  <span class="read_all">阅读全文</span>-->
+<!--                </span>-->
+<!--              </span>-->
+<!--            </div>-->
+<!--          </Card>-->
         </cube-scroll>
       </div>
     </SlideNav>
@@ -55,77 +57,24 @@
 </template>
 
 <script>
-import Card from "@/components/UI/Card";
-import SlideNav from "@/components/Cultural/SlideNav";
-import mixins from "../mixins/mixins";
+  import SlideNav from "@/components/Cultural/SlideNav";
+  import mixins from "@/views/Cultural/mixins/mixins";
 
-const example = [
-  {
-    "id": 1,
-    "type": "1",
-    "title": "1",
-    "body": "2",
-    "releaseTime": 1613777338000
-  },
-  {
-    "id": 1,
-    "type": "1",
-    "title": "1",
-    "body": "2",
-    "releaseTime": 1613777338000
-  },
-  {
-    "id": 1,
-    "type": "1",
-    "title": "1",
-    "body": "2",
-    "releaseTime": 1613777338000
-  },
-  {
-    "id": 1,
-    "type": "1",
-    "title": "1",
-    "body": "2",
-    "releaseTime": 1613777338000
-  },
-  {
-    "id": 1,
-    "type": "1",
-    "title": "1",
-    "body": "2",
-    "releaseTime": 1613777338000
-  },
-  {
-    "id": 1,
-    "type": "1",
-    "title": "1",
-    "body": "2",
-    "releaseTime": 1613777338000
-  },
-  {
-    "id": 1,
-    "type": "1",
-    "title": "1",
-    "body": "2",
-    "releaseTime": 1613777338000
-  },
-  {
-    "id": 1,
-    "type": "1",
-    "title": "1",
-    "body": "2",
-    "releaseTime": 1613777338000
-  }
-]
 
 export default {
   name: "index",
   components: {
     SlideNav,
   },
-  mixins: [mixins],
+  mixins:[mixins],
   data() {
     return {
+      LABEL_MAP : {
+        "全部":'notices',
+        "系统公告":'notices1',
+        "餐厅公告":'notices2',
+        "物业公告":'notices3',
+      },
       selectedLabel: "全部",
       tabs: [
         {
@@ -144,17 +93,7 @@ export default {
       readed: false,
     };
   },
-  created() {
-    let Interval = setInterval(() => {
-      if (this.$store.state.Cultural.allData.notices) {
-        this.notices = this.$store.state.Cultural.allData.notices;
-        // this.$store.state.Cultural.allData.notices;
-        if (this.notices.length) {
-          clearInterval(Interval);
-        }
-      }
-    });
-  },
+
   methods: {
     read(notice) {
       this.$router.push({

@@ -17,7 +17,7 @@ const ControllersMap = _.map(Controllers, (value, key) => {
 })
 
 export default {
-  inject: ['reload'],
+  // inject: ['reload'],
   computed: {
     ...VueUtil(this)
       .select(ControllersMap)
@@ -161,7 +161,7 @@ export default {
       this.$router.push({path: '/'})
       this.$store.dispatch('setNeedGetPermission', true)
       this.$store.dispatch('delAllViews')
-      this.reload()
+      // this.reload()
 
       //拼接一个参数 使得 router.beforeEach 可以激活
       let query = {platform: type}

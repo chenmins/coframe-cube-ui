@@ -56,6 +56,7 @@ import { PipCcoCciController } from "@controller";
 import { CulturalControllerImpl, DictApiController } from "@controller";
 import { BaseVue } from "@/libs";
 import filesUpload from "@/libs/mixins/filesUpload";
+import {mapMutations} from "vuex";
 
 export default {
   name: "send",
@@ -95,10 +96,17 @@ export default {
     }
   },
   methods: {
+    ...mapMutations('Cultural',['setStateVar']),
     fileSubmitted(file) {},
     selectTopic() {
-      this.$store.commit("Cultural/setSendForm", this.query);
-      this.$store.commit("Cultural/setFiles", this.files);
+      this.setStateVar({
+        key:'sendForm',
+        value:this.query
+      })
+      this.setStateVar({
+        key:'files',
+        value:this.files
+      })
       this.$router.push({ name: "话题列表" });
     },
     async submit(data) {

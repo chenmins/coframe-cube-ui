@@ -42,6 +42,7 @@
 import * as DATAS from "@/assets/data";
 import axios from "axios";
 import { DictApiController } from "@controller";
+import {mapMutations} from "vuex";
 
 export default {
   data() {
@@ -77,9 +78,9 @@ export default {
         }
       }
     },
-
+    ...mapMutations('Cultural',['setStateVar']),
     selectTopic(item) {
-      this.$store.commit("Cultural/setSelectedTopic", item);
+      this.$store.commit("Cultural/setSelectedTopic",item)
       this.$store.commit("Cultural/setTopics", {
         topicOfConversationId: item.id,
         topicOfConversationName: item.name,

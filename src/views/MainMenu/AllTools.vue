@@ -1,22 +1,22 @@
 <template>
   <div id="all_tools">
-    <TitleNav  bgc-color="#fff">
+    <TitleNav bgc-color="#fff">
       <template v-slot:fixed>
         <header>
           <span class="title">管理常用工具</span>
           <div class="num" @click="$router.push({name:'ManageTool'})">
-            <div>{{ commonlyTools.filter(tool => tool.isCommonly === true).length }}</div>
+            <div>{{ HandledTools.filter(tool => tool.isCommonly === true).length }}</div>
             <i class="cubeic-arrow"></i>
           </div>
         </header>
       </template>
       <ul class="tools_list">
-        <li v-for="(Tool,index) in commonlyTools" :key="index">
+        <li v-for="(Tool,index) in HandledTools" :key="index">
           <div @click="goRouter({name:Tool.text})">
             <Icon :svg-name="'Tools-'+Tool.icon" class-name="svg"></Icon>
             <span>{{ Tool.text }}</span>
           </div>
-          <span class="commonly tag" v-if="!Tool.isCommonly" @click="addCommonly(Tool)">
+          <span class="commonly tag" v-if="!Tool.isCommonly" @click="addCommonly({Tool:Tool,dispatch:dispatch})">
                 <Icon svg-name="add" height="14" width="14" class-name="add"></Icon>
                 添加常用
               </span>
@@ -28,71 +28,19 @@
 </template>
 
 <script>
-import mixins from './mixins'
-import {AuthApiController} from '@controller'
+import {mapActions, mapGetters} from "vuex";
 
 let isCommonly = []
 
 export default {
   name: "AllTools",
-  mixins: [mixins],
-  data() {
-    return {
-      commonly: true,
-      allCommonlyTools: [],
-      isCommonlyTools: []
-    }
-  },
-
-  created() {
-    let tools = JSON.parse(localStorage.getItem('userInfo'))
-
-
-    if (tools && tools.attrs) {
-      this.getUserInfo().then(() => {
-        this.updateTools()
-      })
-    }
-  },
-  mounted(){
-    this.$children[0].$refs.scroll.$el.style.height = `${this.workspaceRealHeightNum - 100}px`
+  computed: {
+    HandledTools() {
+      return this.$store.getters["MainMenu/HandledTools"]()
+    },
   },
   methods: {
-    async addCommonly(Tool) {
-      if (this.commonlyTools.filter(tool => tool.isCommonly === true).length >= 8) {
-        this.$createToast({
-          txt: '最多只能添加8个常用功能',
-          type: 'warn',
-          time: 350
-        }).show()
-        return
-      }
-
-      this.commonlyTools.find(item => {
-        if (item.text === Tool.text) {
-          item.isCommonly = true
-        }
-      })
-
-      // this.isCommonly.find(item => item.text === Tool.text).isCommonly = true
-      let data = JSON.stringify(this.commonlyTools.filter(item => item.isCommonly === true))
-      let resp = await this.dispatch(AuthApiController.updateAttrs, [{
-            "attrName": "MyTools",
-            "attrValue": data
-          }]
-      )
-      await this.getUserInfo()
-
-      if (!resp.error) {
-        this.$createToast({
-          txt: '添加成功',
-          type: 'success',
-          time: 350
-        }).show()
-      }
-
-
-    },
+    ...mapActions('MainMenu', ['storeUserInfo','addCommonly']),
     goList(e) {
       console.log(e.currentTarget)
     },
@@ -104,6 +52,9 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+>>> .scroll-height-set
+  height calc(100vh - 100px)
+
 .svg
   height 44px
   width 44px
@@ -112,6 +63,7 @@ export default {
 
 #all_tools
   background-color $my-bgc-color
+
   header
     display flex
     justify-content: space-between;
@@ -149,6 +101,7 @@ export default {
   .tools_list
     background-color: #fff;
     margin-top 20px
+
     li
       padding 10px 20px
       border-bottom 1px solid rgba($custom-border-color, .4)

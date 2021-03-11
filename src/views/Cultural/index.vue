@@ -2,19 +2,19 @@
   <div id="cultural_app">
     <div class="bgc"></div>
     <SlideNav
-      :customer="true"
-      class="slide_nav"
-      :center="true"
-      :show-slider="true"
-      :selected-label="selectedLabel"
-      :tabs="tabs"
-      :showBackIcon="true"
-      @changeHandle="changeHandle"
-      @back="$router.push({ name: 'MainMenu' })"
+        :customer="true"
+        class="slide_nav"
+        :center="true"
+        :show-slider="true"
+        :selected-label="selectedLabel"
+        :tabs="tabs"
+        :showBackIcon="true"
+        @changeHandle="$router.push({ name: `${arguments[0]}` })"
+        @back="$router.push({ name: 'MainMenu' })"
     >
       <div id="common">
         <div class="img_box">
-          <img src="../../assets/icons/news.png" alt="" />
+          <img src="../../assets/icons/news.png" alt=""/>
         </div>
         <div style="background-color: #f5f6fa">
           <router-view></router-view>
@@ -27,17 +27,23 @@
 
 <script type="text/ecmascript-6">
 import SlideNav from "@/components/Cultural/SlideNav";
-import { BaseVue } from "@/libs";
+import {BaseVue} from "@/libs";
 import mixins from "./mixins/mixins";
 import Send from "@/views/Cultural/components/Send";
-import { DictApiController } from "@controller";
+import {DictApiController} from "@controller";
+import {mapActions, mapMutations} from "vuex";
+
+const LABEL_MAP = {
+  "公告列表":'notices',
+  "企业新闻":'notices1',
+  "交流圈":'notices2'
+}
 
 export default {
   components: {
     Send,
     SlideNav,
   },
-  mixins: [BaseVue, mixins],
   data() {
     return {
       selectedLabel: this.$route.meta.name,
@@ -54,15 +60,21 @@ export default {
       ],
     };
   },
-  mounted() {
-    this.initAllData();
+  created() {
+    this.initData({dispatch:this.dispatch})
+    this.getTopic({dispatch:this.dispatch})
   },
   methods: {
+    ...mapActions('Cultural',['initData','getTopic']),
+    ...mapMutations('Cultural',['setStateVar','clearSendForm']),
     Send() {
-      this.$store.commit("Cultural/setFiles", null);
+      this.setStateVar({
+        key:'files',
+        value:null
+      })
       this.$store.state.Cultural.selectedTopic[0] = [];
-      this.$store.commit("Cultural/clearSendForm");
-      this.$router.push({ name: "发帖子" });
+      this.clearSendForm({})
+      this.$router.push({name: "发帖子"});
     },
   },
 };

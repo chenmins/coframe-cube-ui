@@ -16,7 +16,6 @@
 
 <script>
 import MenuCard from "@/components/MainMenu/MenuCard";
-import mixins from '@/views/MainMenu/mixins'
 
 export default {
   name: "MyTools",

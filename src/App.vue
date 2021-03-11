@@ -1,10 +1,9 @@
 <template>
-  <div id="app"
-  >
+  <div id="app">
     <transition name="slide-fade">
-      <router-view/>
+      <router-view />
     </transition>
-    <div class="write" v-if="$route.meta.tag==='需求反馈'" @click="Replay">
+    <div class="write" v-if="$route.meta.tag === '需求反馈'" @click="Replay">
       <Icon class-name="write_svg" svg-name="edit" height="24px" width="24px"></Icon>
     </div>
   </div>
@@ -14,33 +13,29 @@
 // import {Demo} from "@controller";
 
 export default {
-  provide() {
-    return {
-      reload: this.reload,
-    }
-  },
+  // provide() {
+  //   return {
+  //     reload: this.reload,
+  //   }
+  // },
   data() {
     return {
       isRouterAlive: true,
-
-    }
+    };
   },
 
   methods: {
     reload() {
-      this.isRouterAlive = false
+      this.isRouterAlive = false;
       this.$nextTick(() => {
-        this.isRouterAlive = true
-      })
+        this.isRouterAlive = true;
+      });
     },
     Replay() {
-      this.$router.push({name: 'Replay'})
+      this.$router.push({ name: "Replay" });
     },
   },
-
-
-}
-
+};
 </script>
 
 <style lang="stylus">
@@ -176,7 +171,8 @@ export default {
   padding: 31px 15px;
 }
 
-.cube-action-sheet-panel.cube-safe-area-pb, .cube-action-sheet-content {
+.cube-action-sheet-panel.cube-safe-area-pb,
+.cube-action-sheet-content {
   border-radius: 12px 12px 0 0;
 }
 
@@ -184,24 +180,23 @@ export default {
   padding-bottom: 31px;
 }
 
-.cube-action-sheet-title, .cube-action-sheet-cancel {
+.cube-action-sheet-title,
+.cube-action-sheet-cancel {
   display: none;
 }
 
 .cube-action-sheet-item {
   margin: 7px 11px;
   float: left;
-  background: #F7F7F7;
+  background: #f7f7f7;
   border-radius: 17px;
   padding: 9px 18px;
   font-size: 12px;
   font-family: PingFangSC-Medium, PingFang SC;
   font-weight: 500;
-  color: #3B3B3B;
+  color: #3b3b3b;
   line-height: 17px;
-
 }
-
 
 #app {
   font-family: PingFangSC-Medium, PingFang SC, Avenir, Helvetica, Arial, sans-serif;
@@ -211,7 +206,7 @@ export default {
   color: #2c3e50;
   height: 100vh;
   font-size: 16px;
-  background-color: #F5F6FA
+  background-color: #f5f6fa;
 }
 
 #nav {
@@ -228,15 +223,15 @@ export default {
 }
 
 .slide-fade-enter-active {
-  transition: all .3s ease;
+  transition: all 0.3s ease;
 }
 
 .slide-fade-leave-active {
-  transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0) revert;
+  transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1) revert;
 }
 
-.slide-fade-enter, .slide-fade-leave-to {
+.slide-fade-enter,
+.slide-fade-leave-to {
   opacity: 0;
 }
-
 </style>

@@ -36,22 +36,15 @@
 
 <script>
 import MenuCard from "@/components/MainMenu/MenuCard";
+import {mapState} from 'vuex'
 
 export default {
   name: "MyTodo",
   components: {
     MenuCard
   },
-  data() {
-    return {
-      todos: [],
-      reserves:[]
-    }
-  },
-  created() {
-    this.reserves = this.$store.state.Guest.reserves
-    let MainMenu = this.$store.state.MainMenu
-    this.todos = MainMenu.todos
+  computed:{
+    ...mapState('MainMenu',['todos'])
   },
   methods: {
     changePage(current) {
