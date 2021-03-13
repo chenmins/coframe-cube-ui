@@ -1,24 +1,23 @@
 <template>
-  <ApproveContainer :tabs="tabs" :selectedLabel="selectedLabel">
+  <ApproveContainer :tabs="tabs" :selectedLabel="selectedLabel" @changeHandle="changeHandle">
     <Card
-        :reserve="approve"
-        v-for="reserve in approves"
+        v-for="approve in approveLists"
         @clicked="$router.push({ name: 'ApprovalDetail', params: { id: 1 } })"
     >
       <div class="title">
         <div class="dot"></div>
-        <span>{{ reserve.title }}</span>
+        <span>{{ approve.type }}</span>
       </div>
       <div class="content font-normal">
         <p>
           <span class="titou">申请人姓名 </span>
-          <span v-for="i in reserve.userName.split(',')">{{ i }}，</span>
+          <span >{{ approve.userName  }}</span>
         </p>
         <p>
           <span class="titou">所在部门 </span>
-          <span v-for="i in reserve.reasonsCode.split(',')">{{ i }}，</span>
+          <span >{{  approve.section }}</span>
         </p>
-        <p><span class="titou">申请日期 </span> {{ $dayjs(reserve.handleTime).format('YYYY-MM-DD') }}</p>
+        <p><span class="titou">申请日期 </span> {{ $dayjs(approve.handleTime).format('YYYY-MM-DD') }}</p>
       </div>
       <div class="right_bottom">
         <template v-if="type === '卡申请'">
@@ -36,12 +35,12 @@
       </div>
       <template v-if="arrived">
         <Tag
-            v-if="reserve.state!=='启用中'"
+            v-if="approve.state!=='启用中'"
             color="#fff"
             class="tag"
-            :background-color="reserve.state==='启用中' ? '#42b983' : '#000'"
+            :background-color="approve.state==='启用中' ? '#42b983' : '#000'"
         >
-          {{reserve.state}}
+          {{approve.state}}
         </Tag>
         <Icon v-else svg-name="guest-complete" class-name="svg_complete"></Icon>
       </template>
@@ -65,6 +64,7 @@ import Card from "@/components/UI/Card";
 import ApproveContainer from "@/components/UI/ApproveContainer";
 
 import {WorkCartControllerImpl} from "@controller";
+import {mapActions, mapState} from "vuex";
 
 export default {
   components: {
@@ -91,12 +91,15 @@ export default {
     };
   },
   created() {
-    this.approves = this.$store.state.Guest.approves.filter(
-        (i) => i.approved === false
-    );
-    this.getList()
+    this.getReviewList({pass:0})
+    console.log(this.approveLists)
+    // this.approves = this.$store.state.Guest.approves.filter(
+    //     (i) => i.approved === false
+    // );
+    // this.getList()
   },
   methods: {
+    ...mapActions('EmployeeCard',['getReviewList']),
     async getList() {
       let resp
       resp = await this.dispatch(WorkCartControllerImpl.getReviewList)
@@ -111,17 +114,22 @@ export default {
     changeHandle(e) {
       switch (e) {
         case "待审批":
-          this.approves = this.$store.state.Guest.approves.filter(
-              (i) => i.approved === false
-          );
+          this.getReviewList({pass:0})
+          // this.approves = this.$store.state.Guest.approves.filter(
+          //     (i) => i.approved === false
+          // );
           break;
         case "已完成":
-          this.approves = this.$store.state.Guest.approves.filter(
-              (i) => i.approved === true
-          );
+          this.getReviewList({pass:1})
+          // this.approves = this.$store.state.Guest.approves.filter(
+          //     (i) => i.approved === true
+          // );
       }
     },
   },
+  computed:{
+    ...mapState('EmployeeCard',['approveLists'])
+  }
 };
 </script>
 

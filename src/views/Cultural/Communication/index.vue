@@ -24,17 +24,18 @@
         :selected-label="selectedLabel"
         :tabs="tabs"
     >
-      <div class="scroll-list-wrap">
-        <cube-scroll ref="scroll" @scroll="scroll" :scrollEvents="['scroll']">
+      <div class="scroll-list-wrap scroll-set">
+        <cube-scroll ref="scroll222" :key="Math.random()" @scroll="scroll" :scrollEvents="['scroll']">
           <Card
               class="list-complete-item"
               :is-comment="false"
               :is-like="comment.fabulousForUser"
+                :commentLength="comment.comments && comment.comments.length"
               v-for="(comment, index) in comments"
               :key="index"
-              @checkComments="goComment(comment)"
+              @checkComments="goComment({id:comment.id,data:comment})"
               @toggleLike="toggleLike(comment)"
-              @remove="remove({dispatch:dispatch,id:comment.id});comments.splice(index, 1);"
+              @remove="remove({dispatch:dispatch,id:comment.id}).then(()=>comments.splice(index, 1));"
           >
             <template v-slot:username>{{ comment.userName }}</template>
             <template v-slot:time>{{
@@ -47,7 +48,11 @@
             </template>
             <template v-slot:image>
               <div>
-                <img :src="comment.picture[0]" alt=""/>
+                <!--                ${this.$config.pictureUrl}/${this.$config.bucket}/${i}_${this.$config.imgSize}-->
+                <img
+                    width="33.33%"
+                    :src="'//'+$config.pictureUrl+'/'+$config.bucket+'/'+comment.picture.split(',')[0]+'_'+$config.imgSize"
+                />
               </div>
             </template>
             <template v-slot:content>
@@ -102,7 +107,6 @@ export default {
       selected: null,
       topic_list: true,
       selectedLabel: "全部",
-      labelNow: "全部",
       tabs: [
         {
           label: "全部",
@@ -123,7 +127,7 @@ export default {
     };
   },
   mounted() {
-
+    this.$refs.scroll222.$el.style.height = `${this.workspaceRealHeightNum - 430}px`
     this.comments = this.listData(this.type)
   },
   watch: {
@@ -133,14 +137,8 @@ export default {
     }
   },
   methods: {
-    ...mapMutations('Cultural', ['setStateVar']),
+    ...mapMutations('Cultural', ['setStateVar', 'goComment']),
     ...mapActions('Cultural', ['remove']),
-    goComment(e) {
-      this.$router.push({
-        name: "交流圈-评论详情",
-        params: {id: e.id, data: e},
-      });
-    },
     scroll(e) {
       // this.topic_list = true;
       // if (e.y < -250) {

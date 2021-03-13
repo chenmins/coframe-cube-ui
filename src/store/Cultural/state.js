@@ -13,6 +13,7 @@ export default {
         choice: "",
         picture: '',
         title: '',
+        comments:[],
         topicOfConversationId: '',
         topicOfConversationName: '',
         type: "",

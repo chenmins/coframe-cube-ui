@@ -1,5 +1,6 @@
 import state from './state'
 import Vue from 'vue'
+import router from '@/router'
 import {CulturalControllerImpl, DictApiController} from '@controller'
 import {Toast} from 'cube-ui'
 
@@ -29,7 +30,36 @@ const Cultural = {
                 userName: "",
             }
         },
-    },
+        goComment(state, payload) {
+            router.replace({
+                name: '交流圈-评论详情',
+                params: {id: payload.id, date: payload.data}
+            })
+        },
+        formInit(state, payload) {
+            const IF_MAP = {
+                1:state.files?.length,
+                2:state.sendForm.body,
+                3:state.selectedTopic?.length,
+            }
+            return {
+                files:IF_MAP[1]?state.files:[],
+                query:IF_MAP[2]?state.sendForm:{
+                    body: "",
+                    comments:[],
+                    choice: "choice" + Math.random(),
+                    picture: "",
+                    title: "title" + Math.random(),
+                    topicOfConversationId: "",
+                    topicOfConversationName: "",
+                    type: "type" + Math.random(),
+                },
+                topic:IF_MAP[3]?state.selectedTopic:[]
+            }
+        }
+    }
+
+    ,
     actions: {
         async initData(context, payload) {
             let resp
@@ -59,13 +89,26 @@ const Cultural = {
             resp = await payload.dispatch(CulturalControllerImpl.deleteCommunicationCircle, {
                 id: payload.id
             })
-            if (!resp.error && resp.data.statusCodeValue === 200) {
+            if (!resp.error ) {
                 Toast.$create({
                     time: 1000,
                     txt: "删除成功",
-                    type:"normal"
+                    type: "normal"
                 }).show()
+                return
             }
+        },
+        async getCommunicationCircleEntity(context, payload) {
+            let resp
+            resp = await payload.dispatch(CulturalControllerImpl.getCommunicationCircleEntity, {
+                id: payload.id,
+                pageSize: 10,
+                pageNo: 1,
+            })
+            if (!resp.error) {
+                return resp.data.body
+            }
+
         }
     },
     getters: {

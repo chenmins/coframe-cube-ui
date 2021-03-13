@@ -1,4 +1,4 @@
-  <template>
+<template>
   <div id="page">
     <TitleNav bgc-color="#fff">
       <cube-form :model="model"
@@ -16,7 +16,7 @@
         </cube-form-item>
         <cube-form-item :field="schema.groups.fields[1]">
           <!--            @click="showTimePicker"-->
-          <div class="time-show" @click="selectType">{{ model.clothesType || '请选择' }}
+          <div class="time-show" @click="selectType">{{ model.type || '请选择' }}
             <i class="cubeic-arrow" style="float: right;margin-right: 16px"></i>
           </div>
         </cube-form-item>
@@ -29,6 +29,8 @@
 </template>
 
 <script>
+import {mapActions, mapMutations} from "vuex";
+
 const time = new Date().valueOf() + 60 * 60 * 1000
 const WEEK_MAP = [
   '周日',
@@ -45,7 +47,22 @@ export default {
   name: "BusinessPage",
   beforeRouteEnter(to, from, next) {
     to.meta.name = to.params.id
-    next()
+    //设置可选类型
+    to.meta.dataType.lifashi = [
+      {
+        text: '理发',
+        value: '理发'
+      },
+      {
+        text: '护理',
+        value: '护理'
+      },
+      {
+        text: '洗发',
+        value: '洗发'
+      }
+    ],
+        next()
   },
   data() {
     return {
@@ -54,7 +71,7 @@ export default {
       date: this.$dayjs().format('MM月DD日'),
       model: {
         time: '',
-        clothesType: '',
+        type: '',
 
       },
       schema: {
@@ -72,7 +89,7 @@ export default {
             },
             {
               type: 'select',
-              modelKey: 'clothesType',
+              modelKey: 'type',
               label: '护理类型',
               props: {},
               rules: {
@@ -88,24 +105,29 @@ export default {
     this.closeTypeArr = this.$route.meta.dataType[this.$route.params.value]
     this.timeFrom = [
       {
-        text: '今天' + ' ' + this.$dayjs().format('MM月DD日'),
+        text: WEEK_MAP[this.$dayjs().day()] + ' ' + this.$dayjs().format('MM月DD日'),
         value: this.$dayjs().format('MM月DD日')
       },
       {
         text: WEEK_MAP[this.$dayjs().add(1, 'day').day()] + ' ' + this.$dayjs().add(1, 'day').format('MM月DD日'),
-        value: this.$dayjs().format('MM月DD日')
+        value: this.$dayjs().add(1, 'day').format('MM月DD日')
       },
       {
         text: WEEK_MAP[this.$dayjs().add(2, 'day').day()] + ' ' + this.$dayjs().add(2, 'day').format('MM月DD日'),
-        value: this.$dayjs().format('MM月DD日')
+        value: this.$dayjs().add(2, 'day').format('MM月DD日')
       },
     ]
   },
   methods: {
-    submitHandler(e, val) {
+    ...mapActions('order', ['queryByTypeAndDate']),
+
+    async submitHandler(e, val) {
       e.preventDefault()
-      console.log(val, this.$route.meta)
-      this.$router.push({name: 'ReservePage', params: {id: val.clothesType}})
+      await this.queryByTypeAndDate({
+        type: val.type,
+        date: this.$dayjs().format('YYYY-') + this.model.time
+      })
+      await this.$router.push({name: 'ReservePage'})
     },
     selectType() {
       if (!this.TypePicker) {
@@ -113,7 +135,7 @@ export default {
           title: '',
           data: [this.closeTypeArr],
           onSelect: (selectedVal, selectedIndex, selectedText) => {
-            this.model.clothesType = selectedVal[0]
+            this.model.type = selectedVal[0]
           }
         })
       }
@@ -125,7 +147,7 @@ export default {
           title: '',
           data: [this.timeFrom],
           onSelect: (selectedVal, selectedIndex, selectedText) => {
-            this.model.time = selectedVal[0]
+            this.model.time = selectedVal[0].substr(0, 2) + '-' + selectedVal[0].substr(3, 2)
           }
         })
       }
@@ -195,10 +217,13 @@ export default {
 #page
   background-color $my-bgc-color
   border 1px solid transparent
-  >>>#nav_layout
+
+  >>> #nav_layout
     height auto
-  >>>.nav_height
+
+  >>> .nav_height
     height auto
+
   .inquire
     background: linear-gradient(90deg, #19E8FF 0%, #0F97FB 100%);
     border-radius 25px

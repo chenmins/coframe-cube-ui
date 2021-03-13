@@ -8,28 +8,21 @@
       <li>
         <div class="dot"></div>
         <div>
-          <div class="time-title-font">提交申请时间</div>
-          <div class="time-font">2020/12/28 08:20:10</div>
+          <div class="time-title-font">挂失提交时间</div>
+          <div class="time-font">{{ $dayjs(list.recordTime).format('YYYY/MM/DD HH:mm:ss') }}</div>
         </div>
       </li>
-      <li>
-        <div class="dot"></div>
-        <div>
-          <div class="time-title-font">提交申请时间</div>
-          <div class="time-font">2020/12/28 08:20:10</div>
-        </div>
-      </li>
-      <li>
-        <div class="dot"></div>
-        <div>
-          <div class="time-title-font">提交申请时间</div>
-          <div class="time-font">2020/12/28 08:20:10</div>
-        </div>
-      </li>
+<!--      <li>-->
+<!--        <div class="dot"></div>-->
+<!--        <div>-->
+<!--          <div class="time-title-font">审批时间</div>-->
+<!--          <div class="time-font">{{ $dayjs(list.approvalTime).format('YYYY/MM/DD HH:mm:ss') }}</div>-->
+<!--        </div>-->
+<!--      </li>-->
       <li class="end">
         <div class="dot"></div>
-        <div class="time-title-font" >
-          行政部审批中
+        <div class="time-title-font">
+          {{list.recordContent}}
         </div>
       </li>
     </ul>
@@ -41,9 +34,9 @@ import Card from "@/components/UI/Card";
 
 export default {
   name: "Loss",
-  props:{
-
-  },
+  props: [
+    'list',
+  ],
   components: {Card}
 }
 </script>

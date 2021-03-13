@@ -1,4 +1,6 @@
 
+import { WorkCartControllerImpl } from '@controller'
+
 const labelGroup = {
     cardType1: {
         companyName: '所属公司',
@@ -13,11 +15,16 @@ const labelGroup = {
 }
 
 import store from 'vuex'
-
 const EmployeeCard = {
     namespaced: true,
     state: {
         cardInfo: {},
+        reasonsCode: null,
+        reasonsName: null,
+        applyList:[],
+        approveLists:[],
+        cardManageLists:[],
+
         groupModel: {
             firstModel: {
                 cardType: "",
@@ -194,6 +201,10 @@ const EmployeeCard = {
         },
     },
     mutations: {
+        setFloorModel(state, payload) {
+            state.groupModel.floorModel = payload
+        },
+
         setCardInfo(state, payload) {
             state.cardInfo = payload
         },
@@ -224,8 +235,96 @@ const EmployeeCard = {
                 ]
             }
 
-        }
+        },
+
+
     },
+    actions: {
+        async getWorkCard(context) {
+            // commit: ƒ (_type, _payload, _options)
+            // dispatch: ƒ (_type, _payload, _options)
+            // getters: {}
+            // rootGetters: {}
+            // rootState: {…}
+            // state: {__ob__: Observer}
+            const { rootState, state, commit } = context
+            let resp
+            const that = window.vue
+            resp = await that.dispatch(WorkCartControllerImpl.getWorkCard)
+            if (!resp.error) {
+                commit('setStateVar', {
+                    state: state,
+                    key: 'cardInfo',
+                    value: resp.data.body
+                }, { root: true })
+            }
+        },
+        async open(context, payload) {
+            let resp
+            const that = window.vue
+
+            resp = await that.dispatch(WorkCartControllerImpl.open, payload)
+            if (!resp.error) {
+                return resp
+            }
+        },
+        async replacement(context, payload) {
+            let resp
+            const that = window.vue
+            resp = await that.dispatch(WorkCartControllerImpl.replacement,{
+                "reasonsCode":payload.reasonsCode,
+                "reasonsName":payload.reasonsName
+            })
+            if (!resp.error) {
+                return resp
+            }
+        },
+        async getReviewList(context,payload){
+            let resp
+            const { rootState, state, commit } = context
+            resp = await window.vue.dispatch(WorkCartControllerImpl.getReviewList,{
+                pass:payload.pass
+            })
+            if(!resp.error){
+                commit('setStateVar', {
+                    state: state,
+                    key: 'approveLists',
+                    value: resp.data.body
+                }, { root: true })
+            }
+        },
+        async queryWorkCardApplyRecord(context,payload){
+            let resp
+            const { rootState, state, commit } = context
+            resp = await window.vue.dispatch(WorkCartControllerImpl.queryWorkCardApplyRecord,{
+                content:payload
+            })
+            if(!resp.error){
+                commit('setStateVar', {
+                    state: state,
+                    key: 'applyList',
+                    value: resp.data.body
+                }, { root: true })
+            }
+        },
+        async queryWorkCardAll(context){
+            let resp
+            const { rootState, state, commit } = context
+            resp = await window.vue.dispatch(WorkCartControllerImpl.queryWorkCardAll, {
+                "userName": "liuwb"
+            })
+            if(!resp.error){
+                console.log(resp);
+                commit('setStateVar', {
+                    state: state,
+                    key: 'cardManageLists',
+                    value: resp.data.body
+                }, { root: true })
+            }
+        }
+
+
+    }
 
 }
 

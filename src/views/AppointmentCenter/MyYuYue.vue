@@ -1,39 +1,46 @@
 <template>
-  <ApproveContainer @changeHandle="changeHandle" style="height: 154px" :tabs="tabs" :selectedLabel="selectedLabel">
+  <div style="height: 100vh;overflow:hidden;">
+    <ApproveContainer @changeHandle="changeHandle" class="clear-fix"   style="height: 154px" :tabs="tabs"
+                      :selectedLabel="selectedLabel">
+      <LayOut v-show="toggleBreak" class="switch_box">
+        <span>仅显示违约记录</span>
+        <cube-switch class="switch" v-model="switchValue">
+        </cube-switch>
+      </LayOut>
+      <template slot="default">
+        <div style="height:calc(100vh - 190px);overflow:hidden;">
+          <cube-scroll ref="scroll" style="height: calc(100vh - 250px)">
+            <Card :reserve="approve" v-for="reserve in approves"
+                  @clicked="$router.push({name:'ApprovalDetail',params:{id:1}})"
+            >
+              <div class="title">
 
-    <LayOut v-show="toggleBreak" class="switch_box">
-      <span>仅显示违约记录</span>
-      <cube-switch class="switch" v-model="switchValue">
-      </cube-switch>
-    </LayOut>
-
-    <Card :reserve="approve" v-for="reserve in approves"
-          @clicked="$router.push({name:'ApprovalDetail',params:{id:1}})"
-    >
-      <div class="title">
-
-        <div class="dot"></div>
-        <span>{{ reserve.title }}</span>
-      </div>
-      <div class="content font-normal">
-        <p><span class="titou">预约时间 </span> <span v-for="i in reserve.name">{{ i }}，</span></p>
-        <p><span class="titou">预约地点 </span> <span v-for="i in reserve.where">{{ i }}，</span></p>
-        <p><span class="titou">提交时间 </span> {{ reserve.time }}</p>
-      </div>
-      <div class="right_bottom">
-        <span>取消</span>
-      </div>
-      <template v-if="arrived">
-        <Tag v-if="!reserve.approved" color="#fff" class="tag" :background-color="reserve.approved?'#42b983':'#000'">
-          待审批
-        </Tag>
-        <Icon v-else svg-name="guest-complete" class-name="svg_complete"></Icon>
+                <div class="dot"></div>
+                <span>{{ reserve.title }}</span>
+              </div>
+              <div class="content font-normal">
+                <p><span class="titou">预约时间 </span> <span v-for="i in reserve.name">{{ i }}，</span></p>
+                <p><span class="titou">预约地点 </span> <span v-for="i in reserve.where">{{ i }}，</span></p>
+                <p><span class="titou">提交时间 </span> {{ reserve.time }}</p>
+              </div>
+              <div class="right_bottom">
+                <span>取消</span>
+              </div>
+              <template v-if="arrived">
+                <Tag v-if="!reserve.approved" color="#fff" class="tag" :background-color="reserve.approved?'#42b983':'#000'">
+                  待审批
+                </Tag>
+                <Icon v-else svg-name="guest-complete" class-name="svg_complete"></Icon>
+              </template>
+              <template v-else>
+                <Icon class-name="tag" svg-name="guest-arrived" height="80px" width="80px"></Icon>
+              </template>
+            </Card>
+          </cube-scroll>
+        </div>
       </template>
-      <template v-else>
-        <Icon class-name="tag" svg-name="guest-arrived" height="80px" width="80px"></Icon>
-      </template>
-    </Card>
-  </ApproveContainer>
+    </ApproveContainer>
+  </div>
 </template>
 
 <script>
@@ -87,6 +94,7 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+
 >>>.cube-switch .cube-switch-ui
   height 20px
   width 40px
@@ -103,9 +111,11 @@ export default {
   display flex
   align-items center
   justify-content: space-between;
-  padding 10px
   border-radius 6px
   font-size 14px
+  z-index 99
+  position relative
+  padding  10px 12px
   .switch
     height 24px
 .right_bottom

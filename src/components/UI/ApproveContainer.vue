@@ -1,14 +1,18 @@
 <template>
   <div id="todo-list">
     <TitleNav bgc-color="transparent" color="#fff">
-      <SlideNav
-          @LabelChanged="changeHandle"
-          show-slider
-          :selected-label="selectedLabel"
-          :tabs="tabs"
-      >
-        <slot></slot>
-      </SlideNav>
+      <template>
+        <SlideNav
+            @LabelChanged="changeHandle"
+            show-slider
+            :selected-label="selectedLabel"
+            :tabs="tabs"
+        >
+
+
+              <slot></slot>
+        </SlideNav>
+      </template>
     </TitleNav>
   </div>
 </template>
@@ -55,6 +59,7 @@ export default {
     },
     changeHandle(e) {
       this.$emit("changeHandle", e);
+      this.selectedLabel = e
       switch (e) {
         case "待审批":
           this.approves = this.$store.state.Guest.approves.filter(
@@ -72,6 +77,19 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+.switch_box
+  height 20px
+  margin 12px
+  display flex
+  align-items center
+  justify-content: space-between;
+  padding 10px
+  border-radius 6px
+  font-size 14px
+  z-index 99
+  position relative
+  .switch
+    height 24px
 .warp {
   height: calc(100vh - 120px);
 }

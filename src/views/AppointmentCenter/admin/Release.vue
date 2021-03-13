@@ -19,7 +19,7 @@
         />
         <i class="cubeic-select" @click="toggle"></i>
         <div  class="content">
-          <FuncBtn>发布</FuncBtn>
+          <FuncBtn @clicked="$router.push({name:'AdminRelease'})">发布</FuncBtn>
           <div class="scroll-list-wrap">
             <cube-scroll
                 ref="scroll"
@@ -182,7 +182,7 @@ export default {
 <style scoped lang="stylus"></style>
 <style scoped lang="stylus">
 >>>.scroll-list-wrap
-  height calc(100vh - 215px)
+  height calc(100vh - 300px)
 >>> .van-calendar__top-info, >>> .van-calendar__bottom-info {
   color: #fff;
 }

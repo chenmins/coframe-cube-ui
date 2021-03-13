@@ -5,26 +5,42 @@
       <template v-if="yuyue">
         <div style="height:calc(100vh - 190px)">
           <cube-scroll ref="scroll">
-            <Card class="card">
-              <header>理发室</header>
-              <cube-radio-group class="time" v-model="selected" :options="['2020/12/18 08:00-13:00']"/>
-              <div class="btn">剩余名额10人</div>
-            </Card>
-            <Card class="card">
-              <header>理发室</header>
-              <cube-radio-group class="time" v-model="selected" :options="['2020/12/18 08:00-13:00']"/>
-              <div class="btn">剩余名额10人</div>
-            </Card>
-            <Card class="card">
-              <header>理发室</header>
-              <cube-radio-group class="time" v-model="selected" :options="['2020/12/18 08:00-13:00']"/>
-              <div class="btn">剩余名额10人</div>
-            </Card>
-            <Card class="card">
-              <header>理发室</header>
-              <cube-radio-group class="time" v-model="selected" :options="['2020/12/18 08:00-13:00']"/>
-              <div class="btn">剩余名额10人</div>
-            </Card>
+            <cube-radio-group style="background-color: transparent">
+              <cube-radio
+                  v-for="(item, index) in public.barber"
+                  :key="index"
+                  :option="{
+                      label: item.type,
+                      value: item.id,
+                  }"
+                  v-model="selected4">
+                <Card :class="item.quota>0?'card':'card over'">
+                  <header>{{ item.type }}</header>
+                  <div style="height: 40px;line-height: 40px" class="time">
+                    {{ $dayjs(item.startTime).format('YYYY/MM/D HH:mm:ss') + '-' + $dayjs(item.endTime).format('HH:mm:ss') }}
+                  </div>
+                  <!--                  <cube-radio-group class="time" v-model="selected[index]"  :options="['2020/12/18 08:00-13:00']"/>-->
+                  <div class="btn">剩余名额{{ item.quota }}人</div>
+                </Card>
+              </cube-radio>
+            </cube-radio-group>
+
+
+            <!--            <Card class="card">-->
+            <!--              <header>理发室</header>-->
+            <!--              <cube-radio-group class="time" v-model="selected" :options="['2020/12/18 08:00-13:00']"/>-->
+            <!--              <div class="btn">剩余名额10人</div>-->
+            <!--            </Card>-->
+            <!--            <Card class="card">-->
+            <!--              <header>理发室</header>-->
+            <!--              <cube-radio-group class="time" v-model="selected" :options="['2020/12/18 08:00-13:00']"/>-->
+            <!--              <div class="btn">剩余名额10人</div>-->
+            <!--            </Card>-->
+            <!--            <Card class="card over">-->
+            <!--              <header>理发室</header>-->
+            <!--              <cube-radio-group class="time" v-model="selected" :options="['2020/12/18 08:00-13:00']"/>-->
+            <!--              <div class="btn">剩余名额2人</div>-->
+            <!--            </Card>-->
           </cube-scroll>
         </div>
 
@@ -40,7 +56,7 @@
       </template>
     </ApproveContainer>
     <footer>
-      <cube-button @click="$router.push('/YuYueSuccess')">立即预约</cube-button>
+      <cube-button @click="addBarberUser({id:selected4}).then(()=>$router.push('/YuYueSuccess'))">立即预约</cube-button>
     </footer>
   </div>
 </template>
@@ -49,6 +65,7 @@
 import SlideNav from "@/components/Cultural/SlideNav";
 import ApproveContainer from "@/components/UI/ApproveContainer";
 import Card from "@/components/UI/Card";
+import {mapActions, mapState} from "vuex";
 
 export default {
   name: "ReservePage",
@@ -57,8 +74,10 @@ export default {
     ApproveContainer,
     SlideNav
   },
+
   data() {
     return {
+      selected4: 0,
       yuyue: true,
       checked: false,
       selected: '',
@@ -73,19 +92,44 @@ export default {
       ]
     }
   },
-  mounted(){
+  mounted() {
   },
   methods: {
+    ...mapActions('order',['addBarberUser']),
     changeHandle(e) {
       console.log(e)
       this.yuyue = !this.yuyue
     }
+  },
+  computed: {
+    ...mapState('order', ['public'])
   }
 }
 </script>
 
 <style scoped lang="stylus">
+>>> .border-top-1px::before
+  display none
 
+>>> .cube-radio_selected .cube-radio-ui
+  background-color transparent
+  background-image url("../../assets/icons/selected.png")
+  background-size 100%
+
+>>> .cube-radio-ui i::before
+  display none
+
+>>> .cube-radio-ui, .cubeic-round-border
+  position absolute
+  z-index 99
+  left 40px
+
+>>> .card
+  width 100%
+  margin 0!important
+  .time
+    font-family: PingFangSC-Regular, PingFang SC;
+    color: #000000;
 
 .reserve_page
   .inc
@@ -127,9 +171,13 @@ export default {
       border-radius: 20px;
       font-size 12px
 
+  .over
+    header, >>> .cube-radio-wrap, .btn
+      color #CCCCCC !important
+      border-color #CCCCCC !important
+
   .card
     text-align center !important
-
     header
       font-family: PingFangSC-Medium, PingFang SC;
       font-weight: 500;
@@ -159,13 +207,6 @@ export default {
       text-align center
       width 100%
 
-    >>> .cube-radio_selected .cube-radio-ui
-      background-color transparent
-      background-image url("../../assets/icons/selected.png")
-      background-size 100%
-
-    >>> .cube-radio-ui i::before
-      display none
 
     .border-top-1px::before
       border none

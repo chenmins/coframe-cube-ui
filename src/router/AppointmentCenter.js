@@ -36,6 +36,19 @@ export default [
                 },
                 component: () => import('@/views/AppointmentCenter/MyYuYue')
             },
+            {
+                path: '/AppointmentAdminRelease',
+                name: 'AppointmentAdminRelease',
+                meta: {
+                    name: '发布管理',
+                    tag: '发布管理',
+                    leave: 3,
+                    backRouter:'Home',
+                    showNav: true
+                },
+                component: () => import('@/views/AppointmentCenter/admin/Release')
+            },
+
         ]
     },
     {
@@ -167,7 +180,7 @@ export default [
         component: () => import('@/views/AppointmentCenter/YuYueSuccess')
     },
     {
-        path: '/ReservePage/:id',
+        path: '/ReservePage',
         name: 'ReservePage',
         meta: {
             name: '预约页面',
@@ -213,18 +226,6 @@ export default [
         component: () => import('@/views/AppointmentCenter/admin/index'),
     },
     {
-        path: '/AppointmentAdminRelease',
-        name: 'AppointmentAdminRelease',
-        meta: {
-            name: '发布管理',
-            tag: '发布管理',
-            leave: 3,
-            backRouter:'Home',
-            showNav: true
-        },
-        component: () => import('@/views/AppointmentCenter/admin/Release')
-    },
-    {
         path: '/AdminReleaseEdit',
         name: 'AdminReleaseEdit',
         meta: {
@@ -243,7 +244,7 @@ export default [
             name: '发布',
             tag: '发布',
             leave: 3,
-            backRouter:'Home',
+            backRouter:'AppointmentAdminRelease',
             showNav: true
         },
         component: () => import('@/views/AppointmentCenter/admin/addRelease')

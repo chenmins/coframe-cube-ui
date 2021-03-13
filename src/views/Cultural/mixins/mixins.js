@@ -29,7 +29,6 @@ export default {
             resp = await this.dispatch(DictApiController.getDictEntryByDictTypeCode, { code: 'pip-ccocci-topic' })
             return resp
         },
-        //  点赞
         async toggleLike(e) {
             let resp = await this.dispatch(CulturalControllerImpl.fabulousCommunicationCircle, { id: e.id })
             if (!resp.error) {
@@ -40,7 +39,7 @@ export default {
                 }
                 this.like = !this.like
             }
-        },
+        },        //  点赞
         initLabel(LABEL_MAP,e){
             if(LABEL_MAP[localStorage.getItem('label')]){
                 return LABEL_MAP[localStorage.getItem('label')]

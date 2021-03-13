@@ -42,6 +42,7 @@
 
 <script>
 import Preview from "@/components/EmployeeCard/Preview";
+import {mapMutations, mapState} from "vuex";
 
 export default {
   name: "FloorSelect",
@@ -76,7 +77,6 @@ export default {
   methods: {
     validateHandler(result) {
       this.result = result
-
     },
 
     cancel() {
@@ -220,6 +220,9 @@ export default {
         time: 1000
       }).show()
     }
+  },
+  computed:{
+    ...mapState('EmployeeCard',['cardInfo'])
   }
 }
 </script>

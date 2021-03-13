@@ -14,21 +14,23 @@
           <span @click="cardStatus">员工卡状态
           <i class="cubeic-select"></i>
           </span>
-          <span @click="comeDate">到访日期
+          <span >到访日期
           <i class="cubeic-select"></i>
           </span>
         </LayOut>
       </div>
-      <Card v-for="reserve in reserves" @clicked="$router.push({name:'Card',params:{id:1}})">
+      <Card v-for="reserve in cardManageLists" @clicked="$router.push({name:'Card',params:{id:1}})">
         <div  class="card_item"  >
           <div class="title">
             <div class="dot"></div>
-            <span>易烊千玺的访客预约</span>
+            <span>{{reserve.type}}</span>
           </div>
           <div class="content">
-            <p><span class="titou">到访时间 </span> <span v-for="i in reserve.name">{{ i }}，</span></p>
-            <p><span class="titou">到访部门 </span> <span v-for="i in reserve.where">{{ i }}，</span></p>
-            <p><span class="titou">来访姓名 </span> {{ reserve.time }}</p>
+            <p><span class="titou">姓名 </span> {{ reserve.userName }}</p>
+            <p><span class="titou">员工卡状态</span> <span >{{reserve.state}}</span></p>
+            <p><span class="titou">楼层权限</span> <span v-for="i in JSON.parse(reserve.floorAuthority)">{{i['which']+'-'+i['floor']+'-'+i['num']}}</span></p>
+            <p><span class="titou">公司 </span> <span >{{ reserve.corporation}}</span></p>
+            <p><span class="titou">部门 </span> <span >{{ reserve.section}}</span></p>
           </div>
           <div class="footer">
             修改
@@ -48,6 +50,7 @@
 import Search from "@/components/Search";
 import Card from "@/components/UI/Card";
 import {WorkCartControllerImpl} from "@controller";
+import {mapActions, mapState} from "vuex";
 
 export default {
   name: "CardRecord",
@@ -63,18 +66,20 @@ export default {
       pickerData:[]
     }
   },
-  created() {
-    this.reserves = this.$store.state.Guest.reserves
+  async created() {
+    // await  this.queryWorkCardAll()
+    // this.reserves = this.$store.state.Guest.reserves
+    console.log(this.cardManageLists)
     this.pickerData = [
       {text: '近30天', value: '近30天'},
       {text: '近7天', value: '近7天'},
       {text: '全部', value: '全部'},
       {text: '自定义时间', value: '自定义时间'},
     ]
-    this.getCardList()
+    // this.getCardList()
   },
   methods:{
-    //todo 不带参数就会报错;接口问题
+      //todo 不带参数就会报错;接口问题
     async getCardList(){
       let resp
       resp = await this.dispatch(WorkCartControllerImpl.queryWorkCardAll,{"state":"启用"})
@@ -159,6 +164,9 @@ export default {
         },
       }).show()
     },
+  },
+  computed:{
+    ...mapState('EmployeeCard',['cardManageLists'])
   }
 }
 </script>

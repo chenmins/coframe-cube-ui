@@ -25,8 +25,8 @@ module.exports = {
             swaggerUrl: 'http://192.168.200.150:18087/v2/api-docs',
         },
         {
-            name: 'platform-minio',
-            swaggerUrl: '',
+            name: 'platform-order',
+            swaggerUrl: 'http://192.168.200.150:18088/v2/api-docs',
         },
     ]
 }

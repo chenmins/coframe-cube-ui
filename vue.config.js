@@ -94,7 +94,7 @@ module.exports = {
   pages: {
     index: {
       entry: 'src/main',
-      title: 'cube'
+      title:config.title
     }
   },
   devServer: {

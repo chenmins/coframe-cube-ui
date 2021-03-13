@@ -3,7 +3,7 @@
     <div class="cover"></div>
     <div class="card">
       <div class="card_content">
-        <span class="card_num">{{ cardInfo.name.id }}</span>
+        <span class="card_num">{{ cardInfo.code }}</span>
         <div class="card_avatar">
           <!--            <img src="" alt="">-->
           <div class="avatar_img"></div>
@@ -12,18 +12,18 @@
             src="../../assets/icons/employee_edit.webp"
             alt=""
           />
-          <span class="avatar_name">{{ cardInfo.name.userName }}</span>
+          <span class="avatar_name">{{ cardInfo.userName }}</span>
         </div>
       </div>
       <div class="card_content_bottom">
         <div class="content_left">
-          <span>{{ cardInfo.companyName }}</span>
+          <span>{{ cardInfo.corporation }}</span>
           <span>厚德载物楼4栋303</span>
         </div>
         <div class="content_right">
           <!--            <img src="" alt="">-->
           <div class="content_img"></div>
-          <span>{{ cardInfo.position }}</span>
+          <span>{{ cardInfo.section }}</span>
         </div>
       </div>
     </div>
@@ -36,37 +36,35 @@
 
 <script>
 import { WorkCartControllerImpl } from "@controller";
+import {mapActions, mapState} from "vuex";
 
 export default {
   name: "PreviewInfo",
-  data() {
-    return {
-      cardInfo: {},
-    };
-  },
-  created() {
-    this.cardInfo = this.$store.state.EmployeeCard.groupModel.firstModel;
-  },
+
   mounted(){
     this.$children[0].$refs.scroll.$el.style.height = `${this.workspaceRealHeightNum - 60}px`
   },
   methods: {
+    ...mapActions('EmployeeCard',['open','replacement']),
     async confirm() {
       let resp;
       let data = {
-        userId: this.cardInfo.name.id,
-        userName: this.cardInfo.name.userName,
-        type: this.cardInfo.cardType,
-        reasonsName: this.cardInfo.companyName,
-        reasonsCode: this.cardInfo.position,
+        userId: this.cardInfo.id,
+        userName: this.cardInfo.userName,
+        type: this.cardInfo.type,
+        corporation: this.cardInfo.corporation,
+        section: this.cardInfo.section,
         floorAuthority: JSON.stringify(
-          this.$store.state.EmployeeCard.groupModel.floorModel
+          this.groupModel.floorModel
         ),
       };
       if (this.$route.params.func === "补卡") {
-        resp = await this.dispatch(WorkCartControllerImpl.replacement);
+        resp = await this.replacement({
+          "reasonsCode":this.$store.state.EmployeeCard.reasonsCode,
+          "reasonsName":this.$store.state.EmployeeCard.reasonsName,
+        })
       }else {
-        resp = await this.dispatch(WorkCartControllerImpl.open, data);
+        resp = await this.open(data)
       }
       if (resp.data.body === 0) {
         this.$createToast({
@@ -88,6 +86,9 @@ export default {
       }
     },
   },
+  computed:{
+    ...mapState('EmployeeCard',['cardInfo','groupModel'])
+  }
 };
 </script>
 

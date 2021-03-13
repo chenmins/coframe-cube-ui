@@ -6,22 +6,22 @@
     :loss="$store.state.EmployeeCard.cardInfo.state"
   >
     <ul>
-      <li @click="$router.push({ name: 'ApplyRecord',params:{list} })">
+      <li @click="$router.push({ name: 'ApplyRecord',params:{content:1,title:'申请办卡'} })">
         <Icon svg-name="EmployeeCard_apply" class-name="svg_name"></Icon>
         <div class="li_item">
           <div>
             <div class="title">申请办卡</div>
-            <div class="time">2021/01/22 15:10:10</div>
+            <div class="time">{{$dayjs().format('YYYY/MM/DD HH:mm:ss')}}</div>
           </div>
           <i class="cubeic-arrow"></i>
         </div>
       </li>
-      <li>
+      <li @click="$router.push({ name: 'ApplyRecord',params:{content:2,title:'挂失'} })">
         <Icon svg-name="EmployeeCard_apply1" class-name="svg_name"></Icon>
         <div class="li_item">
           <div>
             <div class="title">挂失</div>
-            <div class="time">2021/01/22 15:10:10</div>
+            <div class="time">{{$dayjs().format('YYYY/MM/DD HH:mm:ss')}}</div>
           </div>
           <i class="cubeic-arrow"></i>
         </div>
@@ -31,7 +31,7 @@
         <div class="li_item">
           <div>
             <div class="title">补卡</div>
-            <div class="time">2021/01/22 15:10:10</div>
+            <div class="time">{{$dayjs().format('YYYY/MM/DD HH:mm:ss')}}</div>
           </div>
           <i class="cubeic-arrow"></i>
         </div>
@@ -43,6 +43,7 @@
 <script>
 import {WorkCartControllerImpl} from '@controller'
 import CardPanel from "@/views/EmployeeCard/components/CardPanel";
+import {mapActions} from "vuex";
 export default {
   name: "Apply",
   components: { CardPanel },

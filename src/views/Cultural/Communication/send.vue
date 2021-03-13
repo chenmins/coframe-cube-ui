@@ -52,15 +52,13 @@
 </template>
 
 <script>
-import { PipCcoCciController } from "@controller";
 import { CulturalControllerImpl, DictApiController } from "@controller";
-import { BaseVue } from "@/libs";
 import filesUpload from "@/libs/mixins/filesUpload";
-import {mapMutations} from "vuex";
+import {mapActions, mapMutations, mapState} from "vuex";
 
 export default {
   name: "send",
-  mixins: [BaseVue, filesUpload],
+  mixins: [filesUpload],
   data() {
     return {
       url: "",
@@ -73,6 +71,7 @@ export default {
       topic: null,
       query: {
         body: "",
+        comments:[],
         choice: "choice" + Math.random(),
         picture: "",
         title: "title" + Math.random(),
@@ -84,19 +83,14 @@ export default {
     };
   },
   created() {
-    // 优化
-    if (this.$store.state.Cultural.files?.length) {
-      this.files = this.$store.state.Cultural.files;
-    }
-    if (this.$store.state.Cultural.sendForm.body) {
-      this.query = this.$store.state.Cultural.sendForm;
-    }
-    if (this.$store.state.Cultural.selectedTopic?.length) {
-      this.topic = this.$store.state.Cultural.selectedTopic;
-    }
+    let res = this.formInit()
+    this.files = res.files
+    this.query = res.query
+    this.topic = res.topic
   },
   methods: {
-    ...mapMutations('Cultural',['setStateVar']),
+    ...mapMutations('Cultural',['setStateVar','formInit']),
+    ...mapActions('Cultural',['initData']),
     fileSubmitted(file) {},
     selectTopic() {
       this.setStateVar({
@@ -131,8 +125,11 @@ export default {
         resp = await this.dispatch(CulturalControllerImpl.addCommunicationCircle, {
           ...this.$store.state.Cultural.sendForm,
         });
-        if (!resp.error && resp.data.body === 1) {
+        if (!resp.error ) {
           message = "发送成功";
+          await this.initData({
+            dispatch:this.dispatch
+          })
           this.$router.replace({ name: "交流圈" }).then(() => {
             this.$store.commit("Cultural/clearSendForm");
           });

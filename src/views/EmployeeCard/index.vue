@@ -98,6 +98,7 @@
 import CardPanel from "@/views/EmployeeCard/components/CardPanel";
 import Card from "@/components/UI/Card";
 import {HelpControllerImpl, WorkCartControllerImpl} from "@controller";
+import {mapActions, mapMutations, mapState} from "vuex";
 
 export default {
   name: "index",
@@ -108,36 +109,32 @@ export default {
     };
   },
   async created() {
-    let resp = await this.getCardStatus();
-    this.$store.commit("EmployeeCard/setCardInfo", resp.data.body);
-  },
-  mounted() {
-  },
-  watch: {
-    isAdmin(newV, oldV) {
-      console.log(newV, oldV);
-    },
+    await this.getWorkCard()
   },
   methods: {
+    ...mapActions('EmployeeCard',['getWorkCard','queryWorkCardAll']),
     selectFunc(type) {
       let func = type.split("-")[0];
       if (
           func === "handle" &&
-          this.$store.state.EmployeeCard.cardInfo.state === "员工卡办理中"
+          this.cardInfo.state === "员工卡办理中"
       ) {
         this.$createToast({
           type: "normal",
           time: 1000,
-          txt: this.$store.state.EmployeeCard.cardInfo.state,
+          txt:  this.cardInfo.state,
         }).show();
         return;
       }
       this.$router.push({name: type.split("-")[1]});
     },
-    async getCardStatus() {
-      return await this.dispatch(WorkCartControllerImpl.getWorkCard);
-    },
   },
+  computed:{
+    ...mapState('EmployeeCard',['cardInfo'])
+  },
+  async beforeDestroy() {
+    await  this.queryWorkCardAll()
+  }
 };
 </script>
 

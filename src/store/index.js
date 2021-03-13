@@ -12,6 +12,7 @@ import EmployeeCard from '@/store/EmployeeCard'
 
 import ReportForm from "@/store/ReportForm";
 import MainMenu from "@/store/MainMenu";
+import order from "@/store/order"
 
 import axios from "@/axios/index";
 import { setToken } from "@/utils/auth";
@@ -28,6 +29,11 @@ const store = new Vuex.Store({
         userInfo: {},
     },
     mutations: {
+        setStateVar(state,payload){
+            const _this = payload.state
+            console.log(_this[`${payload.key}`] )
+            _this[`${payload.key}`] =  payload.value
+        },
         setEposition(state, payload) {
             state.Eposition = payload
         },
@@ -42,7 +48,8 @@ const store = new Vuex.Store({
         AddressBook,
         Cultural, HelpCenter, Schedule, Guest, EmployeeCard,
         ReportForm,
-        MainMenu
+        MainMenu,
+        order
     }
 })
 
