@@ -112,7 +112,7 @@ export default {
     await this.getWorkCard()
   },
   methods: {
-    ...mapActions('EmployeeCard',['getWorkCard','queryWorkCardAll']),
+    ...mapActions('EmployeeCard',['getWorkCard']),
     selectFunc(type) {
       let func = type.split("-")[0];
       if (
@@ -132,10 +132,7 @@ export default {
   computed:{
     ...mapState('EmployeeCard',['cardInfo'])
   },
-  async beforeDestroy() {
-    await  this.queryWorkCardAll()
-  }
-};
+  };
 </script>
 
 <style scoped lang="stylus">

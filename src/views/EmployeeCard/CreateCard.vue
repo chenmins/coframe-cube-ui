@@ -18,6 +18,7 @@
 <script>
 import Preview from "@/components/EmployeeCard/Preview";
 import FloorSelect from "@/views/EmployeeCard/components/FloorSelect";
+import {mapMutations} from "vuex";
 
 export default {
   name: "CreateCard",
@@ -27,53 +28,39 @@ export default {
   data() {
     return {
       preview: false,
-      result:null
+      result: null
     }
   },
-  created(){
-    this.$store.commit('EmployeeCard/iniModel')
+  created() {
+      this.$store.commit('EmployeeCard/iniModel')
   },
   mounted() {
     this.$children[0].$children[0].$refs.scroll.$el.style.height = `${this.workspaceRealHeightNum - 130}px`
+
   },
   methods: {
-    cancel() {
-      this.$createDialog({
-        type: 'confirm',
-        title: '确定注销该员工卡吗？',
-        maskClosable: true,
-        onConfirm: (e) => {
-          this.$createToast({
-            type: 'warn',
-            time: 1000,
-            txt: `点击了确认`
-          }).show()
-        }
-      }).show()
-    },
-
     validateHandler(result) {
       this.result = result
     },
     confirm(e) {
-      if(!this.result.valid && this.$route.fullPath.includes('CreateCard')){
+      if (!this.result.valid && this.$route.fullPath.includes('CreateCard')) {
         this.$createToast({
-          type:'error',
-          txt:'请填写完整表单',
-          time:1000
+          type: 'error',
+          txt: '请填写完整表单',
+          time: 1000
         }).show()
         return
       }
       this.$router.push({
-            name: 'PreviewConfirm',
-            params: {
-              id: this.userInfo.id,
-              func:'开卡'
-            //   firstModel: this.$store.state.EmployeeCard.groupModel,
-            //   floorModel: e.floorModel,
-            //   floorSchema: e.floorSchema
-            }
-          })
+        name: 'PreviewConfirm',
+        params: {
+          id: this.userInfo.id,
+          func: '开卡'
+          //   firstModel: this.$store.state.EmployeeCard.groupModel,
+          //   floorModel: e.floorModel,
+          //   floorSchema: e.floorSchema
+        }
+      })
     },
     add() {
       let schemaTemplate = {
@@ -125,73 +112,6 @@ export default {
       this.groupModel.floorModel.splice(index, 1)
       this.groupSchema.floorSchema.splice(index, 1)
     },
-    submit(e, model, model2) {
-      console.log(this.model.time)
-    },
-    showTimePicker() {
-      const timePicker = this.$createTimePicker({
-        showNow: true,
-        minuteStep: 10,
-        delay: 15,
-        day: {
-          len: 30,
-          filter: ['今天', '明天', '后天'],
-          format: 'M月D日'
-        },
-        onSelect: (selectedTime, selectedText, formatedTime) => {
-          this.model.time = formatedTime
-        },
-      })
-      // timePicker.setTime(time)
-      timePicker.show()
-    },
-    selectItem2() {
-      if (!this.picker) {
-        this.picker = this.$createPicker({
-          title: 'Picker',
-          data: [column3],
-          onSelect: this.selectHandle,
-          onCancel: this.cancelHandle
-        })
-      }
-      this.picker.show()
-    },
-    selectItem1() {
-      if (!this.picker) {
-        this.picker = this.$createPicker({
-          title: 'Picker',
-          data: [column2],
-          onSelect: this.selectHandle,
-          onCancel: this.cancelHandle
-        })
-      }
-      this.picker.show()
-    },
-    selectFloor() {
-      if (!this.picker) {
-        this.picker = this.$createPicker({
-          title: 'Picker',
-          data: [column1],
-          onSelect: this.selectHandle,
-          onCancel: this.cancelHandle
-        })
-      }
-      this.picker.show()
-    },
-    selectHandle(selectedVal, selectedIndex, selectedText) {
-      this.$createDialog({
-        type: 'warn',
-        content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/> - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
-        icon: 'cubeic-alert'
-      }).show()
-    },
-    cancelHandle() {
-      this.$createToast({
-        type: 'correct',
-        txt: 'Picker canceled',
-        time: 1000
-      }).show()
-    }
   }
 }
 </script>

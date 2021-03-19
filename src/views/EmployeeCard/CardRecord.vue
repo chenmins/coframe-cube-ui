@@ -5,43 +5,43 @@
     >
       <div slot="fixed" class="top_fixed">
 
-        <Search class="search" style="border-bottom: none;" placeholder="搜索访客姓名" :value="value"></Search>
+        <Search class="search" style="border-bottom: none;" @search="search" placeholder="搜索访客姓名"
+                :value="value"></Search>
         <LayOut class="func">
-          <span @click="approveStatus" :style="status?'color:#0251FE':''">
-            {{ status || '审批状态' }}
+          <span @click="setSection" :style="section?'color:#0251FE':''">
+            {{ section || '部门' }}
           <i class="cubeic-select"></i>
           </span>
-          <span @click="cardStatus">员工卡状态
+          <span @click="setState" :style="state?'color:#0251FE':''">{{ state || '员工卡状态' }}
           <i class="cubeic-select"></i>
           </span>
-          <span >到访日期
+          <span @click="setHandleDate" :style="handleDate?'color:#0251FE':''">{{ handleDate || '办理日期' }}
           <i class="cubeic-select"></i>
           </span>
         </LayOut>
       </div>
-      <Card v-for="reserve in cardManageLists" @clicked="$router.push({name:'Card',params:{id:1}})">
-        <div  class="card_item"  >
+      <Card v-for="reserve in cardManageLists"
+            @clicked="$router.push({name:'Card',params:{id:reserve.code,cardInfo:reserve}})">
+        <div class="card_item">
           <div class="title">
             <div class="dot"></div>
-            <span>{{reserve.type}}</span>
+            <span>{{ reserve.userName }}</span>
           </div>
           <div class="content">
-            <p><span class="titou">姓名 </span> {{ reserve.userName }}</p>
-            <p><span class="titou">员工卡状态</span> <span >{{reserve.state}}</span></p>
-            <p><span class="titou">楼层权限</span> <span v-for="i in JSON.parse(reserve.floorAuthority)">{{i['which']+'-'+i['floor']+'-'+i['num']}}</span></p>
-            <p><span class="titou">公司 </span> <span >{{ reserve.corporation}}</span></p>
-            <p><span class="titou">部门 </span> <span >{{ reserve.section}}</span></p>
+            <p><span class="titou">办理时间 </span> <span>{{ reserve.type }}</span></p>
+            <p><span class="titou">办理时间 </span>
+              <span>{{ $dayjs(reserve.handleTime).format('YYYY/MM/DD HH:mm:ss') }}</span></p>
+            <p><span class="titou">办理人部门 </span> <span>{{ reserve.section }}</span></p>
           </div>
           <div class="footer">
             修改
           </div>
-          <Tag color="#fff" class="tag" :background-color="reserve.approved?'#42b983':'#000'">
-            {{ !reserve.approved ? '待审批' : '已完成' }}
+          <Tag color="#fff" class="tag" :background-color="TYPE_MAP[reserve.state]"
+               :color="reserve.state==='注销'?'#666666':''">
+            {{ reserve.state }}
           </Tag>
         </div>
       </Card>
-
-
     </TitleNav>
   </div>
 </template>
@@ -50,7 +50,8 @@
 import Search from "@/components/Search";
 import Card from "@/components/UI/Card";
 import {WorkCartControllerImpl} from "@controller";
-import {mapActions, mapState} from "vuex";
+import {mapActions, mapMutations, mapState} from "vuex";
+
 
 export default {
   name: "CardRecord",
@@ -61,15 +62,21 @@ export default {
   },
   data() {
     return {
+      TYPE_MAP: {
+        "启用": "#40AD6E",
+        "待入园": "#0099FF",
+        "冻结": "#F20404",
+        "审批中": "#F5BA39",
+        "注销": "#EDEDED",
+      },
       value: '',
-      reserves:[],
-      pickerData:[]
+      reserves: [],
+      pickerData: []
     }
   },
-  async created() {
-    // await  this.queryWorkCardAll()
+  created() {
+    this.queryWorkCardAll({})
     // this.reserves = this.$store.state.Guest.reserves
-    console.log(this.cardManageLists)
     this.pickerData = [
       {text: '近30天', value: '近30天'},
       {text: '近7天', value: '近7天'},
@@ -78,169 +85,214 @@ export default {
     ]
     // this.getCardList()
   },
-  methods:{
-      //todo 不带参数就会报错;接口问题
-    async getCardList(){
+  methods: {
+    ...mapActions('EmployeeCard', ['queryWorkCardAll']),
+    ...mapMutations('EmployeeCard', ['setCardManageLists']),
+    async getCardList() {
       let resp
-      resp = await this.dispatch(WorkCartControllerImpl.queryWorkCardAll,{"state":"启用"})
+      resp = await this.dispatch(WorkCartControllerImpl.queryWorkCardAll, {"state": "启用"})
       console.log(resp)
     },
-    approveStatus1() {
+    search(e) {
+      this.userName = e
+      this.selectHandle()
+    },
+     setHandleDate() {
       if (!this.picker) {
         this.picker = this.$createPicker({
           title: '',
           data: [this.pickerData],
-          onSelect: this.selectHandle,
+          onSelect: (item, index) => {
+            let test
+            this.queryWorkCardAll({}).then(()=>{
+              console.log(this.cardManageLists)
+              if (item[0].includes('30')) {
+                test = this.cardManageLists.filter(i => {
+                  return this.$dayjs(i.handleTime).isBetween(this.$dayjs().format('YYYY-MM-DD'), this.$dayjs().subtract(1, 'month').format('YYYY-MM-DD'))
+                })
+                this.handleDate = item[0]
+                this.setCardManageLists(test)
+              } else if (item[0].includes('7')) {
+                test = this.cardManageLists.filter(i => {
+                  return this.$dayjs(i.handleTime).isBetween(this.$dayjs().format('YYYY-MM-DD'), this.$dayjs().subtract(7, 'day').format('YYYY-MM-DD'))
+                })
+                this.handleDate = item[0]
+                this.setCardManageLists(test)
+              }else if(item[0]==='全部'){
+                this.handleDate = item[0]
+                this.queryWorkCardAll({})
+              }else if(item[0]==='自定义时间'){
+                if (!this.datePicker) {
+                  this.datePicker = this.$createDatePicker({
+                    title: 'Date Picker',
+                    min: new Date(2000, 7, 8),
+                    max: new Date(2099, 12, 31),
+                    value: new Date(),
+                    onSelect:(date, selectedVal, selectedText)=>{
+                      this.handleDate = this.$dayjs(date).format('YYYY-MM-DD')
+                      this.selectHandle()
+                    }
+                  }).show()
+                }
+                // this.handleDate = item[0]
+              }
+            })
+
+
+
+
+          },
         })
       }
       this.picker.show()
     },
-    selectHandle(selectedVal, selectedIndex, selectedText) {
-      if (selectedIndex[0] === 3) {
-        this.showTimePicker()
-      }
-    },
-    approveStatus() {
+    setSection() {
       this.$createActionSheet({
         title: '',
         pickerStyle: true,
         data: [
           {
-            content: '待入园',
+            content: '部门1',
           },
           {
-            content: '安保核验通过',
+            content: '部门2',
           },
           {
-            content: '安保核验拒绝',
+            content: '部门3',
           },
           {
-            content: '行政审核中',
+            content: '部门4',
           },
           {
-            content: '已到访',
+            content: '部门5',
           },
           {
-            content: '行政审核拒绝',
+            content: '部门6',
           },
           {
-            content: '审批中  ',
+            content: '部门7',
           }
         ],
         onSelect: (item, index) => {
-          this.status = item.content
+          this.section = item.content
+          this.selectHandle()
         },
       }).show()
     },
-    cardStatus() {
+    setState() {
       this.$createActionSheet({
         title: '',
         pickerStyle: true,
         data: [
           {
+            content: '启用',
+          },
+          {
             content: '待入园',
           },
           {
-            content: '安保核验通过',
+            content: '冻结',
           },
           {
-            content: '安保核验拒绝',
+            content: '审批中',
           },
           {
-            content: '行政审核中',
-          },
-          {
-            content: '已到访',
-          },
-          {
-            content: '行政审核拒绝',
-          },
-          {
-            content: '审批中  ',
+            content: '注销',
           }
         ],
         onSelect: (item, index) => {
-          this.status = item.content
+          this.state = item.content
+          this.selectHandle()
         },
       }).show()
+    },
+    selectHandle() {
+      this.queryWorkCardAll({
+        state: this.state,
+        section: this.section,
+        handleDate: this.handleDate, //TODO 未实现
+        userName: this.userName
+      })
     },
   },
-  computed:{
-    ...mapState('EmployeeCard',['cardManageLists'])
+  computed: {
+    ...mapState('EmployeeCard', ['cardManageLists'])
   }
 }
 </script>
 
 <style scoped lang="stylus">
->>>.cube-scroll-wrapper
-  height  calc(100vh - 160px)
->>>#card
+>>> .cube-scroll-wrapper
+  height calc(100vh - 160px)
+
+>>> #card
   padding 0
 
 
 .card_item
-    .tag
-      padding 1px 5px 2px 6px
-      position absolute
-      right 8px
-      top 20px
-      font-size: 12px;
-      color: #FFFFFF;
-      line-height: 17px;
-      border-radius 10px
+  .tag
+    padding 1px 5px 2px 6px
+    position absolute
+    right 8px
+    top 20px
+    font-size: 12px;
+    color: #FFFFFF;
+    line-height: 17px;
+    border-radius 10px
 
-    .title
-      margin 0 10px
-      display flex
-      align-items center
-      padding 14px
-      font-size: 16px;
-      font-weight: 500;
-      color: #000000;
-      line-height: 22px;
+  .title
+    margin 0 10px
+    display flex
+    align-items center
+    padding 14px
+    font-size: 16px;
+    font-weight: 500;
+    color: #000000;
+    line-height: 22px;
 
-      .dot
-        height 3px
-        width 3px
-        border 2px solid #0099FF
-        border-radius 50%
-        margin-right 7px
+    .dot
+      height 3px
+      width 3px
+      border 2px solid #0099FF
+      border-radius 50%
+      margin-right 7px
 
-    .content
-      font-size: 14px;
-      padding 0 14px 14px
-      margin 0 10px 10px
-      p
-        margin-bottom 10px
-        font-size: 14px;
-        font-family: PingFangSC-Regular, PingFang SC;
-        font-weight: 400;
-        color: #999999;
-        line-height: 20px;
-    .footer
-      text-align center
-      border-top 1px solid rgba(#000 ,.09)
-      padding 12px
+  .content
+    font-size: 14px;
+    padding 0 14px 14px
+    margin 0 10px 10px
+
+    p
+      margin-bottom 10px
       font-size: 14px;
       font-family: PingFangSC-Regular, PingFang SC;
-      color: #000000;
+      font-weight: 400;
+      color: #999999;
       line-height: 20px;
-    .titou
-      margin-right 13px
-      text-align center
-      font-size: 12px;
-      font-family: PingFangSC-Regular, PingFang SC;
-      color: #333333;
-      line-height: 17px;
 
+  .footer
+    text-align center
+    border-top 1px solid rgba(#000, .09)
+    padding 12px
+    font-size: 14px;
+    font-family: PingFangSC-Regular, PingFang SC;
+    color: #000000;
+    line-height: 20px;
 
-
+  .titou
+    margin-right 13px
+    text-align center
+    font-size: 12px;
+    font-family: PingFangSC-Regular, PingFang SC;
+    color: #333333;
+    line-height: 17px;
 
 
 #card_record
   background: #F5F6FA;
-  height  100vh
+  height 100vh
   overflow: hidden;
+
   .top_fixed
     position: relative;
     z-index: 11;

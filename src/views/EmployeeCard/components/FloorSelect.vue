@@ -3,6 +3,9 @@
     <TitleNav
         bgc-color="#fff"
     >
+      <div slot="right">
+        <slot name="right"></slot>
+      </div>
       <LayOut style="padding-bottom: 60px" class="bgcolor">
         <slot>
 
@@ -33,8 +36,8 @@
       <cube-button type="submit">预览确认</cube-button>
     </div>
     <div class="footer two" v-else>
-      <cube-button type="submit" class="cancel" @click="$router.back()">上一步</cube-button>
-      <cube-button type="submit" class="confirm" @click="confirm">预览确认</cube-button>
+      <cube-button type="submit" class="cancel" @click="$router.back()">{{ cancelText?cancelText:"上一步" }}</cube-button>
+      <cube-button type="submit" class="confirm" @click="confirm">{{ confirmText?confirmText:'预览确认' }}</cube-button>
     </div>
 
   </div>
@@ -47,6 +50,8 @@ import {mapMutations, mapState} from "vuex";
 export default {
   name: "FloorSelect",
   props: {
+    confirmText:null,
+    cancelText:null,
     bgColor: {
       type: String,
       default: ''

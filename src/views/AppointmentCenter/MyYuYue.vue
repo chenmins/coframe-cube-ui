@@ -1,39 +1,61 @@
 <template>
-  <div style="height: 100vh;overflow:hidden;">
-    <ApproveContainer @changeHandle="changeHandle" class="clear-fix"   style="height: 154px" :tabs="tabs"
-                      :selectedLabel="selectedLabel">
+  <div style="height: 100vh; overflow: hidden">
+    <ApproveContainer
+      @changeHandle="changeHandle"
+      class="clear-fix"
+      style="height: 154px"
+      :tabs="tabs"
+      :selectedLabel="selectedLabel"
+    >
       <LayOut v-show="toggleBreak" class="switch_box">
         <span>仅显示违约记录</span>
-        <cube-switch class="switch" v-model="switchValue">
-        </cube-switch>
+        <cube-switch class="switch" v-model="switchValue"> </cube-switch>
       </LayOut>
       <template slot="default">
-        <div style="height:calc(100vh - 190px);overflow:hidden;">
+        <div style="height: calc(100vh - 190px); overflow: hidden">
           <cube-scroll ref="scroll" style="height: calc(100vh - 250px)">
-            <Card :reserve="approve" v-for="reserve in approves"
-                  @clicked="$router.push({name:'ApprovalDetail',params:{id:1}})"
+            <Card
+              v-for="reserve in listData"
             >
-              <div class="title">
-
+              <div class="title"  >
                 <div class="dot"></div>
-                <span>{{ reserve.title }}</span>
+                <span>{{ reserve.type }}</span>
               </div>
               <div class="content font-normal">
-                <p><span class="titou">预约时间 </span> <span v-for="i in reserve.name">{{ i }}，</span></p>
-                <p><span class="titou">预约地点 </span> <span v-for="i in reserve.where">{{ i }}，</span></p>
-                <p><span class="titou">提交时间 </span> {{ reserve.time }}</p>
+                <p>
+                  <span class="titou">预约时间 </span>
+                  <span >{{ $dayjs(reserve.startTime).format('YYYY/MM/DD HH:mm:ss')+'-'+$dayjs(reserve.endTime).format('HH:mm:ss') }}</span>
+                </p>
+<!--                <p>-->
+<!--                  <span class="titou">预约地点 </span>-->
+<!--                  <span v-for="i in reserve.where">{{ i }}，</span>-->
+<!--                </p>-->
+                <p><span class="titou">提交时间 </span>
+                  {{ $dayjs(reserve.appointmentTime).format('YYYY/MM/DD HH:mm:ss') }}
+                </p>
               </div>
-              <div class="right_bottom">
-                <span>取消</span>
+              <div class="right_bottom" v-show="!toggleBreak">
+                <span v-if="reserve.state==='已取消'">已取消</span>
+                <span v-else @click="updateCancel({barberId:reserve.id})" style="color: #333">取消</span>
               </div>
-              <template v-if="arrived">
-                <Tag v-if="!reserve.approved" color="#fff" class="tag" :background-color="reserve.approved?'#42b983':'#000'">
-                  待审批
-                </Tag>
-                <Icon v-else svg-name="guest-complete" class-name="svg_complete"></Icon>
+              <template v-if="reserve.state==='已签到'">
+<!--                <Tag-->
+<!--                  v-if="!reserve.approved"-->
+<!--                  color="#fff"-->
+<!--                  class="tag"-->
+<!--                  :background-color="reserve.approved ? '#42b983' : '#000'"-->
+<!--                >-->
+<!--                  待审批-->
+<!--                </Tag>-->
+                <Icon  svg-name="guest-complete" class-name="svg_complete"></Icon>
               </template>
-              <template v-else>
-                <Icon class-name="tag" svg-name="guest-arrived" height="80px" width="80px"></Icon>
+              <template v-else-if="reserve.state==='已违约'">
+                <Icon
+                  class-name="tag"
+                  svg-name="break"
+                  height="80px"
+                  width="80px"
+                ></Icon>
               </template>
             </Card>
           </cube-scroll>
@@ -47,50 +69,70 @@
 import SlideNav from "@/components/Cultural/SlideNav";
 import ApproveContainer from "@/components/UI/ApproveContainer";
 import Card from "@/components/UI/Card";
+import {mapActions, mapState,mapMutations} from "vuex";
 
 export default {
   name: "MyYuYue",
   components: {
     ApproveContainer,
-    SlideNav,Card
+    SlideNav,
+    Card,
   },
   data() {
     return {
-      toggleBreak:false,
+      toggleBreak: false,
       checked: false,
       show: false,
-      selectedLabel: '预约成功',
+      selectedLabel: "预约成功",
       approves: [],
-      arrived:false,
+      arrived: false,
       tabs: [
         {
-          label: '预约成功'
-        }, {
-          label: '已完成'
-        }
-      ]
-    }
+          label: "预约成功",
+        },
+        {
+          label: "已完成",
+        },
+      ],
+      switchValue:false,
+      listData:this.selfApply
+    };
   },
   created() {
-    this.approves = this.$store.state.Guest.approves.filter(i => i.approved === false)
-
+    this.queryByState({state:'预约成功'})
+  },
+  computed:{
+    ...mapState('order',['selfApply'])
   },
   methods: {
-    changeHandle(e){
-      this.toggleBreak = false
-      if(e==='已完成'){
-        this.toggleBreak = true
+    ...mapMutations('order', ['setState']),
+    ...mapActions('order',['queryByState','updateCancel']),
+    changeHandle(e) {
+      this.toggleBreak = false;
+      if (e === "已完成") {
+        this.queryByState({state:'已完成'})
+        this.toggleBreak = true;
+      }else {
+        this.queryByState({state:'预约成功'})
       }
     },
-    LabelChanged(e) {
-      if (e === '已完成') {
-        this.show = true
+  },
+  watch:{
+    selfApply:{
+      immediate:true,
+      handler(newV, oldV) {
+        this.listData = newV
+      }
+    },
+    switchValue(newV,oldV){
+      if(newV){
+        this.listData = this.selfApply.filter(i=>i.state==='已违约')
         return
       }
-      this.show = false
+      this.listData = this.selfApply
     }
-  },
-}
+  }
+};
 </script>
 
 <style scoped lang="stylus">
@@ -278,5 +320,4 @@ footer
   color: #FFFFFF;
   line-height: 17px;
   border-radius 10px
-
 </style>

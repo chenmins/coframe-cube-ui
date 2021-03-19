@@ -211,9 +211,12 @@ const MainMenu = {
                 localStorage.removeItem('admin')
                 removeToken()
                 router.replace('/login')
-              } else {
+
+            } else {
                 console.log('error')
-              }
+
+            }
+
         }
     },
     getters: {

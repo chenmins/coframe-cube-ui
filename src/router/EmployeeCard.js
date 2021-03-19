@@ -125,7 +125,7 @@ export default [
             showNav: true,
             backRouter: 'CardRecord',
         },
-        component: () => import('@/views/EmployeeCard/CreateCard')
+        component: () => import('@/views/EmployeeCard/Card')
     },
     {
         path: '/Preview/:id',

@@ -2,16 +2,16 @@
   <div id="yuyue_success">
     <header>
       <img class="success_icon" src="../../assets/icons/yuyue-success.png" alt="">
-      <div>理发室签到成功</div>
+      <div>预约成功</div>
     </header>
     <div class="container">
       <div class="border_bold"></div>
       <div class="box">
-        <h1>理发室-护理</h1>
+        <h1>{{ $route.params.item }}-{{ $route.params.info.type }}</h1>
         <div class="box_content">
-          <div>姓名：<span>易烊千玺</span></div>
-          <div>部门：<span>技术部</span></div>
-          <div>时间：<span>今天 12:00-13:00</span></div>
+          <div>姓名：<span>{{userInfo.name}}</span></div>
+          <div>部门：<span>{{$route.params.info.action}}</span></div>
+          <div>时间：<span>{{$dayjs($route.params.info.startTime).format('HH:mm')+ '-' + $dayjs($route.params.info.endTime).format('HH:mm')}}</span></div>
         </div>
       </div>
     </div>
@@ -28,6 +28,9 @@ export default {
     done(){
       this.$router.push({name:'YuYueCenter'})
     }
+  },
+  created() {
+    console.log()
   }
 }
 </script>

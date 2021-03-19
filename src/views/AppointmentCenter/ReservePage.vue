@@ -12,9 +12,10 @@
                   :option="{
                       label: item.type,
                       value: item.id,
+                      disabled:item.quota<=0 || !$dayjs().isBefore($dayjs(item.endTime))
                   }"
                   v-model="selected4">
-                <Card :class="item.quota>0?'card':'card over'">
+                <Card :class="item.quota>0 && $dayjs().isBefore($dayjs(item.endTime))?'card':'card over'">
                   <header>{{ item.type }}</header>
                   <div style="height: 40px;line-height: 40px" class="time">
                     {{ $dayjs(item.startTime).format('YYYY/MM/D HH:mm:ss') + '-' + $dayjs(item.endTime).format('HH:mm:ss') }}
@@ -56,7 +57,9 @@
       </template>
     </ApproveContainer>
     <footer>
-      <cube-button @click="addBarberUser({id:selected4}).then(()=>$router.push('/YuYueSuccess'))">立即预约</cube-button>
+      <cube-button @click="addBarberUser({id:selected4}).then(()=>$router.push({name:'YuYueSuccess',params:{
+         info: public.barber.find(i=>i.id === selected4),item:  $route.params.item
+      }}))">立即预约</cube-button>
     </footer>
   </div>
 </template>
@@ -92,12 +95,9 @@ export default {
       ]
     }
   },
-  mounted() {
-  },
   methods: {
     ...mapActions('order',['addBarberUser']),
     changeHandle(e) {
-      console.log(e)
       this.yuyue = !this.yuyue
     }
   },
@@ -175,7 +175,8 @@ export default {
     header, >>> .cube-radio-wrap, .btn
       color #CCCCCC !important
       border-color #CCCCCC !important
-
+    .time
+      color #CCCCCC !important
   .card
     text-align center !important
     header

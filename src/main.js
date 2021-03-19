@@ -29,7 +29,8 @@ import isoWeek from 'dayjs/plugin/isoWeek'
 import DayOfYear from 'dayjs/plugin/dayOfYear'
 import useCalendar from 'dayjs/plugin/calendar'
 import IsLeapYear from 'dayjs/plugin/isLeapYear'
-dayjs.extend(isoWeek).extend(DayOfYear).extend(useCalendar).extend(IsLeapYear)
+import isBetween from  'dayjs/plugin/isBetween'
+dayjs.extend(isoWeek).extend(DayOfYear).extend(useCalendar).extend(IsLeapYear).extend(isBetween)
 
 
 Vue.config.productionTip = false

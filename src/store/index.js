@@ -31,7 +31,6 @@ const store = new Vuex.Store({
     mutations: {
         setStateVar(state,payload){
             const _this = payload.state
-            console.log(_this[`${payload.key}`] )
             _this[`${payload.key}`] =  payload.value
         },
         setEposition(state, payload) {

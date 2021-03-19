@@ -94,7 +94,14 @@ export default {
         "username": model.inputValue,
         "password": model.passwordValue
       }
-      let resp = await this.dispatch(AuthApiController.login, data)
+      let resp
+      try {
+        resp= await this.dispatch(AuthApiController.login, data)
+
+      }catch (e) {
+        toast.hide()
+      }
+
       if (!resp.error) {
         this.$store.commit('setUseInfo', resp.data)
         localStorage.setItem('admin', resp.data.admin)
@@ -112,7 +119,6 @@ export default {
       } else {
         console.log('error')
       }
-
     }
 
   }

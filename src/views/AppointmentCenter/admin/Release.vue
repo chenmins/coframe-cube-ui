@@ -1,129 +1,64 @@
 <template>
-    <TitleNav id="Release" color="#fff" bgc-color="#3642FF">
-      <template v-slot:fixed>
-        <h1>
-          <span>{{ date.month }}月</span>/{{ date.year }}
-        </h1>
-        <Calendar
-            @click="demo"
-            ref="Calendar"
-            title="日历"
-            :default-date="new Date()"
-            :poppable="false"
-            :show-confirm="false"
-            :formatter="formatter"
-            :min-date="minDate"
-            :max-date="maxDate"
-            color="#fff"
-            :style="show ? 'overflow:hidden;height:95px;' : 'height:420px;'"
-        />
-        <i class="cubeic-select" @click="toggle"></i>
-        <div  class="content">
-          <FuncBtn @clicked="$router.push({name:'AdminRelease'})">发布</FuncBtn>
-          <div class="scroll-list-wrap">
-            <cube-scroll
-                ref="scroll"
-                style="height:calc(100% - 80px)"
-            >
-              <LayOut class="item">
-                <header>
-                  <div style="width: 100%">
-                    <div class="type">洗发</div>
-                    <div
-                        style="display: flex; justify-content: space-between; align-items: center"
-                    >
-                      <span>美发去屑、保湿护理</span>
-                      <p class="time">2020-12-30</p>
-                    </div>
+  <TitleNav id="Release" color="#fff" bgc-color="#3642FF">
+    <template v-slot:fixed>
+      <h1 @click="selectMonth">
+        <span>{{ date.month }}月</span>/{{ date.year }}
+      </h1>
+      <Calendar
+          @select="setDate"
+          ref="Calendar"
+          title="日历"
+          :default-date="defaultDate"
+          :poppable="false"
+          :show-confirm="false"
+          :formatter="formatter"
+          :min-date="minDate"
+          :max-date="maxDate"
+          color="#fff"
+          :style="show ? 'overflow:hidden;height:95px;' : 'height:420px;'"
+      />
+      <i class="cubeic-select" @click="toggle"></i>
+      <div class="content">
+        <FuncBtn @clicked="$router.push({name:'AdminRelease'})">发布</FuncBtn>
+        <div class="scroll-list-wrap">
+          <cube-scroll
+              ref="scroll"
+              style="height:calc(100% - 80px)"
+          >
+            <LayOut class="item" v-for="(item,key,index) in dayData">
+              <header>
+                <div style="width: 100%">
+                  <div class="type">{{ key }}</div>
+                  <div
+                      style="display: flex; justify-content: space-between; align-items: center"
+                  >
+                    <span>美发去屑、保湿护理</span>
+                    <p class="time">2020-12-30</p>
                   </div>
-                  <i class="cubeic-edit" @click="releaseEdit"></i>
-                </header>
-                <main>
-                  <div class="num_box clear-fix">
-                    <div class="num">9:00-10:00 <span>1人</span></div>
-                    <div class="num">9:00-10:00 <span>1人</span></div>
-                    <div class="num">9:00-10:00 <span>1人</span></div>
-                    <div class="num">9:00-10:00 <span>1人</span></div>
-                  </div>
-                </main>
-              </LayOut>
-              <LayOut class="item">
-                <header>
-                  <div style="width: 100%">
-                    <div class="type">洗发</div>
-                    <div
-                        style="display: flex; justify-content: space-between; align-items: center"
-                    >
-                      <span>美发去屑、保湿护理</span>
-                      <p class="time">2020-12-30</p>
-                    </div>
-                  </div>
-                  <i class="cubeic-edit" @click="releaseEdit"></i>
-                </header>
-                <main>
-                  <div class="num_box clear-fix">
-                    <div class="num">9:00-10:00 <span>1人</span></div>
-                    <div class="num">9:00-10:00 <span>1人</span></div>
-                    <div class="num">9:00-10:00 <span>1人</span></div>
-                    <div class="num">9:00-10:00 <span>1人</span></div>
-                  </div>
-                </main>
-              </LayOut>
-              <LayOut class="item">
-                <header>
-                  <div style="width: 100%">
-                    <div class="type">洗发</div>
-                    <div
-                        style="display: flex; justify-content: space-between; align-items: center"
-                    >
-                      <span>美发去屑、保湿护理</span>
-                      <p class="time">2020-12-30</p>
-                    </div>
-                  </div>
-                  <i class="cubeic-edit" @click="releaseEdit"></i>
-                </header>
-                <main>
-                  <div class="num_box clear-fix">
-                    <div class="num">9:00-10:00 <span>1人</span></div>
-                    <div class="num">9:00-10:00 <span>1人</span></div>
-                    <div class="num">9:00-10:00 <span>1人</span></div>
-                    <div class="num">9:00-10:00 <span>1人</span></div>
-                  </div>
-                </main>
-              </LayOut>
-              <LayOut class="item">
-                <header>
-                  <div style="width: 100%">
-                    <div class="type">洗发</div>
-                    <div
-                        style="display: flex; justify-content: space-between; align-items: center"
-                    >
-                      <span>美发去屑、保湿护理</span>
-                      <p class="time">2020-12-30</p>
-                    </div>
-                  </div>
-                  <i class="cubeic-edit" @click="releaseEdit"></i>
-                </header>
-                <main>
-                  <div class="num_box clear-fix">
-                    <div class="num">9:00-10:00 <span>1人</span></div>
-                    <div class="num">9:00-10:00 <span>1人</span></div>
-                    <div class="num">9:00-10:00 <span>1人</span></div>
-                    <div class="num">9:00-10:00 <span>1人</span></div>
-                  </div>
-                </main>
-              </LayOut>
-            </cube-scroll>
-          </div>
+                </div>
+                <i class="cubeic-edit" @click="releaseEdit(key)"></i>
+              </header>
+              <main>
+                <div class="num_box clear-fix">
+                  <div v-for="time in item" class="num">{{
+                      $dayjs(time.startTime).format('HH:mm') + '-' + $dayjs(time.endTime).format('HH:mm')
+                    }}<span>{{ time.quota }}人</span></div>
+                </div>
+              </main>
+            </LayOut>
 
+          </cube-scroll>
         </div>
-      </template>
-    </TitleNav>
+
+      </div>
+    </template>
+  </TitleNav>
 </template>
 
 <script>
 import {Calendar} from "vant";
 import FuncBtn from "@/views/AppointmentCenter/components/funcBtn";
+import {mapActions, mapState} from "vuex";
 
 const WEEK_MAP = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 export default {
@@ -137,36 +72,88 @@ export default {
         day: this.$dayjs().format("DD"),
       },
       show: true,
-      minDate: new Date(2021, 2, 1),
-      maxDate: new Date(2021, 2, 31),
-    };
+      minDate: this.$dayjs().toDate(),
+      maxDate: this.$dayjs().add(1, 'month').toDate(),
+      defaultDate: new Date(),
+      selectedDate: new Date(),
+      dayData: null
+    }
   },
   created() {
-  },
-  mounted() {
+    this.queryByMonth({
+      month: this.$dayjs().format('YYYY-MM-DD')
+    }).then(() => {
+      for (let i in this.allDayData) {
+        this.dayData = this.allDayData[this.$dayjs().format('YYYY-M-D')]
+      }
+
+    })
     // van-calendar__days
-    this.setScroll();
 
   },
+  mounted() {
+    this.setScroll();
+  },
+  computed: {
+    ...mapState('order', ['allDayData'])
+  },
   methods: {
-    setScroll() {
+    ...mapActions('order', ['queryByMonth']),
+    selectMonth() {
+      this.timePicker = this.$createDatePicker({
+        title: 'Time Picker',
+        min: this.$dayjs().toDate(),
+        max: this.$dayjs().add(3, 'year').toDate(),
+        value: this.$dayjs().toDate(),
+        columnCount: 3,
+        onSelect: (v1) => {
+          this.date.year = this.$dayjs(v1).format('YYYY')
+          this.date.month = this.$dayjs(v1).format('MM')
+          this.date.day = this.$dayjs(v1).format('DD')
+          this.minDate = this.$dayjs(this.date.year+'-'+this.date.month).toDate()
+          this.maxDate = this.$dayjs(v1).add(1, 'month').toDate()
+          this.$refs.Calendar.reset(this.$dayjs(v1).toDate());
+          this.setScroll(v1)
+        }
+      }).show()
+    },
+    setScroll(day) {
       document.querySelector(".van-calendar__days").scrollLeft =
-          59.13 * this.$dayjs().subtract(3, "day").format("D");
+          59.13 * this.$dayjs(day).subtract(3, "day").format("D");
     },
-    releaseEdit() {
-      this.$router.push({name: "AdminReleaseEdit", params: {id: 1}});
+    releaseEdit(item) {
+      this.$router.push({
+        name: "AdminReleaseEdit",
+        params: {key: item, date: this.$dayjs(this.selectedDate).format('YYYY-MM-DD'), data: this.dayData[item],}
+      });
     },
-    demo() {
-      console.log("demo");
+    setDate(day) {
+      this.selectedDate = day
+      this.queryByMonth({
+        month: this.$dayjs(day).format('YYYY-MM-DD')
+      })
+      this.dayData = this.allDayData[this.$dayjs(day).format('YYYY-M-D')]
     },
     formatter(day) {
+      day.className = "my_date";
+      let bottomInfo = ''
+
+      for (let allDayDataKey in this.allDayData) {
+        if (this.$dayjs(day.date).format('YYYY-M-D') === allDayDataKey) {
+          day.className = 'my_date has_item'
+          let secondData = this.allDayData[allDayDataKey]
+          for (let key in secondData) {　　//遍历对象的所有属性，包括原型链上的所有属性
+            if (secondData.hasOwnProperty(key)) { //判断是否是对象自身的属性，而不包含继承自原型链上的属性
+              bottomInfo = bottomInfo + key.substr(0, 1) + '/'
+            }
+          }
+        }
+        day.bottomInfo = bottomInfo.substring(0, bottomInfo.length - 1)
+      }
       day.topInfo = WEEK_MAP[this.$dayjs(day.date).day()];
       // day.bottomInfo = '入住';
-      day.className = "my_date";
-      day.bottomInfo = "问/拿/疗";
+
       return day;
-    },
-    onChange() {
     },
     toggle() {
       let container = document.querySelector(".van-calendar__days");
@@ -181,8 +168,22 @@ export default {
 </script>
 <style scoped lang="stylus"></style>
 <style scoped lang="stylus">
->>>.scroll-list-wrap
+>>> .has_item
+  position relative
+
+>>> .has_item:after
+  content ''
+  display block
+  height 4px
+  width 4px
+  background-color #fff
+  position absolute
+  bottom 20px
+  border-radius 50%
+
+>>> .scroll-list-wrap
   height calc(100vh - 300px)
+
 >>> .van-calendar__top-info, >>> .van-calendar__bottom-info {
   color: #fff;
 }
@@ -254,6 +255,7 @@ export default {
   border-radius: 1px;
   height 100vh
   overflow: hidden;
+
   .bg {
     width: 153px;
     height: 138px;
@@ -291,6 +293,7 @@ export default {
     padding: 20px 12px;
     background: linear-gradient(131deg, #50FEFF 0%, #CCFFA2 100%);
     border-radius: 20px 20px 0px 0px;
+
     .reserve {
       margin-bottom: 14px;
       height: 30px;

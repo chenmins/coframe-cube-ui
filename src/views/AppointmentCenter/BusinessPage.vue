@@ -127,7 +127,7 @@ export default {
         type: val.type,
         date: this.$dayjs().format('YYYY-') + this.model.time
       })
-      await this.$router.push({name: 'ReservePage'})
+      await this.$router.push({name: 'ReservePage',params:{item:this.$route.params.id}})
     },
     selectType() {
       if (!this.TypePicker) {

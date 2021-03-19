@@ -141,16 +141,22 @@ ajaxUtil.myRequest = (action, payload) => {
           }
         }
 
-        resolve(response)
+        resolve(response)   //error
       })
       .catch(res => {
+        console.log(res.response)
+        // console.log('ajax catch')
+        // console.log(JSON.parse(JSON.stringify(res)))
+        // console.log(res.errorMsg)
         if (res.response.status === 401) {
           Toast.$create({
             txt: res.response.data.message,
             time: 1000,
             onTimeout: () => {
               localStorage.removeItem('Token')
-              router.replace('/login')
+              router.replace('/login').then(() => {
+                reject(res.response)
+              })
             }
           }).show()
         }

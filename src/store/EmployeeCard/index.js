@@ -201,10 +201,15 @@ const EmployeeCard = {
         },
     },
     mutations: {
+         setCardManageLists(state,payload){
+            state.cardManageLists = payload
+        },
         setFloorModel(state, payload) {
             state.groupModel.floorModel = payload
         },
-
+        setFirstModel(state, payload) {
+            state.groupModel.firstModel = payload
+        },
         setCardInfo(state, payload) {
             state.cardInfo = payload
         },
@@ -307,19 +312,25 @@ const EmployeeCard = {
                 }, { root: true })
             }
         },
-        async queryWorkCardAll(context){
+        async queryWorkCardAll(context,payload){  //可以当作搜索接口
             let resp
             const { rootState, state, commit } = context
-            resp = await window.vue.dispatch(WorkCartControllerImpl.queryWorkCardAll, {
-                "userName": "liuwb"
-            })
+            resp = await window.vue.dispatch(WorkCartControllerImpl.queryWorkCardAll, payload)
             if(!resp.error){
-                console.log(resp);
                 commit('setStateVar', {
                     state: state,
                     key: 'cardManageLists',
                     value: resp.data.body
                 }, { root: true })
+                return
+            }
+        },
+        async updateWorkCard(context,payload){
+            let resp 
+            resp = await window.vue.dispatch(WorkCartControllerImpl.updateWorkCard,payload)
+            if(!resp.error){
+                console.log(resp);
+                return 
             }
         }
 

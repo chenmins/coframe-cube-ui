@@ -52,17 +52,6 @@ let HealthApiController = {
     getHealthInfo: {controller: 'HealthApiController' , method: 'getHealthInfo'}, // 获取人员健康信息
     updateHealthInfo: {controller: 'HealthApiController' , method: 'updateHealthInfo'}, // 根据人员id更新人员健康录入信息
 };
- //日程
-let ScheduleControllerImpl = {
-    __name: 'ScheduleControllerImpl',
-    addParSchedule: {controller: 'ScheduleControllerImpl' , method: 'addParSchedule'}, // 新增一个参与人
-    addSchedule: {controller: 'ScheduleControllerImpl' , method: 'addSchedule'}, // 新增一个日程
-    delParSchedule: {controller: 'ScheduleControllerImpl' , method: 'delParSchedule'}, // 删除一个参与人
-    deleteSchedule: {controller: 'ScheduleControllerImpl' , method: 'deleteSchedule'}, // 删除一个日程
-    queryScheduleByMM: {controller: 'ScheduleControllerImpl' , method: 'queryScheduleByMM'}, // 根据时间区间查询日程列表
-    updateAgree: {controller: 'ScheduleControllerImpl' , method: 'updateAgree'}, // 确认同意或拒绝
-    updateSchedule: {controller: 'ScheduleControllerImpl' , method: 'updateSchedule'}, // 修改一个日程
-};
  //文化建设
 let CulturalControllerImpl = {
     __name: 'CulturalControllerImpl',
@@ -88,6 +77,17 @@ let WorkCartControllerImpl = {
     review: {controller: 'WorkCartControllerImpl' , method: 'review'}, // 审核
     updateWorkCard: {controller: 'WorkCartControllerImpl' , method: 'updateWorkCard'}, // 修改员工卡信息
 };
+ //日程
+let ScheduleControllerImpl = {
+    __name: 'ScheduleControllerImpl',
+    addParSchedule: {controller: 'ScheduleControllerImpl' , method: 'addParSchedule'}, // 新增一个参与人
+    addSchedule: {controller: 'ScheduleControllerImpl' , method: 'addSchedule'}, // 新增一个日程
+    delParSchedule: {controller: 'ScheduleControllerImpl' , method: 'delParSchedule'}, // 删除一个参与人
+    deleteSchedule: {controller: 'ScheduleControllerImpl' , method: 'deleteSchedule'}, // 删除一个日程
+    queryScheduleByMM: {controller: 'ScheduleControllerImpl' , method: 'queryScheduleByMM'}, // 根据时间区间查询日程列表
+    updateAgree: {controller: 'ScheduleControllerImpl' , method: 'updateAgree'}, // 确认同意或拒绝
+    updateSchedule: {controller: 'ScheduleControllerImpl' , method: 'updateSchedule'}, // 修改一个日程
+};
  //预约中心
 let BarberControllerImpl = {
     __name: 'BarberControllerImpl',
@@ -95,7 +95,7 @@ let BarberControllerImpl = {
     addBarberUser: {controller: 'BarberControllerImpl' , method: 'addBarberUser'}, // 预约理发室
     deleteBarber: {controller: 'BarberControllerImpl' , method: 'deleteBarber'}, // 删除一个发布的理发室信息
     queryAll: {controller: 'BarberControllerImpl' , method: 'queryAll'}, // 管理员查询全部预约情况
-    queryByDate: {controller: 'BarberControllerImpl' , method: 'queryByDate'}, // 根据日期进行查询预约情况
+    queryByMonth: {controller: 'BarberControllerImpl' , method: 'queryByMonth'}, // 根据日期进行查询预约情况
     queryByState: {controller: 'BarberControllerImpl' , method: 'queryByState'}, // 根据预约状态查询理发室的预约情况
     queryByTypeAndDate: {controller: 'BarberControllerImpl' , method: 'queryByTypeAndDate'}, // 根据预约类型和日期查询理发室的预约情况  名额
     updateBarber: {controller: 'BarberControllerImpl' , method: 'updateBarber'}, // 修改发布的理发室信息
@@ -109,8 +109,8 @@ export {
     AuthApiController,
     PipeReportController,
     HealthApiController,
-    ScheduleControllerImpl,
     CulturalControllerImpl,
     WorkCartControllerImpl,
+    ScheduleControllerImpl,
     BarberControllerImpl,
 };
