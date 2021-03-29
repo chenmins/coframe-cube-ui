@@ -1,5 +1,4 @@
 import state from './state'
-import Vue from 'vue'
 import router from '@/router'
 import {CulturalControllerImpl, DictApiController} from '@controller'
 import {Toast} from 'cube-ui'
@@ -43,10 +42,10 @@ const Cultural = {
                 3:state.selectedTopic?.length,
             }
             return {
-                files:IF_MAP[1]?state.files:[],
-                query:IF_MAP[2]?state.sendForm:{
+                files: IF_MAP[1] ? state.files : [],
+                query: IF_MAP[2] ? state.sendForm : {
                     body: "",
-                    comments:[],
+                    comments: [],
                     choice: "choice" + Math.random(),
                     picture: "",
                     title: "title" + Math.random(),
@@ -54,7 +53,7 @@ const Cultural = {
                     topicOfConversationName: "",
                     type: "type" + Math.random(),
                 },
-                topic:IF_MAP[3]?state.selectedTopic:[]
+                topic: IF_MAP[3] ? state.selectedTopic : []
             }
         }
     }

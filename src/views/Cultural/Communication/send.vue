@@ -44,7 +44,7 @@
         ></Icon>
       </div>
       <div class="topic_list" @click="selectTopic" ref="topicBtn">
-        <div v-if="topic[0].length === 0">#打标签</div>
+        <div v-if="topic.length === 0">#打标签</div>
         <div v-else>#{{ topic[0].name }}</div>
       </div>
     </div>
@@ -83,10 +83,12 @@ export default {
     };
   },
   created() {
-    let res = this.formInit()
-    this.files = res.files
-    this.query = res.query
-    this.topic = res.topic
+      let res = this.formInit({})
+    this.files = res?.files || []
+    this.query = res?.query || {}
+    this.topic = res?.topic || []
+
+    console.log(this.formInit({}))
   },
   methods: {
     ...mapMutations('Cultural',['setStateVar','formInit']),
