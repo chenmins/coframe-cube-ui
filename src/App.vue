@@ -1,8 +1,6 @@
 <template>
   <div id="app">
-    <transition name="slide-fade">
-      <router-view />
-    </transition>
+      <router-view/>
     <div class="write" v-if="$route.meta.tag === '需求反馈'" @click="Replay">
       <Icon class-name="write_svg" svg-name="edit" height="24px" width="24px"></Icon>
     </div>
@@ -32,13 +30,24 @@ export default {
       });
     },
     Replay() {
-      this.$router.push({ name: "Replay" });
+      this.$router.push({name: "Replay"});
     },
   },
 };
 </script>
 
 <style lang="stylus">
+.cube-btn:active {
+  background: linear-gradient(180deg, #19e8ff 0%, #0f97fb 100%);
+}
+.cube-picker-confirm{
+  transition:all .2s ease;
+}
+.cube-picker-confirm:active{
+  color:#09f;
+  transform:scale(0.9);
+}
+
 .loading_cover
   height 100%
   width 100%
@@ -223,11 +232,11 @@ export default {
 }
 
 .slide-fade-enter-active {
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 }
 
 .slide-fade-leave-active {
-  transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1) revert;
+  transition: all 0.2s ease;
 }
 
 .slide-fade-enter,

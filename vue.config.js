@@ -19,6 +19,7 @@ function createServerConfig(compilation) {
     }, config)
   )
 }
+process.traceDeprecation = true
 
 module.exports = {
   configureWebpack: {   //swagger 关闭amd loader,

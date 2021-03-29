@@ -30,7 +30,7 @@ const order = {
           key: 'barber',
           value: resp.data.body
         })
-        return
+
       }
     },
 
@@ -40,7 +40,7 @@ const order = {
         barberId: payload.id
       })
       if (!resp.error) {
-        return
+
       }
     },
     async queryByState(context, payload) {
@@ -88,7 +88,7 @@ const order = {
       resp = await window.vue.dispatch(BarberControllerImpl.updateBarber,payload)
       if(!resp.error){
         console.log(resp);
-        return 
+
       }
     },
     async updateCancel(context,payload){
@@ -96,9 +96,17 @@ const order = {
       resp = await window.vue.dispatch(BarberControllerImpl.updateCancel,payload)
       if(!resp.error){
         await context.dispatch('queryByState', {state:'预约成功'})
+
+      }
+    },
+    async updateSign(context,payload){
+      let resp
+      resp = await window.vue.dispatch(BarberControllerImpl.updateSign,payload)
+      if(!resp.error) {
         return
       }
     }
+
   },
   getters:{
     toggleState: (state,getter) =>{

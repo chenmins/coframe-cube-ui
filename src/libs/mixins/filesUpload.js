@@ -73,7 +73,7 @@ export default {
                 await this.imageUpload(url, files[i].file)
 
 
-                let changedUrl = url.split('?')[0].split('/')[4] + '/' + url.split('?')[0].split('/')[5] // todo 测试
+                let changedUrl = url.split('?')[0].split('/')[4] + '/' + url.split('?')[0].split('/')[5]
                 picture = picture + `${changedUrl},`
 
                 // picture = picture + changedUrl.join('/') + this.$config.imgSize;

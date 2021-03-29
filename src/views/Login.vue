@@ -104,7 +104,9 @@ export default {
 
       if (!resp.error) {
         this.$store.commit('setUseInfo', resp.data)
-        localStorage.setItem('admin', resp.data.admin)
+        if(resp.data.admin){
+          localStorage.setItem('admin', resp.data.admin)
+        }
         localStorage.setItem('Token', resp.data.token)
         setToken(resp.data.token)
         toast.hide()

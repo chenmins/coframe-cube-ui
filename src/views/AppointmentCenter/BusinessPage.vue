@@ -11,13 +11,13 @@
         <cube-form-item :field="schema.groups.fields[0]">
           <!--            @click="showTimePicker"-->
           <div class="time-show" @click="selectTime">{{ model.time || '请选择' }}
-            <i class="cubeic-arrow" style="float: right;margin-right: 16px"></i>
+            <i class="cubeic-arrow" style="float: right;"></i>
           </div>
         </cube-form-item>
         <cube-form-item :field="schema.groups.fields[1]">
           <!--            @click="showTimePicker"-->
           <div class="time-show" @click="selectType">{{ model.type || '请选择' }}
-            <i class="cubeic-arrow" style="float: right;margin-right: 16px"></i>
+            <i class="cubeic-arrow" style="float: right;"></i>
           </div>
         </cube-form-item>
         <cube-form-item>

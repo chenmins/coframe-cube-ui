@@ -1,61 +1,59 @@
-<template>
+<template xmlns="">
   <div style="height: 100vh; overflow: hidden">
     <ApproveContainer
-      @changeHandle="changeHandle"
-      class="clear-fix"
-      style="height: 154px"
-      :tabs="tabs"
-      :selectedLabel="selectedLabel"
+        @changeHandle="changeHandle"
+        class="clear-fix"
+        style="height: 154px"
+        :tabs="tabs"
+        :selectedLabel="selectedLabel"
     >
       <LayOut v-show="toggleBreak" class="switch_box">
         <span>仅显示违约记录</span>
-        <cube-switch class="switch" v-model="switchValue"> </cube-switch>
+        <cube-switch class="switch" v-model="switchValue"></cube-switch>
       </LayOut>
       <template slot="default">
         <div style="height: calc(100vh - 190px); overflow: hidden">
           <cube-scroll ref="scroll" style="height: calc(100vh - 250px)">
-            <Card
-              v-for="reserve in listData"
-            >
-              <div class="title"  >
+            <Card v-for="reserve in listData"  @clicked="sign(reserve)">
+              <div class="title">
                 <div class="dot"></div>
                 <span>{{ reserve.type }}</span>
               </div>
               <div class="content font-normal">
                 <p>
                   <span class="titou">预约时间 </span>
-                  <span >{{ $dayjs(reserve.startTime).format('YYYY/MM/DD HH:mm:ss')+'-'+$dayjs(reserve.endTime).format('HH:mm:ss') }}</span>
+                  <span>{{
+                      $dayjs(reserve.startTime).format("YYYY/MM/DD HH:mm:ss") +
+                      "-" +
+                      $dayjs(reserve.endTime).format("HH:mm:ss")
+                    }}</span>
                 </p>
-<!--                <p>-->
-<!--                  <span class="titou">预约地点 </span>-->
-<!--                  <span v-for="i in reserve.where">{{ i }}，</span>-->
-<!--                </p>-->
-                <p><span class="titou">提交时间 </span>
-                  {{ $dayjs(reserve.appointmentTime).format('YYYY/MM/DD HH:mm:ss') }}
+                <!--                <p>-->
+                <!--                  <span class="titou">预约地点 </span>-->
+                <!--                  <span v-for="i in reserve.where">{{ i }}，</span>-->
+                <!--                </p>-->
+                <p>
+                  <span class="titou">提交时间 </span>
+                  {{ $dayjs(reserve.appointmentTime).format("YYYY/MM/DD HH:mm:ss") }}
                 </p>
               </div>
               <div class="right_bottom" v-show="!toggleBreak">
-                <span v-if="reserve.state==='已取消'">已取消</span>
-                <span v-else @click="updateCancel({barberId:reserve.id})" style="color: #333">取消</span>
+                <span v-if="reserve.state === '已取消'" @click.stop>已取消</span>
+                <span v-else @click.stop="test(reserve)" style="color: #333">取消</span>
               </div>
-              <template v-if="reserve.state==='已签到'">
-<!--                <Tag-->
-<!--                  v-if="!reserve.approved"-->
-<!--                  color="#fff"-->
-<!--                  class="tag"-->
-<!--                  :background-color="reserve.approved ? '#42b983' : '#000'"-->
-<!--                >-->
-<!--                  待审批-->
-<!--                </Tag>-->
-                <Icon  svg-name="guest-complete" class-name="svg_complete"></Icon>
+              <template v-if="reserve.state === '已签到'">
+                <!--                <Tag-->
+                <!--                  v-if="!reserve.approved"-->
+                <!--                  color="#fff"-->
+                <!--                  class="tag"-->
+                <!--                  :background-color="reserve.approved ? '#42b983' : '#000'"-->
+                <!--                >-->
+                <!--                  待审批-->
+                <!--                </Tag>-->
+                <Icon svg-name="guest-complete" class-name="svg_complete"></Icon>
               </template>
-              <template v-else-if="reserve.state==='已违约'">
-                <Icon
-                  class-name="tag"
-                  svg-name="break"
-                  height="80px"
-                  width="80px"
-                ></Icon>
+              <template v-else-if="reserve.state === '已违约'">
+                <Icon class-name="tag" svg-name="break" height="80px" width="80px"></Icon>
               </template>
             </Card>
           </cube-scroll>
@@ -69,7 +67,7 @@
 import SlideNav from "@/components/Cultural/SlideNav";
 import ApproveContainer from "@/components/UI/ApproveContainer";
 import Card from "@/components/UI/Card";
-import {mapActions, mapState,mapMutations} from "vuex";
+import {mapActions, mapState, mapMutations} from "vuex";
 
 export default {
   name: "MyYuYue",
@@ -80,6 +78,7 @@ export default {
   },
   data() {
     return {
+      once: true,
       toggleBreak: false,
       checked: false,
       show: false,
@@ -94,59 +93,87 @@ export default {
           label: "已完成",
         },
       ],
-      switchValue:false,
-      listData:this.selfApply
+      switchValue: false,
+      listData: this.selfApply,
     };
   },
   created() {
-    this.queryByState({state:'预约成功'})
+    this.queryByState({state: "预约成功"});
   },
-  computed:{
-    ...mapState('order',['selfApply'])
+  computed: {
+    ...mapState("order", ["selfApply"]),
   },
   methods: {
-    ...mapMutations('order', ['setState']),
-    ...mapActions('order',['queryByState','updateCancel']),
+    sign(reserve) {
+      if(reserve.state === '已预约'){
+        this.$createDialog({
+          type: 'confirm',
+          content: '签到',
+          onConfirm: () => {
+            this.updateSign({
+              barberId:reserve.id
+            }).then(()=>{
+              this.$router.push({name: 'YuYueSuccess',params:{
+                  info: reserve,item:'签到'
+                }})
+            })
+
+          }
+        }).show()
+      }
+    },
+    test(reserve) {
+      if (this.once) {
+        this.updateCancel({barberId: reserve.id});
+        this.once = false;
+      }
+    },
+    ...mapMutations("order", ["setState"]),
+    ...mapActions("order", ["queryByState", "updateCancel",'updateSign']),
     changeHandle(e) {
       this.toggleBreak = false;
       if (e === "已完成") {
-        this.queryByState({state:'已完成'})
+        this.queryByState({state: "已完成"});
         this.toggleBreak = true;
-      }else {
-        this.queryByState({state:'预约成功'})
+      } else {
+        this.queryByState({state: "预约成功"});
       }
     },
   },
-  watch:{
-    selfApply:{
-      immediate:true,
+  watch: {
+    selfApply: {
+      immediate: true,
       handler(newV, oldV) {
-        this.listData = newV
-      }
+        this.listData = newV;
+      },
     },
-    switchValue(newV,oldV){
-      if(newV){
-        this.listData = this.selfApply.filter(i=>i.state==='已违约')
-        return
+    switchValue(newV, oldV) {
+      if (newV) {
+        this.listData = this.selfApply.filter((i) => i.state === "已违约");
+        return;
       }
-      this.listData = this.selfApply
-    }
-  }
+      this.listData = this.selfApply;
+    },
+  },
 };
 </script>
 
 <style scoped lang="stylus">
 
->>>.cube-switch .cube-switch-ui
+>>> .cube-switch .cube-switch-ui
   height 20px
   width 40px
->>>.cube-switch .cube-switch-ui::after
+
+>>> .cube-switch .cube-switch-ui::after
   width 20px
->>>.cube-switch .cube-switch-ui::before
+
+>>> .cube-switch .cube-switch-ui::before
   background-color #EBEBEB
->>>.cube-switch .cube-switch-input:checked + .cube-switch-ui
+
+>>> .cube-switch .cube-switch-input:checked + .cube-switch-ui
   background-color #0F97FB
   border-color #0F97FB
+
 .switch_box
   height 20px
   margin 12px
@@ -157,13 +184,16 @@ export default {
   font-size 14px
   z-index 99
   position relative
-  padding  10px 12px
+  padding 10px 12px
+
   .switch
     height 24px
+
 .right_bottom
   border-radius 20px
   border 1px solid #CCCCCC
   padding 5px 21px
+
 footer
   display flex
   justify-content: space-around;

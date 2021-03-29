@@ -1,10 +1,10 @@
 <template>
   <div id="report-homepage">
     <Icon svg-name="bg" class-name="bg"></Icon>
-    <TitleNav  bgc-color="transparent" color="#333">
+    <TitleNav bgc-color="transparent" color="#333">
       <header>
         <span style="margin-right: 86px">近期行程及身体情况报备</span>
-        <img height="88px" src="../../assets/icons/66@2x.png" alt="">
+        <img height="88px" src="../../assets/icons/66@2x.png" alt="" />
       </header>
       <main>
         <section>
@@ -13,23 +13,27 @@
       </main>
     </TitleNav>
     <footer>
-      <section>
-        注：如您的热河信息有变化，请及时在此页面再次提交！
-      </section>
-      <cube-button @click="$router.push({name:'ReportFrom'})">信息更新</cube-button>
+      <section>注：如您的热河信息有变化，请及时在此页面再次提交！</section>
+      <cube-button @click="$router.push({ name: 'ReportFrom' })">信息更新</cube-button>
     </footer>
   </div>
 </template>
 
 <script>
-import {mapActions} from "vuex";
+import { mapActions } from "vuex";
 
 export default {
   name: "index",
   mounted() {
-    this.$children[1].$refs.scroll.$el.style.height = `${this.workspaceRealHeightNum}px`
+    this.$children[1].$refs.scroll.$el.style.height = `${this.workspaceRealHeightNum}px`;
+    this.getHealthFormInfo({
+      dispatch: this.dispatch,
+    });
   },
-}
+  methods: {
+    ...mapActions("ReportForm", ["getHealthFormInfo", "updateForm"]),
+  },
+};
 </script>
 
 <style scoped lang="stylus">

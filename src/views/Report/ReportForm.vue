@@ -1,7 +1,10 @@
 <template>
   <div id="report-form">
     <TitleNav>
-      <cube-form :model="model"  @submit="updateForm({e:arguments[0],dispatch:dispatch})">
+      <cube-form
+        :model="model"
+        @submit="updateForm({ e: arguments[0], dispatch: dispatch })"
+      >
         <cube-form-group v-for="(item, index) in question">
           <h1>{{ index + 1 }}、{{ item.legend }}</h1>
           <cube-form-item :field="item.field"></cube-form-item>
@@ -15,10 +18,9 @@
 </template>
 
 <script>
-import {provinceList, cityList, areaList} from "@/assets/DATA/area";
-import {BaseVue} from "@lib";
-import {HealthApiController} from "@controller";
-import {mapActions, mapState} from "vuex";
+import { provinceList, cityList, areaList } from "@/assets/DATA/area";
+import { HealthApiController } from "@controller";
+import { mapActions, mapState } from "vuex";
 
 let city = {
   id: "",
@@ -48,17 +50,17 @@ const PCA = {
   },
   render(createElement) {
     return createElement(
-        "div",
-        {
-          on: {
-            click: this.showPicker,
-          },
+      "div",
+      {
+        on: {
+          click: this.showPicker,
         },
-        this.selected.length
-            ? this.selected.join(" ")
-            : city.name
-            ? city.name
-            : "请选择工作地区"
+      },
+      this.selected.length
+        ? this.selected.join(" ")
+        : this.$store.state.ReportForm.city.name
+        ? this.$store.state.ReportForm.city.name
+        : "请选择工作地区"
     );
     // city.name ? city.name : this.selected.length ? this.selected.join(' ') : '请选择工作地区')
   },
@@ -90,12 +92,12 @@ export default {
       },
       model: {
         value1: [],
-        value2: '',
-        value3: '',
-        value4: '',
-        value5: '',
-        value6: '',
-        value7: '',
+        value2: "",
+        value3: "",
+        value4: "",
+        value5: "",
+        value6: "",
+        value7: "",
       },
       selected4: "1",
       validity: {},
@@ -235,22 +237,23 @@ export default {
   },
   async created() {
     let toast = this.$createToast({
-      txt: '加载中',
-      time: 0
-    }).show()
+      txt: "加载中",
+      time: 0,
+    }).show();
     await this.getHealthFormInfo({
-      dispatch: this.dispatch
-    })
-    toast.hide()
-    this.model = this.$store.state.ReportForm.model
-    city = this.$store.state.ReportForm.city
-
+      dispatch: this.dispatch,
+    });
+    toast.hide();
+    this.model = this.$store.state.ReportForm.model;
+    city = this.$store.state.ReportForm.city;
   },
   mounted() {
-    this.$children[1].$refs.scroll.$el.style.height = `${this.workspaceRealHeightNum - 60}px`
+    this.$children[1].$refs.scroll.$el.style.height = `${
+      this.workspaceRealHeightNum - 60
+    }px`;
   },
   methods: {
-    ...mapActions('ReportForm', ['getHealthFormInfo','updateForm']),
+    ...mapActions("ReportForm", ["getHealthFormInfo", "updateForm"]),
     async submitHandler(e, model) {
       e.preventDefault();
       let template = model.value6 + "°C";

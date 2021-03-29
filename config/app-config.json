@@ -1,7 +1,7 @@
 {
   "loginType": "normal",
   "serverUrl": "/sso-login",
-  "title": "config-used",
+  "title": "config-changed",
   "shortTitle": "Coframe",
   "platformRoleTmpId": "governor-role-tpl-grp-platform",
   "coframe": "/api/coframe",

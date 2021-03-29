@@ -395,8 +395,6 @@ export default {
                     active: true,
                   },
                   onConfirm: () => {
-                    console.log(v1, v2, v3);
-                    //todo
                     this.dispatch(ScheduleControllerImpl.addParSchedule, {
                       id: this.$route.params.id,
                       userId: v1[0],

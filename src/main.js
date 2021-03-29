@@ -52,16 +52,14 @@ Vue.use(registerComponents, [
 window.vue =  new Vue({
   store
 })
-
-
 const create = async () => {
   await ReadConfig(Vue)
+  Vue.prototype.$config = Vue.config
   new Vue({
     router,
     store,
     render: h => h(App)
   }).$mount('#app')
 }
-create()
-Vue.prototype.$config = Vue.config
+create();
 

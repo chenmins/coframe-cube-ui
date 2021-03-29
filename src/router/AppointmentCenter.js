@@ -4,7 +4,7 @@ import router from "@/router/index";
 export default [
     {
         path: '/YuYue',
-        redirect:'YuYue/',
+        redirect:'/YuYue/',
         name:'预约中心',
         meta: {
             name: '预约中心',

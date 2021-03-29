@@ -117,7 +117,7 @@ export default {
     },
     ...mapActions('Cultural',['getCommunicationCircleEntity']),
 
-    async submitHandler(e) { //todo 评论朋友圈
+    async submitHandler(e) {
       e.preventDefault();
       let resp = await this.dispatch(PipCcoCciController.upCommentById, {});
       console.log(resp);

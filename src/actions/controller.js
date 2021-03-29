@@ -11,29 +11,6 @@ let HelpControllerImpl = {
     queryProductIntroduction: {controller: 'HelpControllerImpl' , method: 'queryProductIntroduction'}, // 查询所有产品介绍
     updateDemandFeedbackType: {controller: 'HelpControllerImpl' , method: 'updateDemandFeedbackType'}, // 更改需求反馈的状态
 };
- //字典管理
-let DictApiController = {
-    __name: 'DictApiController',
-    getDictEntryByDictEntryCode: {controller: 'DictApiController' , method: 'getDictEntryByDictEntryCode'}, // 根据字典项编码查询字典项目
-    getDictEntryByDictEntryId: {controller: 'DictApiController' , method: 'getDictEntryByDictEntryId'}, // 根据字典项ID查询字典项目
-    getDictEntryByDictEntryParentCode: {controller: 'DictApiController' , method: 'getDictEntryByDictEntryParentCode'}, // 根据字典项父编码查询字典项目
-    getDictEntryByDictTypeCode: {controller: 'DictApiController' , method: 'getDictEntryByDictTypeCode'}, // 根据字典类型编码查询字典项目
-    getDictTypeByCode: {controller: 'DictApiController' , method: 'getDictTypeByCode'}, // 根据编码查询字典类型
-    getDictTypeByParentCode: {controller: 'DictApiController' , method: 'getDictTypeByParentCode'}, // 根据父编码查询字典类型
-};
- //用户管理
-let AuthApiController = {
-    __name: 'AuthApiController',
-    deleteAttr: {controller: 'AuthApiController' , method: 'deleteAttr'}, // 删除用户属性
-    deleteAttrs: {controller: 'AuthApiController' , method: 'deleteAttrs'}, // 删除用户属性列表
-    get: {controller: 'AuthApiController' , method: 'get'}, // 当前登录人信息
-    getAttr: {controller: 'AuthApiController' , method: 'getAttr'}, // 获得用户具体属性
-    getAttrs: {controller: 'AuthApiController' , method: 'getAttrs'}, // 获得用户属性列表
-    login: {controller: 'AuthApiController' , method: 'login'}, // 登录
-    logout: {controller: 'AuthApiController' , method: 'logout'}, // 退出
-    updateAttr: {controller: 'AuthApiController' , method: 'updateAttr'}, // 更新用户属性
-    updateAttrs: {controller: 'AuthApiController' , method: 'updateAttrs'}, // 更新用户属性列表
-};
  //pipe-report-controller
 let PipeReportController = {
     __name: 'PipeReportController',
@@ -51,31 +28,6 @@ let HealthApiController = {
     __name: 'HealthApiController',
     getHealthInfo: {controller: 'HealthApiController' , method: 'getHealthInfo'}, // 获取人员健康信息
     updateHealthInfo: {controller: 'HealthApiController' , method: 'updateHealthInfo'}, // 根据人员id更新人员健康录入信息
-};
- //文化建设
-let CulturalControllerImpl = {
-    __name: 'CulturalControllerImpl',
-    addCommunicationCircle: {controller: 'CulturalControllerImpl' , method: 'addCommunicationCircle'}, // 添加一个交流圈（发帖子）
-    allPageSreach: {controller: 'CulturalControllerImpl' , method: 'allPageSreach'}, // 根据分页数据查询公告列表、企业新闻、交流圈
-    deleteCommunicationCircle: {controller: 'CulturalControllerImpl' , method: 'deleteCommunicationCircle'}, // 根据主键删除交流圈
-    fabulousCommunicationCircle: {controller: 'CulturalControllerImpl' , method: 'fabulousCommunicationCircle'}, // 根据交流圈主键点赞或取消点赞
-    getCommunicationCircleEntity: {controller: 'CulturalControllerImpl' , method: 'getCommunicationCircleEntity'}, // 根据交流圈主键获取交流圈详细信息与评论列表信息
-    noticePageSreach: {controller: 'CulturalControllerImpl' , method: 'noticePageSreach'}, // 根据分页数据查询公告列表
-};
- //员工卡
-let WorkCartControllerImpl = {
-    __name: 'WorkCartControllerImpl',
-    addDalance: {controller: 'WorkCartControllerImpl' , method: 'addDalance'}, // 充值
-    getReviewList: {controller: 'WorkCartControllerImpl' , method: 'getReviewList'}, // 获取审批列表
-    getWorkCard: {controller: 'WorkCartControllerImpl' , method: 'getWorkCard'}, // 获取当前员工的员工卡状态
-    open: {controller: 'WorkCartControllerImpl' , method: 'open'}, // 员工开卡
-    queryWorkCardAll: {controller: 'WorkCartControllerImpl' , method: 'queryWorkCardAll'}, // 查询所有员工卡信息
-    queryWorkCardApplyRecord: {controller: 'WorkCartControllerImpl' , method: 'queryWorkCardApplyRecord'}, // 查询员工卡申请记录
-    queryWorkCardRecord: {controller: 'WorkCartControllerImpl' , method: 'queryWorkCardRecord'}, // 查询员工卡记录
-    replacement: {controller: 'WorkCartControllerImpl' , method: 'replacement'}, // 补卡
-    reportTheLoss: {controller: 'WorkCartControllerImpl' , method: 'reportTheLoss'}, // 挂失
-    review: {controller: 'WorkCartControllerImpl' , method: 'review'}, // 审核
-    updateWorkCard: {controller: 'WorkCartControllerImpl' , method: 'updateWorkCard'}, // 修改员工卡信息
 };
  //日程
 let ScheduleControllerImpl = {
@@ -102,15 +54,63 @@ let BarberControllerImpl = {
     updateCancel: {controller: 'BarberControllerImpl' , method: 'updateCancel'}, // 取消理发室预约
     updateSign: {controller: 'BarberControllerImpl' , method: 'updateSign'}, // 理发室预约签到
 };
+ //文化建设
+let CulturalControllerImpl = {
+    __name: 'CulturalControllerImpl',
+    addCommunicationCircle: {controller: 'CulturalControllerImpl' , method: 'addCommunicationCircle'}, // 添加一个交流圈（发帖子）
+    allPageSreach: {controller: 'CulturalControllerImpl' , method: 'allPageSreach'}, // 根据分页数据查询公告列表、企业新闻、交流圈
+    deleteCommunicationCircle: {controller: 'CulturalControllerImpl' , method: 'deleteCommunicationCircle'}, // 根据主键删除交流圈
+    fabulousCommunicationCircle: {controller: 'CulturalControllerImpl' , method: 'fabulousCommunicationCircle'}, // 根据交流圈主键点赞或取消点赞
+    getCommunicationCircleEntity: {controller: 'CulturalControllerImpl' , method: 'getCommunicationCircleEntity'}, // 根据交流圈主键获取交流圈详细信息与评论列表信息
+    noticePageSreach: {controller: 'CulturalControllerImpl' , method: 'noticePageSreach'}, // 根据分页数据查询公告列表
+};
+ //员工卡
+let WorkCartControllerImpl = {
+    __name: 'WorkCartControllerImpl',
+    addDalance: {controller: 'WorkCartControllerImpl' , method: 'addDalance'}, // 充值
+    getReviewList: {controller: 'WorkCartControllerImpl' , method: 'getReviewList'}, // 获取审批列表
+    getWorkCard: {controller: 'WorkCartControllerImpl' , method: 'getWorkCard'}, // 获取当前员工的员工卡状态
+    open: {controller: 'WorkCartControllerImpl' , method: 'open'}, // 员工开卡
+    queryWorkCardAll: {controller: 'WorkCartControllerImpl' , method: 'queryWorkCardAll'}, // 查询所有员工卡信息
+    queryWorkCardApplyRecord: {controller: 'WorkCartControllerImpl' , method: 'queryWorkCardApplyRecord'}, // 查询员工卡申请记录
+    queryWorkCardRecord: {controller: 'WorkCartControllerImpl' , method: 'queryWorkCardRecord'}, // 查询员工卡记录
+    replacement: {controller: 'WorkCartControllerImpl' , method: 'replacement'}, // 补卡
+    reportTheLoss: {controller: 'WorkCartControllerImpl' , method: 'reportTheLoss'}, // 挂失
+    review: {controller: 'WorkCartControllerImpl' , method: 'review'}, // 审核
+    updateWorkCard: {controller: 'WorkCartControllerImpl' , method: 'updateWorkCard'}, // 修改员工卡信息
+};
+ //字典管理
+let DictApiController = {
+    __name: 'DictApiController',
+    getDictEntryByDictEntryCode: {controller: 'DictApiController' , method: 'getDictEntryByDictEntryCode'}, // 根据字典项编码查询字典项目
+    getDictEntryByDictEntryId: {controller: 'DictApiController' , method: 'getDictEntryByDictEntryId'}, // 根据字典项ID查询字典项目
+    getDictEntryByDictEntryParentCode: {controller: 'DictApiController' , method: 'getDictEntryByDictEntryParentCode'}, // 根据字典项父编码查询字典项目
+    getDictEntryByDictTypeCode: {controller: 'DictApiController' , method: 'getDictEntryByDictTypeCode'}, // 根据字典类型编码查询字典项目
+    getDictTypeByCode: {controller: 'DictApiController' , method: 'getDictTypeByCode'}, // 根据编码查询字典类型
+    getDictTypeByParentCode: {controller: 'DictApiController' , method: 'getDictTypeByParentCode'}, // 根据父编码查询字典类型
+};
+ //用户管理
+let AuthApiController = {
+    __name: 'AuthApiController',
+    deleteAttr: {controller: 'AuthApiController' , method: 'deleteAttr'}, // 删除用户属性
+    deleteAttrs: {controller: 'AuthApiController' , method: 'deleteAttrs'}, // 删除用户属性列表
+    get: {controller: 'AuthApiController' , method: 'get'}, // 当前登录人信息
+    getAttr: {controller: 'AuthApiController' , method: 'getAttr'}, // 获得用户具体属性
+    getAttrs: {controller: 'AuthApiController' , method: 'getAttrs'}, // 获得用户属性列表
+    login: {controller: 'AuthApiController' , method: 'login'}, // 登录
+    logout: {controller: 'AuthApiController' , method: 'logout'}, // 退出
+    updateAttr: {controller: 'AuthApiController' , method: 'updateAttr'}, // 更新用户属性
+    updateAttrs: {controller: 'AuthApiController' , method: 'updateAttrs'}, // 更新用户属性列表
+};
 
 export {
     HelpControllerImpl,
-    DictApiController,
-    AuthApiController,
     PipeReportController,
     HealthApiController,
-    CulturalControllerImpl,
-    WorkCartControllerImpl,
     ScheduleControllerImpl,
     BarberControllerImpl,
+    CulturalControllerImpl,
+    WorkCartControllerImpl,
+    DictApiController,
+    AuthApiController,
 };

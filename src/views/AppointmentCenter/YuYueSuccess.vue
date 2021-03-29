@@ -2,7 +2,7 @@
   <div id="yuyue_success">
     <header>
       <img class="success_icon" src="../../assets/icons/yuyue-success.png" alt="">
-      <div>预约成功</div>
+      <div>{{$route.params.item }}成功</div>
     </header>
     <div class="container">
       <div class="border_bold"></div>
@@ -29,9 +29,6 @@ export default {
       this.$router.push({name:'YuYueCenter'})
     }
   },
-  created() {
-    console.log()
-  }
 }
 </script>
 

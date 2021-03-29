@@ -39,7 +39,6 @@ export default {
     //todo 卡片处理类型
     async getCardRecord(){
       let resp
-
       resp = await this.dispatch(WorkCartControllerImpl.queryWorkCardRecord)
       if(!resp.error){
         console.log(resp)

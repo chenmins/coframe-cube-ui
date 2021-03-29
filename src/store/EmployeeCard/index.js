@@ -322,7 +322,7 @@ const EmployeeCard = {
                     key: 'cardManageLists',
                     value: resp.data.body
                 }, { root: true })
-                return
+
             }
         },
         async updateWorkCard(context,payload){

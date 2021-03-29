@@ -21,7 +21,7 @@ function resolve(dir) {
 function mapAction(moduleName, swagger) {
   swagger.tags = swagger.tags.filter(tag => {
     tag.description = tag.description.replace(/ /gi, '')
-    return /^[A-Za-z\-]+$/.test(tag.description) //将tag.name 改为 tag.description
+    return /^[A-Za-z\-]+$/.test(tag.description)
   })
   const action_tpl = Handlebars.compile(fs.readFileSync(resolve('/scripts/tpl/action.tpl'), 'utf-8'))
   if(!fs.existsSync( resolve(`/src/actions/${moduleName}`) ))
