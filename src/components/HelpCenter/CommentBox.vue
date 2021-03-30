@@ -6,7 +6,7 @@
             height="42px"
             width="42px"
             class="comment_avatar"
-            src="https://profile.csdnimg.cn/2/F/6/3_helloword182"
+            src="../../assets/logo.png"
             alt=""
         />
         <div>
