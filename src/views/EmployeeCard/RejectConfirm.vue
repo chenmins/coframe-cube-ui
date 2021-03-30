@@ -23,8 +23,13 @@ export default {
   methods:{
     ...mapActions('EmployeeCard',['review']),
     refuse(){
-      console.log('2333')
-      this.review({pass:0,reasonsForRefusal:this.textarea}).then(()=>{
+      this.review({
+        pass:0,
+        reasonsForRefusal:this.textarea,
+        "code": this.$route.params.info.code,
+        "userId": this.$route.params.info.userId,
+        "userName": this.$route.params.info.userName,
+      }).then(()=>{
         this.$router.push({ name: "员工卡申请" });
       })
     }

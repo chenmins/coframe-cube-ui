@@ -341,15 +341,24 @@ const EmployeeCard = {
             }
         },
         async review(context,payload) {
-            let resp
-            resp = await window.vue.dispatch(WorkCartControllerImpl.review,{
-                "code": context.state.cardInfo.code,
-                "userId": context.state.cardInfo.userId,
-                "userName": context.state.cardInfo.userName,
-                "pass":payload.pass,
-                "reasonsForRefusal":payload?.textarea
-
-            })
+            let resp,data
+            if(payload.pass){
+                data = {
+                    "code": payload.code,
+                    "userId": payload.userId,
+                    "userName": payload.userName,
+                    "pass":payload.pass,
+                }
+            }else{
+                data = {
+                    "code": payload.code,
+                    "userId": payload.userId,
+                    "userName": payload.userName,
+                    "pass":payload.pass,
+                    "reasonsForRefusal":payload.reasonsForRefusal
+                }
+            }
+            resp = await window.vue.dispatch(WorkCartControllerImpl.review,data)
             if(!resp.error){
                 return true
             }

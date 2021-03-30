@@ -1,6 +1,6 @@
 <template>
   <div id="floor_select" :style="'background-color' + bgColor">
-    <TitleNav bgc-color="#fff">
+    <TitleNav bgc-color="#fff" style="height: 100vh">
       <LayOut class="bgcolor">
         <LayOut style="margin-top: 12px; padding: 12px 20px">
           <div class="title">选择新员工</div>
@@ -139,7 +139,6 @@ export default {
   },
   created() {
     let info = this.$route.params.info;
-    console.log(info)
     this.groupModel.firstModel = {
       companyName: info.corporation,
       position: info.section,
@@ -297,7 +296,7 @@ export default {
   methods: {
     ...mapActions('EmployeeCard',['review']),
     cancel() {
-      this.$router.push({ name: "cardRejectConfirm" });
+      this.$router.push({ name: "cardRejectConfirm" ,params:{info:this.$route.params.info}});
       // this.$createDialog({
       //   type: "confirm",
       //   title: "确定注销该员工卡吗？",
@@ -309,7 +308,13 @@ export default {
       // }).show();
     },
     async confirm() {
-      await this.review({pass:1})
+      await this.review({
+        "code": this.$route.params.info.code,
+        "userId": this.$route.params.info.userId,
+        "userName": this.$route.params.info.userName,
+        "pass":1
+      })
+
       this.$createToast({
         txt: '审核通过',
         type: 'correct',
@@ -317,7 +322,7 @@ export default {
         onTimeout: () => {
           this.$router.push({ name: "员工卡申请" });
         }
-      })
+      }).show()
     },
     add() {
       let schemaTemplate = {
@@ -445,6 +450,8 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+>>>.scroll-list-wrap
+  height 100vh
 
 >>> .cube-form-group-legend, >>> .cube-select::after
   display none

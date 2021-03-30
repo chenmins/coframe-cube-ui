@@ -59,7 +59,6 @@
             </div>
           </div>
           <div
-              v-show="isAdmin"
               @click="selectFunc('todos-CreateCard')"
               class="box_content"
           >
