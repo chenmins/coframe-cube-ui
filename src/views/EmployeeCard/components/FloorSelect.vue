@@ -14,7 +14,7 @@
           <div v-if="!showAdd" class="cover"></div>
           <div class="title">楼层权限</div>
           <div class="item" v-for="(model,index) in $store.state.EmployeeCard.groupModel.floorModel">
-            <cube-form :model="$store.state.EmployeeCard.groupModel.floorModel[index]"
+            <cube-form :model="floorModel[index]"
                        @validate="validateHandler"
                        :schema="$store.state.EmployeeCard.groupSchema.floorSchema[index]"
                        :options="{layout:'classic'}"
@@ -73,10 +73,20 @@ export default {
   data() {
     return {
       preview: false,
-      result: null
+      result: null,
+      floorModel: [
+        {
+          which: "",
+          floor: "",
+          num: ""
+        }
+      ]
     }
   },
+
   mounted() {
+    this.floorModel = this.$store.state.EmployeeCard.groupModel.floorModel
+
     this.$children[0].$refs.scroll.$el.style.height = `${this.workspaceRealHeightNum - 130}px`
   },
   methods: {
@@ -107,6 +117,7 @@ export default {
         }).show()
         return
       }
+      this.$store.commit('EmployeeCard/setFloorModel',this.floorModel)
       this.$emit('confirm',)
     },
     add() {

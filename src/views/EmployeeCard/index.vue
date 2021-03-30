@@ -48,14 +48,14 @@
         <div class="title">我的待办</div>
         <div class="handle_container">
           <div @click="selectFunc('todos-ApprovalList')" class="box_content">
-            <div data-num="12" class="box_content_item my-approve">
+            <div :data-num="this.approveLists.length" class="box_content_item my-approve">
               <Icon
                   class-name="func_icon "
                   svg-name="EmployeeCard-myshenpi"
                   heigth="40px"
                   width="40px"
               ></Icon>
-              <div>我的审批(8)</div>
+              <div>我的审批({{this.approveLists.length}})</div>
             </div>
           </div>
           <div
@@ -110,9 +110,10 @@ export default {
   },
   async created() {
     await this.getWorkCard()
+    await this.getReviewList({pass:0})
   },
   methods: {
-    ...mapActions('EmployeeCard',['getWorkCard']),
+    ...mapActions('EmployeeCard',['getWorkCard','getReviewList']),
     selectFunc(type) {
       let func = type.split("-")[0];
       if (
@@ -130,7 +131,7 @@ export default {
     },
   },
   computed:{
-    ...mapState('EmployeeCard',['cardInfo'])
+    ...mapState('EmployeeCard',['cardInfo','approveLists'])
   },
   };
 </script>

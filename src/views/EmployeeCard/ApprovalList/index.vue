@@ -1,8 +1,12 @@
 <template>
-  <ApproveContainer :tabs="tabs" :selectedLabel="selectedLabel" @changeHandle="changeHandle">
+  <ApproveContainer
+    :tabs="tabs"
+    :selectedLabel="selectedLabel"
+    @changeHandle="changeHandle"
+  >
     <Card
-        v-for="approve in approveLists"
-        @clicked="$router.push({ name: 'ApprovalDetail', params: { id: 1 } })"
+      v-for="approve in approveLists"
+      @clicked="$router.push({ name: 'ApprovalDetail', params: {id:approve.code, info: approve } })"
     >
       <div class="title">
         <div class="dot"></div>
@@ -11,13 +15,16 @@
       <div class="content font-normal">
         <p>
           <span class="titou">申请人姓名 </span>
-          <span >{{ approve.userName  }}</span>
+          <span>{{ approve.userName }}</span>
         </p>
         <p>
           <span class="titou">所在部门 </span>
-          <span >{{  approve.section }}</span>
+          <span>{{ approve.section }}</span>
         </p>
-        <p><span class="titou">申请日期 </span> {{ $dayjs(approve.handleTime).format('YYYY-MM-DD') }}</p>
+        <p>
+          <span class="titou">申请日期 </span>
+          {{ $dayjs(approve.handleTime).format("YYYY-MM-DD") }}
+        </p>
       </div>
       <div class="right_bottom">
         <template v-if="type === '卡申请'">
@@ -35,22 +42,17 @@
       </div>
       <template v-if="arrived">
         <Tag
-            v-if="approve.state!=='启用中'"
-            color="#fff"
-            class="tag"
-            :background-color="approve.state==='启用中' ? '#42b983' : '#000'"
+          v-if="approve.state !== '启用中'"
+          color="#fff"
+          class="tag"
+          :background-color="approve.state === '启用中' ? '#42b983' : '#000'"
         >
-          {{approve.state}}
+          {{ approve.state }}
         </Tag>
         <Icon v-else svg-name="guest-complete" class-name="svg_complete"></Icon>
       </template>
       <template v-else>
-        <Icon
-            class-name="tag"
-            svg-name="guest-arrived"
-            height="80px"
-            width="80px"
-        ></Icon>
+        <Icon class-name="tag" svg-name="guest-arrived" height="80px" width="80px"></Icon>
       </template>
     </Card>
   </ApproveContainer>
@@ -63,8 +65,8 @@ import Search from "@/components/Search";
 import Card from "@/components/UI/Card";
 import ApproveContainer from "@/components/UI/ApproveContainer";
 
-import {WorkCartControllerImpl} from "@controller";
-import {mapActions, mapState} from "vuex";
+import { WorkCartControllerImpl } from "@controller";
+import { mapActions, mapState } from "vuex";
 
 export default {
   components: {
@@ -91,45 +93,45 @@ export default {
     };
   },
   created() {
-    this.getReviewList({pass:0})
-    console.log(this.approveLists)
+    this.getReviewList({ pass: 0 });
+    console.log(this.approveLists);
     // this.approves = this.$store.state.Guest.approves.filter(
     //     (i) => i.approved === false
     // );
     // this.getList()
   },
   methods: {
-    ...mapActions('EmployeeCard',['getReviewList']),
+    ...mapActions("EmployeeCard", ["getReviewList"]),
     async getList() {
-      let resp
-      resp = await this.dispatch(WorkCartControllerImpl.getReviewList)
+      let resp;
+      resp = await this.dispatch(WorkCartControllerImpl.getReviewList);
       if (!resp.body) {
-        this.approves = resp.data.body
-        console.log(resp.data.body)
+        this.approves = resp.data.body;
+        console.log(resp.data.body);
       }
     },
     GuestDetail() {
-      this.$router.push({name: "ReserveDetail", params: {id: 1}});
+      this.$router.push({ name: "ReserveDetail", params: { id: 1 } });
     },
     changeHandle(e) {
       switch (e) {
         case "待审批":
-          this.getReviewList({pass:0})
+          this.getReviewList({ pass: 0 });
           // this.approves = this.$store.state.Guest.approves.filter(
           //     (i) => i.approved === false
           // );
           break;
         case "已完成":
-          this.getReviewList({pass:1})
-          // this.approves = this.$store.state.Guest.approves.filter(
-          //     (i) => i.approved === true
-          // );
+          this.getReviewList({ pass: 1 });
+        // this.approves = this.$store.state.Guest.approves.filter(
+        //     (i) => i.approved === true
+        // );
       }
     },
   },
-  computed:{
-    ...mapState('EmployeeCard',['approveLists'])
-  }
+  computed: {
+    ...mapState("EmployeeCard", ["approveLists"]),
+  },
 };
 </script>
 

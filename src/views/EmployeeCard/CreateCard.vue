@@ -4,7 +4,7 @@
       <div class="title">选择新员工</div>
       <!--      @submit="submitHandler"-->
       <!--        @validate="validateHandler"-->
-      <cube-form :model="$store.state.EmployeeCard.groupModel.firstModel"
+      <cube-form :model="firstModel"
                  @validate="validateHandler"
                  :schema="$store.state.EmployeeCard.groupSchema.fristSchema"
                  :options="{layout:'classic'}"
@@ -28,7 +28,15 @@ export default {
   data() {
     return {
       preview: false,
-      result: null
+      result: null,
+      firstModel: {
+        cardType: "",
+        companyName: '',
+        position: "",
+        name: "",
+        tel: "",
+        remind: ""
+      },
     }
   },
   created() {
@@ -51,6 +59,8 @@ export default {
         }).show()
         return
       }
+      this.$store.commit('EmployeeCard/setFirstModel',this.firstModel)
+      this.$store.commit('EmployeeCard/merge')
       this.$router.push({
         name: 'PreviewConfirm',
         params: {

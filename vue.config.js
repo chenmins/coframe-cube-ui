@@ -99,7 +99,7 @@ module.exports = {
     }
   },
   devServer: {
-    port: 8081,
+    port: 8080,
     open: true, //配置自动启动浏览器
     proxy: {
       // "/api/minio": {

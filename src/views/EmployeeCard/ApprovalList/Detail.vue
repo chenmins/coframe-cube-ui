@@ -1,95 +1,118 @@
 <template>
-  <div id="floor_select" :style="'background-color'+bgColor">
-    <TitleNav
-        bgc-color="#fff"
-    >
-      <LayOut  class="bgcolor">
-        <LayOut style="margin-top: 12px;padding: 12px 20px">
+  <div id="floor_select" :style="'background-color' + bgColor">
+    <TitleNav bgc-color="#fff">
+      <LayOut class="bgcolor">
+        <LayOut style="margin-top: 12px; padding: 12px 20px">
           <div class="title">选择新员工</div>
           <!--        @submit="submitHandler"-->
           <!--        @validate="validateHandler"-->
-          <cube-form :model="groupModel.firstModel"
-                     :schema="groupSchema.fristSchema"
-                     :options="{layout:'classic'}"
-                     class="form-control new-employee"
+          <cube-form
+            :model="groupModel.firstModel"
+            :schema="groupSchema.fristSchema"
+            :options="{ layout: 'classic' }"
+            class="form-control new-employee"
           >
           </cube-form>
         </LayOut>
-        <LayOut class="item" style="margin-top: 12px;padding: 12px 20px">
+        <LayOut class="item" style="margin-top: 12px; padding: 12px 20px">
           <div class="title">楼层权限</div>
-          <div class="item" v-for="(model,index) in groupModel.floorModel">
-            <cube-form :model="groupModel.floorModel[index]"
-                       :schema="groupSchema.floorSchema[index]"
-                       :options="{layout:'classic'}"
-                       class="form-control floor-root"
+          <div class="item" v-for="(model, index) in groupModel.floorModel">
+            <cube-form
+              :model="groupModel.floorModel[index]"
+              :schema="groupSchema.floorSchema[index]"
+              :options="{ layout: 'classic' }"
+              class="form-control floor-root"
             >
-
             </cube-form>
-            <Icon svg-name="employee-close" class-name="close" @iconToggle="close(index)"></Icon>
+            <!-- <Icon svg-name="employee-close" class-name="close" @iconToggle="close(index)"></Icon> -->
           </div>
-
         </LayOut>
       </LayOut>
-      <LayOut  class="flow" style="margin:12px;padding-bottom: 60px">
+      <LayOut class="flow" style="margin: 12px; padding-bottom: 60px">
         <div class="title">审批流程</div>
         <ul class="approve_ul">
           <li>
-            <Icon class-name="status_svg" svg-name="guest-appro" height="14px" width="14px"></Icon>
+            <Icon
+              class-name="status_svg"
+              svg-name="guest-appro"
+              height="14px"
+              width="14px"
+            ></Icon>
             <img
-                src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__15b1c74062335e999ca5b36fd025fed4.svg"
-                alt="">
+              src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__15b1c74062335e999ca5b36fd025fed4.svg"
+              alt=""
+            />
             <div class="approve">
-              <div style="display: flex;flex-direction: column;align-items: flex-start">
+              <div style="display: flex; flex-direction: column; align-items: flex-start">
                 <span class="name">张明</span>
                 <span class="status appro">审批中</span>
               </div>
               <div class="time">
-                <span>12/21  16:00 </span>
+                <span>12/21 16:00 </span>
               </div>
             </div>
           </li>
           <li>
-            <Icon class-name="status_svg" svg-name="guest-agree" height="14px" width="14px"></Icon>
+            <Icon
+              class-name="status_svg"
+              svg-name="guest-agree"
+              height="14px"
+              width="14px"
+            ></Icon>
             <img
-                src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__15b1c74062335e999ca5b36fd025fed4.svg"
-                alt="">
+              src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__15b1c74062335e999ca5b36fd025fed4.svg"
+              alt=""
+            />
 
             <div class="approve">
-              <div style="display: flex;flex-direction: column;align-items: flex-start">
+              <div style="display: flex; flex-direction: column; align-items: flex-start">
                 <span class="name">张明</span>
-                <span class="status " style="color: #999">审批人：易烊千玺</span>
+                <span class="status" style="color: #999">审批人：易烊千玺</span>
               </div>
               <div class="time">
                 <span class="agree">同意</span>
               </div>
             </div>
           </li>
-          <li style="margin-bottom:-10px">
-            <Icon class-name="status_svg" svg-name="guest-reject-min" height="14px" width="14px"></Icon>
+          <li style="margin-bottom: -10px">
+            <Icon
+              class-name="status_svg"
+              svg-name="guest-reject-min"
+              height="14px"
+              width="14px"
+            ></Icon>
             <img
-                src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__15b1c74062335e999ca5b36fd025fed4.svg"
-                alt="">
+              src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__15b1c74062335e999ca5b36fd025fed4.svg"
+              alt=""
+            />
             <div class="approve">
-              <div style="display: flex;flex-direction: column;align-items: flex-start">
+              <div style="display: flex; flex-direction: column; align-items: flex-start">
                 <span class="name">张明</span>
-                <span class="status " style="color: #999">审批人：易烊千玺</span>
+                <span class="status" style="color: #999">审批人：易烊千玺</span>
               </div>
               <div class="time">
                 <span class="reject">已拒绝</span>
               </div>
             </div>
-
           </li>
           <li class="avatar" style="margin-left: 18px">
-            <div style="padding: 10px 14px;background-color: #F5F6FA;border-radius: 8px">
+            <div
+              style="padding: 10px 14px; background-color: #f5f6fa; border-radius: 8px"
+            >
               这是拒绝理由哦这是拒绝理由哦这是拒绝理由哦这是拒绝理由哦这是拒绝理由哦这是拒绝理由哦
             </div>
           </li>
           <li class="send" style="margin-top: -10px">
-            <Icon class-name="status_svg" svg-name="guest-reject-min" height="14px" width="14px"></Icon>
+            <Icon
+              class-name="status_svg"
+              svg-name="guest-reject-min"
+              height="14px"
+              width="14px"
+            ></Icon>
             <img
-                src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__15b1c74062335e999ca5b36fd025fed4.svg"
-                alt="">
+              src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__15b1c74062335e999ca5b36fd025fed4.svg"
+              alt=""
+            />
             <div class="approve">
               <span>抄送</span>
             </div>
@@ -97,7 +120,7 @@
         </ul>
       </LayOut>
     </TitleNav>
-    <div class="footer two" v-show="isAdmin" >
+    <div class="footer two" v-show="isAdmin">
       <cube-button type="submit" class="cancel" @click="cancel">拒绝</cube-button>
       <cube-button type="submit" class="confirm" @click="confirm">通过</cube-button>
     </div>
@@ -106,285 +129,248 @@
 
 <script>
 import Preview from "@/components/EmployeeCard/Preview";
-
-const column1 = [
-  {text: '行政楼A座-一层-南门', value: '剧毒'},
-  {text: '行政楼B座-七层-南门', value: '蚂蚁'},
-  {text: '综合楼-七层-东门', value: '幽鬼'}
-]
-const column2 = [
-  {text: '输出', value: '输出'},
-  {text: '控制', value: '控制'},
-  {text: '核心', value: '核心'},
-  {text: '爆发', value: '爆发'}
-]
-const column3 = [
-  {text: '梅肯', value: '梅肯'},
-  {text: '秘法鞋', value: '秘法鞋'},
-  {text: '假腿', value: '假腿'},
-  {text: '飞鞋', value: '飞鞋'}
-]
+import {mapActions} from "vuex";
 
 export default {
   name: "FloorSelect",
-  props: [
-    'Detail'
-  ],
+  props: ["Detail"],
   components: {
-    Preview
+    Preview,
   },
   created() {
+    let info = this.$route.params.info;
+    console.log(info)
     this.groupModel.firstModel = {
-      companyName: 2016,
-      position: 2016,
-      name: 2016,
-      cardType: 2016
-    }
-    this.groupModel.floorModel = [
-      {
-        which: 2016,
-        floor: 2016,
-        num: 2016,
-      }
-    ]
+      companyName: info.corporation,
+      position: info.section,
+      name: info.userName,
+      cardType: info.type,
+    };
+    this.groupModel.floorModel = JSON.parse(info.floorAuthority)
   },
   data() {
     return {
       schema: {
         groups: [
           {
-            legend: '选择新员工',
+            legend: "选择新员工",
             fields: [
               {
-                type: 'select',
-                modelKey: 'companyName',
-                label: '所属公司',
+                type: "select",
+                modelKey: "companyName",
+                label: "所属公司",
                 props: {
                   options: [2015, 2016, 2017, 2018, 2019, 2020],
                 },
                 rules: {
-                  required: true
-                }
+                  required: true,
+                },
               },
               {
-                type: 'select',
-                modelKey: 'position',
-                label: '所属部门',
+                type: "select",
+                modelKey: "position",
+                label: "所属部门",
                 props: {
-                  options: [2015, 2016, 2017, 2018, 2019, 2020]
+                  options: [2015, 2016, 2017, 2018, 2019, 2020],
                 },
                 rules: {
-                  required: true
-                }
+                  required: true,
+                },
               },
               {
-                type: 'select',
-                modelKey: 'name',
-                label: '员工姓名',
+                type: "select",
+                modelKey: "name",
+                label: "员工姓名",
                 props: {
-                  options: [2015, 2016, 2017, 2018, 2019, 2020]
+                  options: [2015, 2016, 2017, 2018, 2019, 2020],
                 },
                 rules: {
-                  required: true
-                }
+                  required: true,
+                },
               },
               {
-                type: 'select',
-                modelKey: 'cardType',
-                label: '卡片类型',
+                type: "select",
+                modelKey: "cardType",
+                label: "卡片类型",
                 props: {
-                  options: [2015, 2016, 2017, 2018, 2019, 2020]
+                  options: [2015, 2016, 2017, 2018, 2019, 2020],
                 },
                 rules: {
-                  required: true
-                }
+                  required: true,
+                },
               },
-            ]
+            ],
           },
-
-        ]
+        ],
       },
       preview: false,
       groupModel: {
         firstModel: {
-          companyName: '',
-          position: "",
-          name: "",
-          cardType: ""
+          companyName: "`",
+          position: "`",
+          name: "`",
+          cardType: "`",
         },
         floorModel: [
           {
             which: "",
             floor: "",
-            num: ""
-          }
-        ]
+            num: "",
+          },
+        ],
       },
       groupSchema: {
         fristSchema: {
           groups: [
             {
-              legend: '选择新员工',
+              legend: "选择新员工",
               fields: [
                 {
-                  type: 'select',
-                  modelKey: 'companyName',
-                  label: '所属公司',
+                  type: "input",
+                  modelKey: "companyName",
+                  label: "所属公司",
                   props: {
-                    options: [2015, 2016, 2017, 2018, 2019, 2020]
+                    disabled: true,
                   },
-                  rules: {
-                    required: true
-                  }
                 },
                 {
-                  type: 'select',
-                  modelKey: 'position',
-                  label: '所属部门',
+                  type: "input",
+                  modelKey: "position",
+                  label: "所属部门",
                   props: {
-                    options: [2015, 2016, 2017, 2018, 2019, 2020]
+                    disabled: true,
                   },
-                  rules: {
-                    required: true
-                  }
                 },
                 {
-                  type: 'select',
-                  modelKey: 'name',
-                  label: '员工姓名',
+                  type: "input",
+                  modelKey: "name",
+                  label: "员工姓名",
                   props: {
-                    options: [2015, 2016, 2017, 2018, 2019, 2020]
+                    disabled: true,
                   },
-                  rules: {
-                    required: true
-                  }
                 },
                 {
-                  type: 'select',
-                  modelKey: 'cardType',
-                  label: '卡片类型',
+                  type: "input",
+                  modelKey: "cardType",
+                  label: "卡片类型",
                   props: {
-                    options: [2015, 2016, 2017, 2018, 2019, 2020]
+                    disabled: true,
                   },
-                  rules: {
-                    required: true
-                  }
                 },
-              ]
+              ],
             },
-
-          ]
+          ],
         },
         floorSchema: [
           {
             fields: [
               {
-                type: 'select',
-                modelKey: 'which',
-                label: '楼栋',
+                type: "input",
+                modelKey: "which",
+                label: "楼栋",
                 props: {
-                  options: [2015, 2016, 2017, 2018, 2019, 2020]
+                  disabled: true,
                 },
-                rules: {
-                  required: true
-                }
               },
               {
-                type: 'select',
-                modelKey: 'floor',
-                label: '楼层',
+                type: "input",
+                modelKey: "floor",
+                label: "楼层",
                 props: {
-                  options: [2015, 2016, 2017, 2018, 2019, 2020]
+                  disabled: true,
                 },
-                rules: {
-                  required: true
-                }
               },
               {
-                type: 'select',
-                modelKey: 'num',
-                label: '楼门',
+                type: "input",
+                modelKey: "num",
+                label: "楼门",
                 props: {
-                  options: [2015, 2016, 2017, 2018, 2019, 2020]
+                  disabled: true,
                 },
-                rules: {
-                  required: true
-                }
               },
-            ]
-          }
-        ]
+            ],
+          },
+        ],
       },
-
-    }
+    };
   },
   methods: {
+    ...mapActions('EmployeeCard',['review']),
     cancel() {
-      this.$createDialog({
-        type: 'confirm',
-        title: '确定注销该员工卡吗？',
-        maskClosable: true,
-        onConfirm: (e) => {
-          this.$router.push({name:'RejectConfirm',params:{id:1}})
-
-        }
-      }).show()
+      this.$router.push({ name: "cardRejectConfirm" });
+      // this.$createDialog({
+      //   type: "confirm",
+      //   title: "确定注销该员工卡吗？",
+      //   maskClosable: true,
+      //   onConfirm: (e) => {
+      //     this.review({pass:0})
+      //     // this.$router.push({ name: "RejectConfirm", params: { id: 1 } });
+      //   },
+      // }).show();
     },
-    confirm() {
-      this.$router.push({name: 'Preview', params: {id: 1}})
+    async confirm() {
+      await this.review({pass:1})
+      this.$createToast({
+        txt: '审核通过',
+        type: 'correct',
+        time:1500,
+        onTimeout: () => {
+          this.$router.push({ name: "员工卡申请" });
+        }
+      })
     },
     add() {
       let schemaTemplate = {
         fields: [
           {
-            type: 'select',
-            modelKey: 'which',
-            label: '楼栋',
+            type: "select",
+            modelKey: "which",
+            label: "楼栋",
             props: {
-              options: [2015, 2016, 2017, 2018, 2019, 2020]
+              options: [2015, 2016, 2017, 2018, 2019, 2020],
             },
             rules: {
-              required: true
-            }
+              required: true,
+            },
           },
           {
-            type: 'select',
-            modelKey: 'floor',
-            label: '楼层',
+            type: "select",
+            modelKey: "floor",
+            label: "楼层",
             props: {
-              options: [2015, 2016, 2017, 2018, 2019, 2020]
+              options: [2015, 2016, 2017, 2018, 2019, 2020],
             },
             rules: {
-              required: true
-            }
+              required: true,
+            },
           },
           {
-            type: 'select',
-            modelKey: 'num',
-            label: '楼门',
+            type: "select",
+            modelKey: "num",
+            label: "楼门",
             props: {
-              options: [2015, 2016, 2017, 2018, 2019, 2020]
+              options: [2015, 2016, 2017, 2018, 2019, 2020],
             },
             rules: {
-              required: true
-            }
+              required: true,
+            },
           },
-        ]
-      }
+        ],
+      };
       let modelTemplate = {
         which: "",
         floor: "",
-        num: ""
-      }
-      this.groupModel.floorModel.push(modelTemplate)
-      this.groupSchema.floorSchema.push(schemaTemplate)
+        num: "",
+      };
+      this.groupModel.floorModel.push(modelTemplate);
+      this.groupSchema.floorSchema.push(schemaTemplate);
     },
     close(index) {
-      this.groupModel.floorModel.splice(index, 1)
-      this.groupSchema.floorSchema.splice(index, 1)
+      this.groupModel.floorModel.splice(index, 1);
+      this.groupSchema.floorSchema.splice(index, 1);
     },
     submit(e, model, model2) {
-      console.log(this.model.time)
+      console.log(this.model.time);
     },
     showTimePicker() {
       const timePicker = this.$createTimePicker({
@@ -393,65 +379,69 @@ export default {
         delay: 15,
         day: {
           len: 30,
-          filter: ['今天', '明天', '后天'],
-          format: 'M月D日'
+          filter: ["今天", "明天", "后天"],
+          format: "M月D日",
         },
         onSelect: (selectedTime, selectedText, formatedTime) => {
-          this.model.time = formatedTime
+          this.model.time = formatedTime;
         },
-      })
+      });
       // timePicker.setTime(time)
-      timePicker.show()
+      timePicker.show();
     },
     selectItem2() {
       if (!this.picker) {
         this.picker = this.$createPicker({
-          title: 'Picker',
+          title: "Picker",
           data: [column3],
           onSelect: this.selectHandle,
-          onCancel: this.cancelHandle
-        })
+          onCancel: this.cancelHandle,
+        });
       }
-      this.picker.show()
+      this.picker.show();
     },
     selectItem1() {
       if (!this.picker) {
         this.picker = this.$createPicker({
-          title: 'Picker',
+          title: "Picker",
           data: [column2],
           onSelect: this.selectHandle,
-          onCancel: this.cancelHandle
-        })
+          onCancel: this.cancelHandle,
+        });
       }
-      this.picker.show()
+      this.picker.show();
     },
     selectFloor() {
       if (!this.picker) {
         this.picker = this.$createPicker({
-          title: 'Picker',
+          title: "Picker",
           data: [column1],
           onSelect: this.selectHandle,
-          onCancel: this.cancelHandle
-        })
+          onCancel: this.cancelHandle,
+        });
       }
-      this.picker.show()
+      this.picker.show();
     },
     selectHandle(selectedVal, selectedIndex, selectedText) {
       this.$createDialog({
-        type: 'warn',
-        content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/> - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
-        icon: 'cubeic-alert'
-      }).show()
+        type: "warn",
+        content: `Selected Item: <br/> - value: ${selectedVal.join(
+          ", "
+        )} <br/> - index: ${selectedIndex.join(", ")} <br/> - text: ${selectedText.join(
+          " "
+        )}`,
+        icon: "cubeic-alert",
+      }).show();
     },
     cancelHandle() {
       this.$createToast({
-        type: 'correct',
-        txt: 'Picker canceled',
-        time: 1000
-      }).show()
-    }
-  }
-}
+        type: "correct",
+        txt: "Picker canceled",
+        time: 1000,
+      }).show();
+    },
+  },
+};
 </script>
 
 <style scoped lang="stylus">
@@ -481,12 +471,13 @@ export default {
 
 >>> .cube-form_classic .cube-form-item
   padding 9px 0 0 0
+>>>.cube-input
+  background-color transparent!important
 
 >>> .cube-input-field
   padding 10px
   height 10px
   text-align left
-
 >>> .cube-form-label
   font-size: 14px;
   font-family: PingFangSC-Medium, PingFang SC;
@@ -543,7 +534,6 @@ export default {
 >>>.cube-scroll-wrapper
   height  calc(100vh - 130px)
 </style>
-
 
 <style scoped lang="stylus">
 .flow
@@ -683,6 +673,4 @@ export default {
     background: linear-gradient(90deg, #19E8FF 0%, #0F97FB 100%);
     border-radius: 20px;
     margin 12px auto
-
-
 </style>

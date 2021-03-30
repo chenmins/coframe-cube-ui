@@ -149,6 +149,18 @@ export default [
             showNav: true,
         },
         component: () => import('@/views/EmployeeCard/PreviewInfo')
+    },
+    {
+        path:'/cardRejectConfirm',
+        name:'cardRejectConfirm',
+        meta:{
+            name:'确认拒绝',
+            tag:'cardRejectConfirm',
+            leave:3,
+            showNav:true,
+            backRouter:'员工卡申请',
+        },
+        component:()=>import('@/views/EmployeeCard/RejectConfirm')
     }
 
 ]

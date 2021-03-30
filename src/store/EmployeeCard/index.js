@@ -210,6 +210,12 @@ const EmployeeCard = {
         setFirstModel(state, payload) {
             state.groupModel.firstModel = payload
         },
+        merge(state){
+            state.cardInfo = {
+                ...state.groupModel.firstModel,
+                floorAuthority:JSON.stringify(state.groupModel.floorModel )
+            }
+        },
         setCardInfo(state, payload) {
             state.cardInfo = payload
         },
@@ -333,9 +339,21 @@ const EmployeeCard = {
                 console.log(resp);
                 return 
             }
+        },
+        async review(context,payload) {
+            let resp
+            resp = await window.vue.dispatch(WorkCartControllerImpl.review,{
+                "code": context.state.cardInfo.code,
+                "userId": context.state.cardInfo.userId,
+                "userName": context.state.cardInfo.userName,
+                "pass":payload.pass,
+                "reasonsForRefusal":payload?.textarea
+
+            })
+            if(!resp.error){
+                return true
+            }
         }
-
-
     }
 
 }

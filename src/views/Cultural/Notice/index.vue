@@ -10,12 +10,12 @@
         <cube-scroll ref="scroll">
           <Card
               shadow
-              :class="readed ? 'content' : 'content not-read'"
               id="card"
               v-for="notice in listData(type)"
+              :class="notice.isRead ? 'content not-read' : 'content '"
               @click="read(notice)"
-
           >
+<!--            //TODO 改变公告已读状态-->
             <div class="box">
               <span class="title">{{ notice.title }}</span>
               <span class="content">{{ notice.body }}</span>

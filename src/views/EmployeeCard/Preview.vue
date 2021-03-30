@@ -24,18 +24,18 @@
                 src="../../assets/icons/employee_edit.webp"
                 alt=""
             />
-            <span class="avatar_name">{{ cardInfo.userName }}</span>
+            <span class="avatar_name">{{ cardInfo.userName || cardInfo.name.userName }}</span>
           </div>
         </div>
         <div class="card_content_bottom">
           <div class="content_left">
-            <span>{{ cardInfo.corporation }}</span>
+            <span>{{ cardInfo.corporation || cardInfo.companyName }}</span>
             <span>厚德载物楼4栋303</span>
           </div>
           <div class="content_right">
             <!--            <img src="" alt="">-->
             <div class="content_img"></div>
-            <span>{{ cardInfo.section }}</span>
+            <span>{{ cardInfo.section || cardInfo.position }}</span>
           </div>
         </div>
       </div>
@@ -54,7 +54,7 @@ export default {
   components: {FloorSelect},
   mixins: [EmployeeCard],
   created() {
-    this.setFloorModel(JSON.parse(this.cardInfo.floorAuthority))
+    console.log(this.cardInfo)
   },
   methods: {
     ...mapMutations('EmployeeCard',['setFloorModel']),

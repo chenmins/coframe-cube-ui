@@ -12,18 +12,18 @@
             src="../../assets/icons/employee_edit.webp"
             alt=""
           />
-          <span class="avatar_name">{{ cardInfo.userName }}</span>
+          <span class="avatar_name">{{ cardInfo.userName || cardInfo.name.userName }}</span>
         </div>
       </div>
       <div class="card_content_bottom">
         <div class="content_left">
-          <span>{{ cardInfo.corporation }}</span>
+          <span>{{ cardInfo.corporation || cardInfo.companyName }}</span>
           <span>厚德载物楼4栋303</span>
         </div>
         <div class="content_right">
           <!--            <img src="" alt="">-->
           <div class="content_img"></div>
-          <span>{{ cardInfo.section }}</span>
+          <span>{{ cardInfo.section || cardInfo.position}}</span>
         </div>
       </div>
     </div>
@@ -50,10 +50,10 @@ export default {
       let resp;
       let data = {
         userId: this.cardInfo.id,
-        userName: this.cardInfo.userName,
-        type: this.cardInfo.type,
-        corporation: this.cardInfo.corporation,
-        section: this.cardInfo.section,
+        userName: this.cardInfo.userName || this.cardInfo.name.userName,
+        type: this.cardInfo.type ||  this.cardInfo.cardType,
+        corporation: this.cardInfo.corporation || this.cardInfo.companyName ,
+        section: this.cardInfo.section || this.cardInfo.position,
         floorAuthority: JSON.stringify(
           this.groupModel.floorModel
         ),
