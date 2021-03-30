@@ -305,6 +305,7 @@ const EmployeeCard = {
                 content:payload
             })
             if(!resp.error){
+                console.log(resp.data.body)
                 commit('setStateVar', {
                     state: state,
                     key: 'applyList',

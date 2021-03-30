@@ -37,7 +37,8 @@ export default {
   props: [
     'list',
   ],
-  components: {Card}
+  components: {Card},
+
 }
 </script>
 

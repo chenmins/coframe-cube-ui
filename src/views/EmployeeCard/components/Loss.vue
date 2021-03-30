@@ -35,7 +35,7 @@ import Card from "@/components/UI/Card";
 export default {
   name: "Loss",
   props: [
-    'list',
+    'list','index'
   ],
   components: {Card}
 }

@@ -2,8 +2,8 @@
   <div id="ApplyRecord">
     <TitleNav bgc-color="#fff">
       <Application v-if="$route.params.title==='申请办卡'" v-for="i in applyList" :list="i"></Application>
-      <Patch v-else-if="$route.params.title==='补卡'" v-for="i in applyList" :list="i"></Patch>
-      <Loss v-else-if="$route.params.title==='挂失'" v-for="i in applyList" :list="i"></Loss>
+      <Patch v-if="$route.params.title==='补卡'" v-for="i in applyList" :list="i"></Patch>
+      <Loss v-if="$route.params.title==='挂失'" v-for="(i,index) in applyList" :list="i" :index="index"></Loss>
     </TitleNav>
   </div>
 </template>
@@ -31,7 +31,6 @@ export default {
     // this.list = this.$route.params.list
     // this.getCardRecord()
     this.queryWorkCardApplyRecord(this.$route.params.content)
-    console.log(this.applyList)
   },
   methods:{
     ...mapActions('EmployeeCard',['queryWorkCardApplyRecord']),
