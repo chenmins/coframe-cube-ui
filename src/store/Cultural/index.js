@@ -35,15 +35,18 @@ const Cultural = {
                 params: {id: payload.id, date: payload.data}
             })
         },
-        formInit(state, payload) {
+    },
+    actions: {
+        formInit(context, payload) {
             const IF_MAP = {
-                1:state.files?.length,
-                2:state.sendForm.body,
-                3:state.selectedTopic?.length,
+                1:context.state.files,
+                2:context.state.sendForm.body,
+                3:context.state.selectedTopic,
             }
+            console.log(context.state.files,IF_MAP)
             return {
-                files: IF_MAP[1] ? state.files : [],
-                query: IF_MAP[2] ? state.sendForm : {
+                files: IF_MAP[1] ? context.state.files : [],
+                query: IF_MAP[2] ?  context.state.sendForm : {
                     body: "",
                     comments: [],
                     choice: "choice" + Math.random(),
@@ -53,13 +56,10 @@ const Cultural = {
                     topicOfConversationName: "",
                     type: "type" + Math.random(),
                 },
-                topic: IF_MAP[3] ? state.selectedTopic : []
+                topic: IF_MAP[3] ?  context.state.selectedTopic : []
             }
-        }
-    }
+        },
 
-    ,
-    actions: {
         async initData(context, payload) {
             let resp
             resp = await payload.dispatch(CulturalControllerImpl.allPageSreach, {

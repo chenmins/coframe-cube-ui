@@ -44,7 +44,7 @@
         ></Icon>
       </div>
       <div class="topic_list" @click="selectTopic" ref="topicBtn">
-        <div v-if="topic.length === 0">#打标签</div>
+        <div v-if="topic[0].length === 0">#打标签</div>
         <div v-else>#{{ topic[0].name }}</div>
       </div>
     </div>
@@ -68,7 +68,7 @@ export default {
       autofocus: true,
       files: [],
       hasNine: false,
-      topic: null,
+      topic: [],
       query: {
         body: "",
         comments:[],
@@ -82,17 +82,16 @@ export default {
       picture: "",
     };
   },
-  created() {
-      let res = this.formInit({})
+  async created() {
+      let res =await this.formInit()
     this.files = res?.files || []
     this.query = res?.query || {}
     this.topic = res?.topic || []
-
-    console.log(this.formInit({}))
+    console.log(this.topic)
   },
   methods: {
-    ...mapMutations('Cultural',['setStateVar','formInit']),
-    ...mapActions('Cultural',['initData']),
+    ...mapMutations('Cultural',['setStateVar']),
+    ...mapActions('Cultural',['initData','formInit']),
     fileSubmitted(file) {},
     selectTopic() {
       this.setStateVar({
