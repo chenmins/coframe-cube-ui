@@ -3,20 +3,20 @@
     <div class="container">
       <cube-textarea
         class="textarea"
-        v-model="formData.textarea"
+        @input="setStateVar({key:'textarea',value:arguments[0]})"
         :placeholder="placeholder"
         :maxlength="maxlength"
         :autofocus="autofocus"
       ></cube-textarea>
       <cube-upload
         ref="upload"
-        v-model="files"
+        v-model="demos"
         :multiple="true"
         @files-added="filterFiles"
       >
         <div class="clear-fix row-reverse">
           <cube-upload-file
-            v-for="(file, i) in files"
+            v-for="(file, i) in demos"
             :file="file"
             :key="i"
           ></cube-upload-file>
@@ -33,13 +33,14 @@
 </template>
 
 <script>
-import HelpCenter from "../mixins/HelpCenter";
 import filesUpload from "@/libs/mixins/filesUpload";
+import {mapMutations, mapState} from "vuex";
 
 export default {
   name: "send",
   data() {
     return {
+      demos:[],
       value: "",
       placeholder: "选最棒的照片作为主图，帖子更容易被追捧~",
       maxlength: 200,
@@ -48,35 +49,29 @@ export default {
       hasNine: false,
     };
   },
-  mixins: [HelpCenter, filesUpload],
+  mixins: [filesUpload],
   methods: {
+    ...mapMutations('HelpCenter',['setStateVar']),
     topic() {
       this.$router.push({ name: "话题列表" });
     },
-  },
-  created() {
-
-
-    let newArr ='/8e3f7d5b-5c82-4aec-bae6-af1fedf67013/1615170370235.jpg,' +
-        '/8e3f7d5b-5c82-4aec-bae6-af1fedf67013/1615170370468.jpg,' +
-        '/8e3f7d5b-5c82-4aec-bae6-af1fedf67013/1615170370604.jpg,' +
-        '/8e3f7d5b-5c82-4aec-bae6-af1fedf67013/1615170370811.jpg,' +
-        '/8e3f7d5b-5c82-4aec-bae6-af1fedf67013/1615170370943.jpg,' +
-        '/8e3f7d5b-5c82-4aec-bae6-af1fedf67013/1615170371115.jpg,' +
-        '/8e3f7d5b-5c82-4aec-bae6-af1fedf67013/1615170371308.jpg,' +
-        '/8e3f7d5b-5c82-4aec-bae6-af1fedf67013/1615170371509.jpg,' +
-        '/8e3f7d5b-5c82-4aec-bae6-af1fedf67013/1615170371656.jpg,'
-    let arr = newArr.split(",");
-    arr.pop()
-    console.log(arr.map(i => {
-      return `//${this.$config.pictureUrl}/${this.$config.bucket}${i}_${this.$config.imgSize}`
-    }));
   },
   updated() {
     if (this.files.length >= 9) {
       document.querySelector(".cube-upload-btn").style.display = "none";
     }
   },
+  watch:{
+    demos:{
+      deep:true,
+      handler:function (newV,oldV){
+        this.setStateVar({
+          key:'files',
+          value:newV
+        })
+      }
+    }
+  }
 };
 </script>
 

@@ -9,27 +9,20 @@
         <div class="dot"></div>
         <div>
           <div class="time-title-font">提交申请时间</div>
-          <div class="time-font">2020/12/28 08:20:10</div>
+          <div class="time-font">{{ $dayjs(list.recordTime).format('YYYY/MM/DD HH:mm:ss') }}</div>
         </div>
       </li>
       <li>
         <div class="dot"></div>
         <div>
-          <div class="time-title-font">提交申请时间</div>
-          <div class="time-font">2020/12/28 08:20:10</div>
-        </div>
-      </li>
-      <li>
-        <div class="dot"></div>
-        <div>
-          <div class="time-title-font">提交申请时间</div>
-          <div class="time-font">2020/12/28 08:20:10</div>
+          <div class="time-title-font">审批时间</div>
+          <div class="time-font">{{ $dayjs(list.approvalTime).format('YYYY/MM/DD HH:mm:ss') }}</div>
         </div>
       </li>
       <li class="end">
         <div class="dot"></div>
-        <div class="time-title-font" >
-          行政部审批中
+        <div class="time-title-font">
+          {{list.approvalContent}}
         </div>
       </li>
     </ul>
@@ -41,9 +34,9 @@ import Card from "@/components/UI/Card";
 
 export default {
   name: "Application",
-  props:{
-
-  },
+  props: [
+    'list',
+  ],
   components: {Card}
 }
 </script>
@@ -56,17 +49,22 @@ export default {
   padding 12px 20px
   display flex
   align-items center
+
   .svg_class
     margin-right 12px
     height 36px
     width 36px
+
 .box
   padding 15px 20px
+
   .end
     .time-title-font
       color #F3981C
+
     .dot
       background-color #F3981C
+
     &:before
       display none
 
@@ -75,6 +73,7 @@ export default {
     display flex
     align-items flex-start
     position relative
+
     .dot
       height 7px
       width 7px
@@ -82,6 +81,7 @@ export default {
       background-color #EEEEEE
       margin-right 16px
       margin-top 3px
+
     &:before
       content ''
       width 1px

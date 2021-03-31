@@ -7,7 +7,7 @@ import Vue from 'vue'
 let NODE_ENV = process.env.NODE_ENV
 if(NODE_ENV === 'development'){
 	//开发环境
-	axios.defaults.baseURL = 'http://localhost:8081'; //初始地址
+	axios.defaults.baseURL = 'http://localhost:8080'; //初始地址
 }
 if(NODE_ENV === 'production'){
 	//生产环境
@@ -29,9 +29,7 @@ axios.interceptors.request.use(
 	return request
 },
 	error=>
-
 			Promise.reject(error)
-
 )
 
 

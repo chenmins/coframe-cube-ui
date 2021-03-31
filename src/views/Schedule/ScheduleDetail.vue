@@ -1,25 +1,25 @@
 <template>
   <div id="schedule_detail">
-    <NavLayOut bgc-color="#fff" @back="$router.push({ name: '日程协同' })">
+    <TitleNav bgc-color="#fff" @back="$router.push({ name: '日程协同' })">
       <LayOut class="schedule_group_1">
         <Icon svg-name="schedule-name" class-name="schedule-name"></Icon>
         <div>
           <header>
-            {{ scheduleData.title }}
+            {{ oneDaySchedule.title }}
           </header>
           <main>
-            {{ $dayjs(scheduleData.startTime).format("MM月DD日") + " " }}
-            {{ weeks[$dayjs(scheduleData.startTime).isoWeekday()] + " " }}
-            {{ $dayjs(scheduleData.startTime).format("HH:mm") + " - " }}
-            {{ $dayjs(scheduleData.endTime).format("HH:mm") }}
+            {{ $dayjs(oneDaySchedule.startTime).format("MM月DD日") + " " }}
+            {{ weeks[$dayjs(oneDaySchedule.startTime).isoWeekday()] + " " }}
+            {{ $dayjs(oneDaySchedule.startTime).format("HH:mm") + " - " }}
+            {{ $dayjs(oneDaySchedule.endTime).format("HH:mm") }}
           </main>
         </div>
       </LayOut>
       <LayOut class="schedule_group_2">
         <cube-form
-          class="form"
-          :model="model"
-          :options="{
+            class="form"
+            :model="model"
+            :options="{
             layout: 'classic', // classic fresh
           }"
         >
@@ -28,51 +28,51 @@
               <div class="cube-form-label">{{ fields[0].label }}</div>
               <span class="line">{{ model.userName || fields[0].label }}</span>
               <i
-                v-show="status.edit"
-                class="cubeic-arrow"
-                style="float: right; margin-right: 16px"
+                  v-show="status.edit"
+                  class="cubeic-arrow"
+                  style="float: right; margin-right: 16px"
               ></i>
             </div>
           </cube-form-item>
           <cube-form-item>
             <div
-              class="picker"
-              @click="status.edit && showPicker('conferenceRoom')"
+                class="picker"
+                @click="status.edit && showPicker('conferenceRoom')"
             >
               <div class="cube-form-label">{{ fields[1].label }}</div>
               <span class="line">{{
-                model.conferenceRoom || fields[1].label
-              }}</span>
+                  model.conferenceRoom || fields[1].label
+                }}</span>
               <i
-                v-show="status.edit"
-                class="cubeic-arrow"
-                style="float: right; margin-right: 16px"
+                  v-show="status.edit"
+                  class="cubeic-arrow"
+                  style="float: right; margin-right: 16px"
               ></i>
             </div>
           </cube-form-item>
           <cube-form-item>
             <div
-              class="picker"
-              @click="status.edit && showPicker('scheduleParticipantsEntities')"
+                class="picker"
+                @click="status.edit && showPicker('scheduleParticipantsEntities')"
             >
               <div class="cube-form-label">{{ fields[2].label }}</div>
               <span
-                v-if="
+                  v-if="
                   model.scheduleParticipantsEntities &&
                   model.scheduleParticipantsEntities.length === 0
                 "
-                >{{ fields[2].label }}</span
+              >{{ fields[2].label }}</span
               >
               <span
-                v-else
-                class="line"
-                v-for="i in model.scheduleParticipantsEntities"
-                >{{ i.userName }}，</span
+                  v-else
+                  class="line"
+                  v-for="i in model.scheduleParticipantsEntities"
+              >{{ i.userName }}，</span
               >
               <i
-                v-show="status.edit"
-                class="cubeic-arrow"
-                style="float: right; margin-right: 16px"
+                  v-show="status.edit"
+                  class="cubeic-arrow"
+                  style="float: right; margin-right: 16px"
               ></i>
             </div>
           </cube-form-item>
@@ -81,9 +81,9 @@
               <div class="cube-form-label">{{ fields[3].label }}</div>
               <span class="line">{{ model.remind }}</span>
               <i
-                v-show="status.edit"
-                class="cubeic-arrow"
-                style="float: right; margin-right: 16px"
+                  v-show="status.edit"
+                  class="cubeic-arrow"
+                  style="float: right; margin-right: 16px"
               ></i>
             </div>
           </cube-form-item>
@@ -92,19 +92,18 @@
               <div class="cube-form-label">{{ fields[4].label }}</div>
               <span class="line">{{ model.repeat }}</span>
               <i
-                v-show="status.edit"
-                class="cubeic-arrow"
-                style="float: right; margin-right: 16px"
+                  v-show="status.edit"
+                  class="cubeic-arrow"
+                  style="float: right; margin-right: 16px"
               ></i>
             </div>
           </cube-form-item>
         </cube-form>
       </LayOut>
-    </NavLayOut>
-
+    </TitleNav>
     <footer
-      v-if="
-        scheduleData.scheduleParticipantsEntities.filter(
+        v-if="
+        oneDaySchedule.scheduleParticipantsEntities.filter(
           (i) => i.userId === userInfo.id
         )[0].agree === '待确认'
       "
@@ -115,34 +114,33 @@
       </div>
       <div @click="agree" class="footer-func">接受</div>
     </footer>
-    <footer v-if="scheduleData.userId === userInfo.id">
+    <footer v-if="oneDaySchedule.userId === userInfo.id">
       <div @click="showPicker('share')">
         <Icon
-          svg-name="schedule-footer-1"
-          class-name="schedule-footer schedule-footer-1"
+            svg-name="schedule-footer-1"
+            class-name="schedule-footer schedule-footer-1"
         ></Icon>
       </div>
       <div @click="status.edit = !status.edit">
         <Icon
-          svg-name="schedule-footer-2"
-          class-name="schedule-footer schedule-footer-2"
+            svg-name="schedule-footer-2"
+            class-name="schedule-footer schedule-footer-2"
         ></Icon>
       </div>
       <div @click="remove">
         <Icon
-          svg-name="schedule-footer-3"
-          class-name="schedule-footer schedule-footer-3"
+            svg-name="schedule-footer-3"
+            class-name="schedule-footer schedule-footer-3"
         ></Icon>
       </div>
     </footer>
-    <!--    普通-->
-    <!--接收人-->
   </div>
 </template>
 
 <script>
-import { Dialog } from "vant";
-import { ScheduleControllerImpl } from "@controller";
+import {Dialog} from "vant";
+import {ScheduleControllerImpl} from "@controller";
+import {mapState} from "vuex";
 
 export default {
   name: "ScheduleDetail",
@@ -219,16 +217,21 @@ export default {
     };
   },
   created() {
-    this.scheduleData = this.$route.params.data;
     this.model = {
-      userName: this.scheduleData.userName,
-      organization: this.scheduleData.userName,
-      conferenceRoom: this.scheduleData.conferenceRoom,
-      scheduleParticipantsEntities: this.scheduleData
-        .scheduleParticipantsEntities,
-      remind: this.scheduleData.remind,
-      repeat: this.scheduleData.repeat,
+      userName: this.oneDaySchedule.userName,
+      organization: this.oneDaySchedule.userName,
+      conferenceRoom: this.oneDaySchedule.conferenceRoom,
+      scheduleParticipantsEntities: this.oneDaySchedule
+          .scheduleParticipantsEntities,
+      remind: this.oneDaySchedule.remind,
+      repeat: this.oneDaySchedule.repeat,
     };
+  },
+  mounted() {
+    this.$children[0].$refs.scroll.$el.style.height = `${this.workspaceRealHeight - 60}px`
+  },
+  computed:{
+    ...mapState('Schedule',['oneDaySchedule'])
   },
   methods: {
     showPicker(type) {
@@ -253,20 +256,21 @@ export default {
             value: "会议室3",
           },
         ],
+        //tag 参与人设置
         scheduleParticipantsEntities: [
           {
-            text: "参与人1",
+            text: "sysadmin",
             value: {
-              id: "canyuren1",
-              name: "参与人1",
+              id: "cof-user-sysadmin",
+              name: "sysadmin",
             },
           },
           {
-            text: "参与人2",
             value: {
-              id: "canyuren2",
-              name: "参与人2",
+              id: "8e3f7d5b-5c82-4aec-bae6-af1fedf67013",
+              name: "liuwb",
             },
+            text: "liuwb",
           },
         ],
         remind: [
@@ -336,85 +340,112 @@ export default {
           },
         ],
       };
-
       this.picker = this.$createPicker({
         title: "Picker",
         data: [typeMap[type]],
         onSelect: (v1, v2, v3) => {
-          console.log(v1);
-          console.log(v2);
-          console.log(v3);
           this.model[type] = v3[0];
-          console.log({
-            [type]: v1[0],
-          });
+          let modelSchEn =  this.model.scheduleParticipantsEntities
+          let schDataEn = this.oneDaySchedule.scheduleParticipantsEntities;
           if (type === "scheduleParticipantsEntities") {
-            this.model.scheduleParticipantsEntities = [];
-            this.model.scheduleParticipantsEntities.push(v1[0]);
-          }
-
-          if (type === "share") {
-            this.$createDialog(
-              {
-                type: "confirm",
+            modelSchEn = schDataEn
+            if (modelSchEn.findIndex(i =>
+                i.userId === v1[0].id
+            ) !== -1) {
+              this.$createDialog({
+                type: 'confirm',
+                title: '已经存在，是否删除',
                 confirmBtn: {
-                  text: "确定",
+                  text: '删除',
                   active: true,
                 },
-                onConfirm: () => {
-                  console.log(v1, v2, v3);
-                  //todo
-                  this.dispatch(ScheduleControllerImpl.addParSchedule, {
-                    id: this.$route.params.id,
-                    userId: v1[0],
-                    name: v3[0],
-                  });
-                },
                 cancelBtn: {
-                  text: "取消",
+                  text: '取消',
                   active: false,
                 },
-              },
-              (createElement) => {
-                return [
-                  createElement(
-                    "div",
-                    {
-                      class: {
-                        "my-content": true,
-                      },
-                      slot: "content",
-                    },
-                    [
-                      createElement("div", {
-                        class: {
-                          "schedule-avatar": true,
+                onConfirm: (e1, e2, e3) => {
+                  modelSchEn.splice(schDataEn.findIndex(i => i.userName === v1[0].name), 1)
+                  this.dispatch(ScheduleControllerImpl.delParSchedule, {
+                    id: this.oneDaySchedule.id,
+                    userId: v1[0].id
+                  }).then((res) => {
+
+                  })
+                },
+              }).show()
+            } else {
+              modelSchEn.push({
+                userName: v1[0].name,
+                userId: v1[0].id,
+              })
+              this.dispatch(ScheduleControllerImpl.addParSchedule, {
+                id: this.oneDaySchedule.id,
+                userId: v1[0].id,
+                name: v1[0].name,
+              })
+
+            }
+          }
+          if (type === "share") {
+            this.$createDialog(
+                {
+                  type: "confirm",
+                  confirmBtn: {
+                    text: "确定",
+                    active: true,
+                  },
+                  onConfirm: () => {
+                    this.dispatch(ScheduleControllerImpl.addParSchedule, {
+                      id: this.$route.params.id,
+                      userId: v1[0],
+                      name: v3[0],
+                    });
+                  },
+                  cancelBtn: {
+                    text: "取消",
+                    active: false,
+                  },
+                },
+                (createElement) => {
+                  return [
+                    createElement(
+                        "div",
+                        {
+                          class: {
+                            "my-content": true,
+                          },
+                          slot: "content",
                         },
-                      }),
-                      createElement("div", [
-                        createElement(
-                          "h1",
-                          {
+                        [
+                          createElement("div", {
                             class: {
-                              "schedule-h1": true,
+                              "schedule-avatar": true,
                             },
-                          },
-                          v3[0]
-                        ),
-                        createElement(
-                          "div",
-                          {
-                            class: {
-                              "schedule-content": true,
-                            },
-                          },
-                          v1[0]
-                        ),
-                      ]),
-                    ]
-                  ),
-                ];
-              }
+                          }),
+                          createElement("div", [
+                            createElement(
+                                "h1",
+                                {
+                                  class: {
+                                    "schedule-h1": true,
+                                  },
+                                },
+                                v3[0]
+                            ),
+                            createElement(
+                                "div",
+                                {
+                                  class: {
+                                    "schedule-content": true,
+                                  },
+                                },
+                                v1[0]
+                            ),
+                          ]),
+                        ]
+                    ),
+                  ];
+                }
             ).show();
           }
           if (this.model[type] === "自定义") {
@@ -436,6 +467,7 @@ export default {
             }
             this.formatPicker.show();
           }
+          this.model.scheduleParticipantsEntities = modelSchEn
           this.updateSchedule(type);
         },
       });
@@ -447,40 +479,40 @@ export default {
         id: this.$route.params.id,
         [type]: this.model[type],
       });
-      console.log(resp);
     },
-    init() {},
+    init() {
+    },
     getterData() {
       return {
-        id: this.scheduleData.id,
-        agree: this.scheduleData.agree,
+        id: this.oneDaySchedule.id,
+        agree: this.oneDaySchedule.agree,
       };
     },
     refuse() {
       this.edit = false;
-      this.scheduleData.agree = "不同意";
-      this.update(this.scheduleData.agree).then(() => {
+      this.oneDaySchedule.agree = "不同意";
+      this.update(this.oneDaySchedule.agree).then(() => {
         this.$createToast({
           type: "normal",
           txt: "已拒绝",
           time: 1000,
           onTimeout: () => {
-            this.$router.push({ name: "日程协同" });
+            this.$router.push({name: "日程协同"});
           },
         }).show();
-        this.$router.push({ name: "日程协同" });
+        this.$router.push({name: "日程协同"});
       });
     },
     agree() {
       this.edit = false;
-      this.scheduleData.agree = "同意";
-      this.update(this.scheduleData.agree).then(() => {
+      this.oneDaySchedule.agree = "同意";
+      this.update(this.oneDaySchedule.agree).then(() => {
         this.$createToast({
           type: "normal",
           time: 1000,
           txt: "已同意",
           onTimeout: () => {
-            this.$router.push({ name: "日程协同" });
+            this.$router.push({name: "日程协同"});
           },
         }).show();
       });
@@ -493,57 +525,57 @@ export default {
     },
     send() {
       this.$createDialog(
-        {
-          type: "confirm",
-          confirmBtn: {
-            text: "确定",
-            active: true,
+          {
+            type: "confirm",
+            confirmBtn: {
+              text: "确定",
+              active: true,
+            },
+            cancelBtn: {
+              text: "取消",
+              active: false,
+            },
           },
-          cancelBtn: {
-            text: "取消",
-            active: false,
-          },
-        },
-        (createElement) => {
-          return [
-            createElement(
-              "div",
-              {
-                class: {
-                  "my-content": true,
-                },
-                slot: "content",
-              },
-              [
-                createElement("div", {
-                  class: {
-                    "schedule-avatar": true,
+          (createElement) => {
+            return [
+              createElement(
+                  "div",
+                  {
+                    class: {
+                      "my-content": true,
+                    },
+                    slot: "content",
                   },
-                }),
-                createElement("div", [
-                  createElement(
-                    "h1",
-                    {
+                  [
+                    createElement("div", {
                       class: {
-                        "schedule-h1": true,
+                        "schedule-avatar": true,
                       },
-                    },
-                    "dasdas"
-                  ),
-                  createElement(
-                    "div",
-                    {
-                      class: {
-                        "schedule-content": true,
-                      },
-                    },
-                    "dsadsada"
-                  ),
-                ]),
-              ]
-            ),
-          ];
-        }
+                    }),
+                    createElement("div", [
+                      createElement(
+                          "h1",
+                          {
+                            class: {
+                              "schedule-h1": true,
+                            },
+                          },
+                          "dasdas"
+                      ),
+                      createElement(
+                          "div",
+                          {
+                            class: {
+                              "schedule-content": true,
+                            },
+                          },
+                          "dsadsada"
+                      ),
+                    ]),
+                  ]
+              ),
+            ];
+          }
       ).show();
     },
     remove() {
@@ -567,7 +599,7 @@ export default {
                 txt: "删除成功",
                 time: 500,
                 onTimeout: () => {
-                  this.$router.replace({ name: "日程协同" });
+                  this.$router.replace({name: "日程协同"});
                 },
               }).show();
             }
@@ -624,6 +656,7 @@ export default {
 #schedule_detail {
   background-color: $my-bgc-color;
   position: relative;
+  height 100vh
 
   .schedule_group_1 {
     text-align: left;

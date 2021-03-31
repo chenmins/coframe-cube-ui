@@ -1,19 +1,19 @@
 <template>
   <div id="todo-list">
-    <NavLayOut bgc-color="transparent" color="#fff">
-      <SlideNav
-        @LabelChanged="changeHandle"
-        show-slider
-        :selected-label="selectedLabel"
-        :tabs="tabs"
-      >
-        <div class="scroll-list-wrap warp custom">
-          <cube-scroll ref="scroll">
-            <slot></slot>
-          </cube-scroll>
-        </div>
-      </SlideNav>
-    </NavLayOut>
+    <TitleNav bgc-color="transparent" color="#fff">
+      <template>
+        <SlideNav
+            @LabelChanged="changeHandle"
+            show-slider
+            :selected-label="selectedLabel"
+            :tabs="tabs"
+        >
+
+
+              <slot></slot>
+        </SlideNav>
+      </template>
+    </TitleNav>
   </div>
 </template>
 
@@ -49,24 +49,26 @@ export default {
   },
   created() {
     this.approves = this.$store.state.Guest.approves.filter(
-      (i) => i.approved === false
+        (i) => i.approved === false
     );
   },
+
   methods: {
     GuestDetail() {
-      this.$router.push({ name: "ReserveDetail", params: { id: 1 } });
+      this.$router.push({name: "ReserveDetail", params: {id: 1}});
     },
     changeHandle(e) {
       this.$emit("changeHandle", e);
+      this.selectedLabel = e
       switch (e) {
         case "待审批":
           this.approves = this.$store.state.Guest.approves.filter(
-            (i) => i.approved === false
+              (i) => i.approved === false
           );
           break;
         case "已完成":
           this.approves = this.$store.state.Guest.approves.filter(
-            (i) => i.approved === true
+              (i) => i.approved === true
           );
       }
     },
@@ -75,12 +77,21 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+.switch_box
+  height 20px
+  margin 12px
+  display flex
+  align-items center
+  justify-content: space-between;
+  padding 10px
+  border-radius 6px
+  font-size 14px
+  z-index 99
+  position relative
+  .switch
+    height 24px
 .warp {
-  height: calc(100vh - 150px);
-
-  >>>.cube-scroll-wrapper {
-    height: 100%;
-  }
+  height: calc(100vh - 120px);
 }
 
 #todo-list {
@@ -88,14 +99,14 @@ export default {
   background: linear-gradient(119deg, #19D8FF 0%, #0F97FB 100%);
   position: relative;
 
-  >>>.cube-tab, .tab_item {
+  >>> .cube-tab, .tab_item {
     font-family: PingFangSC-Semibold, PingFang SC;
     font-weight: 600;
     color: #FFFFFF;
     line-height: 22px;
   }
 
-  >>>.cube-tab-bar-slider {
+  >>> .cube-tab-bar-slider {
     margin-left: 25px;
     max-width: 20px;
     height: 4px;
@@ -103,7 +114,7 @@ export default {
     border-radius: 2px;
   }
 
-  >>>.cube-tab {
+  >>> .cube-tab {
     min-width: 70px;
     font-size: 14px;
     color: #fff;
@@ -111,7 +122,7 @@ export default {
     line-height: 22px;
   }
 
-  >>>.cube-tab_active {
+  >>> .cube-tab_active {
     font-size: 16px;
   }
 }

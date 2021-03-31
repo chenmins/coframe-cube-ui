@@ -1,8 +1,11 @@
 <template>
   <div id="floor_select" :style="'background-color'+bgColor">
-    <NavLayOut
+    <TitleNav
         bgc-color="#fff"
     >
+      <div slot="right">
+        <slot name="right"></slot>
+      </div>
       <LayOut style="padding-bottom: 60px" class="bgcolor">
         <slot>
 
@@ -11,7 +14,7 @@
           <div v-if="!showAdd" class="cover"></div>
           <div class="title">楼层权限</div>
           <div class="item" v-for="(model,index) in $store.state.EmployeeCard.groupModel.floorModel">
-            <cube-form :model="$store.state.EmployeeCard.groupModel.floorModel[index]"
+            <cube-form :model="floorModel[index]"
                        @validate="validateHandler"
                        :schema="$store.state.EmployeeCard.groupSchema.floorSchema[index]"
                        :options="{layout:'classic'}"
@@ -27,14 +30,14 @@
           <span>添加</span>
         </div>
       </LayOut>
-    </NavLayOut>
+    </TitleNav>
 
     <div class="footer" v-if="$route.meta.name==='员工卡申请'">
       <cube-button type="submit">预览确认</cube-button>
     </div>
     <div class="footer two" v-else>
-      <cube-button type="submit" class="cancel" @click="$router.back()">上一步</cube-button>
-      <cube-button type="submit" class="confirm" @click="confirm">预览确认</cube-button>
+      <cube-button type="submit" class="cancel" @click="$router.back()">{{ cancelText?cancelText:"上一步" }}</cube-button>
+      <cube-button type="submit" class="confirm" @click="confirm">{{ confirmText?confirmText:'预览确认' }}</cube-button>
     </div>
 
   </div>
@@ -42,10 +45,13 @@
 
 <script>
 import Preview from "@/components/EmployeeCard/Preview";
+import {mapMutations, mapState} from "vuex";
 
 export default {
   name: "FloorSelect",
   props: {
+    confirmText:null,
+    cancelText:null,
     bgColor: {
       type: String,
       default: ''
@@ -67,14 +73,27 @@ export default {
   data() {
     return {
       preview: false,
-      result: null
+      result: null,
+      floorModel: [
+        {
+          which: "",
+          floor: "",
+          num: ""
+        }
+      ]
     }
+  },
+
+  mounted() {
+    this.floorModel = this.$store.state.EmployeeCard.groupModel.floorModel
+
+    this.$children[0].$refs.scroll.$el.style.height = `${this.workspaceRealHeightNum - 130}px`
   },
   methods: {
     validateHandler(result) {
       this.result = result
-
     },
+
     cancel() {
       this.$createDialog({
         type: 'confirm',
@@ -90,7 +109,7 @@ export default {
       }).show()
     },
     confirm() {
-      if (!this.result.valid) {
+      if (!this.result.valid && this.$route.fullPath.includes('CreateCard')) {
         this.$createToast({
           type: 'error',
           txt: '请填写完整表单',
@@ -98,6 +117,7 @@ export default {
         }).show()
         return
       }
+      this.$store.commit('EmployeeCard/setFloorModel',this.floorModel)
       this.$emit('confirm',)
     },
     add() {
@@ -216,6 +236,9 @@ export default {
         time: 1000
       }).show()
     }
+  },
+  computed:{
+    ...mapState('EmployeeCard',['cardInfo'])
   }
 }
 </script>

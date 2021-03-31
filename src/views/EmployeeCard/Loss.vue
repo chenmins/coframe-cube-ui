@@ -1,6 +1,6 @@
 <template>
   <div id="add_card">
-    <NavLayOut bgc-color="#fff">
+    <TitleNav bgc-color="#fff">
       <Card class="card" style="background-color: #fff;margin: 20px">
         <div class="header">
           <h1 v-if="$store.state.EmployeeCard.cardInfo.state === '启用'">启用</h1>
@@ -27,7 +27,7 @@
           注：挂失后员工卡为冻结状态且不可使用，如已找到可以解除挂失，回复启用状态。否则可以申请补卡。
         </div>
       </Card>
-    </NavLayOut>
+    </TitleNav>
   </div>
 </template>
 

@@ -1,6 +1,6 @@
 <template>
   <div id="car_register">
-    <NavLayOut bgc-color="#fff">
+    <TitleNav bgc-color="#fff">
       <cube-form
           :model="model"
           :schema="schema"
@@ -11,7 +11,7 @@
           @submit="submitHandler"
       ></cube-form>
       <div class="title">请按照要求提供以下信息，完成车辆信息注册，感谢</div>
-    </NavLayOut>
+    </TitleNav>
   </div>
 </template>
 

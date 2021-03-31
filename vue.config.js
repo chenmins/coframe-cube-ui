@@ -19,6 +19,7 @@ function createServerConfig(compilation) {
     }, config)
   )
 }
+process.traceDeprecation = true
 
 module.exports = {
   configureWebpack: {   //swagger 关闭amd loader,
@@ -29,11 +30,7 @@ module.exports = {
             amd: false
           }
         },
-
-
       ],
-
-
     },
     resolve: {
       alias: {
@@ -98,11 +95,11 @@ module.exports = {
   pages: {
     index: {
       entry: 'src/main',
-      title: 'cube'
+      title:config.title
     }
   },
   devServer: {
-    port: 8081,
+    port: 8080,
     open: true, //配置自动启动浏览器
     proxy: {
       // "/api/minio": {

@@ -1,17 +1,17 @@
 <template>
   <div>
-    <img width="100%" src="../../assets/icons/question.png" alt="" />
+    <img width="100%" src="../../assets/icons/question.png" alt=""/>
     <div style="position: relative; padding-top: 47px">
       <div class="header">
-        <Search :value="value" @search="search" @reflash="reFlash"></Search>
+        <Search :value="keywords" @search="search" @reflash="reFlash"></Search>
       </div>
       <Card
-        class="list_item"
-        style="margin: 0; border-radius: 0; padding: 15px"
-        v-for="item in questionData"
-        :key="item.id"
-        :data-id="item.id"
-        @clicked="
+          class="list_item"
+          style="margin: 0; border-radius: 0; padding: 15px"
+          v-for="item in QuestionsData"
+          :key="item.id"
+          :data-id="item.id"
+          @clicked="
           $router
             .push({
               name: 'QuestionDetail',
@@ -21,13 +21,13 @@
         "
       >
         <span
-          style="
+            style="
             display: flex;
             align-items: center;
             color: #0f1826;
             height: 48px;
           "
-          >{{ item.title }}</span
+        >{{ item.title }}</span
         >
         <i class="cubeic-arrow icon-arrow"></i>
       </Card>
@@ -38,8 +38,7 @@
 <script>
 import Search from "@/components/UI/Search";
 import Card from "@/components/UI/Card";
-import HelpCenter from "./mixins/HelpCenter";
-import { HelpControllerImpl } from "@controller";
+import {mapActions, mapState} from "vuex";
 
 export default {
   name: "Question",
@@ -47,14 +46,14 @@ export default {
     Card,
     Search,
   },
-  mixins: [HelpCenter],
   data() {
     return {
-      value: "",
+      keywords: "",
     };
   },
-  created() {
-    this.initQuestions();
+  computed: {
+    ...mapState('HelpCenter', ['QuestionsData'])
+
   },
   beforeRouteLeave(to, from, next) {
     if (to.fullPath.includes("ProductInc")) {
@@ -62,25 +61,24 @@ export default {
     }
     next();
   },
-
+  created() {
+    this.initData({dispatch: this.dispatch, type: 'Questions', controller: 'queryByTitle'})
+  },
   beforeMount() {
     this.listData = this.$store.state.HelpCenter.listData;
   },
   methods: {
-    async search(e) {
-      let resp;
-      this.value = e;
-      resp = await this.dispatch(HelpControllerImpl.queryByTitle, {
-        title: e,
-      });
-      this.questionData = resp.data.body;
+    ...mapActions('HelpCenter', ['searchSubmit','initData']),
+    search(e) {
+      this.keywords = e
+      this.searchSubmit({
+        dispatch: this.dispatch,
+        keywords: e
+      })
     },
     reFlash(e) {
-      this.value = "";
-      this.initQuestions();
-    },
-    goRouter(e) {
-      console.log(e);
+      this.keywords = ''
+      this.initData({dispatch: this.dispatch, type: 'Questions', controller: 'queryByTitle'})
     },
   },
 };

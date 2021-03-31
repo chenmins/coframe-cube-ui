@@ -1,6 +1,6 @@
 <template>
   <div class="comments_app">
-    <NavLayOut bgc-color="#fff" style="margin-bottom: 100px">
+    <TitleNav bgc-color="#fff" style="margin-bottom: 100px">
       <Card :is-comment="false">
         <div slot="username">{{ userTableData.userName }}</div>
         <div slot="time">
@@ -9,18 +9,14 @@
         <template v-slot:image>
           <div style="width: 100%" class="clear-fix">
             <img
-              class="cul_img"
-              width="30%"
-              v-for="i in userTableData.picture.split(',')"
-              :src="i"
-              alt=""
+                width="33.33%"
+                :src="'//'+$config.pictureUrl+'/'+$config.bucket+'/'+userTableData.picture.split(',')[0]+'_'+$config.imgSize"
+                @click="imagePreview(['//'+$config.pictureUrl+'/'+$config.bucket+'/'+userTableData.picture.split(',')[0]+'_'+$config.imgSize])"
             />
           </div>
         </template>
         <div slot="likeName">{{ userTableData.fabulousPlusCount }}</div>
         <template v-slot:content>
-          {{ userTableData.picture }}
-
           {{ userTableData.body }}</template
         >
         <template v-slot:card_topic
@@ -51,7 +47,7 @@
           </div>
         </Card>
       </div>
-    </NavLayOut>
+    </TitleNav>
     <div class="go_comment">
       <form style="width: 100%" class="comment_submit" @submit="submitHandler">
         <cube-textarea
@@ -74,6 +70,7 @@ import urls from "@/utils/mock/url"; // 引入实现准备好的接口请求相�
 
 import { PipCcoCciController } from "@controller";
 import { CulturalControllerImpl } from "@controller";
+import {mapActions} from "vuex";
 
 export default {
   name: "Comments",
@@ -85,36 +82,44 @@ export default {
       value: "",
       placeholder: "请输入评论",
       maxlength: 200,
-      userTableData: [], // 定义需要的数据
+      userTableData: {
+        body: null,
+        choice: null,
+        comments: [],
+        deleteForUser: null,
+        fabulous: 0,
+        fabulousForUser: null,
+        fabulousPlusCount: null,
+        id:0,
+        picture: "",
+        releaseTime: 0,
+        title: "",
+        top: 0,
+        topTime: 0,
+        topicOfConversationId: "",
+        topicOfConversationName: null,
+        type: "",
+        userId: "",
+        userName: "",
+      }, // 定义需要的数据
     };
   },
-  created() {
-    this.init();
-    this.userTableData = this.$route.params.data;
+  mounted() {
+    this.getCommunicationCircleEntity({dispatch: this.dispatch,id:this.$route.params.id}).then(resp=>{
+      this.userTableData = resp
+    })
   },
   methods: {
+    imagePreview(imgs){
+      this.$createImagePreview({
+        imgs: imgs
+      }).show()
+    },
+    ...mapActions('Cultural',['getCommunicationCircleEntity']),
+
     async submitHandler(e) {
       e.preventDefault();
-      // let resp = await this.dispatch(PipCcoCciController.)
-    },
-    async init() {
-      //todo 交流圈详情
-      let resp = await this.dispatch(
-        CulturalControllerImpl.getCommunicationCircleEntity,
-        {
-          id: this.$route.params.id,
-          pageSize: 10,
-          pageNo: 1,
-        }
-      );
-      if (!resp.error) {
-        console.log(resp);
-        this.userTableData = resp.data.body;
-      }
-    },
-    async submit() {
       let resp = await this.dispatch(PipCcoCciController.upCommentById, {});
-
       console.log(resp);
     },
   },

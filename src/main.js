@@ -18,10 +18,10 @@ import Tag from "@/components/Tag";
 import LayOut from "@/components/LayOut";
 import store from './store'
 import calendar from 'vue2-slot-calendar';
-import NavLayOut from "@/components/NavLayOut";
 import Icon from "@/components/Icon";
 import ReadConfig from './utils/config'
 import loading from "@/components/UI/loading";
+import TitleNav from "@/components/UI/TitleNav";
 
 
 import dayjs from 'dayjs'
@@ -29,7 +29,8 @@ import isoWeek from 'dayjs/plugin/isoWeek'
 import DayOfYear from 'dayjs/plugin/dayOfYear'
 import useCalendar from 'dayjs/plugin/calendar'
 import IsLeapYear from 'dayjs/plugin/isLeapYear'
-dayjs.extend(isoWeek).extend(DayOfYear).extend(useCalendar).extend(IsLeapYear)
+import isBetween from  'dayjs/plugin/isBetween'
+dayjs.extend(isoWeek).extend(DayOfYear).extend(useCalendar).extend(IsLeapYear).extend(isBetween)
 
 
 Vue.config.productionTip = false
@@ -46,21 +47,19 @@ Vue.config.lang = 'zh_CN'
 
 Vue.mixin(Global).mixin(BaseVue)
 Vue.use(registerComponents, [
-  Nav, Tabbar, List, Tag, LayOut, NavLayOut, Icon, loading, calendar
+  Nav, Tabbar, List, Tag, LayOut, Icon, loading, calendar,TitleNav
 ])
 window.vue =  new Vue({
   store
 })
-
-
 const create = async () => {
   await ReadConfig(Vue)
+  Vue.prototype.$config = Vue.config
   new Vue({
     router,
     store,
     render: h => h(App)
   }).$mount('#app')
 }
-create()
-Vue.prototype.$config = Vue.config
+create();
 

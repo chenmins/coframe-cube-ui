@@ -1,5 +1,5 @@
 <template>
-  <div class="reserve">
+  <div class="reserve" @click="$emit('clicked')">
     <i class="cubeic-close"></i>
     <span>
       <slot>发布</slot>

@@ -13,7 +13,7 @@
           </span>
       </LayOut>
     </div>
-    <NavLayOut bgc-color="#fff" style="padding-top: 80px;">
+    <TitleNav bgc-color="#fff" style="padding-top: 80px;">
       <!--    @CardDetail-->
       <div id="card" v-for="reserve in reserves" @click="$router.push({name:'GuestDetail',params:{id:1}})">
         <div class="title">
@@ -33,7 +33,7 @@
       <div slot="right" class="right">
         <Icon svg-name="guest-qr" height="20px" width="20px" class-name="svg_position"></Icon>
       </div>
-    </NavLayOut>
+    </TitleNav>
   </div>
 </template>
 

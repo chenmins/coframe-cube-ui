@@ -16,6 +16,7 @@
 
 import {AuthApiController} from '@controller'
 import {setToken} from "@/utils/auth";
+import axios from "axios";
 import router from "@/router";
 import {Toast} from "cube-ui";
 //登录跳转路由储存s
@@ -73,22 +74,42 @@ export default {
   },
   beforeRouteEnter(to, from, next) {
     routerStorage = from.fullPath
+
     next()
+  },
+  created() {
+    if(localStorage.getItem('Token')){
+      this.$router.replace(routerStorage ? routerStorage : '/')
+    }
   },
   methods: {
     async submitHandler(e, model) {
+      let toast = this.$createToast({
+        txt:'登陆中',
+        time:0
+      })
       e.preventDefault()
-
+      toast.show()
       let data = {
         "username": model.inputValue,
         "password": model.passwordValue
       }
-      let resp = await this.dispatch(AuthApiController.login, data)
+      let resp
+      try {
+        resp= await this.dispatch(AuthApiController.login, data)
+
+      }catch (e) {
+        toast.hide()
+      }
+
       if (!resp.error) {
         this.$store.commit('setUseInfo', resp.data)
-        localStorage.setItem('admin', resp.data.admin)
+        if(resp.data.admin){
+          localStorage.setItem('admin', resp.data.admin)
+        }
         localStorage.setItem('Token', resp.data.token)
         setToken(resp.data.token)
+        toast.hide()
         this.$createToast({
           txt: '登陆成功，正在跳转',
           time: 500,
@@ -100,7 +121,6 @@ export default {
       } else {
         console.log('error')
       }
-
     }
 
   }

@@ -1,3 +1,6 @@
+
+
+
 export default {
     methods: {
         //文件过滤
@@ -5,7 +8,7 @@ export default {
             console.log('文件过滤');
             let hasIgnore = false;
             let message;
-            const maxSize = 5 * 1024 * 1024; // 1M
+            const maxSize = this.$config.MAX_IMG_SIZE * 1024 * 1024; // 1M
             let hou = files[0].name.split(".").reverse()[0];
             if (files[0].name.indexOf(".") === -1) {
                 files[0].ignore = true;
@@ -20,15 +23,14 @@ export default {
             if (files[0].size > maxSize) {
                 files[0].ignore = true;
                 hasIgnore = true;
-                message = "选择的图片不能大于5M";
+                message = `选择的图片不能大于${this.$config.MAX_IMG_SIZE}M`;
             }
             hasIgnore &&
-            this.$createToast({
-                type: "warn",
-                time: 1000,
-                txt: message,
-            }).show();
-
+                this.$createToast({
+                    type: "warn",
+                    time: 1000,
+                    txt: message,
+                }).show();
         },
 
         //获得上传url
@@ -71,8 +73,8 @@ export default {
                 await this.imageUpload(url, files[i].file)
 
 
-                let changedUrl = url.split('?')[0].split('/')[4]+'/'+url.split('?')[0].split('/')[5] // todo 测试
-                picture = picture+ `${changedUrl},`
+                let changedUrl = url.split('?')[0].split('/')[4] + '/' + url.split('?')[0].split('/')[5]
+                picture = picture + `${changedUrl},`
 
                 // picture = picture + changedUrl.join('/') + this.$config.imgSize;
                 //tx.chenmin.org:9000/  jiaoliuquan     /8e3f7d5b-5c82-4aec-bae6-af1fedf67013/1615167859925.jpg

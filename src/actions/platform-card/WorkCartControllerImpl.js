@@ -5,6 +5,18 @@
 import { WorkCartControllerImpl } from '../controller';
 export default {
     actions: {
+        [WorkCartControllerImpl.addDalance.method] : {
+            summary: '充值',
+            method: 'post',
+            url: (payload) => `/api/platform/workCard/addDalance`,
+            parameters: [{'in':'body','name':'dealRecordEntity','description':'dealRecordEntity','required':true,'schema':{'$ref':'#/definitions/员工卡交易记录'}}],
+        },
+        [WorkCartControllerImpl.getReviewList.method] : {
+            summary: '获取审批列表',
+            method: 'get',
+            url: (payload) => `/api/platform/workCard/getReviewList/${payload.pass}`,
+            parameters: [{'name':'pass','in':'path','description':'审核状态','required':true,'type':'integer','format':'int32'}],
+        },
         [WorkCartControllerImpl.getWorkCard.method] : {
             summary: '获取当前员工的员工卡状态',
             method: 'get',
@@ -17,6 +29,18 @@ export default {
             url: (payload) => `/api/platform/workCard/open`,
             parameters: [{'in':'body','name':'vo','description':'vo','required':true,'schema':{'$ref':'#/definitions/WorkCardVO'}}],
         },
+        [WorkCartControllerImpl.queryWorkCardAll.method] : {
+            summary: '查询所有员工卡信息',
+            method: 'post',
+            url: (payload) => `/api/platform/workCard/queryWorkCardAll`,
+            parameters: [{'in':'body','name':'vo','description':'vo','required':false,'schema':{'$ref':'#/definitions/WorkCardVO'}}],
+        },
+        [WorkCartControllerImpl.queryWorkCardApplyRecord.method] : {
+            summary: '查询员工卡申请记录',
+            method: 'get',
+            url: (payload) => `/api/platform/workCard/queryWorkCardApplyRecord/${payload.content}`,
+            parameters: [{'name':'content','in':'path','description':'查询内容','required':true,'type':'integer','format':'int32'}],
+        },
         [WorkCartControllerImpl.queryWorkCardRecord.method] : {
             summary: '查询员工卡记录',
             method: 'get',
@@ -27,7 +51,7 @@ export default {
             summary: '补卡',
             method: 'put',
             url: (payload) => `/api/platform/workCard/replacement`,
-            parameters: [],
+            parameters: [{'in':'body','name':'entity','description':'entity','required':true,'schema':{'$ref':'#/definitions/员工卡'}}],
         },
         [WorkCartControllerImpl.reportTheLoss.method] : {
             summary: '挂失',
@@ -39,6 +63,12 @@ export default {
             summary: '审核',
             method: 'put',
             url: (payload) => `/api/platform/workCard/review`,
+            parameters: [{'in':'body','name':'entity','description':'entity','required':true,'schema':{'$ref':'#/definitions/员工卡流程'}}],
+        },
+        [WorkCartControllerImpl.updateWorkCard.method] : {
+            summary: '修改员工卡信息',
+            method: 'post',
+            url: (payload) => `/api/platform/workCard/updateWorkCard`,
             parameters: [{'in':'body','name':'vo','description':'vo','required':true,'schema':{'$ref':'#/definitions/WorkCardVO'}}],
         },
     },

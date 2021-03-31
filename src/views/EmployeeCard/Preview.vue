@@ -9,33 +9,33 @@
       <div class="avatar_group"></div>
     </div>
     <FloorSelect
-      @confirm="submit"
-      bg-color="transparent"
-      style="position: relative; z-index: 10"
+        @confirm="submit"
+        bg-color="transparent"
+        style="position: relative; z-index: 10"
     >
       <div class="card">
         <div class="card_content">
-          <span class="card_num">{{ cardInfo.name.id }}</span>
+          <span class="card_num">{{ cardInfo.code }}</span>
           <div class="card_avatar">
             <!--            <img src="" alt="">-->
             <div class="avatar_img"></div>
             <img
-              class="avatar_edit"
-              src="../../assets/icons/employee_edit.webp"
-              alt=""
+                class="avatar_edit"
+                src="../../assets/icons/employee_edit.webp"
+                alt=""
             />
-            <span class="avatar_name">{{ cardInfo.name.userName }}</span>
+            <span class="avatar_name">{{ cardInfo.userName || cardInfo.name.userName }}</span>
           </div>
         </div>
         <div class="card_content_bottom">
           <div class="content_left">
-            <span>{{ cardInfo.companyName }}</span>
+            <span>{{ cardInfo.corporation || cardInfo.companyName }}</span>
             <span>厚德载物楼4栋303</span>
           </div>
           <div class="content_right">
             <!--            <img src="" alt="">-->
             <div class="content_img"></div>
-            <span>{{ cardInfo.position }}</span>
+            <span>{{ cardInfo.section || cardInfo.position }}</span>
           </div>
         </div>
       </div>
@@ -44,42 +44,43 @@
 </template>
 
 <script>
-import { WorkCartControllerImpl } from "@controller";
+import {WorkCartControllerImpl} from "@controller";
 import EmployeeCard from "@/libs/mixins/EmployeeCard";
 import FloorSelect from "@/views/EmployeeCard/components/FloorSelect";
+import {mapMutations, mapState} from "vuex";
+
 export default {
   name: "Preview",
-  components: { FloorSelect },
+  components: {FloorSelect},
   mixins: [EmployeeCard],
-  data() {
-    return {
-      cardInfo: {},
-    };
-  },
   created() {
-    this.cardInfo = this.$store.state.EmployeeCard.groupModel.firstModel;
+    console.log(this.cardInfo)
   },
   methods: {
+    ...mapMutations('EmployeeCard',['setFloorModel']),
     async submit() {
       this.$router.push({
         name: "PreviewInfo",
-        params: { id: this.userInfo.id, func: this.$route.params.func },
+        params: {id: this.userInfo.id, func: this.$route.params.func},
       });
     },
   },
+  computed: {
+    ...mapState('EmployeeCard', ['cardInfo'])
+  }
 };
 </script>
 
 <style scoped lang="stylus">
->>>.cube-validator-msg {
+>>> .cube-validator-msg {
   display: none;
 }
 
->>>.cube-form-item_required .cube-form-label::before {
+>>> .cube-form-item_required .cube-form-label::before {
   display: none;
 }
 
->>>.bgcolor {
+>>> .bgcolor {
   background-color: transparent !important;
 }
 

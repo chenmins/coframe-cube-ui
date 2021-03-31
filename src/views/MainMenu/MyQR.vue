@@ -1,6 +1,6 @@
 <template>
   <div id="my_qr">
-    <NavLayOut >
+    <TitleNav >
       <div class="container">
         <img class="my_qr" src="../../assets/icons/myQR.png" alt="">
         <div class="content_box">
@@ -11,7 +11,7 @@
         </div>
       </div>
 
-    </NavLayOut>
+    </TitleNav>
     <div class="download">
       <div class="download_bgc">
         <Icon svg-name="download" class-name="download_svg" height="24px" width="24px" ></Icon>

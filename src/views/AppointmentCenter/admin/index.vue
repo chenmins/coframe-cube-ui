@@ -1,5 +1,5 @@
 <template>
-  <div id="Reserve" style="margin-bottom: 80px">
+  <div id="Reserve" >
     <div class="top_fixed">
       <Search class="search" style="border-bottom: none;" placeholder="请搜索" :value="value"></Search>
       <LayOut class="func">
@@ -13,7 +13,7 @@
           </span>
       </LayOut>
     </div>
-    <NavLayOut bgc-color="#3642FF"  color="#fff" style="padding-top: 80px;">
+    <TitleNav bgc-color="#3642FF"  color="#fff"   >
       <!--    @CardDetail-->
       <div id="card" v-for="reserve in reserves" @click="$router.push({name:'GuestDetail',params:{id:1}})">
         <div class="header">
@@ -35,7 +35,7 @@
       <div slot="right" class="right">
         <Icon svg-name="QR_white" height="20px" width="20px" class-name="svg_position"></Icon>
       </div>
-    </NavLayOut>
+    </TitleNav>
   </div>
 </template>
 
@@ -145,12 +145,9 @@ export default {
 </script>
 >
 <style scoped lang="stylus">
->>>.cube-scroll-wrapper
-  height  calc(100vh - 220px)
-
->>> .scroll-list-wrap
-  max-height calc(100vh - 210px)
-  padding-bottom: 1px;
+>>>.scroll-list-wrap
+  margin-top 100px
+  height calc(100vh - 160px)
 
 #card
   text-align left

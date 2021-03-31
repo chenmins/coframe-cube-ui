@@ -1,6 +1,6 @@
 <template>
   <div id="floor_select" :style="'background-color'+bgColor">
-    <NavLayOut
+    <TitleNav
         bgc-color="#fff"
     >
       <Card style="margin-top: 12px;padding: 12px 20px">
@@ -62,7 +62,7 @@
           </div>
         </LayOut>
       </Card>
-    </NavLayOut>
+    </TitleNav>
     <div class="footer ">
       <div style="margin-left: 20px">合计：<span class="price">￥15.23</span></div>
       <div style="margin-right: 20px" class="button_group">

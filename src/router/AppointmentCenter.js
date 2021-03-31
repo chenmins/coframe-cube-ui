@@ -4,7 +4,7 @@ import router from "@/router/index";
 export default [
     {
         path: '/YuYue',
-        redirect:'YuYue/',
+        redirect:'/YuYue/',
         name:'预约中心',
         meta: {
             name: '预约中心',
@@ -36,6 +36,19 @@ export default [
                 },
                 component: () => import('@/views/AppointmentCenter/MyYuYue')
             },
+            {
+                path: '/AppointmentAdminRelease',
+                name: 'AppointmentAdminRelease',
+                meta: {
+                    name: '发布管理',
+                    tag: '发布管理',
+                    leave: 3,
+                    backRouter:'Home',
+                    showNav: true
+                },
+                component: () => import('@/views/AppointmentCenter/admin/Release')
+            },
+
         ]
     },
     {
@@ -167,7 +180,7 @@ export default [
         component: () => import('@/views/AppointmentCenter/YuYueSuccess')
     },
     {
-        path: '/ReservePage/:id',
+        path: '/ReservePage',
         name: 'ReservePage',
         meta: {
             name: '预约页面',
@@ -213,19 +226,7 @@ export default [
         component: () => import('@/views/AppointmentCenter/admin/index'),
     },
     {
-        path: '/AppointmentAdminRelease',
-        name: 'AppointmentAdminRelease',
-        meta: {
-            name: '发布管理',
-            tag: '发布管理',
-            leave: 3,
-            backRouter:'Home',
-            showNav: true
-        },
-        component: () => import('@/views/AppointmentCenter/admin/Release')
-    },
-    {
-        path: '/AdminReleaseEdit/:id',
+        path: '/AdminReleaseEdit',
         name: 'AdminReleaseEdit',
         meta: {
             name: '发布时间段管理',
@@ -243,7 +244,7 @@ export default [
             name: '发布',
             tag: '发布',
             leave: 3,
-            backRouter:'Home',
+            backRouter:'AppointmentAdminRelease',
             showNav: true
         },
         component: () => import('@/views/AppointmentCenter/admin/addRelease')
@@ -296,7 +297,6 @@ export default [
         },
         component: () => import('@/views/AppointmentCenter/admin/meetingConfirm')
     },
-
     {
         path: '/meetingSuccess',
         name: 'meetingSuccess',

@@ -1,4 +1,6 @@
 
+import { WorkCartControllerImpl } from '@controller'
+
 const labelGroup = {
     cardType1: {
         companyName: '所属公司',
@@ -13,11 +15,16 @@ const labelGroup = {
 }
 
 import store from 'vuex'
-
 const EmployeeCard = {
     namespaced: true,
     state: {
         cardInfo: {},
+        reasonsCode: null,
+        reasonsName: null,
+        applyList:[],
+        approveLists:[],
+        cardManageLists:[],
+
         groupModel: {
             firstModel: {
                 cardType: "",
@@ -52,7 +59,7 @@ const EmployeeCard = {
                                             window.vue.$store.state.EmployeeCard.groupSchema.fristSchema.groups[0].fields[2].label = labelGroup.cardType1.position
                                             window.vue.$store.state.EmployeeCard.groupSchema.fristSchema.groups[0].fields[3].label = labelGroup.cardType1.name
                                         }
-                                        if (e === '外协' || e === '临时卡') {
+                                        if (e === '外协/临时卡') {
                                             window.vue.$store.state.EmployeeCard.groupSchema.fristSchema.groups[0].fields[1].label = labelGroup.cardType2.companyName
                                             window.vue.$store.state.EmployeeCard.groupSchema.fristSchema.groups[0].fields[2].label = labelGroup.cardType2.position
                                             window.vue.$store.state.EmployeeCard.groupSchema.fristSchema.groups[0].fields[3].label = labelGroup.cardType2.name
@@ -60,7 +67,7 @@ const EmployeeCard = {
                                     }
                                 },
                                 props: {
-                                    options: ['新员工卡', '外协', '临时卡']
+                                    options: ['新员工卡', '外协/临时卡']
                                 },
                                 rules: {
                                     required: true
@@ -103,18 +110,18 @@ const EmployeeCard = {
                                             }
                                         },
                                         {
-                                            text: '员工2',
+                                            text: 'sysadmin',
                                             value: {
-                                                id: 'dsaa-dsa234-dsa',
-                                                userName: '员工2',
-                                                tel: 22222
+                                                id: 'cof-user-sysadmin',
+                                                userName: 'sysadmin',
+                                                tel: 11111
                                             }
                                         },
                                         {
-                                            text: '员工3',
+                                            text: 'test',
                                             value: {
-                                                id: 'ada-dsa234-dsa',
-                                                userName: '员工3',
+                                                id: 'd8b36c50-17e2-46cb-8f3d-2c6f51dd62c8',
+                                                userName: 'test',
                                                 tel: 33333
                                             }
                                         }
@@ -192,9 +199,23 @@ const EmployeeCard = {
                 }
             ]
         },
-
     },
     mutations: {
+         setCardManageLists(state,payload){
+            state.cardManageLists = payload
+        },
+        setFloorModel(state, payload) {
+            state.groupModel.floorModel = payload
+        },
+        setFirstModel(state, payload) {
+            state.groupModel.firstModel = payload
+        },
+        merge(state){
+            state.cardInfo = {
+                ...state.groupModel.firstModel,
+                floorAuthority:JSON.stringify(state.groupModel.floorModel )
+            }
+        },
         setCardInfo(state, payload) {
             state.cardInfo = payload
         },
@@ -225,8 +246,124 @@ const EmployeeCard = {
                 ]
             }
 
-        }
+        },
+
+
     },
+    actions: {
+        async getWorkCard(context) {
+            // commit: ƒ (_type, _payload, _options)
+            // dispatch: ƒ (_type, _payload, _options)
+            // getters: {}
+            // rootGetters: {}
+            // rootState: {…}
+            // state: {__ob__: Observer}
+            const { rootState, state, commit } = context
+            let resp
+            const that = window.vue
+            resp = await that.dispatch(WorkCartControllerImpl.getWorkCard)
+            if (!resp.error) {
+                commit('setStateVar', {
+                    state: state,
+                    key: 'cardInfo',
+                    value: resp.data.body
+                }, { root: true })
+            }
+        },
+        async open(context, payload) {
+            let resp
+            const that = window.vue
+
+            resp = await that.dispatch(WorkCartControllerImpl.open, payload)
+            if (!resp.error) {
+                return resp
+            }
+        },
+        async replacement(context, payload) {
+            let resp
+            const that = window.vue
+            resp = await that.dispatch(WorkCartControllerImpl.replacement,{
+                "reasonsCode":payload.reasonsCode,
+                "reasonsName":payload.reasonsName
+            })
+            if (!resp.error) {
+                return resp
+            }
+        },
+        async getReviewList(context,payload){
+            let resp
+            const { rootState, state, commit } = context
+            resp = await window.vue.dispatch(WorkCartControllerImpl.getReviewList,{
+                pass:payload.pass
+            })
+            if(!resp.error){
+                commit('setStateVar', {
+                    state: state,
+                    key: 'approveLists',
+                    value: resp.data.body
+                }, { root: true })
+            }
+        },
+        async queryWorkCardApplyRecord(context,payload){
+            let resp
+            const { rootState, state, commit } = context
+            resp = await window.vue.dispatch(WorkCartControllerImpl.queryWorkCardApplyRecord,{
+                content:payload
+            })
+            if(!resp.error){
+                console.log(resp.data.body)
+                commit('setStateVar', {
+                    state: state,
+                    key: 'applyList',
+                    value: resp.data.body
+                }, { root: true })
+            }
+        },
+        async queryWorkCardAll(context,payload){  //可以当作搜索接口
+            let resp
+            const { rootState, state, commit } = context
+            resp = await window.vue.dispatch(WorkCartControllerImpl.queryWorkCardAll, payload)
+            if(!resp.error){
+                commit('setStateVar', {
+                    state: state,
+                    key: 'cardManageLists',
+                    value: resp.data.body
+                }, { root: true })
+
+            }
+        },
+        async updateWorkCard(context,payload){
+            let resp 
+            resp = await window.vue.dispatch(WorkCartControllerImpl.updateWorkCard,payload)
+            if(!resp.error){
+                console.log(resp);
+                return 
+            }
+        },
+        async review(context,payload) {
+            let resp,data
+            if(payload.pass){
+                data = {
+                    "code": payload.code,
+                    "userId": payload.userId,
+                    "userName": payload.userName,
+                    "pass":payload.pass,
+                }
+            }else{
+                data = {
+                    "code": payload.code,
+                    "userId": payload.userId,
+                    "userName": payload.userName,
+                    "pass":payload.pass,
+                    "reasonsForRefusal":payload.reasonsForRefusal
+                }
+            }
+            resp = await window.vue.dispatch(WorkCartControllerImpl.review,data)
+            if(!resp.error){
+                return true
+            }
+        }
+    }
 
 }
 

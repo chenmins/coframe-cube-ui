@@ -4,9 +4,9 @@
       <div class="topic_title">热门话题</div>
       <div class="topics">
         <div
-          class="topic"
-          v-for="(topic, index) in topics"
-          @click="goTopic(topic, index)"
+            class="topic"
+            v-for="(topic, index) in topicLists"
+            @click="goTopic(topic.id,index)"
         >
           <span>0{{ index + 1 }}</span>
           <div :class="selected === index ? 'topic-selected' : ''">
@@ -16,46 +16,50 @@
       </div>
     </div>
     <SlideNav
-      style="background: #fff"
-      @changeHandle="
-        changeHandle(arguments[0]);
-        setLabel(arguments[0]);
-      "
-      headerClass="com_header"
-      :center="true"
-      show-slider
-      :selected-label="selectedLabel"
-      :tabs="tabs"
+        style="background: #fff"
+        @changeHandle="changeHandle"
+        headerClass="com_header"
+        :center="true"
+        show-slider
+        :selected-label="selectedLabel"
+        :tabs="tabs"
     >
-      <div class="scroll-list-wrap">
-        <cube-scroll ref="scroll" @scroll="scroll" :scrollEvents="['scroll']">
+      <div class="scroll-list-wrap scroll-set">
+        <cube-scroll ref="scroll222" :key="Math.random()" @scroll="scroll" :scrollEvents="['scroll']">
           <Card
-            class="list-complete-item"
-            :is-comment="false"
-            :is-like="comment.fabulousForUser"
-            v-for="(comment, index) in comments"
-            :key="index"
-            @checkComments="goComment(comment)"
-            @toggleLike="toggleLike(comment)"
-            @remove="remove(comment.id, index)"
+              class="list-complete-item"
+              :is-comment="false"
+              :is-like="comment.fabulousForUser"
+                :commentLength="comment.comments && comment.comments.length"
+              v-for="(comment, index) in comments"
+              :key="index"
+              @checkComments="goComment({id:comment.id,data:comment})"
+              @toggleLike="toggleLike(comment)"
+              @remove="remove({dispatch:dispatch,id:comment.id}).then(()=>comments.splice(index, 1));"
           >
             <template v-slot:username>{{ comment.userName }}</template>
             <template v-slot:time>{{
-              $dayjs(comment.releaseTime).format("YYYY-MM-DD DD:HH:ss")
-            }}</template>
+                $dayjs(comment.releaseTime).format("YYYY-MM-DD DD:HH:ss")
+              }}
+            </template>
             <template v-slot:likeName>{{
-              comment.fabulousPlusCount | fabulousCount
-            }}</template>
+                comment.fabulousPlusCount | fabulousCount
+              }}
+            </template>
             <template v-slot:image>
               <div>
-                <img :src="comment.picture[0]" alt="" />
+                <!--                ${this.$config.pictureUrl}/${this.$config.bucket}/${i}_${this.$config.imgSize}-->
+                <img
+                    width="33.33%"
+                    :src="'//'+$config.pictureUrl+'/'+$config.bucket+'/'+comment.picture.split(',')[0]+'_'+$config.imgSize"
+                />
               </div>
             </template>
             <template v-slot:content>
               <Icon
-                v-show="comment.choice !== '0'"
-                svg-name="great"
-                style="height: 20px; width: 20px; margin-right: 4px"
+                  v-show="comment.choice !== '0'"
+                  svg-name="great"
+                  style="height: 20px; width: 20px; margin-right: 4px"
               ></Icon>
               <div>
                 {{ comment.body }}
@@ -66,9 +70,9 @@
             </template>
             <template v-slot:trash>
               <Icon
-                svg-name="delete@2"
-                style="height: 20px; width: 20px"
-                v-if="cardInfo.id === comment.userId || isAdmin === 'true'"
+                  svg-name="delete@2"
+                  style="height: 20px; width: 20px"
+                  v-if="userInfo.id === comment.userId || isAdmin"
               ></Icon>
             </template>
           </Card>
@@ -81,10 +85,10 @@
 <script>
 import SlideNav from "@/components/Cultural/SlideNav";
 import Card from "@/components/Cultural/Card";
-import axios from "axios";
-import { allPageSreach } from "@controller";
-import { CulturalControllerImpl, DictApiController } from "@controller";
+import {CulturalControllerImpl, DictApiController} from "@controller";
 import mixins from "../mixins/mixins";
+import {mapActions, mapGetters, mapMutations, mapState} from "vuex";
+
 
 export default {
   name: "index",
@@ -95,10 +99,14 @@ export default {
   mixins: [mixins],
   data() {
     return {
+      LABEL_MAP: {
+        "全部": 'communicationCircles',
+        "热门": 'communicationCircles1',
+        "精选": 'communicationCircles2',
+      },
       selected: null,
       topic_list: true,
       selectedLabel: "全部",
-      labelNow: "全部",
       tabs: [
         {
           label: "全部",
@@ -115,75 +123,44 @@ export default {
           label: "精选",
         },
       ],
+      comments: []
     };
   },
-  created() {
-    this.topics = this.$store.getters["Cultural/getHotTopLists"];
-    this.comments = this.$store.state.Cultural.allData.communicationCircles?.reverse();
+  mounted() {
+    this.$refs.scroll222.$el.style.height = `${this.workspaceRealHeightNum - 430}px`
+    this.comments = this.listData(this.type)
+  },
+  watch: {
+    type(newV, oldV) {
+      this.comments = this.listData(newV)
+      this.type = newV
+    }
   },
   methods: {
-    goComment(e) {
-      this.$router.push({
-        name: "交流圈-评论详情",
-        params: { id: e.id, data: e },
-      });
-    },
+    ...mapMutations('Cultural', ['setStateVar', 'goComment']),
+    ...mapActions('Cultural', ['remove']),
     scroll(e) {
-      this.topic_list = true;
-      if (e.y < -250) {
-        this.topic_list = false;
-      }
+      // this.topic_list = true;
+      // if (e.y < -250) {
+      //   this.topic_list = false;
+      // }
     },
-    setLabel(e) {
-      this.nowLabel = e;
-      switch (this.nowLabel) {
-        case "全部":
-          this.comments = this.$store.state.Cultural.allData.communicationCircles?.reverse();
-
-          break;
-        case "热门":
-          this.comments = this.$store.state.Cultural.allData.communicationCircles1?.reverse();
-          break;
-        case "精选":
-          this.comments = this.$store.state.Cultural.allData.communicationCircles2?.reverse();
-          break;
-      }
-    },
-    goTopic(topic, index) {
+    goTopic(topicId, index) {
       if (this.selected === index) {
         this.selected = null;
-        switch (this.nowLabel) {
-          case "全部":
-            this.comments = this.$store.state.Cultural.allData.communicationCircles?.reverse();
-
-            break;
-          case "热门":
-            this.comments = this.$store.state.Cultural.allData.communicationCircles1?.reverse();
-            break;
-          case "精选":
-            this.comments = this.$store.state.Cultural.allData.communicationCircles2?.reverse();
-            break;
-        }
+        this.comments = this.listData(this.type)
       } else {
         this.selected = index;
-        this.comments = this.comments.filter(
-          (comment) => comment.topicOfConversationId === topic.id
-        );
-      }
-    },
-    async remove(e, index) {
-      let resp = await this.dispatch(CulturalControllerImpl.deleteCommunicationCircle, {
-        id: e,
-      }); //朋友圈id
-      if (!resp.error && resp.data.statusCodeValue === 200) {
-        this.$createToast({
-          time: 1000,
-          txt: "删除成功",
-        }).show();
-        this.comments.splice(index, 1);
+        this.comments = this.filterTopics(topicId, this.type)
       }
     },
   },
+  computed: {
+    ...mapState('Cultural', ['topicLists', 'ALL_DATA']),
+    filterTopics() {
+      return this.$store.getters["Cultural/filterTopics"]
+    }
+  }
 };
 </script>
 
@@ -276,17 +253,13 @@ export default {
   transform: translate(-50%, -50%);
 }
 
-.scroll-list-wrap {
-  height: calc(100vh - 264px);
-  margin-bottom: 20px;
-}
 
 >>> .cube-scroll-wrapper {
   height: calc(100vh - 400px);
 }
 
 >>> .cube-scroll-list-wrapper {
-  padding-bottom: 20px;
+  padding-bottom: 30px;
 }
 
 >>> .cube-tab-bar {

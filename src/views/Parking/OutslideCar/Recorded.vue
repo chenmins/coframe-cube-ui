@@ -1,6 +1,6 @@
 <template>
   <div id="Recorded">
-    <NavLayOut bgc-color="#fff">
+    <TitleNav bgc-color="#fff">
       <LayOut @clicked="$router.push({name:'Parking-ApprovalDetail',params:{id:1}})" class="item_header">
         <div class="header">
           <div>
@@ -65,7 +65,7 @@
         </ul>
       </LayOut>
 
-    </NavLayOut>
+    </TitleNav>
 
   </div>
 </template>

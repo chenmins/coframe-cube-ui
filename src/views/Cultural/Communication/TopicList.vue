@@ -42,6 +42,7 @@
 import * as DATAS from "@/assets/data";
 import axios from "axios";
 import { DictApiController } from "@controller";
+import {mapActions, mapMutations, mapState} from "vuex";
 
 export default {
   data() {
@@ -52,41 +53,28 @@ export default {
       topicItems: [],
     };
   },
-  created() {
-    this.init();
+  async created() {
+    await this.getTopic({dispatch:this.dispatch})
+    this.tabs = this.topicLists.map((item) => {
+      return {
+        label: item.name,
+        id: item.id,
+        name: item.name,
+        code: item.code,
+      };
+    });
   },
   methods: {
-    async init() {
-      let resp;
-      resp = await this.dispatch(DictApiController.getDictEntryByDictTypeCode, {
-        code: "pip-ccocci-topic",
-      });
-      if (!resp.error) {
-        this.tabs = resp.data.map((item) => {
-          return {
-            label: item.name,
-            id: item.id,
-            name: item.name,
-            code: item.code,
-          };
-        });
-        if (this.$route.params.index) {
-          this.selectedLabel = this.tabs[this.$route.params.index].label;
-        } else {
-          this.selectedLabel = this.tabs[0].label;
-        }
-      }
-    },
-
+    ...mapActions('Cultural',['getTopic']),
+    ...mapMutations('Cultural',['setStateVar']),
     selectTopic(item) {
-      this.$store.commit("Cultural/setSelectedTopic", item);
+      this.$store.commit("Cultural/setSelectedTopic",item)
       this.$store.commit("Cultural/setTopics", {
         topicOfConversationId: item.id,
         topicOfConversationName: item.name,
       });
       this.$router.push({ name: "发帖子" });
     },
-
     async getItem(id) {
       let resp;
       resp = await this.dispatch(DictApiController.getDictEntryByDictEntryId, {
@@ -110,6 +98,9 @@ export default {
       this.getItem(id);
     },
   },
+  computed:{
+    ...mapState('Cultural',['topicLists'])
+  }
 };
 </script>
 

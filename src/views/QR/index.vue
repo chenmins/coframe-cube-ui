@@ -1,14 +1,13 @@
 <template>
   <div id="container">
-    <NavLayOut>
+    <TitleNav>
       <Card :shadow="true" class="card">
-
         <h1>访客预约</h1>
         <div class="notice">请出示给安保人员进行安检</div>
 <!--        <img src="" alt="">-->
         <div style="width: 212px;height: 230px;background-color: red;margin-bottom: 35px"></div>
       </Card>
-    </NavLayOut>
+    </TitleNav>
   </div>
 </template>
 

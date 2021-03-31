@@ -1,4 +1,4 @@
-  <template>
+<template>
   <div id="Apply">
     <ApproveContainer :selected-label="selectedLabel"
                       :tabs="tabs">
@@ -13,7 +13,7 @@
           </div>
           <div :class="isUsed?'func_btn shifang':'func_btn'" @click="getParking">
             <span v-if="!isUsed">预约</span>
-            <span v-else >释放</span>
+            <span v-else>释放</span>
           </div>
         </div>
         <div class="date">日期：2020-12-20 至 2020-12-30</div>
@@ -29,7 +29,7 @@
           </div>
           <div :class="isUsed?'func_btn shifang':'func_btn'">
             <span v-if="!isUsed">预约</span>
-            <span v-else >释放</span>
+            <span v-else>释放</span>
           </div>
         </div>
         <div class="date">日期：2020-12-20 至 2020-12-30</div>
@@ -45,35 +45,34 @@
           </div>
           <div :class="isUsed?'func_btn shifang':'func_btn'">
             <span v-if="!isUsed">预约</span>
-            <span v-else >释放</span>
+            <span v-else>释放</span>
           </div>
         </div>
         <div class="date">日期：2020-12-20 至 2020-12-30</div>
       </LayOut>
     </ApproveContainer>
-    <Calendar v-model="show"  type="range" @confirm="onConfirm"  :min-date="minDate" :max-date="maxDate" />
+    <Calendar v-model="show" type="range" @confirm="onConfirm" :min-date="minDate" :max-date="maxDate"/>
   </div>
 </template>
 
 <script>
 import SlideNav from "@/components/Cultural/SlideNav";
-import NavLayOut from "@/components/NavLayOut";
 import ApproveContainer from "@/components/UI/ApproveContainer";
-import { Calendar } from 'vant';
+import {Calendar} from 'vant';
 
 
 export default {
   name: "Apply",
   components: {
     ApproveContainer,
-    SlideNav, NavLayOut,Calendar
+    SlideNav, Calendar
   },
   data() {
     return {
-      show:false,
+      show: false,
       minDate: new Date(2010, 0, 1),
       maxDate: new Date(2010, 0, 31),
-      date:'',
+      date: '',
       selectedLabel: 'B2层',
       tabs: [
         {
@@ -88,9 +87,9 @@ export default {
 
     }
   },
-  methods:{
-    getParking(e){
-      if(!this.isUsed){
+  methods: {
+    getParking(e) {
+      if (!this.isUsed) {
         this.$createDialog({
           type: 'confirm',
           title: '申请车位编号：A1902',
@@ -122,7 +121,7 @@ export default {
             }).show()
           }
         }).show()
-      }else{
+      } else {
 
         this.show = true
       }
@@ -137,18 +136,23 @@ export default {
 </script>
 
 <style scoped lang="stylus">
->>>.van-calendar__day--start,>>>.van-calendar__day--end
+>>> .van-calendar__day--start, >>> .van-calendar__day--end
   background-color #0051FF
->>>.van-calendar__day--middle
-  background-color rgba(#0051FF,.06)
+
+>>> .van-calendar__day--middle
+  background-color rgba(#0051FF, .06)
   color #000
+
   &:after
-    background-color rgba(#0051FF,.06)
->>>.van-button--danger
+    background-color rgba(#0051FF, .06)
+
+>>> .van-button--danger
   background: linear-gradient(90deg, #19E8FF 0%, #0F97FB 100%);
   border none
+
 #Apply
   $custom-bgc-height
+
 .item
   border-radius 10px
   display flex
@@ -158,12 +162,14 @@ export default {
   text-align left
   margin 12px
   padding 20px
+
   .date
     font-size: 14px;
     font-family: PingFangSC-Regular, PingFang SC;
     font-weight: 400;
     color: #000000;
     line-height: 20px;
+
   .left
     width 100%
     display flex
@@ -171,23 +177,27 @@ export default {
     justify-content: space-between;
     margin-bottom: 22px;
     padding-bottom 18px
-    border-bottom 1px solid rgba(#000,.1)
+    border-bottom 1px solid rgba(#000, .1)
+
     p:first-child
       font-size: 18px;
       font-family: PingFangSC-Medium, PingFang SC;
       font-weight: 500;
       color: #000000;
       line-height: 25px;
+
     p
       font-size: 12px;
       font-family: PingFangSC-Regular, PingFang SC;
       font-weight: 400;
       color: #999999;
       line-height: 17px;
+
     .parking-svg
       height 34px
       width 34px
       margin-right 6px
+
   .func_btn
     border 1px solid #0099FF
     color #0099FF
@@ -196,6 +206,7 @@ export default {
     font-size 10px
     border-radius 10px
     margin 20px
+
   .shifang
     background: linear-gradient(90deg, #19E8FF 0%, #0F97FB 100%);
     color #fff

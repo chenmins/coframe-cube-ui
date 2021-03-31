@@ -1,10 +1,10 @@
 <template>
   <div id="add_card">
-    <NavLayOut bgc-color="#fff" @back="$router.push('/EmployeeCard')">
+    <TitleNav bgc-color="#fff" @back="$router.push('/EmployeeCard')">
       <LayOut style="height: calc(100vh - 72px)">
         <h1>请选择补卡原因</h1>
-        <div @click="selected" :class="+select ? 'item selected' : 'item'">工卡丢失</div>
-        <div @click="selected" :class="select ? 'item ' : 'item selected'">以旧换新</div>
+        <div @click="selected({code:1,name:'工卡丢失'})" :class="+select ? 'item selected' : 'item'">工卡丢失</div>
+        <div @click="selected({code:2,name:'以旧换新'})" :class="select ? 'item ' : 'item selected'">以旧换新</div>
         <div
           v-if="disable"
           class="footer disable"
@@ -14,44 +14,46 @@
         </div>
         <div v-else class="footer" @click="addCardInit">下一步</div>
       </LayOut>
-    </NavLayOut>
+    </TitleNav>
   </div>
 </template>
 
 <script>
 import { WorkCartControllerImpl } from "@controller";
+import {mapMutations, mapState} from "vuex";
 export default {
   name: "index",
   data() {
     return {
       disable: false,
       select: true,
+      rejectReason:{
+        reasonsName:1,
+        reasonsCode:'工卡丢失'
+      }
     };
   },
   methods: {
+    ...mapMutations(['setStateVar']),
     selected(e) {
+      this.rejectReason.reasonsCode = e.code
+      this.rejectReason.reasonsName = e.name
       this.select = !this.select;
     },
     async addCardInit() {
-      let resp;
-      resp = await this.dispatch(WorkCartControllerImpl.getWorkCard);
-      this.$store.commit("EmployeeCard/setFormModel", {
-        firstModel: {
-          cardType: resp.data.body.type,
-          companyName: resp.data.body.reasonsName,
-          position: resp.data.body.reasonsCode,
-          name: {
-            id: resp.data.body.userId,
-            userName: resp.data.body.userName,
-            tel: "",
-          },
-        },
-        floorAuthority: JSON.parse(resp.data.body.floorAuthority),
-      });
-
-      this.$router.push({
+      this.setStateVar({
+        state:this.$store.state.EmployeeCard,
+        key:'reasonsCode',
+        value:this.rejectReason.reasonsCode
+      })
+      this.setStateVar({
+        state:this.$store.state.EmployeeCard,
+        key:'reasonsName',
+        value:this.rejectReason.reasonsName
+      })
+      await this.$router.push({
         name: "PreviewConfirm",
-        params: { id: this.userInfo.id, func: "补卡" },
+        params: { id: this.userInfo.id, func: "补卡",},
       });
     },
   },

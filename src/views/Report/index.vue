@@ -1,30 +1,39 @@
 <template>
   <div id="report-homepage">
-    <NavLayOut bgc-color="transparent" color="#333">
-      <Icon svg-name="bg" class-name="bg"></Icon>
+    <Icon svg-name="bg" class-name="bg"></Icon>
+    <TitleNav bgc-color="transparent" color="#333">
       <header>
         <span style="margin-right: 86px">近期行程及身体情况报备</span>
-        <img height="88px" src="../../assets/icons/66@2x.png" alt="">
+        <img height="88px" src="../../assets/icons/66@2x.png" alt="" />
       </header>
       <main>
         <section>
           亲爱的同事们，考虑到目前全国各地区有新增疫情，为了了解大家信息，保障大家安全，我们发起员工信息报备，如果您或同住人有去过高风险地区，请尽快进行信息报备，期望大家如实填写，谢谢！
         </section>
       </main>
-    </NavLayOut>
+    </TitleNav>
     <footer>
-      <section>
-        注：如您的热河信息有变化，请及时在此页面再次提交！
-      </section>
-      <cube-button @click="$router.push({name:'ReportFrom'})">信息更新</cube-button>
+      <section>注：如您的热河信息有变化，请及时在此页面再次提交！</section>
+      <cube-button @click="$router.push({ name: 'ReportFrom' })">信息更新</cube-button>
     </footer>
   </div>
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
-  name: "index"
-}
+  name: "index",
+  mounted() {
+    this.$children[1].$refs.scroll.$el.style.height = `${this.workspaceRealHeightNum}px`;
+    this.getHealthFormInfo({
+      dispatch: this.dispatch,
+    });
+  },
+  methods: {
+    ...mapActions("ReportForm", ["getHealthFormInfo", "updateForm"]),
+  },
+};
 </script>
 
 <style scoped lang="stylus">
@@ -35,11 +44,11 @@ export default {
   overflow: hidden;
   .bg
     position absolute
-    top 0
+    top 70px
     left 0
     width 100vw
     transform scale(2)
-    z-index -1
+    z-index 1
   header
     display flex
     font-size: 22px;

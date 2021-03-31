@@ -1,7 +1,7 @@
 {
   "loginType": "normal",
   "serverUrl": "/sso-login",
-  "title": "1111",
+  "title": "config-changed",
   "shortTitle": "Coframe",
   "platformRoleTmpId": "governor-role-tpl-grp-platform",
   "coframe": "/api/coframe",
@@ -9,5 +9,6 @@
   "login": "/api/coframe/users/login",
   "pictureUrl": "c94.cn:3197",
   "bucket": "static",
-  "imgSize": "480x480"
+  "imgSize": "480x480",
+  "MAX_IMG_SIZE": "15"
 }

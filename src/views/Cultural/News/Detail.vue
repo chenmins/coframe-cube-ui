@@ -1,6 +1,6 @@
 <template>
   <div style="background-color: #fff;height: 100vh">
-    <NavLayOut bgc-color="#fff">
+    <TitleNav bgc-color="#fff">
       <div class="header">
         <div class="title">
           {{notice.title}}
@@ -11,7 +11,7 @@
       <div class="content">
         {{notice.body}}
       </div>
-    </NavLayOut>
+    </TitleNav>
   </div>
 </template>
 

@@ -2,7 +2,7 @@
   "name": "cube-main",
   "version": "0.1.0",
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "node scripts/buildApi.js & vue-cli-service serve",
     "build": "vue-cli-service build",
     "build:api": "node scripts/buildApi.js"
   },

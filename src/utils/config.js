@@ -33,6 +33,7 @@ export default async (vue) => {
       vue.config.pictureUrl = resp.pictureUrl || ""
       vue.config.bucket = resp.bucket || ''
       vue.config.imgSize = resp.imgSize || ''
+      vue.config.MAX_IMG_SIZE = resp.MAX_IMG_SIZE || ''
     }
   }
 }

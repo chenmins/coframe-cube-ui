@@ -1,6 +1,6 @@
 <template>
   <div class="send_app">
-    <NavLayOut bgc-color="#fff" @back="$router.push({ name: '交流圈' })">
+    <TitleNav bgc-color="#fff" @back="$router.push({ name: '交流圈' })">
       <template v-slot:right>
         <button class="submit" @click="submit">发表</button>
       </template>
@@ -35,7 +35,7 @@
           </div>
         </cube-upload>
       </div>
-    </NavLayOut>
+    </TitleNav>
     <div class="footer">
       <div class="album" style="margin-right: 20px">
         <Icon
@@ -44,7 +44,7 @@
         ></Icon>
       </div>
       <div class="topic_list" @click="selectTopic" ref="topicBtn">
-        <div v-if="topic.length === 0">#打标签</div>
+        <div v-if="topic[0].length === 0">#打标签</div>
         <div v-else>#{{ topic[0].name }}</div>
       </div>
     </div>
@@ -52,14 +52,13 @@
 </template>
 
 <script>
-import { PipCcoCciController } from "@controller";
 import { CulturalControllerImpl, DictApiController } from "@controller";
-import { BaseVue } from "@/libs";
 import filesUpload from "@/libs/mixins/filesUpload";
+import {mapActions, mapMutations, mapState} from "vuex";
 
 export default {
   name: "send",
-  mixins: [BaseVue, filesUpload],
+  mixins: [filesUpload],
   data() {
     return {
       url: "",
@@ -72,43 +71,47 @@ export default {
       topic: [],
       query: {
         body: "",
-        choice: "choice"+Math.random(),
-        picture: '',
-        title:  "title"+Math.random(),
-        topicOfConversationId: '',
-        topicOfConversationName: '',
-        type: "type"+Math.random(),
+        comments:[],
+        choice: "choice" + Math.random(),
+        picture: "",
+        title: "title" + Math.random(),
+        topicOfConversationId: "",
+        topicOfConversationName: "",
+        type: "type" + Math.random(),
       },
       picture: "",
     };
   },
-  created() {
-  // 优化
-    if(this.$store.state.Cultural.files?.length){
-      this.files = this.$store.state.Cultural.files
-    }
-    if(this.$store.state.Cultural.sendForm.body){
-      this.query = this.$store.state.Cultural.sendForm
-    }
-    if (this.$store.state.Cultural.selectedTopic?.length) {
-      this.topic = this.$store.state.Cultural.selectedTopic;
-    }
+  async created() {
+      let res =await this.formInit()
+    this.files = res?.files || []
+    this.query = res?.query || {}
+    this.topic = res?.topic || []
+    console.log(this.topic)
   },
   methods: {
+    ...mapMutations('Cultural',['setStateVar']),
+    ...mapActions('Cultural',['initData','formInit']),
     fileSubmitted(file) {},
     selectTopic() {
-      this.$store.commit('Cultural/setSendForm',this.query)
-      this.$store.commit('Cultural/setFiles',this.files)
+      this.setStateVar({
+        key:'sendForm',
+        value:this.query
+      })
+      this.setStateVar({
+        key:'files',
+        value:this.files
+      })
       this.$router.push({ name: "话题列表" });
     },
     async submit(data) {
-      if(!this.query.body.length){
+      if (!this.query.body.length) {
         this.$createToast({
-          type:'normal',
-          txt:'请填写内容',
-          time:1000
-        }).show()
-        return
+          type: "normal",
+          txt: "请填写内容",
+          time: 1000,
+        }).show();
+        return;
       }
       let message = "发送中";
       let toast = this.$createToast({
@@ -123,11 +126,14 @@ export default {
         resp = await this.dispatch(CulturalControllerImpl.addCommunicationCircle, {
           ...this.$store.state.Cultural.sendForm,
         });
-        if (!resp.error && resp.data.body === 1) {
+        if (!resp.error ) {
           message = "发送成功";
-          this.$router.replace({name: "交流圈"}).then(()=>{
-            this.$store.commit('Cultural/clearSendForm')
+          await this.initData({
+            dispatch:this.dispatch
           })
+          this.$router.replace({ name: "交流圈" }).then(() => {
+            this.$store.commit("Cultural/clearSendForm");
+          });
           toast.hide();
         } else {
           toast.hide();
@@ -137,16 +143,15 @@ export default {
             time: 500,
           }).show();
         }
-      }catch (e) {
-        toast.hide()
-        message = '反馈失败'
+      } catch (e) {
+        toast.hide();
+        message = "反馈失败";
         this.$createToast({
-          type: 'normal',
+          type: "normal",
           txt: message,
-          time: 1000
-        }).show()
+          time: 1000,
+        }).show();
       }
-
     },
   },
 };

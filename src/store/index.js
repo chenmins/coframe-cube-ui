@@ -3,12 +3,17 @@ import Vuex from 'vuex'
 import router from "@/router";
 import actions from '../actions'
 import AddressBook from "@/store/AddressBook";
-import MainMenu from "@/store/MainMenu";
-import Cultural from "@/store/Cultural";
 import HelpCenter from "@/store/HelpCenter";
 import Schedule from '@/store/Schedule'
 import Guest from "@/store/Guest";
 import EmployeeCard from '@/store/EmployeeCard'
+
+
+import ReportForm from "@/store/ReportForm";
+import MainMenu from "@/store/MainMenu";
+import order from "@/store/order"
+import Cultural from "./Cultural";
+
 import axios from "@/axios/index";
 import { setToken } from "@/utils/auth";
 
@@ -24,6 +29,10 @@ const store = new Vuex.Store({
         userInfo: {},
     },
     mutations: {
+        setStateVar(state,payload){
+            const _this = payload.state
+            _this[`${payload.key}`] =  payload.value
+        },
         setEposition(state, payload) {
             state.Eposition = payload
         },
@@ -36,7 +45,10 @@ const store = new Vuex.Store({
     modules: {
         ...actions,
         AddressBook,
-        MainMenu, Cultural, HelpCenter, Schedule, Guest, EmployeeCard
+        Cultural, HelpCenter, Schedule, Guest, EmployeeCard,
+        ReportForm,
+        MainMenu,
+        order
     }
 })
 

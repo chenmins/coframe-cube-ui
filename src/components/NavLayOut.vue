@@ -1,5 +1,4 @@
 <template>
-
   <div id="nav_layout"
   >
     <div>

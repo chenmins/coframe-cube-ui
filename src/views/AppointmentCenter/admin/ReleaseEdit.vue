@@ -1,6 +1,6 @@
 <template>
   <div id="floor_select" :style="'background-color'+bgColor">
-    <NavLayOut
+    <TitleNav
         bgc-color="#fff"
     >
       <LayOut class="bgcolor">
@@ -13,22 +13,29 @@
                      :options="{layout:'classic'}"
                      class="form-control new-employee"
           >
+            <cube-form-item :field="groupSchema.fristSchema.groups[0].fields[0]">
+
+            </cube-form-item>
+            <cube-form-item :field="groupSchema.fristSchema.groups[0].fields[1]">
+              <div class="time-show" @click="selectedTime">{{ groupModel.firstModel.date || '请选择' }}
+                <i class="cubeic-arrow" style="float: right;margin-right: 16px"></i>
+              </div>
+            </cube-form-item>
+
           </cube-form>
         </LayOut>
-        <LayOut class="item" style="padding: 12px 20px">
-          <div class="item" v-for="(model,index) in groupModel.floorModel">
-            <div class="floor-root">
-              <h1>时间段</h1>
-              <div>12:00-13:00</div>
-            </div>
-            <Icon svg-name="employee-close" class-name="close" @iconToggle="close(index)"></Icon>
-          </div>
-        </LayOut>
       </LayOut>
-      <func-btn>
+      <section class="time_part" v-for="(item,index) in groupModel.floorModel">
+        <div class="title">时间段</div>
+        <div class="content">{{ item.startTime }}-{{ item.endTime }}
+          <span style="color: #0099FF">{{ item.quota }}人</span>
+        </div>
+        <Icon svg-name="employee-close" class-name="close" @iconToggle="close(index)"></Icon>
+      </section>
+      <func-btn @clicked="add">
         添加
       </func-btn>
-    </NavLayOut>
+    </TitleNav>
     <div class="footer two">
       <cube-button type="submit" class="confirm" @click="confirm">提交</cube-button>
     </div>
@@ -38,24 +45,8 @@
 <script>
 import Preview from "@/components/EmployeeCard/Preview";
 import FuncBtn from "@/views/AppointmentCenter/components/funcBtn";
+import {mapActions, mapState} from "vuex";
 
-const column1 = [
-  {text: '行政楼A座-一层-南门', value: '剧毒'},
-  {text: '行政楼B座-七层-南门', value: '蚂蚁'},
-  {text: '综合楼-七层-东门', value: '幽鬼'}
-]
-const column2 = [
-  {text: '输出', value: '输出'},
-  {text: '控制', value: '控制'},
-  {text: '核心', value: '核心'},
-  {text: '爆发', value: '爆发'}
-]
-const column3 = [
-  {text: '梅肯', value: '梅肯'},
-  {text: '秘法鞋', value: '秘法鞋'},
-  {text: '假腿', value: '假腿'},
-  {text: '飞鞋', value: '飞鞋'}
-]
 
 export default {
   name: "FloorSelect",
@@ -68,90 +59,50 @@ export default {
   },
   created() {
     this.groupModel.firstModel = {
-      companyName: 2016,
-      position: 2016,
-      name: 2016,
-      cardType: 2016
+      type: this.$route.params.key,
+      date: this.$route.params.date,
     }
-    this.groupModel.floorModel = [
-      {
-        which: 2016,
-        floor: 2016,
-        num: 2016,
+
+    this.groupModel.floorModel = this.$route.params.data.map(i => {
+      return {
+        startTime: this.$dayjs(i.startTime).format('HH:mm'),
+        quota: i.quota,
+        endTime: this.$dayjs(i.endTime).format('HH:mm'),
       }
-    ]
+    })
   },
   data() {
     return {
-      schema: {
-        groups: [
-          {
-            legend: '',
-            fields: [
-              {
-                type: 'input',
-                modelKey: 'type',
-                label: '类型',
-                props: {
-                  options: [2015, 2016, 2017, 2018, 2019, 2020],
-                },
-                rules: {
-                  required: true
-                }
-              },
-              {
-                type: 'select',
-                modelKey: 'startTime',
-                label: '开始日期',
-                props: {
-                  options: [2015, 2016, 2017, 2018, 2019, 2020]
-                },
-                rules: {
-                  required: true
-                }
-              },
-              {
-                type: 'select',
-                modelKey: 'endTime',
-                label: '结束日期',
-                props: {
-                  options: [2015, 2016, 2017, 2018, 2019, 2020]
-                },
-                rules: {
-                  required: true
-                }
-              },
-              {
-                type: 'select',
-                modelKey: 'peopleNum',
-                label: '人数',
-                props: {
-                  options: [2015, 2016, 2017, 2018, 2019, 2020]
-                },
-                rules: {
-                  required: true
-                }
-              },
-            ]
-          },
-
-        ]
-      },
+      dateSegmentData: [
+        {
+          is: 'cube-date-picker',
+          title: '开始时间',
+          startColumn: 'hour',
+          min: [this.$dayjs().hour(), this.$dayjs().minute(), this.$dayjs().second()],
+          max: [23, 59, 59],
+        },
+        {
+          is: 'cube-date-picker',
+          title: '结束时间',
+          startColumn: 'hour',
+          min: this.nexTime,
+          max: [23, 59, 59],
+        }
+      ],
+      closeTypeArr: [
+        {text: '理发', value: '理发'},
+        {text: '护理', value: '护理'},
+        {text: '洗发', value: '洗发'}
+      ],
       preview: false,
       groupModel: {
         firstModel: {
           type: '',
-          startTime: "",
-          endTime: "",
-          peopleNum: ""
+          date: "",
+          // endTime: "",
+          // peopleNum: ""
         },
-        floorModel: [
-          {
-            which: "",
-            floor: "",
-            num: ""
-          }
-        ]
+        floorModel: []
       },
       groupSchema: {
         fristSchema: {
@@ -160,49 +111,46 @@ export default {
               legend: '',
               fields: [
                 {
-                  type: 'input',
+                  type: 'select',
                   modelKey: 'type',
                   label: '类型',
                   props: {
-                    disabled: true
+                    options: ['理发', '护发', '洗发']
                   },
                   rules: {
                     required: true
                   }
                 },
                 {
-                  type: 'input',
-                  modelKey: 'startTime',
-                  label: '开始日期',
-                  props: {
-                    disabled: true
-                  },
+                  type: 'select',
+                  modelKey: 'date',
+                  label: '日期',
                   rules: {
                     required: true
                   }
                 },
-                {
-                  type: 'input',
-                  modelKey: 'endTime',
-                  label: '结束日期',
-                  props: {
-                    disabled: true
-                  },
-                  rules: {
-                    required: true
-                  }
-                },
-                {
-                  type: 'input',
-                  modelKey: 'peopleNum',
-                  label: '人数',
-                  props: {
-                    disabled: true
-                  },
-                  rules: {
-                    required: true
-                  }
-                },
+                // {
+                //   type: 'input',
+                //   modelKey: 'endTime',
+                //   label: '结束日期',
+                //   props: {
+                //     disabled: true
+                //   },
+                //   rules: {
+                //     required: true
+                //   }
+                // },
+                // {
+                //   type: 'input',
+                //   modelKey: 'peopleNum',
+                //   label: '人数',
+                //   props: {
+                //     disabled: true
+                //   },
+                //   rules: {
+                //     required: true
+                //   }
+                // },
               ]
             },
 
@@ -252,6 +200,18 @@ export default {
     }
   },
   methods: {
+    ...mapActions('order',['updateBarber']),
+    selectedTime() {
+      this.datePicker = this.$createDatePicker({
+        title: 'Date Picker',
+        min: new Date(),
+        max: new Date(2099, 12, 31),
+        value: new Date(),
+        onSelect: (v1, v2, v3) => {
+          this.groupModel.firstModel.date = this.$dayjs(v1).format('YYYY-MM-DD')
+        }
+      }).show()
+    },
     cancel() {
       this.$createDialog({
         type: 'confirm',
@@ -264,60 +224,69 @@ export default {
       }).show()
     },
     confirm() {
-      this.$router.push({name: 'Preview', params: {id: 1}})
+      let idList = this.$route.params.data.map((i)=>i.id)
+      let form = {
+        idList :idList,
+        type: this.groupModel.firstModel.type,
+        date:  this.groupModel.firstModel.date,
+        timePartVos: this.groupModel.floorModel
+      }
+      this.updateBarber(form).then(()=>{
+        this.$router.push({name:'AppointmentAdminRelease'})
+      })
+      // this.$router.push({name: 'Preview', params: {id: 1}})
     },
     add() {
-      let schemaTemplate = {
-        fields: [
-          {
-            type: 'select',
-            modelKey: 'which',
-            label: '楼栋',
-            props: {
-              options: [2015, 2016, 2017, 2018, 2019, 2020]
+      let dateSegmentPicker = this.$createSegmentPicker({
+        data: this.dateSegmentData,
+        onSelect: (selectedDates, selectedVals, selectedTexts) => {
+          this.$createDialog({
+            type: 'prompt',
+            title: '',
+            prompt: {
+              value: null,
+              placeholder: '请输入人数'
             },
-            rules: {
-              required: true
+            onConfirm: (e, promptValue) => {
+              let value = parseInt(promptValue)
+              if (!isNaN(value)) {
+                this.compareTimePart({
+                  startTime: this.$dayjs(selectedDates[0]).format('HH:mm'),
+                  quota: value,
+                  endTime: this.$dayjs(selectedDates[1]).format('HH:mm')
+                })
+                this.groupModel.floorModel.push({
+                  startTime: this.$dayjs(selectedDates[0]).format('HH:mm'),
+                  quota: value,
+                  endTime: this.$dayjs(selectedDates[1]).format('HH:mm')
+                })
+
+              } else {
+                this.$createToast({
+                  type: 'warning',
+                  txt: '请填入数字',
+                  time: 1000
+                }).show()
+              }
+
             }
-          },
-          {
-            type: 'select',
-            modelKey: 'floor',
-            label: '楼层',
-            props: {
-              options: [2015, 2016, 2017, 2018, 2019, 2020]
-            },
-            rules: {
-              required: true
-            }
-          },
-          {
-            type: 'select',
-            modelKey: 'num',
-            label: '楼门',
-            props: {
-              options: [2015, 2016, 2017, 2018, 2019, 2020]
-            },
-            rules: {
-              required: true
-            }
-          },
-        ]
-      }
-      let modelTemplate = {
-        which: "",
-        floor: "",
-        num: ""
-      }
-      this.groupModel.floorModel.push(modelTemplate)
-      this.groupSchema.floorSchema.push(schemaTemplate)
+          }).show()
+
+        },
+        onNext: (i, selectedDate, selectedValue, selectedText) => {
+          this.nexTime = selectedValue
+          this.dateSegmentData[1].min = selectedDate
+          if (i === 0) {
+            dateSegmentPicker.$updateProps({
+              data: this.dateSegmentData
+            })
+          }
+        }
+      })
+      dateSegmentPicker.show()
     },
     close(index) {
       this.groupModel.floorModel.splice(index, 1)
-      this.groupSchema.floorSchema.splice(index, 1)
-    },
-    submit(e, model, model2) {
-      console.log(this.model.time)
     },
     showTimePicker() {
       const timePicker = this.$createTimePicker({
@@ -382,7 +351,29 @@ export default {
         txt: 'Picker canceled',
         time: 1000
       }).show()
+    },
+
+    compareTimePart(timePart){
+      this.groupModel.floorModel.findIndex(i=>{
+        let dayjs = this.$dayjs
+        
+        console.log(this.$dayjs(`${this.$dayjs().format('YYYY-MM-DD')+" "+timePart.endTime}`)
+            .isBetween(this.$dayjs().format('YYYY-MM-DD')+" "+i.startTime,
+                this.$dayjs().format('YYYY-MM-DD')+" "+i.endTime
+            ));
+        console.log(this.$dayjs(timePart.startTime).isBetween(i.startTime, i.endTime, 'minute'))
+
+      })
+
     }
+
+  },
+  mounted() {
+    this.$children[0].$refs.scroll.$el.style.height = `${this.workspaceRealHeightNum - 120}px`
+
+  },
+  computed: {
+    ...mapState('order', ['dayData'])
   }
 }
 </script>
@@ -477,10 +468,20 @@ export default {
 
 >>> .cube-scroll-wrapper
   height calc(100vh - 180px)
+
+>>> .cube-select-text
+  color #CCCCCC
+
 </style>
 
 
 <style scoped lang="stylus">
+.time-show
+  text-align left
+  font-size 14px
+  color #CCCCCC
+  padding-left 10px
+
 .flow
   padding 15px
   border-radius 10px
@@ -554,8 +555,9 @@ export default {
 #floor_select
   position relative
   height 100vh
+
   background-color #fff
-  //.bgcolor
+    //.bgcolor
     //background-color: #F5F6FA
 
     .add
@@ -580,31 +582,65 @@ export default {
   line-height: 25px;
   text-align left
 
-.item
-  position: relative;
+.time_part
+  width: 80%;
+  height: 71px;
+  background: rgb(241, 249, 255)
+  border-radius: 6px;
+  margin 10px auto
+  display flex
+  flex-direction column
+  align-items flex-start
+  justify-content: space-evenly;
+  padding-left 20px
+  position relative
 
-  .floor-root
-    text-align left
-    border-radius 6px
-    background-color rgba(#0099FF, .05)
-    position relative
-    padding 10px 20px
-    margin 10px 0
-    h1
-      font-size: 14px;
-      font-family: PingFangSC-Medium, PingFang SC;
-      font-weight: 500;
-      color: #000000;
-      line-height: 20px;
-      margin-bottom: 9px;
-    div
-      font-size 14px
+  .title
+    font-size 14px
+    font-family: PingFangSC-Medium, PingFang SC;
+    font-weight 600
+
+  .content
+    font-size 14px
+    font-family: PingFangSC-Medium, PingFang SC;
+    font-weight 300
+
   .close
     height 14px
     width 14px
     position absolute
     right -7px
-    top -7px
+    top -5px
+
+.item
+  position: relative;
+
+
+.floor-root
+  text-align left
+  border-radius 6px
+  background-color rgba(#0099FF, .05)
+  position relative
+  padding 10px 20px
+  margin 10px 0
+
+  h1
+    font-size: 14px;
+    font-family: PingFangSC-Medium, PingFang SC;
+    font-weight: 500;
+    color: #000000;
+    line-height: 20px;
+    margin-bottom: 9px;
+
+  div
+    font-size 14px
+
+.close
+  height 14px
+  width 14px
+  position absolute
+  right -7px
+  top -7px
 
 .two
   display flex

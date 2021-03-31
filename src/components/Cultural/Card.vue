@@ -45,7 +45,7 @@
              v-if="$route.meta.name !== '交流圈-评论详情'"
              @click="seeComments">
           <Icon svg-name="comment" style="height: 20px;width: 20px"></Icon>
-          <span>11</span>
+          <span>{{ commentLength }}</span>
         </div>
       </div>
     </div>
@@ -57,6 +57,10 @@ import {PipCcoCciController} from '@controller'
 export default {
   name: "Card",
   props: {
+    commentLength:{
+      type:Number,
+      default:0
+    },
     isComment:{
       type:Boolean,
       default:true

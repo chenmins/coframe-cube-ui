@@ -1,25 +1,54 @@
 <template>
   <div id="ApplyRecord">
-    <NavLayOut bgc-color="#fff">
-      <Application></Application>
-      <Patch></Patch>
-      <Loss></Loss>
-    </NavLayOut>
+    <TitleNav bgc-color="#fff">
+      <Application v-if="$route.params.title==='申请办卡'" v-for="i in applyList" :list="i"></Application>
+      <Patch v-if="$route.params.title==='补卡'" v-for="i in applyList" :list="i"></Patch>
+      <Loss v-if="$route.params.title==='挂失'" v-for="(i,index) in applyList" :list="i" :index="index"></Loss>
+    </TitleNav>
   </div>
 </template>
 
 <script>
-import NavLayOut from "@/components/NavLayOut";
 import Application from "@/views/EmployeeCard/components/Application";
 import Patch from "@/views/EmployeeCard/components/Patch";
 import Loss from "@/views/EmployeeCard/components/Loss";
+import {WorkCartControllerImpl} from "@controller";
+import {mapActions, mapState} from "vuex";
+
 export default {
   name: "ApplyRecord",
   components:{
     Loss,
     Patch,
     Application,
-    NavLayOut
+  },
+  data(){
+    return {
+      list:[]
+    }
+  },
+  created(){
+    // this.list = this.$route.params.list
+    // this.getCardRecord()
+    this.queryWorkCardApplyRecord(this.$route.params.content)
+  },
+  methods:{
+    ...mapActions('EmployeeCard',['queryWorkCardApplyRecord']),
+
+    //todo 卡片处理类型
+    async getCardRecord(){
+      let resp
+      resp = await this.dispatch(WorkCartControllerImpl.queryWorkCardRecord)
+      if(!resp.error){
+        console.log(resp)
+      }
+    }
+  },
+  mounted() {
+    this.$children[0].$refs.scroll.$el.style.height = `${this.workspaceRealHeightNum - 60}px`
+  },
+  computed:{
+    ...mapState('EmployeeCard', ['applyList'])
   }
 }
 </script>

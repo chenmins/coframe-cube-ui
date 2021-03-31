@@ -1,53 +1,55 @@
-<template>
+<template xmlns="">
   <div id="notice_app">
     <SlideNav
-      style="background: #fff"
-      @changeHandle="changeHandle"
-      :selected-label="selectedLabel"
-      :tabs="tabs"
+        style="background: #fff"
+        @changeHandle="changeHandle"
+        :selected-label="selectedLabel"
+        :tabs="tabs"
     >
-      <div class="scroll-list-wrap" style="height: calc(100vh - 220px)">
+      <div class="scroll-list-wrap">
         <cube-scroll ref="scroll">
           <Card
-            @clicked="read(notice)"
-            shadow
-            :class="readed ? 'content' : 'content not-read'"
-            id="card"
-            v-for="notice in notices"
+              shadow
+              id="card"
+              v-for="notice in listData(type)"
+              :class="notice.isRead ? 'content not-read' : 'content '"
+              @click="read(notice)"
           >
+<!--            //TODO 改变公告已读状态-->
             <div class="box">
               <span class="title">{{ notice.title }}</span>
               <span class="content">{{ notice.body }}</span>
               <span class="footer">
                 <span class="date">{{
-                  $dayjs(notice.releaseTime).format("YYYY-MM-DD")
-                }}</span>
+                    $dayjs(notice.releaseTime).format("YYYY-MM-DD")
+                  }}</span>
                 <span class="from">
                   <span class="read_all">阅读全文</span>
                 </span>
               </span>
             </div>
           </Card>
-          <Card
-            @clicked="read(notice)"
-            shadow
-            :class="!readed ? 'content' : 'content not-read'"
-            id="card"
-            v-for="notice in notices"
-          >
-            <div class="box">
-              <span class="title">{{ notice.title }}</span>
-              <span class="content">{{ notice.body }}</span>
-              <span class="footer">
-                <span class="date">{{
-                  $dayjs(notice.releaseTime).format("YYYY-MM-DD")
-                }}</span>
-                <span class="from">
-                  <span class="read_all">阅读全文</span>
-                </span>
-              </span>
-            </div>
-          </Card>
+<!--          //未读-->
+<!--          <Card-->
+<!--              @clicked="read(notice)"-->
+<!--              shadow-->
+<!--              :class="!readed ? 'content' : 'content not-read'"-->
+<!--              id="card"-->
+<!--              v-for="notice in notices"-->
+<!--          >-->
+<!--            <div class="box">-->
+<!--              <span class="title">{{ notice.title }}</span>-->
+<!--              <span class="content">{{ notice.body }}</span>-->
+<!--              <span class="footer">-->
+<!--                <span class="date">{{-->
+<!--                    $dayjs(notice.releaseTime).format("YYYY-MM-DD")-->
+<!--                  }}</span>-->
+<!--                <span class="from">-->
+<!--                  <span class="read_all">阅读全文</span>-->
+<!--                </span>-->
+<!--              </span>-->
+<!--            </div>-->
+<!--          </Card>-->
         </cube-scroll>
       </div>
     </SlideNav>
@@ -55,18 +57,24 @@
 </template>
 
 <script>
-import Card from "@/components/UI/Card";
-import SlideNav from "@/components/Cultural/SlideNav";
-import mixins from "../mixins/mixins";
+  import SlideNav from "@/components/Cultural/SlideNav";
+  import mixins from "@/views/Cultural/mixins/mixins";
+
 
 export default {
   name: "index",
   components: {
     SlideNav,
   },
-  mixins: [mixins],
+  mixins:[mixins],
   data() {
     return {
+      LABEL_MAP : {
+        "全部":'notices',
+        "系统公告":'notices1',
+        "餐厅公告":'notices2',
+        "物业公告":'notices3',
+      },
       selectedLabel: "全部",
       tabs: [
         {
@@ -85,21 +93,12 @@ export default {
       readed: false,
     };
   },
-  created() {
-    let Interval = setInterval(() => {
-      if (this.$store.state.Cultural.allData.notices) {
-        this.notices = this.$store.state.Cultural.allData.notices;
-        if (this.notices.length) {
-          clearInterval(Interval);
-        }
-      }
-    });
-  },
+
   methods: {
     read(notice) {
       this.$router.push({
         name: "公告详情",
-        params: { id: notice.id, notice: notice },
+        params: {id: notice.id, notice: notice},
       });
     },
   },
@@ -108,8 +107,6 @@ export default {
 
 <style scoped lang="stylus">
 #notice_app {
-  height: $custom-bgc-height;
-
   .not-read {
     span {
       color: gray !important;

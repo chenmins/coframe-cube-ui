@@ -1,12 +1,9 @@
 export default {
-
-
-    allData: {}, // 
-
+    ALL_DATA: {}, //
+    type:'全部',
 
     topicLists: [],
     selectedTopic: [],
-
 
     files: [],
 
@@ -16,8 +13,20 @@ export default {
         choice: "",
         picture: '',
         title: '',
+        comments:[],
         topicOfConversationId: '',
         topicOfConversationName: '',
         type: "",
     },
+
+
+
+
+
+
+
+
+
+
+    
 }

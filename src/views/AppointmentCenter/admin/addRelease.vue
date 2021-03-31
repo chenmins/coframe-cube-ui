@@ -1,52 +1,58 @@
 <template>
   <div id="page">
-    <NavLayOut bgc-color="#fff">
+    <TitleNav bgc-color="#fff">
+      <!--      <TimePart>-->
       <cube-form :model="model"
                  :options="{layout:'classic'}"
                  class="form-control"
-                 @submit="submitHandler"
+                 @validate="validateHandler"
       >
         <!--        @submit="submitHandler"-->
         <!--        @validate="validateHandler"-->
         <cube-form-item :field="schema.groups.fields[0]">
           <!--            @click="showTimePicker"-->
-          <div class="time-show" @click="selectTime">{{ model.time || '请选择' }}
+          <div class="time-show" @click="selectType">{{ model.type || '请选择' }}
             <i class="cubeic-arrow" style="float: right;margin-right: 16px"></i>
           </div>
         </cube-form-item>
         <cube-form-item :field="schema.groups.fields[1]">
           <!--            @click="showTimePicker"-->
-          <div class="time-show" @click="selectType">{{ model.clothesType || '请选择' }}
+          <div class="time-show" @click="selectStartTime">{{ model.startTime || '请选择' }}
             <i class="cubeic-arrow" style="float: right;margin-right: 16px"></i>
           </div>
         </cube-form-item>
         <cube-form-item :field="schema.groups.fields[2]">
           <!--            @click="showTimePicker"-->
-          <div class="time-show" @click="selectType">{{ model.clothesType || '请选择' }}
+          <div class="time-show" @click="selectEndTime">{{ model.endTime || '请选择' }}
             <i class="cubeic-arrow" style="float: right;margin-right: 16px"></i>
           </div>
         </cube-form-item>
-        <cube-form-item :field="schema.groups.fields[3]">
-          <!--            @click="showTimePicker"-->
-          <div class="time-show" @click="selectType">{{ model.clothesType || '请选择' }}
-            <i class="cubeic-arrow" style="float: right;margin-right: 16px"></i>
-          </div>
-        </cube-form-item>
-        <cube-form-item :field="schema.groups.fields[4]">
-          <!--            @click="showTimePicker"-->
-<!--          <div class="time-show" @click="selectType">{{ model.clothesType || '请选择' }}-->
-<!--&lt;!&ndash;            <i class="cubeic-arrow" style="float: right;margin-right: 16px"></i>&ndash;&gt;-->
-<!--          </div>-->
-        </cube-form-item>
-        <cube-form-item>
-          <cube-button type="submit"  class="inquire">提交</cube-button>
-        </cube-form-item>
+        <!--        <cube-form-item :field="schema.groups.fields[3]">-->
+        <!--          <cube-input class="time-show"></cube-input>-->
+        <!--        </cube-form-item>-->
       </cube-form>
-    </NavLayOut>
+      <section class="time_part" v-for="(item,index) in timePart">
+        <div class="title">时间段</div>
+        <div class="content">{{ item.startTime }}-{{ item.endTime }}
+          <span style="color: #0099FF">{{ item.quota }}人</span>
+        </div>
+        <Icon svg-name="employee-close" class-name="close" @iconToggle="close(index)"></Icon>
+      </section>
+      <div class="add" @click="add">
+        <i class="cubeic-close add_svg"></i>
+        <span>添加</span>
+      </div>
+      <!--      </TimePart>-->
+    </TitleNav>
+
+    <button @click="submitHandler">提交</button>
   </div>
 </template>
 
 <script>
+import TimePart from "@/views/AppointmentCenter/components/TimePart";
+import {mapActions} from "vuex";
+
 const time = new Date().valueOf() + 1 * 60 * 60 * 1000
 const week = [
   '周日',
@@ -61,19 +67,24 @@ const week = [
 
 export default {
   name: "addRelease",
-
+  components: {TimePart},
   data() {
     return {
       timeFrom: [],
-      closeTypeArr:[],
+      closeTypeArr: [
+        {text: '理发', value: '理发'},
+        {text: '护理', value: '护理'},
+        {text: '洗发', value: '洗发'}
+      ],
       date: this.$dayjs().format('MM月DD日'),
+      valid: false,
       model: {
         type: '',
         startTime: '',
-        endTime:'',
-        timeD:'',
-        num:''
+        endTime: '',
+        num: ''
       },
+      nextStartTime: '',
       schema: {
         groups: {
           legend: `访客1信息`,
@@ -106,20 +117,11 @@ export default {
               }
             },
             {
-              type: 'select',
-              modelKey: 'timeD',
-              label: '时间段',
-              props: {},
-              rules: {
-                required: true
-              }
-            },
-            {
               type: 'input',
               modelKey: 'num',
               label: '人数',
               props: {
-                placeholder:'请输入'
+                placeholder: '请输入'
               },
               rules: {
                 required: true
@@ -127,11 +129,28 @@ export default {
             },
           ]
         }
-      }
+      },
+      timePart: [],
+      nexTime: [],
+      dateSegmentData: [
+        {
+          is: 'cube-date-picker',
+          title: '开始时间',
+          startColumn: 'hour',
+          min: [0, 0, 0],
+          max: [23, 59, 59],
+        },
+        {
+          is: 'cube-date-picker',
+          title: '结束时间',
+          startColumn: 'hour',
+          min: this.nexTime,
+          max: [23, 59, 59],
+        }
+      ]
     }
   },
   created() {
-    this.closeTypeArr = this.$route.meta.dataType[this.$route.params.value]
     this.timeFrom = [
       {
         text: '今天' + ' ' + this.$dayjs().format('MM月DD日'),
@@ -147,11 +166,89 @@ export default {
       },
     ]
   },
+  mounted() {
+    this.$children[0].$refs.scroll.$el.style.height = `${this.workspaceRealHeightNum - 120}px`
+  },
   methods: {
-    submitHandler(e,val){
-      e.preventDefault()
-      console.log(val,this.$route.meta)
-      this.$router.push({name:'ReservePage',params:{id:val.clothesType}})
+    ...mapActions('order', ['addBarber']),
+    validateHandler() {
+      this.valid = arguments[0].valid
+    },
+    add() {
+      let dateSegmentPicker = this.$createSegmentPicker({
+        data: this.dateSegmentData,
+        onSelect: (selectedDates, selectedVals, selectedTexts) => {
+          this.$createDialog({
+            type: 'prompt',
+            title: '',
+            prompt: {
+              value: null,
+              placeholder: '请输入人数'
+            },
+            onConfirm: (e, promptValue) => {
+              let value = parseInt(promptValue)
+              if (!isNaN(value)) {
+                this.timePart.push({
+                  startTime: this.$dayjs(selectedDates[0]).format('HH:mm'),
+                  quota: value,
+                  endTime: this.$dayjs(selectedDates[1]).format('HH:mm')
+                })
+              } else {
+                this.$createToast({
+                  type: 'warning',
+                  txt: '请填入数字',
+                  time: 1000
+                }).show()
+              }
+
+            }
+          }).show()
+
+        },
+        onNext: (i, selectedDate, selectedValue, selectedText) => {
+          this.nexTime = selectedValue
+          this.dateSegmentData[1].min = selectedDate
+          if (i === 0) {
+            dateSegmentPicker.$updateProps({
+              data: this.dateSegmentData
+            })
+          }
+        }
+      })
+      dateSegmentPicker.show()
+    },
+    close(index) {
+      this.timePart.splice(index, 1)
+    },
+    selectStartTime() {
+      if (!this.StartTimePicker) {
+        this.StartTimePicker = this.$createDatePicker({
+          title: 'Date Picker',
+          min: this.$dayjs().toDate(),
+          max: this.$dayjs().add(2, 'month').toDate(),
+          value: this.$dayjs().toDate(),
+          onSelect: (date, selectedVal, selectedText) => {
+            this.nextStartTime = date
+            this.model.startTime = this.$dayjs(date).format('YYYY/MM/DD')
+          },
+        })
+      }
+      this.StartTimePicker.show()
+    },
+    selectEndTime() {
+      if (!this.EndTimePicker) {
+        this.EndTimePicker = this.$createDatePicker({
+          title: 'Date Picker',
+          min: this.nextStartTime,
+          max: this.$dayjs(this.nextStartTime).add(2, 'month').toDate(),
+          value: this.nextStartTime,
+          onSelect: (date, selectedVal, selectedText) => {
+            this.model.endTime = this.$dayjs(date).format('YYYY/MM/DD')
+          }
+        })
+      }
+
+      this.EndTimePicker.show()
     },
     selectType() {
       if (!this.TypePicker) {
@@ -159,69 +256,54 @@ export default {
           title: '',
           data: [this.closeTypeArr],
           onSelect: (selectedVal, selectedIndex, selectedText) => {
-            this.model.clothesType = selectedVal[0]
+            this.model.type = selectedVal[0]
           }
         })
       }
       this.TypePicker.show()
     },
-    selectTime() {
-      if (!this.TimePicker) {
-        this.TimePicker = this.$createPicker({
-          title: '',
-          data: [this.timeFrom],
-          onSelect: (selectedVal, selectedIndex, selectedText) => {
-            this.model.time = selectedVal[0]
-          }
+    submitHandler() {
+      if (this.valid) {
+        let data = {
+          type: this.model.type,
+          startDate: this.$dayjs(this.model.startTime).format('YYYY-MM-DD'),
+          endDate: this.$dayjs(this.model.endTime).format('YYYY-MM-DD'),
+          timePartVos: this.timePart
+        }
+        this.addBarber(data).then(() => {
+          this.$router.push({name: 'AppointmentAdminRelease'})
         })
+      } else {
+        this.$createToast({
+          type: 'warning',
+          txt: '请完整填写表单',
+          time: 1000
+        }).show()
       }
-      this.TimePicker.show()
+
+      // this.$router.push({name: 'ReservePage', params: {id: val.clothesType}})
     },
-    showType() {
-      let nameMap = {
-        '医务室预约': 'hospital',
-        '理发室预约': 'barbershop',
-        '零点餐厅预约': 'restaurant',
-      }
-      let routerName = this.$route.meta.name
-      this.$createActionSheet({
-        title: '',
-        data: this.$route.meta.dataType[nameMap[routerName]],
-        onSelect: (item, index) => {
-          this.$createToast({
-            txt: `Clicked ${item.content}`,
-            time: 1000
-          }).show()
-        }
-      }).show()
-    },
-    showDefault() {
-      this.$createActionSheet({
-        title: '',
-        data: [
-          {
-            content: this.$dayjs().format(' MM月DD日'),
-          },
-          {
-            content: this.$dayjs().add(1, 'day').format(' MM月DD日')
-          },
-          {
-            content: this.$dayjs().add(2, 'day').format(' MM月DD日'),
-          }
-        ],
-        onSelect: (item, index) => {
-          this.$createToast({
-            txt: `Clicked ${item.content}`,
-            time: 1000
-          }).show()
-        }
-      }).show()
-    }
+
   }
 }
 </script>
 
 <style scoped lang="stylus">
+button
+  height: 40px;
+  background: linear-gradient(90deg, #19E8FF 0%, #0F97FB 100%);
+  border-radius: 20px;
+  line-height 0
+  font-size: 14px;
+  outline none
+  border none
+  width 80%
+  color #fff
+  position absolute
+  bottom 0
+  left 50%
+  transform translateX(-50%)
+  margin 10px 0
 
 >>> .cube-validator-content
   text-align left
@@ -241,32 +323,73 @@ export default {
 
 #page
   height $viewpoint-height
+  overflow: hidden;
   background-color $my-bgc-color
-  border 1px solid transparent
 
-  .inquire
-    background: linear-gradient(90deg, #19E8FF 0%, #0F97FB 100%);
-    border-radius 25px
-
-  button
-    margin-top 50px
-    border-radius 10px
-    background-color $custom-active-color
-
-  .container
-    margin 20px
-    padding 10px
-    border-radius 10px
-
-  .selected
+  .time_part
+    width: 80%;
+    height: 71px;
+    background: rgb(241, 249, 255)
+    border-radius: 6px;
+    margin 10px auto
     display flex
-    justify-content space-between
-    padding 20px
+    flex-direction column
+    align-items flex-start
+    justify-content: space-evenly;
+    padding-left 20px
+    position relative
 
-    div
-      display flex
-      align-items center
+    .title
+      font-size 14px
+      font-family: PingFangSC-Medium, PingFang SC;
+      font-weight 600
 
-    span
-      font-size 12px
+    .content
+      font-size 14px
+      font-family: PingFangSC-Medium, PingFang SC;
+      font-weight 300
+
+    .close
+      height 14px
+      width 14px
+      position absolute
+      right -7px
+      top -5px
+
+.add
+  width: 117px;
+  height: 30px;
+  border-radius: 20px;
+  border: 1px solid #000000;
+  margin 20px auto 0
+  display flex
+  align-items center
+  justify-content: center;
+
+  .add_svg
+    transform rotate(45deg)
+    height 14px
+    width 14px
+
+.inquire
+  background: linear-gradient(90deg, #19E8FF 0%, #0F97FB 100%);
+  border-radius 25px
+
+
+.container
+  margin 20px
+  padding 10px
+  border-radius 10px
+
+.selected
+  display flex
+  justify-content space-between
+  padding 20px
+
+  div
+    display flex
+    align-items center
+
+  span
+    font-size 12px
 </style>

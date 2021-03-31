@@ -20,20 +20,15 @@
 
 <script>
 import MenuCard from "@/components/MainMenu/MenuCard";
+import {mapState} from 'vuex'
 
 export default {
   name: "MyApply",
   components: {
     MenuCard
   },
-  data(){
-    return{
-        applys:[]
-    }
-  },
-  created() {
-    let MainMenu = this.$store.state.MainMenu
-    this.applys = MainMenu.applys
+  computed:{
+    ...mapState('MainMenu',['applys'])
   }
 }
 </script>

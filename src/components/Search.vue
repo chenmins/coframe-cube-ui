@@ -1,8 +1,8 @@
 <template>
   <div class="search_box" >
-    <input class="cu_input" v-model="syncValue"></input>
+    <input class="cu_input" v-model="syncValue" @keyup.enter="$emit('search',syncValue)"></input>
     <i v-show="syncValue.length ===0" class="cubeic-search">{{ placeholder||"搜索" }}</i>
-    <i class="cubeic-close close_svg"></i>
+    <i class="cubeic-close close_svg" @click="syncValue = ''"></i>
   </div>
 </template>
 

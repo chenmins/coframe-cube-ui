@@ -1,45 +1,34 @@
 import { CulturalControllerImpl, DictApiController } from '@controller'
+import {mapMutations, mapState} from "vuex";
 
 
 export default {
-    data() {
-        return {
-            //公告列表
-            notices: [],
-
-            //新闻列表
-            news: [],
-            //交流圈
-            comments: [],
-            topicLists: [],
-            topics: [],
-            like: false,
-            cardInfo: JSON.parse(localStorage.getItem('userInfo')) || { id: null },
-        }
+    created() {
+        this.selectedLabel = this.tabs.findIndex(i=>i.label === localStorage.getItem('label')) !==-1?localStorage.getItem('label'):'全部'
+        this.setStateVar({
+            key: 'type',
+            value:this.initLabel(this.LABEL_MAP,)
+        })
     },
-
     methods: {
-        //初始化文化建设全部数据
-        async initAllData() {
-            let resp
-            resp = await this.dispatch(CulturalControllerImpl.allPageSreach, {
-                pageNo: 1,
-                pageSize: 20
+        ...mapMutations('Cultural',['setStateVar']),
+        changeHandle(e){
+            localStorage.setItem('label',e)
+            this.setStateVar({
+                key: 'type',
+                value:this.initLabel(this.LABEL_MAP,e)
             })
-            let topicLists = await this.dispatch(DictApiController.getDictEntryByDictTypeCode, { code: 'pip-ccocci-topic' })
-            if (!resp.error && !topicLists.error) {
-                this.$store.commit('Cultural/setTopicLists', topicLists.data)
-                this.$store.commit('Cultural/setAllData', resp.data.body)
-            }
-        },
+            // this.setStateVar({
+            //     key:'type',
+            //     value:this.LABEL_MAP[e]
+            // })
 
+        },
         async getTopicLists() {
             let resp
             resp = await this.dispatch(DictApiController.getDictEntryByDictTypeCode, { code: 'pip-ccocci-topic' })
             return resp
         },
-
-        //  点赞
         async toggleLike(e) {
             let resp = await this.dispatch(CulturalControllerImpl.fabulousCommunicationCircle, { id: e.id })
             if (!resp.error) {
@@ -50,80 +39,22 @@ export default {
                 }
                 this.like = !this.like
             }
-        },
-        changeHandle(e) {
-
-
-            switch (e) {
-                case '公告列表':
-                    this.selectedLabel = e
-                    this.$router.push({ name: `${e}` })
-                    break
-                case '企业新闻':
-                    this.selectedLabel = e
-                    this.$router.push({ name: `${e}` })
-                    break
-                case '交流圈':
-                    this.selectedLabel = e
-                    this.$router.push({ name: `${e}` })
-                    break
-            }
-            if (this.$route.name === '公告列表') {
-                switch (e) {
-                    case '全部':
-                        this.notices = this.$store.state.Cultural.allData.notices.reverse()
-                        break
-                    case '系统公告':
-                        this.notices = this.$store.state.Cultural.allData.notices1.reverse()
-                        break
-                    case '餐厅公告':
-                        this.notices = this.$store.state.Cultural.allData.notices2.reverse()
-                        break
-                    case '物业公告':
-                        this.notices = this.$store.state.Cultural.allData.notices3.reverse()
-                        break
-                }
-            }
-            if (this.$route.name === '企业新闻') {
-                switch (e) {
-                    case '全部':
-                        this.news = this.$store.state.Cultural.allData.journalisms.reverse()
-                        break
-                    case '热点精选':
-                        this.news = this.$store.state.Cultural.allData.journalisms1.reverse()
-                        break
-                    case '时事要闻':
-                        this.news = this.$store.state.Cultural.allData.journalisms2.reverse()
-                        break
-                }
-            }
-            if (this.$route.name === '交流圈') {
-                switch (e) {
-                    case '全部':
-                        this.comments = this.$store.state.Cultural.allData.communicationCircles?.reverse()
-                        break
-                    case '热门':
-                        this.comments = this.$store.state.Cultural.allData.communicationCircles1?.reverse()
-                        break
-                    case '精选':
-                        this.comments = this.$store.state.Cultural.allData.communicationCircles2?.reverse()
-                        break
-                }
+        },        //  点赞
+        initLabel(LABEL_MAP,e){
+            if(LABEL_MAP[localStorage.getItem('label')]){
+                return LABEL_MAP[localStorage.getItem('label')]
+            }else {
+                return LABEL_MAP['全部']
             }
         },
     },
     computed: {
-        reverseData: function () {
-            set: (value) => {
-                return value.reverse()
-            }
-        }
+        listData(){
+            return this.$store.getters["Cultural/filterData"]
+        },
+        ...mapState('Cultural',['type'])
     },
     filters: {
-        //时间倒序
-        // reverseData: function (data) {
-        //     return data.reverse()
-        // },
         //点赞数超过1w小数
         fabulousCount: function (value) {
             if (value > 10000) {

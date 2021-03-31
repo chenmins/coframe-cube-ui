@@ -1,6 +1,6 @@
 <template>
   <div id="Guest">
-    <NavLayOut color="#fff" >
+    <TitleNav color="#fff" >
       <main slot="fixed">
         <cube-scroll
             ref="scroll"
@@ -54,7 +54,7 @@
           </ul>
         </cube-scroll>
       </main>
-    </NavLayOut>
+    </TitleNav>
   </div>
 </template>
 

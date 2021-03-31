@@ -1,83 +1,83 @@
 export default [
     {
-        path:'/EmployeeCard',
-        name:'员工卡申请',
-        meta:{
-            name:'EmployeeCard',
-            tag:'员工卡申请',
-            leave:2,
+        path: '/EmployeeCard',
+        name: '员工卡申请',
+        meta: {
+            name: '员工卡申请',
+            tag: '员工卡申请',
+            leave: 2,
             showNav: true
         },
-        component:()=>import('@/views/EmployeeCard/index')
+        component: () => import('@/views/EmployeeCard/index')
     },
     {
-        path:'/CreateCard',
-        name:'CreateCard',
-        meta:{
-            name:'新员工开卡',
-            leave:3,
+        path: '/CreateCard',
+        name: 'CreateCard',
+        meta: {
+            name: '新员工开卡',
+            leave: 3,
             showNav: true,
-            backRouter:'员工卡申请',
+            backRouter: '员工卡申请',
         },
-        component:()=>import('@/views/EmployeeCard/CreateCard')
+        component: () => import('@/views/EmployeeCard/CreateCard')
     },
     {
-        path:'/addCard',
-        name:'addCard',
-        meta:{
-            name:'补卡',
-            leave:3,
+        path: '/addCard',
+        name: 'addCard',
+        meta: {
+            name: '补卡',
+            leave: 3,
             showNav: true,
-            backRouter:'员工卡申请',
+            backRouter: '员工卡申请',
         },
-        component:()=>import('@/views/EmployeeCard/AddCard/index')
+        component: () => import('@/views/EmployeeCard/AddCard/index')
     },
     {
-        path:'/confirm',
-        name:'confirm',
-        meta:{
-            name:'确认信息',
-            tag:'confirm',
-            leave:3,
+        path: '/confirm',
+        name: 'confirm',
+        meta: {
+            name: '确认信息',
+            tag: 'confirm',
+            leave: 3,
             showNav: true,
-            backRouter:'员工卡申请',
+            backRouter: '员工卡申请',
         },
-        component:()=>import('@/views/EmployeeCard/CreateCard')
+        component: () => import('@/views/EmployeeCard/CreateCard')
     },
     {
-        path:'/Apply',
-        name:'Apply',
-        meta:{
-            name:'我的申请',
-            tag:'Apply',
-            leave:3,
+        path: '/Apply',
+        name: 'Apply',
+        meta: {
+            name: '我的申请',
+            tag: 'Apply',
+            leave: 3,
             showNav: true,
-            backRouter:'员工卡申请',
+            backRouter: '员工卡申请',
         },
-        component:()=>import('@/views/EmployeeCard/Apply')
+        component: () => import('@/views/EmployeeCard/Apply')
     },
     {
-        path:'/ApplyRecord',
-        name:'ApplyRecord',
-        meta:{
-            name:'申请记录',
-            tag:'ApplyRecord',
-            leave:3,
+        path: '/ApplyRecord',
+        name: 'ApplyRecord',
+        meta: {
+            name: '申请记录',
+            tag: 'ApplyRecord',
+            leave: 3,
             showNav: true,
-            backRouter:'Apply',
+            backRouter: 'Apply',
         },
-        component:()=>import('@/views/EmployeeCard/ApplyRecord')
+        component: () => import('@/views/EmployeeCard/ApplyRecord')
     },
     {
-        path:'/Loss',
-        name:'Loss',
-        meta:{
-            name:'挂失',
-            leave:3,
+        path: '/Loss',
+        name: 'Loss',
+        meta: {
+            name: '挂失',
+            leave: 3,
             showNav: true,
-            backRouter:'员工卡申请',
+            backRouter: '员工卡申请',
         },
-        component:()=>import('@/views/EmployeeCard/Loss')
+        component: () => import('@/views/EmployeeCard/Loss')
     },
     {
         path: '/ApprovalList',
@@ -85,9 +85,9 @@ export default [
         meta: {
             name: '审批列表',
             tag: 'ApprovalList',
-            leave:3,
+            leave: 3,
             showNav: true,
-            backRouter:'员工卡申请',
+            backRouter: '员工卡申请',
         },
         component: () => import('@/views/EmployeeCard/ApprovalList/index')
     },
@@ -97,58 +97,70 @@ export default [
         meta: {
             name: '审批详情',
             tag: 'ApprovalDetail',
-            leave:3,
+            leave: 3,
             showNav: true,
-            backRouter:'ApprovalList',
+            backRouter: 'ApprovalList',
         },
         component: () => import('@/views/EmployeeCard/ApprovalList/Detail')
     },
     {
-        path:'/CardRecord/:id',
-        name:'CardRecord',
+        path: '/CardRecord',
+        name: 'CardRecord',
         meta: {
             name: '员工卡管理',
             tag: 'CardRecord',
-            leave:3,
+            leave: 3,
             showNav: true,
-            backRouter:'员工卡申请',
+            backRouter: '员工卡申请',
         },
         component: () => import('@/views/EmployeeCard/CardRecord')
     },
     {
-        path:'/Card/:id',
-        name:'Card',
+        path: '/Card/:id',
+        name: 'Card',
         meta: {
             name: '员工卡详情',
             tag: 'Card',
-            leave:3,
+            leave: 3,
             showNav: true,
-            backRouter:'CardRecord',
+            backRouter: 'CardRecord',
         },
-        component: () => import('@/views/EmployeeCard/CreateCard')
+        component: () => import('@/views/EmployeeCard/Card')
     },
     {
-        path:'/Preview/:id',
-        name:'PreviewConfirm',
+        path: '/Preview/:id',
+        name: 'PreviewConfirm',
         meta: {
             name: '确认信息',
             tag: 'Preview',
-            leave:3,
+            leave: 3,
             showNav: true,
-            backRouter:'员工卡申请',
+            backRouter: '员工卡申请',
         },
         component: () => import('@/views/EmployeeCard/Preview')
     },
     {
-        path:'/PreviewInfo/:id',
-        name:'PreviewInfo',
+        path: '/PreviewInfo/:id',
+        name: 'PreviewInfo',
         meta: {
             name: '预览信息',
             tag: 'Preview',
-            leave:'back',
+            leave: 'back',
             showNav: true,
         },
         component: () => import('@/views/EmployeeCard/PreviewInfo')
+    },
+    {
+        path:'/cardRejectConfirm',
+        name:'cardRejectConfirm',
+        meta:{
+            name:'确认拒绝',
+            tag:'cardRejectConfirm',
+            leave:3,
+            showNav:true,
+            backRouter:'员工卡申请',
+        },
+        component:()=>import('@/views/EmployeeCard/RejectConfirm')
     }
 
 ]

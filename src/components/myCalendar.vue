@@ -19,6 +19,7 @@
 <script>
 import lunar from "@/utils/lunar";
 import { ScheduleControllerImpl } from "@controller";
+import {mapState} from 'vuex'
 
 export default {
   name: "myCalendar",
@@ -40,27 +41,17 @@ export default {
   async created() {
     this.date4 = this.stringify(new Date());
   },
-  mounted() {},
+  computed:{
+    ...mapState('Schedule',['allMonthSchedule'])
+  },
   updated() {
     let dir = document.getElementsByClassName("day-cell");
     dir.forEach((v) => {
       v.classList.remove("hasTodo");
       v.classList.remove("datepicker-dateRange-item-active");
     });
-    this.getMonthData(this.$dayjs(this.selectedDate).format("YYYY-MM")).then(
-      () => {
-        this.getInfo();
-      }
-    );
   },
   methods: {
-    async getMonthData(date) {
-      let resp;
-      resp = await this.dispatch(ScheduleControllerImpl.queryScheduleByMM, {
-        month: date,
-      });
-      this.allMonthData = resp.data.body[0];
-    },
     getInfo() {
       this.$nextTick(() => {
         let dir = document.getElementsByClassName("day-cell");
@@ -77,14 +68,13 @@ export default {
         });
         newDir.forEach((i) => {
           if (
-            this.allMonthData[this.$dayjs(i.dataset.date).format("YYYY-M-D")] &&
-            this.allMonthData[this.$dayjs(i.dataset.date).format("YYYY-M-D")]
+              this.allMonthSchedule[this.$dayjs(i.dataset.date).format("YYYY-M-D")] &&
+              this.allMonthSchedule[this.$dayjs(i.dataset.date).format("YYYY-M-D")]
               .length !== 0
           ) {
             i.classList.add("hasTodo");
           }
           if (i.dataset.date === this.$dayjs().format("YYYY-MM-DD")) {
-            i.classList.remove("hasTodo");
             i.classList.add("datepicker-dateRange-item-active");
           }
         });
@@ -210,7 +200,6 @@ export default {
 >>> .hasTodo {
   position: relative;
   z-index: 20;
-
   &:after {
     content: '';
     height: 5px;
@@ -299,10 +288,20 @@ export default {
 >>> .day-cell, .datepicker-dateRange-item-active {
   position: relative !important;
 }
-
+>>> .datepicker-dateRange-item-active.hasTodo{
+  &:after {
+    content: '';
+    height: 5px;
+    width: 5px;
+    background-color: #fff;
+    display: inline-block;
+    border-radius: 50%;
+  }
+}
 >>> .datepicker-dateRange-item-active {
   border-radius: 8px;
   box-shadow: 0px 2px 4px 0px rgba(255, 50, 133, 0.34);
+
 }
 
 .datepicker-body, .event {

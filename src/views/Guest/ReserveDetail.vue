@@ -1,6 +1,6 @@
 <template>
   <div id="ReserveDetail">
-    <NavLayOut
+    <TitleNav
         bgc-color="#fff"
     >
       <div class="top">
@@ -98,7 +98,7 @@
           </li>
         </ul>
       </LayOut>
-    </NavLayOut>
+    </TitleNav>
     <footer>
       <button class="rej" @click="$router.push({name:'RejectConfirm'})">拒绝</button>
       <button class="pass">通过</button>
@@ -189,6 +189,8 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+>>>.scroll-height-set
+  height calc(100vh - 130px)
 .icon_status
   position: absolute;
   right 20px
