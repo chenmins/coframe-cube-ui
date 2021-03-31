@@ -105,6 +105,10 @@ export default {
       this.$router.push({ name: "话题列表" });
     },
     async submit(data) {
+      this.setStateVar({
+        key:'sendForm',
+        value:this.query
+      })
       if (!this.query.body.length) {
         this.$createToast({
           type: "normal",

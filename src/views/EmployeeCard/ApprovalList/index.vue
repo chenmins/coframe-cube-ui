@@ -6,7 +6,7 @@
   >
     <Card
       v-for="approve in approveLists"
-      @clicked="$router.push({ name: 'ApprovalDetail', params: {id:approve.code, info: approve } })"
+      @clicked="approve.state !== '审批中'?'':$router.push({ name: 'ApprovalDetail', params: {id:approve.code, info: approve } })"
     >
       <div class="title">
         <div class="dot"></div>
@@ -42,10 +42,10 @@
       </div>
       <template v-if="arrived">
         <Tag
-          v-if="approve.state !== '启用中'"
+          v-if="approve.state === '审批中'"
           color="#fff"
           class="tag"
-          :background-color="approve.state === '启用中' ? '#42b983' : '#000'"
+          :background-color="approve.state === '审批中' ? '#F5BA39' : '#42b983'"
         >
           {{ approve.state }}
         </Tag>

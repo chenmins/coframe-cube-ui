@@ -25,7 +25,7 @@
         :tabs="tabs"
     >
       <div class="scroll-list-wrap scroll-set">
-        <cube-scroll ref="scroll222" :key="Math.random()" @scroll="scroll" :scrollEvents="['scroll']">
+        <cube-scroll ref="scroll222"  @scroll="scroll" :scrollEvents="['scroll']">
           <Card
               class="list-complete-item"
               :is-comment="false"
