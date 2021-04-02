@@ -118,8 +118,15 @@ export default {
       }).show()
     },
     setScroll(day) {
-      document.querySelector(".van-calendar__days").scrollLeft =
-          59.13 * this.$dayjs(day).subtract(3, "day").format("D");
+      if(this.$dayjs(day).format("D")>3){
+        document.querySelector(".van-calendar__days").scrollLeft =
+            59.13 * this.$dayjs(day).subtract(3, "day").format("D");
+      }else {
+        document.querySelector(".van-calendar__days").scrollLeft =
+            59.13 * this.$dayjs(day)  .format("D");
+      }
+
+
     },
     releaseEdit(item) {
       this.$router.push({

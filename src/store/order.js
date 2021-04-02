@@ -84,8 +84,12 @@ const order = {
       // }
     },
     async updateBarber(context,payload){
-      let resp 
-      resp = await window.vue.dispatch(BarberControllerImpl.updateBarber,payload)
+      let resp
+      try{
+        resp = await window.vue.dispatch(BarberControllerImpl.updateBarber,payload)
+      } catch (e){
+
+      }
       if(!resp.error){
         console.log(resp);
         return resp

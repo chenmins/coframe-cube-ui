@@ -7,12 +7,12 @@
         <Icon v-else svg-name="reserve-center" class-name="footer_svg"></Icon>
         <div class="footer_text">预约中心</div>
       </div>
-      <div v-if="!isAdmin" @click="$router.push({name:'MyYuYue'})">
+      <div @click="$router.push({name:'MyYuYue'})">
         <Icon v-if="$route.meta.name==='我的预约'" svg-name="reserve-myreserve-light" class-name="footer_svg"></Icon>
         <Icon v-else svg-name="reserve-myreserve" class-name="footer_svg"></Icon>
         <div class="footer_text">我的预约</div>
       </div>
-      <div v-else @click="$router.push({name:'AppointmentAdminRelease'})">
+      <div v-if="isAdmin"  @click="$router.push({name:'AppointmentAdminRelease'})">
         <Icon v-if="$route.meta.name==='发布管理'" svg-name="center-manage-light" class-name="footer_svg"></Icon>
         <Icon v-else svg-name="center-manage" class-name="footer_svg"></Icon>
         <div class="footer_text">发布管理</div>

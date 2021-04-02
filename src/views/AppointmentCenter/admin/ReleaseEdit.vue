@@ -232,7 +232,7 @@ export default {
         timePartVos: this.groupModel.floorModel
       }
       this.updateBarber(form).then((resp)=>{
-        if(!resp){
+        if(resp.data.body){
           this.$router.push({name:'AppointmentAdminRelease'})
         }else{
           this.$createToast({
