@@ -52,7 +52,7 @@ export default {
         ),
       });
     },
-    removeCard() {
+      removeCard() {
       this.$createDialog({
         type: "confirm",
         title: "确定注销该员工卡吗？",

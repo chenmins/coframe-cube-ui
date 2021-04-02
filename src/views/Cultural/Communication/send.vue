@@ -89,6 +89,7 @@ export default {
     this.topic = res?.topic || []
     console.log(this.topic)
   },
+
   methods: {
     ...mapMutations('Cultural',['setStateVar']),
     ...mapActions('Cultural',['initData','formInit']),

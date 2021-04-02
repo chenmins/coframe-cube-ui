@@ -11,6 +11,12 @@ export default {
             url: (payload) => `/api/platform/workCard/addDalance`,
             parameters: [{'in':'body','name':'dealRecordEntity','description':'dealRecordEntity','required':true,'schema':{'$ref':'#/definitions/员工卡交易记录'}}],
         },
+        [WorkCartControllerImpl.cancelledCard.method] : {
+            summary: '注销',
+            method: 'put',
+            url: (payload) => `/api/platform/workCard/cancelledCard/${payload.code}`,
+            parameters: [{'name':'code','in':'path','description':'卡号','required':true,'type':'string'}],
+        },
         [WorkCartControllerImpl.getReviewList.method] : {
             summary: '获取审批列表',
             method: 'get',

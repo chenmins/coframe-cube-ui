@@ -231,8 +231,16 @@ export default {
         date:  this.groupModel.firstModel.date,
         timePartVos: this.groupModel.floorModel
       }
-      this.updateBarber(form).then(()=>{
-        this.$router.push({name:'AppointmentAdminRelease'})
+      this.updateBarber(form).then((resp)=>{
+        if(!resp){
+          this.$router.push({name:'AppointmentAdminRelease'})
+        }else{
+          this.$createToast({
+            txt:'修改错误',
+            type:"error",
+            time:1500
+          }).show()
+        }
       })
       // this.$router.push({name: 'Preview', params: {id: 1}})
     },
