@@ -5,11 +5,41 @@
 import { HelpControllerImpl } from '../controller';
 export default {
     actions: {
+        [HelpControllerImpl.AddCommonProblem.method] : {
+            summary: '新增一个常见问题',
+            method: 'post',
+            url: (payload) => `/api/platform/help/addCommonProblem`,
+            parameters: [{'in':'body','name':'entity','description':'entity','required':true,'schema':{'$ref':'#/definitions/常用问题'}}],
+        },
         [HelpControllerImpl.AddDemandFeedbackReply.method] : {
             summary: '新增一个需求反馈回复',
             method: 'post',
             url: (payload) => `/api/platform/help/addDemandFeedbackReply`,
             parameters: [{'in':'body','name':'vo','description':'vo','required':true,'schema':{'$ref':'#/definitions/DemandFeedbackReplyVO'}}],
+        },
+        [HelpControllerImpl.AddProductIntroduction.method] : {
+            summary: '新增一个产品介绍',
+            method: 'post',
+            url: (payload) => `/api/platform/help/addProductIntroduction`,
+            parameters: [{'in':'body','name':'entity','description':'entity','required':true,'schema':{'$ref':'#/definitions/产品介绍'}}],
+        },
+        [HelpControllerImpl.DelCommonProblem.method] : {
+            summary: '删除一个常见问题',
+            method: 'delete',
+            url: (payload) => `/api/platform/help/deleteCommonProblem/${payload.id}`,
+            parameters: [{'name':'id','in':'path','description':'主键','required':true,'type':'integer','format':'int32'}],
+        },
+        [HelpControllerImpl.UpdateCommonProblem.method] : {
+            summary: '修改一个常见问题',
+            method: 'put',
+            url: (payload) => `/api/platform/help/updateCommonProblem`,
+            parameters: [{'in':'body','name':'entity','description':'entity','required':true,'schema':{'$ref':'#/definitions/常用问题'}}],
+        },
+        [HelpControllerImpl.UpdateProductIntroduction.method] : {
+            summary: '修改一个产品介绍',
+            method: 'put',
+            url: (payload) => `/api/platform/help/updateProductIntroduction`,
+            parameters: [{'in':'body','name':'entity','description':'entity','required':true,'schema':{'$ref':'#/definitions/常用问题'}}],
         },
         [HelpControllerImpl.addDemandFeedback.method] : {
             summary: '新增一个需求反馈',

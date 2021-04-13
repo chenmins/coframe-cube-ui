@@ -44,7 +44,7 @@ export default {
   },
   methods: {
     ...mapMutations("EmployeeCard", ["setCardInfo", "setFloorModel", "setFirstModel"]),
-    ...mapActions("EmployeeCard", ["updateWorkCard"]),
+    ...mapActions("EmployeeCard", ["updateWorkCard", "cancelledCard"]),
     submit() {
       this.updateWorkCard({
         floorAuthority: JSON.stringify(
@@ -52,17 +52,17 @@ export default {
         ),
       });
     },
-      removeCard() {
+    removeCard() {
       this.$createDialog({
         type: "confirm",
         title: "确定注销该员工卡吗？",
         maskClosable: true,
         onConfirm: (e) => {
-          this.$createToast({
-            type: "warn",
-            time: 1000,
-            txt: `点击了确认`,
-          }).show();
+          this.cancelledCard({ code: this.cardInfo.code }).then((res) => {
+            if (res) {
+              this.$router.replace("/CardRecord");
+            }
+          });
         },
       }).show();
     },

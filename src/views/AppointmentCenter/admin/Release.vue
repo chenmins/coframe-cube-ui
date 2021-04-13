@@ -5,65 +5,68 @@
         <span>{{ date.month }}月</span>/{{ date.year }}
       </h1>
       <Calendar
-          @select="setDate"
-          ref="Calendar"
-          title="日历"
-          :default-date="defaultDate"
-          :poppable="false"
-          :show-confirm="false"
-          :formatter="formatter"
-          :min-date="minDate"
-          :max-date="maxDate"
-          color="#fff"
-          :style="show ? 'overflow:hidden;height:95px;' : 'height:420px;'"
+        @select="setDate"
+        ref="Calendar"
+        title="日历"
+        :default-date="defaultDate"
+        :poppable="false"
+        :show-confirm="false"
+        :formatter="formatter"
+        :min-date="minDate"
+        :max-date="maxDate"
+        color="#fff"
+        :style="show ? 'overflow:hidden;height:95px;' : 'height:420px;'"
       />
       <i class="cubeic-select" @click="toggle"></i>
       <div class="content">
-        <FuncBtn @clicked="$router.push({name:'AdminRelease'})">发布</FuncBtn>
+        <FuncBtn @clicked="$router.push({ name: 'AdminRelease' })">发布</FuncBtn>
         <div class="scroll-list-wrap">
-          <cube-scroll
-              ref="scroll"
-              style="height:calc(100% - 80px)"
-          >
-            <LayOut class="item" v-for="(item,key,index) in dayData">
+          <cube-scroll ref="scroll" style="height: calc(100% - 80px)">
+            <LayOut class="item" v-for="(item, key, index) in dayData">
               <header>
                 <div style="width: 100%">
                   <div class="type">{{ key }}</div>
                   <div
-                      style="display: flex; justify-content: space-between; align-items: center"
+                    style="
+                      display: flex;
+                      justify-content: space-between;
+                      align-items: center;
+                    "
                   >
                     <span>美发去屑、保湿护理</span>
-                    <p class="time">2020-12-30</p>
+                    <p class="time">{{ $dayjs(selectedDate).format("YYYY-MM-DD") }}</p>
                   </div>
                 </div>
                 <i class="cubeic-edit" @click="releaseEdit(key)"></i>
               </header>
               <main>
                 <div class="num_box clear-fix">
-                  <div v-for="time in item" class="num">{{
-                      $dayjs(time.startTime).format('HH:mm') + '-' + $dayjs(time.endTime).format('HH:mm')
-                    }}<span>{{ time.quota }}人</span></div>
+                  <div v-for="time in item" class="num">
+                    {{
+                      $dayjs(time.startTime).format("HH:mm") +
+                      "-" +
+                      $dayjs(time.endTime).format("HH:mm")
+                    }}<span>{{ time.quota }}人</span>
+                  </div>
                 </div>
               </main>
             </LayOut>
-
           </cube-scroll>
         </div>
-
       </div>
     </template>
   </TitleNav>
 </template>
 
 <script>
-import {Calendar} from "vant";
+import { Calendar } from "vant";
 import FuncBtn from "@/views/AppointmentCenter/components/funcBtn";
-import {mapActions, mapState} from "vuex";
+import { mapActions, mapState } from "vuex";
 
 const WEEK_MAP = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 export default {
   name: "Release",
-  components: {FuncBtn, Calendar,},
+  components: { FuncBtn, Calendar },
   data() {
     return {
       date: {
@@ -73,89 +76,91 @@ export default {
       },
       show: true,
       minDate: this.$dayjs().toDate(),
-      maxDate: this.$dayjs().add(1, 'month').toDate(),
+      maxDate: this.$dayjs().add(1, "month").toDate(),
       defaultDate: new Date(),
       selectedDate: new Date(),
-      dayData: null
-    }
+      dayData: null,
+    };
   },
   created() {
     this.queryByMonth({
-      month: this.$dayjs().format('YYYY-MM-DD')
+      month: this.$dayjs().format("YYYY-MM-DD"),
     }).then(() => {
       for (let i in this.allDayData) {
-        this.dayData = this.allDayData[this.$dayjs().format('YYYY-M-D')]
+        this.dayData = this.allDayData[this.$dayjs().format("YYYY-M-D")];
       }
-
-    })
+    });
     // van-calendar__days
-
   },
   mounted() {
     this.setScroll();
   },
   computed: {
-    ...mapState('order', ['allDayData'])
+    ...mapState("order", ["allDayData"]),
   },
   methods: {
-    ...mapActions('order', ['queryByMonth']),
+    ...mapActions("order", ["queryByMonth"]),
     selectMonth() {
       this.timePicker = this.$createDatePicker({
-        title: 'Time Picker',
+        title: "Time Picker",
         min: this.$dayjs().toDate(),
-        max: this.$dayjs().add(3, 'year').toDate(),
+        max: this.$dayjs().add(3, "year").toDate(),
         value: this.$dayjs().toDate(),
         columnCount: 3,
         onSelect: (v1) => {
-          this.date.year = this.$dayjs(v1).format('YYYY')
-          this.date.month = this.$dayjs(v1).format('MM')
-          this.date.day = this.$dayjs(v1).format('DD')
-          this.minDate = this.$dayjs(this.date.year+'-'+this.date.month).toDate()
-          this.maxDate = this.$dayjs(v1).add(1, 'month').toDate()
+          this.date.year = this.$dayjs(v1).format("YYYY");
+          this.date.month = this.$dayjs(v1).format("MM");
+          this.date.day = this.$dayjs(v1).format("DD");
+          this.minDate = this.$dayjs(this.date.year + "-" + this.date.month).toDate();
+          this.maxDate = this.$dayjs(v1).add(1, "month").toDate();
           this.$refs.Calendar.reset(this.$dayjs(v1).toDate());
-          this.setScroll(v1)
-        }
-      }).show()
+          this.setScroll(v1);
+        },
+      }).show();
     },
     setScroll(day) {
-      if(this.$dayjs(day).format("D")>3){
+      if (this.$dayjs(day).format("D") > 3) {
         document.querySelector(".van-calendar__days").scrollLeft =
-            59.13 * this.$dayjs(day).subtract(3, "day").format("D");
-      }else {
+          59.13 * this.$dayjs(day).subtract(3, "day").format("D");
+      } else {
         document.querySelector(".van-calendar__days").scrollLeft =
-            59.13 * this.$dayjs(day)  .format("D");
+          59.13 * this.$dayjs(day).format("D");
       }
-
-
     },
     releaseEdit(item) {
       this.$router.push({
         name: "AdminReleaseEdit",
-        params: {key: item, date: this.$dayjs(this.selectedDate).format('YYYY-MM-DD'), data: this.dayData[item],}
+        params: {
+          key: item,
+          date: this.$dayjs(this.selectedDate).format("YYYY-MM-DD"),
+          data: this.dayData[item],
+        },
       });
     },
     setDate(day) {
-      this.selectedDate = day
+      this.selectedDate = day;
       this.queryByMonth({
-        month: this.$dayjs(day).format('YYYY-MM-DD')
-      })
-      this.dayData = this.allDayData[this.$dayjs(day).format('YYYY-M-D')]
+        month: this.$dayjs(day).format("YYYY-MM-DD"),
+      });
+      this.dayData = this.allDayData[this.$dayjs(day).format("YYYY-M-D")];
     },
     formatter(day) {
       day.className = "my_date";
-      let bottomInfo = ''
+      let bottomInfo = "";
 
       for (let allDayDataKey in this.allDayData) {
-        if (this.$dayjs(day.date).format('YYYY-M-D') === allDayDataKey) {
-          day.className = 'my_date has_item'
-          let secondData = this.allDayData[allDayDataKey]
-          for (let key in secondData) {　　//遍历对象的所有属性，包括原型链上的所有属性
-            if (secondData.hasOwnProperty(key)) { //判断是否是对象自身的属性，而不包含继承自原型链上的属性
-              bottomInfo = bottomInfo + key.substr(0, 1) + '/'
+        if (this.$dayjs(day.date).format("YYYY-M-D") === allDayDataKey) {
+          day.className = "my_date has_item";
+          let secondData = this.allDayData[allDayDataKey];
+          for (let key in secondData) {
+            //遍历对象的所有属性，包括原型链上的所有属性
+            if (secondData.hasOwnProperty(key)) {
+              //判断是否是对象自身的属性，而不包含继承自原型链上的属性
+              bottomInfo = bottomInfo + key.substr(0, 1) + "/";
             }
           }
         }
-        day.bottomInfo = bottomInfo.substring(0, bottomInfo.length - 1)
+        day.bottomInfo = bottomInfo.substring(0, bottomInfo.length - 1);
       }
       day.topInfo = WEEK_MAP[this.$dayjs(day.date).day()];
       // day.bottomInfo = '入住';
@@ -166,8 +171,8 @@ export default {
       let container = document.querySelector(".van-calendar__days");
 
       container.style.flexWrap === "wrap"
-          ? ((container.style.flexWrap = "nowrap"), this.setScroll())
-          : (container.style.flexWrap = "wrap");
+        ? ((container.style.flexWrap = "nowrap"), this.setScroll())
+        : (container.style.flexWrap = "wrap");
       this.show = !this.show;
     },
   },

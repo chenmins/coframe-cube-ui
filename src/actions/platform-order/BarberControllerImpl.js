@@ -17,10 +17,28 @@ export default {
             url: (payload) => `/api/platform/order/barber/addBarberUser/${payload.barberId}`,
             parameters: [{'name':'barberId','in':'path','description':'理发室id','required':true,'type':'integer','format':'int32'}],
         },
+        [BarberControllerImpl.addClinic.method] : {
+            summary: '发布理发室',
+            method: 'post',
+            url: (payload) => `/api/platform/order/clinic/addClinic`,
+            parameters: [{'in':'body','name':'nNarberVO','description':'nNarberVO','required':true,'schema':{'$ref':'#/definitions/NClinicVo'}}],
+        },
+        [BarberControllerImpl.addClinicUser.method] : {
+            summary: '预约理发室',
+            method: 'post',
+            url: (payload) => `/api/platform/order/clinic/addClinicUser/${payload.clinicId}`,
+            parameters: [{'name':'clinicId','in':'path','description':'理发室id','required':true,'type':'integer','format':'int32'}],
+        },
         [BarberControllerImpl.deleteBarber.method] : {
             summary: '删除一个发布的理发室信息',
             method: 'delete',
             url: (payload) => `/api/platform/order/barber/deleteBarber/${payload.id}`,
+            parameters: [{'name':'id','in':'path','description':'主键','required':true,'type':'integer','format':'int32'}],
+        },
+        [BarberControllerImpl.deleteClinic.method] : {
+            summary: '删除一个发布的理发室信息',
+            method: 'delete',
+            url: (payload) => `/api/platform/order/clinic/deleteClinic/${payload.id}`,
             parameters: [{'name':'id','in':'path','description':'主键','required':true,'type':'integer','format':'int32'}],
         },
         [BarberControllerImpl.queryAll.method] : {
@@ -29,10 +47,22 @@ export default {
             url: (payload) => `/api/platform/order/barber/queryAllByAdmin`,
             parameters: [],
         },
+        [BarberControllerImpl.queryAll.method] : {
+            summary: '管理员查询全部预约情况',
+            method: 'get',
+            url: (payload) => `/api/platform/order/clinic/queryAllByAdmin`,
+            parameters: [],
+        },
         [BarberControllerImpl.queryByMonth.method] : {
             summary: '根据日期进行查询预约情况',
             method: 'get',
             url: (payload) => `/api/platform/order/barber/queryByMonth/${payload.month}`,
+            parameters: [{'name':'month','in':'path','description':'日期','required':true,'type':'string'}],
+        },
+        [BarberControllerImpl.queryByMonth.method] : {
+            summary: '根据日期进行查询预约情况',
+            method: 'get',
+            url: (payload) => `/api/platform/order/clinic/queryByMonth/${payload.month}`,
             parameters: [{'name':'month','in':'path','description':'日期','required':true,'type':'string'}],
         },
         [BarberControllerImpl.queryByState.method] : {
@@ -41,10 +71,22 @@ export default {
             url: (payload) => `/api/platform/order/barber/queryByState/${payload.state}`,
             parameters: [{'name':'state','in':'path','description':'状态','required':true,'type':'string'}],
         },
+        [BarberControllerImpl.queryByState.method] : {
+            summary: '根据预约状态查询理发室的预约情况',
+            method: 'get',
+            url: (payload) => `/api/platform/order/clinic/queryByState/${payload.state}`,
+            parameters: [{'name':'state','in':'path','description':'状态','required':true,'type':'string'}],
+        },
         [BarberControllerImpl.queryByTypeAndDate.method] : {
             summary: '根据预约类型和日期查询理发室的预约情况  名额',
             method: 'get',
             url: (payload) => `/api/platform/order/barber/queryByDate/${payload.type}/${payload.date}`,
+            parameters: [{'name':'date','in':'path','description':'日期','required':true,'type':'string'},{'name':'type','in':'path','description':'类型','required':true,'type':'string'}],
+        },
+        [BarberControllerImpl.queryByTypeAndDate.method] : {
+            summary: '根据预约类型和日期查询理发室的预约情况  名额',
+            method: 'get',
+            url: (payload) => `/api/platform/order/clinic/queryByDate/${payload.type}/${payload.date}`,
             parameters: [{'name':'date','in':'path','description':'日期','required':true,'type':'string'},{'name':'type','in':'path','description':'类型','required':true,'type':'string'}],
         },
         [BarberControllerImpl.updateBarber.method] : {
@@ -59,11 +101,29 @@ export default {
             url: (payload) => `/api/platform/order/barber/updateBarberUserForCancel/${payload.barberId}`,
             parameters: [{'name':'barberId','in':'path','description':'理发室id','required':true,'type':'integer','format':'int32'}],
         },
+        [BarberControllerImpl.updateCancel.method] : {
+            summary: '取消理发室预约',
+            method: 'put',
+            url: (payload) => `/api/platform/order/clinic/updateClinicUserForCancel/${payload.clinicId}`,
+            parameters: [{'name':'clinicId','in':'path','description':'理发室id','required':true,'type':'integer','format':'int32'}],
+        },
+        [BarberControllerImpl.updateClinic.method] : {
+            summary: '修改发布的理发室信息',
+            method: 'put',
+            url: (payload) => `/api/platform/order/clinic/updateClinic`,
+            parameters: [{'in':'body','name':'upClinicVo','description':'upClinicVo','required':true,'schema':{'$ref':'#/definitions/UpClinicVo'}}],
+        },
         [BarberControllerImpl.updateSign.method] : {
             summary: '理发室预约签到',
             method: 'put',
             url: (payload) => `/api/platform/order/barber/updateBarberUserForSign/${payload.barberId}`,
             parameters: [{'name':'barberId','in':'path','description':'理发室id','required':true,'type':'integer','format':'int32'}],
+        },
+        [BarberControllerImpl.updateSign.method] : {
+            summary: '理发室预约签到',
+            method: 'put',
+            url: (payload) => `/api/platform/order/clinic/updateClinicUserForSign/${payload.clinicId}`,
+            parameters: [{'name':'clinicId','in':'path','description':'理发室id','required':true,'type':'integer','format':'int32'}],
         },
     },
     // state: {},
