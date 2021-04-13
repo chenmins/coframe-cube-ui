@@ -1,6 +1,6 @@
 <template>
   <div class="communication_app">
-    <div v-show="topic_list" style="background-color: #fff">
+    <div v-show="topic_list"  style="background-color: #fff">
       <div class="topic_title">热门话题</div>
       <div class="topics">
         <div
@@ -24,59 +24,57 @@
         :selected-label="selectedLabel"
         :tabs="tabs"
     >
-      <div class="scroll-list-wrap scroll-set">
-        <cube-scroll ref="scroll222" :key="Math.random()" @scroll="scroll" :scrollEvents="['scroll']">
-          <Card
-              class="list-complete-item"
-              :is-comment="false"
-              :is-like="comment.fabulousForUser"
-                :commentLength="comment.comments && comment.comments.length"
-              v-for="(comment, index) in comments"
-              :key="index"
-              @checkComments="goComment({id:comment.id,data:comment})"
-              @toggleLike="toggleLike(comment)"
-              @remove="remove({dispatch:dispatch,id:comment.id}).then(()=>comments.splice(index, 1));"
-          >
-            <template v-slot:username>{{ comment.userName }}</template>
-            <template v-slot:time>{{
-                $dayjs(comment.releaseTime).format("YYYY-MM-DD DD:HH:ss")
-              }}
-            </template>
-            <template v-slot:likeName>{{
-                comment.fabulousPlusCount | fabulousCount
-              }}
-            </template>
-            <template v-slot:image>
-              <div>
-                <!--                ${this.$config.pictureUrl}/${this.$config.bucket}/${i}_${this.$config.imgSize}-->
-                <img
-                    width="33.33%"
-                    :src="'//'+$config.pictureUrl+'/'+$config.bucket+'/'+comment.picture.split(',')[0]+'_'+$config.imgSize"
-                />
-              </div>
-            </template>
-            <template v-slot:content>
-              <Icon
-                  v-show="comment.choice !== '0'"
-                  svg-name="great"
-                  style="height: 20px; width: 20px; margin-right: 4px"
-              ></Icon>
-              <div>
-                {{ comment.body }}
-              </div>
-            </template>
-            <template v-slot:card_topic v-if="comment.topicOfConversationId !== ''">
-              #{{ comment.topicOfConversationName }}
-            </template>
-            <template v-slot:trash>
-              <Icon
-                  svg-name="delete@2"
-                  style="height: 20px; width: 20px"
-                  v-if="userInfo.id === comment.userId || isAdmin"
-              ></Icon>
-            </template>
-          </Card>
-        </cube-scroll>
+      <div style="height:calc(100vh - 435px);overflow-y: auto">
+        <Card
+            class="list-complete-item"
+            :is-comment="false"
+            :is-like="comment.fabulousForUser"
+            :commentLength="comment.comments && comment.comments.length"
+            v-for="(comment, index) in comments"
+            :key="index"
+            @checkComments="goComment({id:comment.id,data:comment})"
+            @toggleLike="toggleLike(comment)"
+            @remove="remove({dispatch:dispatch,id:comment.id}).then(()=>comments.splice(index, 1));"
+        >
+          <template v-slot:username>{{ comment.userName }}</template>
+          <template v-slot:time>{{
+              $dayjs(comment.releaseTime).format("YYYY-MM-DD DD:HH:ss")
+            }}
+          </template>
+          <template v-slot:likeName>{{
+              comment.fabulousPlusCount | fabulousCount
+            }}
+          </template>
+          <template v-slot:image>
+            <div>
+              <!--                ${this.$config.pictureUrl}/${this.$config.bucket}/${i}_${this.$config.imgSize}-->
+              <img
+                  width="33.33%"
+                  :src="'//'+$config.pictureUrl+'/'+$config.bucket+'/'+comment.picture.split(',')[0]+'_'+$config.imgSize"
+              />
+            </div>
+          </template>
+          <template v-slot:content>
+            <Icon
+                v-show="comment.choice !== '0'"
+                svg-name="great"
+                style="height: 20px; width: 20px; margin-right: 4px"
+            ></Icon>
+            <div>
+              {{ comment.body }}
+            </div>
+          </template>
+          <template v-slot:card_topic v-if="comment.topicOfConversationId !== ''">
+            #{{ comment.topicOfConversationName }}
+          </template>
+          <template v-slot:trash>
+            <Icon
+                svg-name="delete@2"
+                style="height: 20px; width: 20px"
+                v-if="userInfo.id === comment.userId || isAdmin"
+            ></Icon>
+          </template>
+        </Card>
       </div>
     </SlideNav>
   </div>
@@ -127,7 +125,7 @@ export default {
     };
   },
   mounted() {
-    this.$refs.scroll222.$el.style.height = `${this.workspaceRealHeightNum - 430}px`
+    // this.$refs.scroll222.$el.style.height = `${this.workspaceRealHeightNum - 430}px`
     this.comments = this.listData(this.type)
   },
   watch: {
@@ -167,6 +165,8 @@ export default {
 <style></style>
 
 <style scoped lang="stylus">
+
+
 .topic-selected {
   background: #0251fe;
   color: #fff;

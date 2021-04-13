@@ -57,9 +57,7 @@
       </template>
     </ApproveContainer>
     <footer>
-      <cube-button @click="addBarberUser({id:selected4}).then(()=>$router.push({name:'YuYueSuccess',params:{
-         info: public.barber.find(i=>i.id === selected4),item:  $route.params.item
-      }}))">立即预约</cube-button>
+      <cube-button @click="submit(selected4)">立即预约</cube-button>
     </footer>
   </div>
 </template>
@@ -99,6 +97,22 @@ export default {
     ...mapActions('order',['addBarberUser']),
     changeHandle(e) {
       this.yuyue = !this.yuyue
+    },
+    submit(selected4){
+      this.addBarberUser({id:selected4}).then(resp=>{
+        console.log(resp)
+        if(resp.data.body!==0){
+          this.$router.push({name:'YuYueSuccess',params:{
+              info: this.public.barber.find(i=>i.id === selected4),item:  this.$route.params.item
+            }})
+        }else {
+          this.$createToast({
+            txt:'预约失败',
+            type:"error",
+            time:1500
+          }).show()
+        }
+      })
     }
   },
   computed: {

@@ -186,7 +186,7 @@ export default [
             name: '预约页面',
             tag: '预约页面',
             leave: 3,
-            backRouter:'Home',
+            backRouter:'预约中心',
             showNav: true
         },
         component: () => import('@/views/AppointmentCenter/ReservePage')

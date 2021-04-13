@@ -35,6 +35,12 @@ export default {
             url: (payload) => `/api/platform/cultural/getCommunicationCircleEntity/${payload.id}/${payload.pageNo}/${payload.pageSize}`,
             parameters: [{'name':'id','in':'path','description':'主键','required':true,'type':'integer','format':'int32'},{'name':'pageNo','in':'path','description':'当前页码','required':true,'type':'integer','format':'int32'},{'name':'pageSize','in':'path','description':'一页显示条数','required':true,'type':'integer','format':'int32'}],
         },
+        [CulturalControllerImpl.getNotice.method] : {
+            summary: '根据主键查询公告',
+            method: 'get',
+            url: (payload) => `/api/platform/cultural/getNotice/${payload.id}`,
+            parameters: [{'name':'id','in':'path','description':'主键','required':true,'type':'integer','format':'int32'}],
+        },
         [CulturalControllerImpl.noticePageSreach.method] : {
             summary: '根据分页数据查询公告列表',
             method: 'get',

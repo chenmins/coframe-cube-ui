@@ -40,7 +40,7 @@ const order = {
         barberId: payload.id
       })
       if (!resp.error) {
-
+        return resp
       }
     },
     async queryByState(context, payload) {
@@ -73,7 +73,7 @@ const order = {
       let resp
       try {
         resp = await window.vue.dispatch(BarberControllerImpl.addBarber,payload)
-        console.log(resp);
+        return resp
       }catch (e) {
         console.log(JSON.stringify(e))
         console.log(JSON.parse(e))
@@ -84,11 +84,15 @@ const order = {
       // }
     },
     async updateBarber(context,payload){
-      let resp 
-      resp = await window.vue.dispatch(BarberControllerImpl.updateBarber,payload)
+      let resp
+      try{
+        resp = await window.vue.dispatch(BarberControllerImpl.updateBarber,payload)
+      } catch (e){
+
+      }
       if(!resp.error){
         console.log(resp);
-
+        return resp
       }
     },
     async updateCancel(context,payload){

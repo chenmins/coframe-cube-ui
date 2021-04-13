@@ -144,7 +144,8 @@ ajaxUtil.myRequest = (action, payload) => {
         resolve(response)   //error
       })
       .catch(res => {
-        console.log(res.response)
+        // console.log(res)
+        // console.log(res.response)
         // console.log('ajax catch')
         // console.log(JSON.parse(JSON.stringify(res)))
         // console.log(res.errorMsg)

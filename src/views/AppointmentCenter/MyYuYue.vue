@@ -105,22 +105,23 @@ export default {
   },
   methods: {
     sign(reserve) {
-      if(reserve.state === '已预约'){
-        this.$createDialog({
-          type: 'confirm',
-          content: '签到',
-          onConfirm: () => {
-            this.updateSign({
-              barberId:reserve.id
-            }).then(()=>{
-              this.$router.push({name: 'YuYueSuccess',params:{
-                  info: reserve,item:'签到'
-                }})
-            })
-
-          }
-        }).show()
-      }
+      // 扫码签到
+      // if(reserve.state === '已预约'){
+      //   this.$createDialog({
+      //     type: 'confirm',
+      //     content: '签到',
+      //     onConfirm: () => {
+      //       this.updateSign({
+      //         barberId:reserve.id
+      //       }).then(()=>{
+      //         this.$router.push({name: 'YuYueSuccess',params:{
+      //             info: reserve,item:'签到'
+      //           }})
+      //       })
+      //
+      //     }
+      //   }).show()
+      // }
     },
     test(reserve) {
       if (this.once) {

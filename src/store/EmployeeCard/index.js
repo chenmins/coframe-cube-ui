@@ -362,6 +362,13 @@ const EmployeeCard = {
             if(!resp.error){
                 return true
             }
+        },
+        async cancelledCard({commit},payload){
+            let resp
+            resp = await window.vue.dispatch(WorkCartControllerImpl.cancelledCard,{code:payload.code})
+            if(!resp.error){
+                return true
+            }
         }
     }
 
