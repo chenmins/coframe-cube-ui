@@ -34,6 +34,7 @@ export default async (vue) => {
       vue.config.bucket = resp.bucket || ''
       vue.config.imgSize = resp.imgSize || ''
       vue.config.MAX_IMG_SIZE = resp.MAX_IMG_SIZE || ''
+      vue.config.tenantID = resp.tenantID || ""
     }
   }
 }

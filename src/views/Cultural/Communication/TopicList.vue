@@ -77,9 +77,15 @@ export default {
     },
     async getItem(id) {
       let resp;
-      resp = await this.dispatch(DictApiController.getDictEntryByDictEntryId, {
-        id: id,
-      });
+      // tag 修改eos8
+      // resp = await this.dispatch(DictApiController.getDictEntryByDictEntryId, {
+      //   id: id,
+      // });
+      resp = await this.$axios.post('/org.gocom.components.coframe.dict.DictManager.queryDictType.biz.ext',{
+        "dicttypeid":id,
+        "tenantId":this.$config.tenantId
+      })
+
       if (!resp.error) {
         this.scrollData = resp.data.children.map((item) => {
           return {

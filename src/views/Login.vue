@@ -7,11 +7,14 @@
 </template>
 
 <script>
-import { AuthApiController } from "@controller";
+// import { AuthApiController } from "@controller";
 import { setToken } from "@/utils/auth";
 import axios from "axios";
 import router from "@/router";
 import { Toast } from "cube-ui";
+import Vue from "_vue@2.6.11@vue";
+import { DictManagerqueryDictType } from "@controller";
+
 //登录跳转路由储存s
 let routerStorage;
 
@@ -84,19 +87,44 @@ export default {
       e.preventDefault();
       toast.show();
       let data = {
-        username: model.inputValue,
+        // username: model.inputValue,
+        userId: model.inputValue,
         password: model.passwordValue,
+        tenantID: this.$config.tenantID,
       };
       let resp;
       try {
-        resp = await this.dispatch(AuthApiController.login, data);
-       // resp =  await this.$axios.post('http://192.168.200.131:28082/org.gocom.components.coframe.auth.LoginManager.login.biz.ext',data)
-
+        // resp = await this.dispatch(AuthApiController.login, data);
+        resp = await this.$axios.post(
+          "/org.gocom.components.coframe.auth.LoginManager.login.biz.ext",
+          data
+        );
       } catch (e) {
         toast.hide();
       }
 
       if (!resp.error) {
+        localStorage.setItem("uniqueId", resp.data.uniqueId);
+
+        let re = await this.dispatch(DictManagerqueryDictType.DictManagerqueryDictType, {
+          dicttypeid: "pip-ccocci-topic",
+        });
+        console.log(re);
+
+        return;
+
+        // await queryDictType()
+        await queryDict({
+          limit: 10,
+          offset: 1,
+          dicttypeid: "fashion",
+          pageIndex: 1,
+          pageSize: 10,
+          page: {
+            begin: 0,
+            length: 10,
+          },
+        });
         this.$store.commit("setUseInfo", resp.data);
         localStorage.setItem("admin", resp.data.admin);
         localStorage.setItem("Token", resp.data.token);

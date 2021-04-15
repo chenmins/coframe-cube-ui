@@ -19,83 +19,138 @@ function resolve(dir) {
 }
 
 function mapAction(moduleName, swagger) {
-
   const action_tpl = Handlebars.compile(fs.readFileSync(resolve('/scripts/tpl/action.tpl'), 'utf-8'))
-  if(!fs.existsSync( resolve(`/src/actions/${moduleName}`) ))
+  if (!fs.existsSync(resolve(`/src/actions/${moduleName}`)))
     fs.mkdirSync(resolve(`/src/actions/${moduleName}`))
-
-
-    _.forEach(swagger.definitions,(app)=>{
-      // _.forEach(app.properties,dec=>{
-      //   dec.description = dec.description.replace(/ /gi, '')
-      //   return /^[A-Za-z\-]+$/.test(dec.description)
-      // })
+  if (swagger.tags) {
+    swagger.tags = swagger.tags.filter(tag => {
+      tag.description = tag.description.replace(/ /gi, '')
+      return /^[A-Za-z\-]+$/.test(tag.description)
     })
+ 
+    _.forEach(swagger.tags, (tag) => {
+      let list = [], dir = '', path = '', tags = '', model = [], unionMap = new Map()
+      _.forEach(swagger.paths, (value, key) => {
+        let url = key.replace(/\{/gi, '${payload.')
+        _.forEach(value, function (v1, k1) {
+          if (_.includes(v1.tags, tag.name)) {
+            let action = v1.operationId.split("_")[0].replace(/Using(POST|GET|DELETE|PUT|)/gi, '')
+            let parameters = JSON.stringify(v1.parameters)
+            if (!parameters || parameters === '') {
+              parameters = '[]';
+            }
+            let summary = v1.summary;
+            let method = k1;
+            model = tag.description;
 
+            dir = resolve(`/src/actions/${moduleName}/`)
+            tags = v1.tags;
+            path = resolve(`/src/actions/${moduleName}/${model}.js`)
 
-  // swagger.tags = swagger.definitions.filter(tag => {
-  //   tag.properties.description = tag.description.replace(/ /gi, '')
-  //   return /^[A-Za-z\-]+$/.test(tag.description)
-  // })
-  _.forEach(swagger.definitions, (tag) => {
-    let list = [], dir = '', path = '', tags = '', model = [], unionMap = new Map()
-    _.forEach(swagger.paths, (value, key) => {
-      let url = key.replace(/\{/gi, '${payload.')
-      _.forEach(value, function (v1, k1) {
-        if (_.includes(v1.tags, tag.name)) {
-          let action = v1.operationId.split("_")[0].replace(/Using(POST|GET|DELETE|PUT|)/gi, '')
-          let parameters = JSON.stringify(v1.parameters)
-          if (!parameters || parameters === '') {
-            parameters = '[]';
+            if (unionMap.has(action)) {
+              unionMap.set(action, unionMap.get(action))
+            } else
+              unionMap.set(action, 0)
+
+            list.push({
+              action: unionMap.get(action) === 0 ? action : `${action}_${unionMap.get(action)}`,
+              parameters,
+              summary,
+              method,
+              tags,
+              tagName: model,
+              model,
+              url,
+              path,
+            })
           }
-          let summary = v1.summary;
-          let method = k1;
-          model = tag.description;
-
-          dir = resolve(`/src/actions/${moduleName}/`)
-          tags = v1.tags;
-          path = resolve(`/src/actions/${moduleName}/${model}.js`)
-
-          if (unionMap.has(action)) {
-            unionMap.set(action, unionMap.get(action))
-          } else
-            unionMap.set(action, 0)
-
-          list.push({
-            action: unionMap.get(action) === 0 ? action : `${action}_${unionMap.get(action)}`,
-            parameters,
-            summary,
-            method,
-            tags,
-            tagName: model,
-            model,
-            url,
-            path,
-          })
-        }
+        })
       })
+      list = _.sortBy(list, (l) => l.action)
+      if (list && list.length > 0) {
+        controllers.push({
+          tags: tags,
+          name: model,
+          list: list,
+          path: moduleName,
+        })
+        let action_result = action_tpl({
+          list,
+          tags,
+          model,
+        })
+        action_result = action_result.replace(/&quot;/gi, '\'')
+        fs.mkdir(dir, (error) => {
+          fs.writeFileSync(path, action_result)
+        })
+      }
+
     })
-    list = _.sortBy(list, (l) => l.action)
-    if (list && list.length > 0) {
-      controllers.push({
-        tags: tags,
-        name: model,
-        list: list,
-        path: moduleName,
-      })
-      let action_result = action_tpl({
-        list,
-        tags,
-        model,
-      })
-      action_result = action_result.replace(/&quot;/gi, '\'')
-      fs.mkdir(dir, (error) => {
-        fs.writeFileSync(path, action_result)
-      })
-    }
+    return
+  }
 
-  })
 
+    _.forEach(swagger.paths, (value, key) => {
+    let list = [], dir = '', path = '', tags = '', model = [], unionMap = new Map()
+      let url = key.replace(/\{/gi, '${payload.')
+      // console.log(url); //FIXME path
+      _.forEach(value, (content, reqMethod) => {
+        //FIXME action  
+        let action = `${content.tags}${content.summary}`
+        // let action = content.operationId.split("_")[0].replace(/Using(POST|GET|DELETE|PUT|)/gi, '')
+        //FIXME 参数
+        let parameters = JSON.stringify(content.parameters)
+        if (!parameters || parameters === '') {
+          parameters = '[]';
+        }
+  
+        let summary = content.summary
+        method = reqMethod
+        model = `${content.tags}${content.summary}`;
+  
+        dir = resolve(`/src/actions/${moduleName}/`)
+        tags = content.tags;
+        path = resolve(`/src/actions/${moduleName}/${model}.js`)
+  
+        if (unionMap.has(action)) {
+          unionMap.set(action, unionMap.get(action))
+        } else
+          unionMap.set(action, 0)
+  
+        list.push({
+          action: unionMap.get(action) === 0 ? action : `${action}_${unionMap.get(action)}`,
+          parameters,
+          summary,
+          method,
+          tags,
+          tagName: model,
+          model,
+          url,
+          path,
+        })
+      })
+      list = _.sortBy(list, (l) => l.action)
+      if (list && list.length > 0) {
+        controllers.push({
+          tags: tags,
+          name: model,
+          list: list,
+          path: moduleName,
+        })
+        let action_result = action_tpl({
+          list,
+          tags,
+          model,
+        })
+        action_result = action_result.replace(/&quot;/gi, '\'')
+        fs.mkdir(dir, (error) => {
+          fs.writeFileSync(path, action_result)
+        })
+      }
+    })
+
+
+  
 
   // create index.js
 
@@ -138,10 +193,9 @@ function execute(url) {
 (function () {
   // 直接读取 在线 swagger
   let all = []
-  Config.modules.forEach(({name, swaggerUrl}) => {
+  Config.modules.forEach(({ name, swaggerUrl }) => {
     execute(swaggerUrl).then((data) => {
-      // console.log(`read ${name} : ${swaggerUrl} ...`)
-      // console.log('1',name,data)
+      //  console.log(`read ${name} : ${swaggerUrl} ...`)
       mapAction(name, data)
     }).then(() => {
       console.log('create controller')

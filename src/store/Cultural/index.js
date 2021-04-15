@@ -75,13 +75,24 @@ const Cultural = {
         },
         async getTopic(context, payload) {
             let resp
-            resp = await payload.dispatch(DictApiController.getDictEntryByDictTypeCode, {code: 'pip-ccocci-topic'})
+            // tag 修改eos8
+            resp = await this.$axios.post('/org.gocom.components.coframe.dict.DictManager.queryDictType.biz.ext',{
+                "dicttypeid":'pip-ccocci-topic',
+            })
             if (!resp.error) {
+                console.log(resp)
                 context.commit('setStateVar', {
                     key: 'topicLists',
                     value: resp.data
                 })
             }
+            // resp = await payload.dispatch(DictApiController.getDictEntryByDictTypeCode, {code: 'pip-ccocci-topic'})
+            // if (!resp.error) {
+            //     context.commit('setStateVar', {
+            //         key: 'topicLists',
+            //         value: resp.data
+            //     })
+            // }
         },
         async remove(context, payload) {
             let resp
