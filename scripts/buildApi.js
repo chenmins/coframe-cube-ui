@@ -19,15 +19,25 @@ function resolve(dir) {
 }
 
 function mapAction(moduleName, swagger) {
-  swagger.tags = swagger.tags.filter(tag => {
-    tag.description = tag.description.replace(/ /gi, '')
-    return /^[A-Za-z\-]+$/.test(tag.description)
-  })
+
   const action_tpl = Handlebars.compile(fs.readFileSync(resolve('/scripts/tpl/action.tpl'), 'utf-8'))
   if(!fs.existsSync( resolve(`/src/actions/${moduleName}`) ))
     fs.mkdirSync(resolve(`/src/actions/${moduleName}`))
 
-  _.forEach(swagger.tags, (tag) => {
+
+    _.forEach(swagger.definitions,(app)=>{
+      // _.forEach(app.properties,dec=>{
+      //   dec.description = dec.description.replace(/ /gi, '')
+      //   return /^[A-Za-z\-]+$/.test(dec.description)
+      // })
+    })
+
+
+  // swagger.tags = swagger.definitions.filter(tag => {
+  //   tag.properties.description = tag.description.replace(/ /gi, '')
+  //   return /^[A-Za-z\-]+$/.test(tag.description)
+  // })
+  _.forEach(swagger.definitions, (tag) => {
     let list = [], dir = '', path = '', tags = '', model = [], unionMap = new Map()
     _.forEach(swagger.paths, (value, key) => {
       let url = key.replace(/\{/gi, '${payload.')
@@ -85,6 +95,8 @@ function mapAction(moduleName, swagger) {
     }
 
   })
+
+
   // create index.js
 
 }
@@ -128,8 +140,8 @@ function execute(url) {
   let all = []
   Config.modules.forEach(({name, swaggerUrl}) => {
     execute(swaggerUrl).then((data) => {
-      console.log(data)
-      console.log(`read ${name} : ${swaggerUrl} ...`)
+      // console.log(`read ${name} : ${swaggerUrl} ...`)
+      // console.log('1',name,data)
       mapAction(name, data)
     }).then(() => {
       console.log('create controller')

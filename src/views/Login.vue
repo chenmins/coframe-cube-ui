@@ -90,6 +90,8 @@ export default {
       let resp;
       try {
         resp = await this.dispatch(AuthApiController.login, data);
+       // resp =  await this.$axios.post('http://192.168.200.131:28082/org.gocom.components.coframe.auth.LoginManager.login.biz.ext',data)
+
       } catch (e) {
         toast.hide();
       }

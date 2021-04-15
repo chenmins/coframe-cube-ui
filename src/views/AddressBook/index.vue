@@ -18,6 +18,16 @@ name: "index",
     return{
       value:'',
     }
+  },
+  created(){
+    this.queryOrg()
+  },
+  methods:{
+    queryOrg(){
+      this.$axios.get('/org.gocom.components.coframe.org.organization.queryOrg.biz.ext').then(res=>{
+        console.log(res)
+      })
+    }
   }
 }
 </script>

@@ -47,12 +47,6 @@ export default {
             url: (payload) => `/api/platform/order/barber/queryAllByAdmin`,
             parameters: [],
         },
-        [BarberControllerImpl.queryAll.method] : {
-            summary: '管理员查询全部预约情况',
-            method: 'get',
-            url: (payload) => `/api/platform/order/clinic/queryAllByAdmin`,
-            parameters: [],
-        },
         [BarberControllerImpl.queryByMonth.method] : {
             summary: '根据日期进行查询预约情况',
             method: 'get',

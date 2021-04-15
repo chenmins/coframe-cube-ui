@@ -119,6 +119,11 @@ module.exports = {
           '^/api': '' // 将/api开头的请求地址的/api替换为''
         },
       },
+      "/org.gocom.components.coframe.org.organization.queryOrg.biz.ext": {
+        target: "http://192.168.200.131:28082/org.gocom.components.coframe.org.organization.queryOrg.biz.ext",
+        ws: false,// 启用websockets
+        changeOrigin: true, //跨域
+      }
       // "/api/platform": { //是否使用代理标识,/api开头的才用代理
       //   target: "http://c94.cn:3003/api/",
       //   ws: false,// 启用websockets
