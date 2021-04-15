@@ -117,7 +117,8 @@ export default {
       let func = type.split("-")[0];
       if (
           func === "handle" &&
-          this.cardInfo.state === "员工卡办理中"
+          (this.cardInfo.state === "员工卡办理中" ||
+          this.cardInfo.state === "审批中")
       ) {
         this.$createToast({
           type: "normal",

@@ -35,7 +35,7 @@ import {mapActions, mapMutations} from "vuex";
 
 const LABEL_MAP = {
   "公告列表":'notices',
-  "企业新闻":'notices1',
+  // "企业新闻":'notices1',
   "交流圈":'notices2'
 }
 
@@ -51,9 +51,9 @@ export default {
         {
           label: "公告列表",
         },
-        {
-          label: "企业新闻",
-        },
+        // {
+        //   label: "企业新闻",
+        // },
         {
           label: "交流圈",
         },
@@ -98,7 +98,7 @@ export default {
   }
 
   >>> .cube-tab-bar-slider {
-    max-width: 20px;
+    max-width: 77px;
     margin-left: 40px;
     height: 4px;
     background: #FFFFFF;
