@@ -1,70 +1,71 @@
 import Vuex from 'vuex'
 import axios from "axios";
-
-
+import {organization} from '@controller';
 
 
 const AddressBook = {
-    namespaced:true,
-    state:{
-        homepageData:[],
-        allOrganization:[]
+    namespaced: true,
+    state: {
+        Org: [],
+        allOrganization: [],
+        employeeInfo:{}
     },
-    mutations:{
-        init(state,payload){
+    mutations: {
+        init(state, payload) {
             state.homepageData = payload
         },
-        setEposition(state,payload){
-            console.log('serEposition')
+        setEmployeeInfo(state, payload){
+            state.employeeInfo = payload
+        },
+        setEposition(state, payload) {
             state.Eposition = payload
         },
-        setOrganization(state,payload){
+        setOrganization(state, payload) {
             state.allOrganization = payload
         }
     },
-    actions:{
-        async init(context,payload){
-            let res = await axios.get('/api/organizations/page-search')
-            context.commit('init',res.data.content)
+    actions: {
+        async queryOrg({commit}, payload) {
+            let resp
+            let data = {
+                "criteria": {
+                    "_entity": "org.gocom.components.coframe.org.dataset.OrgOrganization",
+                    "_and": [
+                        {
+                            "_expr": []
+                        }
+                    ],
+                    "_orderby": []
+                },
+                "pageIndex": 0,
+                "pageSize": 10,
+                "page": {
+                    "begin": 0,
+                    "length": 10
+                }
+            }
+            resp = await window.vue.dispatch(organization.queryOrg, data)
+            commit('setOrganization',resp.data.treeNodes)
         },
-        //总岗位
-        allOr(context){
-            let  data
-            return new Promise((resolve => {
-                axios.get('/api/organizations/page-search').then(res=>{
-                    data = res.data.content
-                })
-                .then(()=>{
-                        data.forEach(item=>{
-                            axios.get(`/api/organizations/${item.id}/employees`).then(res=>{
-                                item.totalElements = res.data.totalElements
-                            })
-                        })
-                    })
-                .then(()=>{
-                        setTimeout(()=>{
-                            context.commit('setOrganization',data)
-                            resolve(data)
-                        },500)
-                    })
-            }))
 
+        async queryTreeChildNodes({commit},payload) {
+            console.log('请求')
+            let resp
+            resp = await window.vue.dispatch(organization.queryTreeChildNodes,payload)
+            commit('setOrganization',resp.data.treeNodes)
+        },
+
+        async getEmployee({commit},payload) {
+            let resp
+            // resp = await window.vue.dispatch(organization.q)
         }
     },
-    getters:{
-        res:()=>{
-            return '2333'
-        },
-        getNum:(state,getters)=>{
-            let data = state.allOrganization
-            data.forEach(item=>{
-                axios.get(`/api/organizations/${item.id}/employees`).then(res=>{
-                    item.totalElements = res.data.totalElements
-                })
-            })
-            return data
-        },
-
+    getters: {
+        searchOrg(state){
+            return function(keyword){
+                return state.allOrganization.filter(item=>item.nodeName.includes(keyword))
+            }
+        }
     }
 }
 

@@ -25,8 +25,8 @@
    })
    const action_tpl = Handlebars.compile(fs.readFileSync(resolve('/scripts/tpl/action.tpl'), 'utf-8'))
    if(!fs.existsSync( resolve(`/src/actions/${moduleName}`) ))
-     fs.mkdirSync(resolve(`/src/actions/${moduleName}`))
- 
+   fs.mkdirSync(resolve(`/src/actions/${moduleName}`))
+
    _.forEach(swagger.tags, (tag) => {
      let list = [], dir = '', path = '', tags = '', model = [], unionMap = new Map()
      _.forEach(swagger.paths, (value, key) => {

@@ -3,7 +3,7 @@
     <cube-input type="text" :clearable="true" :placeholder="placeholder"
       v-model="value" @keyup.enter.native="submitHandler" @input="changeValue"
     ></cube-input>
-    <span @click="$emit('search')" v-show="cancel">{{cancel}}</span>
+    <span @click="$emit('search',value)" v-show="cancel">{{cancel}}</span>
     <div class="search_icon">
       <div class="one"></div>
       <div class="two"></div>

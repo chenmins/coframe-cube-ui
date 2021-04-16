@@ -10,8 +10,8 @@
         <Icon class-name="bgc_svg" svg-name="addressbook-information" ></Icon>
         <img class="avatar" src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__8e72ac7af1d0cc1029636e2300dae3a7.png" alt="">
         <div class="information">
-          <span style="font-size: 22px;font-weight: 500;line-height: 30px;">kyrene</span>
-          <span style="line-height: 20px;font-size: 14px">高级ui设计师</span>
+          <span style="font-size: 22px;font-weight: 500;line-height: 30px;">{{employeeInfo.empname}}</span>
+          <span style="line-height: 20px;font-size: 14px">{{employeeInfo.orgname}}</span>
         </div>
       </div>
     </div>
@@ -22,15 +22,15 @@
       <div class="item">
         <div class="item_left"></div>
         <div class="item_right">
-          <div class="num">92982828@qq.com</div>
+          <div class="num">{{employeeInfo.oemail}}</div>
           <div class="name">邮箱</div>
         </div>
       </div>
       <div class="item">
         <div class="item_left"></div>
         <div class="item_right">
-          <div class="num">92982828@qq.com</div>
-          <div class="name">邮箱</div>
+          <div class="num">{{employeeInfo.mobileno}}</div>
+          <div class="name">电话</div>
         </div>
       </div>
       <div class="item">
@@ -47,7 +47,9 @@
 
 <script>
 import ListLayout from "@/components/AddressBox/ListLayout";
-import axios from "axios";
+import {mapMutations, mapState} from "vuex";
+
+let fromId
 export default {
 name: "Information",
   components:{
@@ -56,6 +58,7 @@ name: "Information",
   data(){
     return{
       employee:{},
+      fromId:'',
       orient:{
         name:'',
         company:''
@@ -63,28 +66,32 @@ name: "Information",
 
     }
   },
-  created() {
-    axios.get(`/api/coframe/employees/${this.$route.params.id}`).then(res=>{
-      this.employee = res.data
-    })
+  beforeRouteEnter(to,from,next) {
+    fromId = from.params.id
+    next()
   },
-  mounted() {
-    // this.orient.name = this.$store.state.Eposition.name
-    // axios.get(`/api/coframe/organizations/${this.$store.state.Eposition.id}`).then(res=>{
-    //   this.orient.company  = res.data.code
-    //   console.log(res.data)
-    // })
+  beforeRouteLeave(to,from,next) {
+    to.params.id = fromId
+    next()
+  },
+  created() {
+    this.setEmployeeInfo(this.$route.params.info)
   },
   methods:{
+    ...mapMutations('AddressBook',['setEmployeeInfo']),
     goPosition(){
-      this.$router.push({name:'Staff',params:{id:this.$store.state.Eposition.id}})
+      this.$router.push({name:'Staff',params:{id:fromId}})
     }
   },
+  computed:{
+    ...mapState('AddressBook',['employeeInfo'])
+  }
 }
 </script>
 
 <style scoped lang="stylus">
 #information
+  height calc(100vh - 60px)
   .top
     position: relative;
     z-index -10

@@ -1,5 +1,5 @@
 
-import { AuthApiController } from "@controller";
+import { UserManager,AuthApiController } from "@controller";
 import router from '@/router'
 import {removeToken} from "@/utils/auth";
 

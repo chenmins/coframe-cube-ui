@@ -1,5 +1,5 @@
 <template>
-  <div id="card" :class="shadow?'shadow':''"  @click="$emit('clicked')">
+  <div id="card" :class="shadow?'shadow':''"  @click.stop="cEmit">
     <slot></slot>
   </div>
 </template>
@@ -9,7 +9,12 @@ export default {
   name: "Card",
   props:[
       'shadow'
-  ]
+  ],
+  methods:{
+    cEmit(){
+      this.$emit('clicked')
+    }
+  }
 }
 </script>
 
