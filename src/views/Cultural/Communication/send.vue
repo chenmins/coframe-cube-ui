@@ -44,7 +44,7 @@
         ></Icon>
       </div>
       <div class="topic_list" @click="selectTopic" ref="topicBtn">
-        <div v-if="topic[0].length === 0">#打标签</div>
+        <div v-if="!topic[0].name">#打标签</div>
         <div v-else>#{{ topic[0].name }}</div>
       </div>
     </div>
@@ -83,11 +83,10 @@ export default {
     };
   },
   async created() {
-      let res =await this.formInit()
+    let res =await this.formInit()
     this.files = res?.files || []
     this.query = res?.query || {}
     this.topic = res?.topic || []
-    console.log(this.topic)
   },
 
   methods: {
@@ -149,6 +148,7 @@ export default {
           }).show();
         }
       } catch (e) {
+        console.log('faile')
         toast.hide();
         message = "反馈失败";
         this.$createToast({

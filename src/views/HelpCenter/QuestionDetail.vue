@@ -10,8 +10,7 @@
       </div>
 
     </div>
-    <div class="content">
-      {{content.body}}
+    <div class="content" v-html="content.body">
     </div>
   </div>
 </template>

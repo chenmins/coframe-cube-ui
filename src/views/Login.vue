@@ -2,7 +2,6 @@
   <div class="login">
     <cube-form :model="model" :schema="schema" @submit="submitHandler" class="login-form">
     </cube-form>
-    <!--    <button @click="test"> test</button>-->
   </div>
 </template>
 
@@ -62,6 +61,9 @@ export default {
           },
           {
             type: "submit",
+            props:{
+              disabled: false,
+            },
             label: "登陆",
           },
         ],
@@ -79,7 +81,8 @@ export default {
     }
   },
   methods: {
-    async submitHandler(e, model) {
+    async   submitHandler(e, model) {
+      this.schema.fields[2].props.disabled = true
       let toast = this.$createToast({
         txt: "登陆中",
         time: 0,
@@ -87,35 +90,29 @@ export default {
       e.preventDefault();
       toast.show();
       let resp,coframeResp;
-      resp = await this.dispatch(AuthApiController.login, {
-        username: model.inputValue,
-        password: model.passwordValue,
-      });
-      coframeResp = await this.dispatch(LoginManager.login, {
-        userId: model.inputValue,
-        password: model.passwordValue,
-        tenantID: this.$config.tenantID,
-      });
-      toast.hide();
-      if (coframeResp.retCode !== 1 && !resp.error) {
-        this.$createToast({
-          txt: "登录失败",
-          time: 1500,
-        }).show()
-      }
-      localStorage.setItem("uniqueId", coframeResp.data.uniqueId);
-      this.$store.commit("setUseInfo", resp.data);
-      localStorage.setItem("admin", resp.data.admin);
-      localStorage.setItem("Token", resp.data.token);
-      setToken(resp.data.token);
-      this.$createToast({
-        txt: "登陆成功，正在跳转",
-        time: 500,
-        onTimeout: () => {
-          // this.$router.go(0)
-          this.$router.replace(routerStorage ? routerStorage : "/");
-        },
-      }).show();
+        resp = await this.dispatch(AuthApiController.login, {
+          username: model.inputValue,
+          password: model.passwordValue,
+        });
+        if(!resp.data.status){
+          this.$store.commit("setUseInfo", resp.data);
+          localStorage.setItem("admin", resp.data.admin);
+          localStorage.setItem("Token", resp.data.token);
+          setToken(resp.data.token);
+          this.$createToast({
+            txt: "登陆成功，正在跳转",
+            time: 500,
+            onTimeout: () => {
+              // this.$router.go(0)
+              this.$router.replace(routerStorage ? routerStorage : "/");
+              toast.hide();
+            },
+          }).show();
+        }else {
+          this.loginStatus = false
+        }
+
+
     },
   },
 };

@@ -26,10 +26,13 @@ axios.interceptors.request.use(
 		if(!localStorage.getItem('Token') && router.currentRoute.fullPath !== '/login'){
 			router.replace('/login').then(()=>request)
 		}
-	return request
+
+		return request
 },
-	error=>
-			Promise.reject(error)
+	error=>{
+		Promise.reject(error)
+	}
+
 )
 
 

@@ -6,7 +6,7 @@ export default {
         return {
             firstLoading: true,
             userInfo: JSON.parse(localStorage.getItem('userInfo')),
-            isAdmin: JSON.parse(localStorage.getItem('admin')) || false
+            isAdmin: localStorage.getItem('admin')!=='undefined' ? JSON.parse(localStorage.getItem('admin')) :false
         }
     },
     methods: {
