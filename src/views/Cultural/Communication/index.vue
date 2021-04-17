@@ -10,7 +10,7 @@
         >
           <span>0{{ index + 1 }}</span>
           <div :class="selected === index ? 'topic-selected' : ''">
-            {{ topic.name }}
+            {{ topic.dicttypename }}
           </div>
         </div>
       </div>

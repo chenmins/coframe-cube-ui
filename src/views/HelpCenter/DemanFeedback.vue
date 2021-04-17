@@ -29,8 +29,8 @@ export default {
   created() {
     this.initData({dispatch:this.dispatch,type:'Feedbacks',controller:'queryDemandFeedback'})
   },
-  beforeUpdate() {
-    // document.querySelector(".cube-scroll-list-wrapper").style.paddingBottom = "100px";
+  mounted() {
+    document.querySelector(".cube-scroll-list-wrapper").style.paddingBottom = "100px";
   },
   methods: {
     ...mapActions('HelpCenter',['initData'])
