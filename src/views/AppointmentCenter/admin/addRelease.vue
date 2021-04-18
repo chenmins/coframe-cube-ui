@@ -72,9 +72,42 @@ export default {
     return {
       timeFrom: [],
       closeTypeArr: [
-        {text: '理发', value: '理发'},
-        {text: '护理', value: '护理'},
-        {text: '洗发', value: '洗发'}
+        {
+          text: '理发', value: {
+            name: '理发',
+            type: 'barber'
+          }
+        },
+        {
+          text: '护理', value: {
+            name: '护理',
+            type: 'barber'
+          }
+        },
+        {
+          text: '洗发', value: {
+            name: '洗发',
+            type: 'barber'
+          }
+        },
+        {
+          text: '问诊', value: {
+            name: '问诊',
+            type: 'infirmary'
+          }
+        },
+        {
+          text: '理疗', value: {
+            name: '理疗',
+            type: 'infirmary'
+          }
+        },
+        {
+          text: '拿药', value: {
+            name: '拿药',
+            type: 'infirmary'
+          }
+        }
       ],
       date: this.$dayjs().format('MM月DD日'),
       valid: false,
@@ -147,7 +180,8 @@ export default {
           min: this.nexTime,
           max: [23, 59, 59],
         }
-      ]
+      ],
+      releaseType: '',
     }
   },
   created() {
@@ -170,7 +204,8 @@ export default {
     this.$children[0].$refs.scroll.$el.style.height = `${this.workspaceRealHeightNum - 120}px`
   },
   methods: {
-    ...mapActions('order', ['addBarber']),
+    ...mapActions('barber', ['addBarber']),
+    ...mapActions('Infirmary',['addClinic']),
     validateHandler() {
       this.valid = arguments[0].valid
     },
@@ -256,13 +291,14 @@ export default {
           title: '',
           data: [this.closeTypeArr],
           onSelect: (selectedVal, selectedIndex, selectedText) => {
-            this.model.type = selectedVal[0]
+            this.model.type = selectedVal[0].name
+            this.releaseType = selectedVal[0].type
           }
         })
       }
       this.TypePicker.show()
     },
-    submitHandler() {
+    async submitHandler() {
       if (this.valid) {
         let data = {
           type: this.model.type,
@@ -270,9 +306,12 @@ export default {
           endDate: this.$dayjs(this.model.endTime).format('YYYY-MM-DD'),
           timePartVos: this.timePart
         }
-        this.addBarber(data).then(() => {
+        this.selectedType(data).then(res=>{
           this.$router.push({name: 'AppointmentAdminRelease'})
         })
+        // this.addBarber(data).then(() => {
+        //   this.$router.push({name: 'AppointmentAdminRelease'})
+        // })
       } else {
         this.$createToast({
           type: 'warning',
@@ -283,7 +322,17 @@ export default {
 
       // this.$router.push({name: 'ReservePage', params: {id: val.clothesType}})
     },
+    async selectedType(data){
+      switch (this.releaseType) {
+        case "barber":
+          return await this.addBarber(data);
+        case "infirmary":
+          return await this.addClinic(data);
+        default:
+          break
 
+      }
+    }
   }
 }
 </script>

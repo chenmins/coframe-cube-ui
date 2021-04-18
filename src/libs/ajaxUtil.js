@@ -20,7 +20,7 @@ ajaxUtil.config = {
   responseType: 'json',
 }
 if (process.env.NODE_ENV === `development`) {
-  ajaxUtil.config.timeout = 30000
+  ajaxUtil.config.timeout = 10000
 }
 
 ajaxUtil.create = axios.create
@@ -147,9 +147,8 @@ ajaxUtil.myRequest = (action, payload) => {
       .catch(res => {
         // console.log(res.response)
         // console.log('ajax catch')
-        // console.log(JSON.parse(JSON.stringify(res)))
         // console.log(res.errorMsg)
-        if (res.response.data.status === 401) {
+        if (res.response && res.response.data && res.response.data.status === 401) {
           Toast.$create({
             txt: res.response.data.message,
             time: 1000,

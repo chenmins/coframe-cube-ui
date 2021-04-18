@@ -7,7 +7,7 @@
           <cube-scroll ref="scroll">
             <cube-radio-group style="background-color: transparent">
               <cube-radio
-                  v-for="(item, index) in public.barber"
+                  v-for="(item, index) in listData"
                   :key="index"
                   :option="{
                       label: item.type,
@@ -18,15 +18,15 @@
                 <Card :class="item.quota>0 && $dayjs().isBefore($dayjs(item.endTime))?'card':'card over'">
                   <header>{{ item.type }}</header>
                   <div style="height: 40px;line-height: 40px" class="time">
-                    {{ $dayjs(item.startTime).format('YYYY/MM/D HH:mm:ss') + '-' + $dayjs(item.endTime).format('HH:mm:ss') }}
+                    {{
+                      $dayjs(item.startTime).format('YYYY/MM/D HH:mm:ss') + '-' + $dayjs(item.endTime).format('HH:mm:ss')
+                    }}
                   </div>
                   <!--                  <cube-radio-group class="time" v-model="selected[index]"  :options="['2020/12/18 08:00-13:00']"/>-->
                   <div class="btn">剩余名额{{ item.quota }}人</div>
                 </Card>
               </cube-radio>
             </cube-radio-group>
-
-
             <!--            <Card class="card">-->
             <!--              <header>理发室</header>-->
             <!--              <cube-radio-group class="time" v-model="selected" :options="['2020/12/18 08:00-13:00']"/>-->
@@ -90,33 +90,80 @@ export default {
         {
           label: '业务介绍'
         }
-      ]
+      ],
+      listData: [],
+    }
+  },
+  created() {
+    if (this.$route.params.type === 'lifashi') {
+      this.listData = this.public
+    } else if (this.$route.params.type === 'yiwushi') {
+      this.listData = this.infirmary
     }
   },
   methods: {
-    ...mapActions('order',['addBarberUser']),
+    ...mapActions('barber', ['addBarberUser']),
+    ...mapActions('Infirmary', ['addClinicUser']),
     changeHandle(e) {
       this.yuyue = !this.yuyue
     },
-    submit(selected4){
-      this.addBarberUser({id:selected4}).then(resp=>{
-        console.log(resp)
-        if(resp.data.body!==0){
-          this.$router.push({name:'YuYueSuccess',params:{
-              info: this.public.barber.find(i=>i.id === selected4),item:  this.$route.params.item
-            }})
-        }else {
-          this.$createToast({
-            txt:'预约失败',
-            type:"error",
-            time:1500
-          }).show()
+    submit(selected4) {
+      this.$createToast({
+        txt: 'Loading...',
+        mask: true
+      }).show()
+      this.judgmentType(selected4)
+          .then(() => {
+            this.$createToast({
+              txt: '预约成功',
+              type: "correct",
+              time: 1500,
+              onTimeout: ()=>{
+                this.$router.push({
+                  name: 'YuYueSuccess', params: {
+                    info: this.listData.find(i => i.id === selected4), item: this.$route.params.item
+                  }
+                })
+              }
+            }).show()
+
+          })
+          .catch(() => {
+
+            this.$createToast({
+              txt: '预约失败',
+              type: "error",
+              time: 1500
+            }).show()
+          })
+    },
+    judgmentType(id) {
+      return new Promise((resolve, reject) => {
+        if (this.$route.params.type === 'lifashi') {
+          this.addBarberUser({id: id}).then(resp =>{
+            if(resp.data.body === 1 ){
+              resolve()
+            }else{
+              reject()
+            }
+          } )
+        } else if (this.$route.params.type === 'yiwushi') {
+          this.addClinicUser({id: id}).then(resp => {
+            if(resp.data.body === 1 ){
+              resolve()
+            }else{
+              reject()
+            }
+          })
         }
+
       })
+
     }
   },
   computed: {
-    ...mapState('order', ['public'])
+    ...mapState('barber', ['public']),
+    ...mapState('Infirmary', ['infirmary']),
   }
 }
 </script>
@@ -140,7 +187,8 @@ export default {
 
 >>> .card
   width 100%
-  margin 0!important
+  margin 0 !important
+
   .time
     font-family: PingFangSC-Regular, PingFang SC;
     color: #000000;
@@ -189,10 +237,13 @@ export default {
     header, >>> .cube-radio-wrap, .btn
       color #CCCCCC !important
       border-color #CCCCCC !important
+
     .time
       color #CCCCCC !important
+
   .card
     text-align center !important
+
     header
       font-family: PingFangSC-Medium, PingFang SC;
       font-weight: 500;

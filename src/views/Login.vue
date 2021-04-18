@@ -84,12 +84,13 @@ export default {
     async   submitHandler(e, model) {
       this.schema.fields[2].props.disabled = true
       let toast = this.$createToast({
-        txt: "登陆中",
+        txt: "登陆中...",
         time: 0,
       });
       e.preventDefault();
       toast.show();
       let resp,coframeResp;
+      try{
         resp = await this.dispatch(AuthApiController.login, {
           username: model.inputValue,
           password: model.passwordValue,
@@ -108,12 +109,13 @@ export default {
               toast.hide();
             },
           }).show();
-        }else {
-          this.loginStatus = false
         }
-
-
-    },
+      }catch (error) {
+        this.loginStatus = false
+        this.schema.fields[2].props.disabled = false
+      }
+      toast.hide()
+      },
   },
 };
 </script>

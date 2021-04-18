@@ -23,46 +23,21 @@ let AuthApiController = {
     updateAttr: {controller: 'AuthApiController' , method: 'updateAttr'}, // 更新用户属性
     updateAttrs: {controller: 'AuthApiController' , method: 'updateAttrs'}, // 更新用户属性列表
 };
- //预约中心
-let BarberControllerImpl = {
-    __name: 'BarberControllerImpl',
-    addBarber: {controller: 'BarberControllerImpl' , method: 'addBarber'}, // 发布理发室
-    addBarberUser: {controller: 'BarberControllerImpl' , method: 'addBarberUser'}, // 预约理发室
-    addClinic: {controller: 'BarberControllerImpl' , method: 'addClinic'}, // 发布理发室
-    addClinicUser: {controller: 'BarberControllerImpl' , method: 'addClinicUser'}, // 预约理发室
-    deleteBarber: {controller: 'BarberControllerImpl' , method: 'deleteBarber'}, // 删除一个发布的理发室信息
-    deleteClinic: {controller: 'BarberControllerImpl' , method: 'deleteClinic'}, // 删除一个发布的理发室信息
-    queryAll: {controller: 'BarberControllerImpl' , method: 'queryAll'}, // 管理员查询全部预约情况
-    queryAll: {controller: 'BarberControllerImpl' , method: 'queryAll'}, // 管理员查询全部预约情况
-    queryByMonth: {controller: 'BarberControllerImpl' , method: 'queryByMonth'}, // 根据日期进行查询预约情况
-    queryByMonth: {controller: 'BarberControllerImpl' , method: 'queryByMonth'}, // 根据日期进行查询预约情况
-    queryByState: {controller: 'BarberControllerImpl' , method: 'queryByState'}, // 根据预约状态查询理发室的预约情况
-    queryByState: {controller: 'BarberControllerImpl' , method: 'queryByState'}, // 根据预约状态查询理发室的预约情况
-    queryByTypeAndDate: {controller: 'BarberControllerImpl' , method: 'queryByTypeAndDate'}, // 根据预约类型和日期查询理发室的预约情况  名额
-    queryByTypeAndDate: {controller: 'BarberControllerImpl' , method: 'queryByTypeAndDate'}, // 根据预约类型和日期查询理发室的预约情况  名额
-    updateBarber: {controller: 'BarberControllerImpl' , method: 'updateBarber'}, // 修改发布的理发室信息
-    updateCancel: {controller: 'BarberControllerImpl' , method: 'updateCancel'}, // 取消理发室预约
-    updateCancel: {controller: 'BarberControllerImpl' , method: 'updateCancel'}, // 取消理发室预约
-    updateClinic: {controller: 'BarberControllerImpl' , method: 'updateClinic'}, // 修改发布的理发室信息
-    updateSign: {controller: 'BarberControllerImpl' , method: 'updateSign'}, // 理发室预约签到
-    updateSign: {controller: 'BarberControllerImpl' , method: 'updateSign'}, // 理发室预约签到
-};
- //帮助中心
-let HelpControllerImpl = {
-    __name: 'HelpControllerImpl',
-    AddCommonProblem: {controller: 'HelpControllerImpl' , method: 'AddCommonProblem'}, // 新增一个常见问题
-    AddDemandFeedbackReply: {controller: 'HelpControllerImpl' , method: 'AddDemandFeedbackReply'}, // 新增一个需求反馈回复
-    AddProductIntroduction: {controller: 'HelpControllerImpl' , method: 'AddProductIntroduction'}, // 新增一个产品介绍
-    DelCommonProblem: {controller: 'HelpControllerImpl' , method: 'DelCommonProblem'}, // 删除一个常见问题
-    DelProductIntroduction: {controller: 'HelpControllerImpl' , method: 'DelProductIntroduction'}, // 删除一个产品介绍
-    UpdateCommonProblem: {controller: 'HelpControllerImpl' , method: 'UpdateCommonProblem'}, // 修改一个常见问题
-    UpdateProductIntroduction: {controller: 'HelpControllerImpl' , method: 'UpdateProductIntroduction'}, // 修改一个产品介绍
-    addDemandFeedback: {controller: 'HelpControllerImpl' , method: 'addDemandFeedback'}, // 新增一个需求反馈
-    queryByIdJoinReply: {controller: 'HelpControllerImpl' , method: 'queryByIdJoinReply'}, // 根据ID查询一个需求反馈
-    queryByTitle: {controller: 'HelpControllerImpl' , method: 'queryByTitle'}, // 根据标题模糊查询所有常见问题
-    queryDemandFeedback: {controller: 'HelpControllerImpl' , method: 'queryDemandFeedback'}, // 查询所有需求反馈
-    queryProductIntroduction: {controller: 'HelpControllerImpl' , method: 'queryProductIntroduction'}, // 查询所有产品介绍
-    updateDemandFeedbackType: {controller: 'HelpControllerImpl' , method: 'updateDemandFeedbackType'}, // 更改需求反馈的状态
+ //员工卡
+let WorkCartControllerImpl = {
+    __name: 'WorkCartControllerImpl',
+    addDalance: {controller: 'WorkCartControllerImpl' , method: 'addDalance'}, // 充值
+    cancelledCard: {controller: 'WorkCartControllerImpl' , method: 'cancelledCard'}, // 注销
+    getReviewList: {controller: 'WorkCartControllerImpl' , method: 'getReviewList'}, // 获取审批列表
+    getWorkCard: {controller: 'WorkCartControllerImpl' , method: 'getWorkCard'}, // 获取当前员工的员工卡状态
+    open: {controller: 'WorkCartControllerImpl' , method: 'open'}, // 员工开卡
+    queryWorkCardAll: {controller: 'WorkCartControllerImpl' , method: 'queryWorkCardAll'}, // 查询所有员工卡信息
+    queryWorkCardApplyRecord: {controller: 'WorkCartControllerImpl' , method: 'queryWorkCardApplyRecord'}, // 查询员工卡申请记录
+    queryWorkCardRecord: {controller: 'WorkCartControllerImpl' , method: 'queryWorkCardRecord'}, // 查询员工卡记录
+    replacement: {controller: 'WorkCartControllerImpl' , method: 'replacement'}, // 补卡
+    reportTheLoss: {controller: 'WorkCartControllerImpl' , method: 'reportTheLoss'}, // 挂失
+    review: {controller: 'WorkCartControllerImpl' , method: 'review'}, // 审核
+    updateWorkCard: {controller: 'WorkCartControllerImpl' , method: 'updateWorkCard'}, // 修改员工卡信息
 };
  //pipe-report-controller
 let PipeReportController = {
@@ -82,21 +57,34 @@ let HealthApiController = {
     getHealthInfo: {controller: 'HealthApiController' , method: 'getHealthInfo'}, // 获取人员健康信息
     updateHealthInfo: {controller: 'HealthApiController' , method: 'updateHealthInfo'}, // 根据人员id更新人员健康录入信息
 };
- //员工卡
-let WorkCartControllerImpl = {
-    __name: 'WorkCartControllerImpl',
-    addDalance: {controller: 'WorkCartControllerImpl' , method: 'addDalance'}, // 充值
-    cancelledCard: {controller: 'WorkCartControllerImpl' , method: 'cancelledCard'}, // 注销
-    getReviewList: {controller: 'WorkCartControllerImpl' , method: 'getReviewList'}, // 获取审批列表
-    getWorkCard: {controller: 'WorkCartControllerImpl' , method: 'getWorkCard'}, // 获取当前员工的员工卡状态
-    open: {controller: 'WorkCartControllerImpl' , method: 'open'}, // 员工开卡
-    queryWorkCardAll: {controller: 'WorkCartControllerImpl' , method: 'queryWorkCardAll'}, // 查询所有员工卡信息
-    queryWorkCardApplyRecord: {controller: 'WorkCartControllerImpl' , method: 'queryWorkCardApplyRecord'}, // 查询员工卡申请记录
-    queryWorkCardRecord: {controller: 'WorkCartControllerImpl' , method: 'queryWorkCardRecord'}, // 查询员工卡记录
-    replacement: {controller: 'WorkCartControllerImpl' , method: 'replacement'}, // 补卡
-    reportTheLoss: {controller: 'WorkCartControllerImpl' , method: 'reportTheLoss'}, // 挂失
-    review: {controller: 'WorkCartControllerImpl' , method: 'review'}, // 审核
-    updateWorkCard: {controller: 'WorkCartControllerImpl' , method: 'updateWorkCard'}, // 修改员工卡信息
+ //帮助中心
+let HelpControllerImpl = {
+    __name: 'HelpControllerImpl',
+    AddCommonProblem: {controller: 'HelpControllerImpl' , method: 'AddCommonProblem'}, // 新增一个常见问题
+    AddDemandFeedbackReply: {controller: 'HelpControllerImpl' , method: 'AddDemandFeedbackReply'}, // 新增一个需求反馈回复
+    AddProductIntroduction: {controller: 'HelpControllerImpl' , method: 'AddProductIntroduction'}, // 新增一个产品介绍
+    DelCommonProblem: {controller: 'HelpControllerImpl' , method: 'DelCommonProblem'}, // 删除一个常见问题
+    DelProductIntroduction: {controller: 'HelpControllerImpl' , method: 'DelProductIntroduction'}, // 删除一个产品介绍
+    UpdateCommonProblem: {controller: 'HelpControllerImpl' , method: 'UpdateCommonProblem'}, // 修改一个常见问题
+    UpdateProductIntroduction: {controller: 'HelpControllerImpl' , method: 'UpdateProductIntroduction'}, // 修改一个产品介绍
+    addDemandFeedback: {controller: 'HelpControllerImpl' , method: 'addDemandFeedback'}, // 新增一个需求反馈
+    delDemandFeedback: {controller: 'HelpControllerImpl' , method: 'delDemandFeedback'}, // 删除 一个需求反馈
+    queryByIdJoinReply: {controller: 'HelpControllerImpl' , method: 'queryByIdJoinReply'}, // 根据ID查询一个需求反馈
+    queryByTitle: {controller: 'HelpControllerImpl' , method: 'queryByTitle'}, // 根据标题模糊查询所有常见问题
+    queryDemandFeedback: {controller: 'HelpControllerImpl' , method: 'queryDemandFeedback'}, // 查询所有需求反馈
+    queryProductIntroduction: {controller: 'HelpControllerImpl' , method: 'queryProductIntroduction'}, // 查询所有产品介绍
+    updateDemandFeedbackType: {controller: 'HelpControllerImpl' , method: 'updateDemandFeedbackType'}, // 更改需求反馈的状态
+};
+ //日程
+let ScheduleControllerImpl = {
+    __name: 'ScheduleControllerImpl',
+    addParSchedule: {controller: 'ScheduleControllerImpl' , method: 'addParSchedule'}, // 新增一个参与人
+    addSchedule: {controller: 'ScheduleControllerImpl' , method: 'addSchedule'}, // 新增一个日程
+    delParSchedule: {controller: 'ScheduleControllerImpl' , method: 'delParSchedule'}, // 删除一个参与人
+    deleteSchedule: {controller: 'ScheduleControllerImpl' , method: 'deleteSchedule'}, // 删除一个日程
+    queryScheduleByMM: {controller: 'ScheduleControllerImpl' , method: 'queryScheduleByMM'}, // 根据时间区间查询日程列表
+    updateAgree: {controller: 'ScheduleControllerImpl' , method: 'updateAgree'}, // 确认同意或拒绝
+    updateSchedule: {controller: 'ScheduleControllerImpl' , method: 'updateSchedule'}, // 修改一个日程
 };
  //文化建设
 let CulturalControllerImpl = {
@@ -109,16 +97,29 @@ let CulturalControllerImpl = {
     getNotice: {controller: 'CulturalControllerImpl' , method: 'getNotice'}, // 根据主键查询公告
     noticePageSreach: {controller: 'CulturalControllerImpl' , method: 'noticePageSreach'}, // 根据分页数据查询公告列表
 };
- //日程
-let ScheduleControllerImpl = {
-    __name: 'ScheduleControllerImpl',
-    addParSchedule: {controller: 'ScheduleControllerImpl' , method: 'addParSchedule'}, // 新增一个参与人
-    addSchedule: {controller: 'ScheduleControllerImpl' , method: 'addSchedule'}, // 新增一个日程
-    delParSchedule: {controller: 'ScheduleControllerImpl' , method: 'delParSchedule'}, // 删除一个参与人
-    deleteSchedule: {controller: 'ScheduleControllerImpl' , method: 'deleteSchedule'}, // 删除一个日程
-    queryScheduleByMM: {controller: 'ScheduleControllerImpl' , method: 'queryScheduleByMM'}, // 根据时间区间查询日程列表
-    updateAgree: {controller: 'ScheduleControllerImpl' , method: 'updateAgree'}, // 确认同意或拒绝
-    updateSchedule: {controller: 'ScheduleControllerImpl' , method: 'updateSchedule'}, // 修改一个日程
+ //预约中心
+let BarberControllerImpl = {
+    __name: 'BarberControllerImpl',
+    addBarber: {controller: 'BarberControllerImpl' , method: 'addBarber'}, // 发布理发室
+    addBarberUser: {controller: 'BarberControllerImpl' , method: 'addBarberUser'}, // 预约理发室
+    addClinic: {controller: 'BarberControllerImpl' , method: 'addClinic'}, // 发布医务室
+    addClinicUser: {controller: 'BarberControllerImpl' , method: 'addClinicUser'}, // 预约医务室
+    deleteBarber: {controller: 'BarberControllerImpl' , method: 'deleteBarber'}, // 删除一个发布的理发室信息
+    deleteClinic: {controller: 'BarberControllerImpl' , method: 'deleteClinic'}, // 删除一个发布的医务室信息
+    queryAllForBarber: {controller: 'BarberControllerImpl' , method: 'queryAllForBarber'}, // 管理员查询全部预约情况
+    queryAllForClinic: {controller: 'BarberControllerImpl' , method: 'queryAllForClinic'}, // 管理员查询全部预约情况
+    queryByMonthForBarber: {controller: 'BarberControllerImpl' , method: 'queryByMonthForBarber'}, // 根据日期进行查询预约情况
+    queryByMonthForClinic: {controller: 'BarberControllerImpl' , method: 'queryByMonthForClinic'}, // 根据日期进行查询预约情况
+    queryByStateForBarber: {controller: 'BarberControllerImpl' , method: 'queryByStateForBarber'}, // 根据预约状态查询理发室的预约情况
+    queryByStateForClinic: {controller: 'BarberControllerImpl' , method: 'queryByStateForClinic'}, // 根据预约状态查询医务室的预约情况
+    queryByTypeAndDateForBarber: {controller: 'BarberControllerImpl' , method: 'queryByTypeAndDateForBarber'}, // 根据预约类型和日期查询理发室的预约情况  名额
+    queryByTypeAndDateForClinic: {controller: 'BarberControllerImpl' , method: 'queryByTypeAndDateForClinic'}, // 根据预约类型和日期查询医务室的预约情况  名额
+    updateBarber: {controller: 'BarberControllerImpl' , method: 'updateBarber'}, // 修改发布的理发室信息
+    updateCancelForBarber: {controller: 'BarberControllerImpl' , method: 'updateCancelForBarber'}, // 取消理发室预约
+    updateCancelForClinic: {controller: 'BarberControllerImpl' , method: 'updateCancelForClinic'}, // 取消医务室预约
+    updateClinic: {controller: 'BarberControllerImpl' , method: 'updateClinic'}, // 修改发布的医务室信息
+    updateSignForBarber: {controller: 'BarberControllerImpl' , method: 'updateSignForBarber'}, // 理发室预约签到
+    updateSignForClinic: {controller: 'BarberControllerImpl' , method: 'updateSignForClinic'}, // 医务室预约签到
 };
  //fileupload
 let fileupload = {
@@ -538,13 +539,13 @@ let win7Service = {
 export {
     DictApiController,
     AuthApiController,
-    BarberControllerImpl,
-    HelpControllerImpl,
+    WorkCartControllerImpl,
     PipeReportController,
     HealthApiController,
-    WorkCartControllerImpl,
-    CulturalControllerImpl,
+    HelpControllerImpl,
     ScheduleControllerImpl,
+    CulturalControllerImpl,
+    BarberControllerImpl,
     fileupload,
     agent,
     process,

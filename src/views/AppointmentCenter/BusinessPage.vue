@@ -119,15 +119,23 @@ export default {
     ]
   },
   methods: {
-    ...mapActions('order', ['queryByTypeAndDate']),
-
+    ...mapActions('barber', ['queryByTypeAndDateForBarber']),
+    ...mapActions('Infirmary',['queryByTypeAndDateForClinic']),
     async submitHandler(e, val) {
       e.preventDefault()
-      await this.queryByTypeAndDate({
-        type: val.type,
-        date: this.$dayjs().format('YYYY-') + this.model.time
-      })
-      await this.$router.push({name: 'ReservePage',params:{item:this.$route.params.id}})
+      let type =  this.$route.params.value
+      if ( type === 'lifashi') {
+        await this.queryByTypeAndDateForBarber({
+          type: val.type,
+          date: this.$dayjs().format('YYYY-') + this.model.time
+        })
+      }else if( type === 'yiwushi'){
+        await this.queryByTypeAndDateForClinic({
+          type: val.type,
+          date: this.$dayjs().format('YYYY-') + this.model.time
+        })
+      }
+      await this.$router.push({name: 'ReservePage', params: {item: this.$route.params.id,type:type}})
     },
     selectType() {
       if (!this.TypePicker) {
@@ -135,6 +143,7 @@ export default {
           title: '',
           data: [this.closeTypeArr],
           onSelect: (selectedVal, selectedIndex, selectedText) => {
+            console.log(selectedVal, selectedIndex, selectedText)
             this.model.type = selectedVal[0]
           }
         })

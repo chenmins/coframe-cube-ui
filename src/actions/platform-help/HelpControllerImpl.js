@@ -53,6 +53,12 @@ export default {
             url: (payload) => `/api/platform/help/addDemandFeedback`,
             parameters: [{'in':'body','name':'vo','description':'vo','required':true,'schema':{'$ref':'#/definitions/DemandFeedbackVO'}}],
         },
+        [HelpControllerImpl.delDemandFeedback.method] : {
+            summary: '删除 一个需求反馈',
+            method: 'delete',
+            url: (payload) => `/api/platform/help/delDemandFeedback/${payload.id}`,
+            parameters: [{'name':'id','in':'query','description':'id','required':false,'type':'integer','format':'int32'}],
+        },
         [HelpControllerImpl.queryByIdJoinReply.method] : {
             summary: '根据ID查询一个需求反馈',
             method: 'get',

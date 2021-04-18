@@ -11,7 +11,7 @@ import EmployeeCard from '@/store/EmployeeCard'
 
 import ReportForm from "@/store/ReportForm";
 import MainMenu from "@/store/MainMenu";
-import order from "@/store/order"
+import reservation from "@/store/reservation/index";
 import Cultural from "./Cultural";
 
 import axios from "@/axios/index";
@@ -48,7 +48,7 @@ const store = new Vuex.Store({
         Cultural, HelpCenter, Schedule, Guest, EmployeeCard,
         ReportForm,
         MainMenu,
-        order
+        ...reservation
     }
 })
 

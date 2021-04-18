@@ -54,6 +54,7 @@ const HelpCenter = {
                     picture: _this.picture
                 })
             } catch (error) {
+                console.log(error)
                 toast.remove()
                 type = 'error'
                 message = '反馈失败'
@@ -77,8 +78,6 @@ const HelpCenter = {
             }).show()
         }
     }
-
-
 }
 
 export default HelpCenter
