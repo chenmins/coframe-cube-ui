@@ -1,7 +1,4 @@
-
-
 import { BarberControllerImpl } from '@controller'
-
 
 const barber = {
   namespaced: true,

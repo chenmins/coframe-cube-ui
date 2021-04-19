@@ -145,9 +145,6 @@ ajaxUtil.myRequest = (action, payload) => {
         resolve(response)   //error
       })
       .catch(res => {
-        // console.log(res.response)
-        // console.log('ajax catch')
-        // console.log(res.errorMsg)
         if (res.response && res.response.data && res.response.data.status === 401) {
           Toast.$create({
             txt: res.response.data.message,

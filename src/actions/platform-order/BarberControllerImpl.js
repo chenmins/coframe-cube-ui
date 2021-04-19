@@ -29,6 +29,18 @@ export default {
             url: (payload) => `/api/platform/order/clinic/addClinicUser/${payload.clinicId}`,
             parameters: [{'name':'clinicId','in':'path','description':'医务室id','required':true,'type':'integer','format':'int32'}],
         },
+        [BarberControllerImpl.addZeroRestaurant.method] : {
+            summary: '发布零点餐厅',
+            method: 'post',
+            url: (payload) => `/api/platform/order/zeroRestaurant/addZeroRestaurant`,
+            parameters: [{'in':'body','name':'nNarberVO','description':'nNarberVO','required':true,'schema':{'$ref':'#/definitions/NZeroRestaurantVo'}}],
+        },
+        [BarberControllerImpl.addZeroRestaurantUser.method] : {
+            summary: '预约零点餐厅',
+            method: 'post',
+            url: (payload) => `/api/platform/order/zeroRestaurant/addZeroRestaurantUser/${payload.zeroRestaurantId}`,
+            parameters: [{'name':'zeroRestaurantId','in':'path','description':'零点餐厅id','required':true,'type':'integer','format':'int32'}],
+        },
         [BarberControllerImpl.deleteBarber.method] : {
             summary: '删除一个发布的理发室信息',
             method: 'delete',
@@ -39,6 +51,12 @@ export default {
             summary: '删除一个发布的医务室信息',
             method: 'delete',
             url: (payload) => `/api/platform/order/clinic/deleteClinic/${payload.id}`,
+            parameters: [{'name':'id','in':'path','description':'主键','required':true,'type':'integer','format':'int32'}],
+        },
+        [BarberControllerImpl.deleteZeroRestaurant.method] : {
+            summary: '删除一个发布的零点餐厅信息',
+            method: 'delete',
+            url: (payload) => `/api/platform/order/zeroRestaurant/deleteZeroRestaurant/${payload.id}`,
             parameters: [{'name':'id','in':'path','description':'主键','required':true,'type':'integer','format':'int32'}],
         },
         [BarberControllerImpl.queryAllForBarber.method] : {
@@ -53,6 +71,12 @@ export default {
             url: (payload) => `/api/platform/order/clinic/queryAllByAdmin`,
             parameters: [],
         },
+        [BarberControllerImpl.queryAllForZeroRestaurant.method] : {
+            summary: '管理员查询全部预约情况',
+            method: 'get',
+            url: (payload) => `/api/platform/order/zeroRestaurant/queryAllByAdmin`,
+            parameters: [],
+        },
         [BarberControllerImpl.queryByMonthForBarber.method] : {
             summary: '根据日期进行查询预约情况',
             method: 'get',
@@ -63,6 +87,12 @@ export default {
             summary: '根据日期进行查询预约情况',
             method: 'get',
             url: (payload) => `/api/platform/order/clinic/queryByMonth/${payload.month}`,
+            parameters: [{'name':'month','in':'path','description':'日期','required':true,'type':'string'}],
+        },
+        [BarberControllerImpl.queryByMonthForZeroRestaurant.method] : {
+            summary: '根据日期进行查询预约情况',
+            method: 'get',
+            url: (payload) => `/api/platform/order/zeroRestaurant/queryByMonth/${payload.month}`,
             parameters: [{'name':'month','in':'path','description':'日期','required':true,'type':'string'}],
         },
         [BarberControllerImpl.queryByStateForBarber.method] : {
@@ -77,6 +107,12 @@ export default {
             url: (payload) => `/api/platform/order/clinic/queryByState/${payload.state}`,
             parameters: [{'name':'state','in':'path','description':'状态','required':true,'type':'string'}],
         },
+        [BarberControllerImpl.queryByStateForZeroRestaurant.method] : {
+            summary: '根据预约状态查询零点餐厅的预约情况',
+            method: 'get',
+            url: (payload) => `/api/platform/order/zeroRestaurant/queryByState/${payload.state}`,
+            parameters: [{'name':'state','in':'path','description':'状态','required':true,'type':'string'}],
+        },
         [BarberControllerImpl.queryByTypeAndDateForBarber.method] : {
             summary: '根据预约类型和日期查询理发室的预约情况  名额',
             method: 'get',
@@ -87,6 +123,12 @@ export default {
             summary: '根据预约类型和日期查询医务室的预约情况  名额',
             method: 'get',
             url: (payload) => `/api/platform/order/clinic/queryByDate/${payload.type}/${payload.date}`,
+            parameters: [{'name':'date','in':'path','description':'日期','required':true,'type':'string'},{'name':'type','in':'path','description':'类型','required':true,'type':'string'}],
+        },
+        [BarberControllerImpl.queryByTypeAndDateForZeroRestaurant.method] : {
+            summary: '根据预约类型和日期查询零点餐厅的预约情况  名额',
+            method: 'get',
+            url: (payload) => `/api/platform/order/zeroRestaurant/queryByDate/${payload.type}/${payload.date}`,
             parameters: [{'name':'date','in':'path','description':'日期','required':true,'type':'string'},{'name':'type','in':'path','description':'类型','required':true,'type':'string'}],
         },
         [BarberControllerImpl.updateBarber.method] : {
@@ -107,6 +149,12 @@ export default {
             url: (payload) => `/api/platform/order/clinic/updateClinicUserForCancel/${payload.clinicId}`,
             parameters: [{'name':'clinicId','in':'path','description':'医务室id','required':true,'type':'integer','format':'int32'}],
         },
+        [BarberControllerImpl.updateCancelForZeroRestaurant.method] : {
+            summary: '取消零点餐厅预约',
+            method: 'put',
+            url: (payload) => `/api/platform/order/zeroRestaurant/updateZeroRestaurantUserForCancel/${payload.zeroRestaurantId}`,
+            parameters: [{'name':'zeroRestaurantId','in':'path','description':'零点餐厅id','required':true,'type':'integer','format':'int32'}],
+        },
         [BarberControllerImpl.updateClinic.method] : {
             summary: '修改发布的医务室信息',
             method: 'put',
@@ -124,6 +172,18 @@ export default {
             method: 'put',
             url: (payload) => `/api/platform/order/clinic/updateClinicUserForSign/${payload.clinicId}`,
             parameters: [{'name':'clinicId','in':'path','description':'医务室id','required':true,'type':'integer','format':'int32'}],
+        },
+        [BarberControllerImpl.updateSignForZeroRestaurant.method] : {
+            summary: '零点餐厅预约签到',
+            method: 'put',
+            url: (payload) => `/api/platform/order/zeroRestaurant/updateZeroRestaurantUserForSign/${payload.zeroRestaurantId}`,
+            parameters: [{'name':'zeroRestaurantId','in':'path','description':'零点餐厅id','required':true,'type':'integer','format':'int32'}],
+        },
+        [BarberControllerImpl.updateZeroRestaurant.method] : {
+            summary: '修改发布的零点餐厅信息',
+            method: 'put',
+            url: (payload) => `/api/platform/order/zeroRestaurant/updateZeroRestaurant`,
+            parameters: [{'in':'body','name':'upZeroRestaurantVo','description':'upZeroRestaurantVo','required':true,'schema':{'$ref':'#/definitions/UpZeroRestaurantVo'}}],
         },
     },
     // state: {},
