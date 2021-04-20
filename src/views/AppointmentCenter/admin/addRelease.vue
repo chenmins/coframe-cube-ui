@@ -107,6 +107,24 @@ export default {
             name: '拿药',
             type: 'infirmary'
           }
+        },
+        {
+          text: '一号餐厅', value: {
+            name: '一号餐厅',
+            type: 'restaurant'
+          }
+        },
+        {
+          text: '二号餐厅', value: {
+            name: '二号餐厅',
+            type: 'restaurant'
+          }
+        },
+        {
+          text: '三号餐厅', value: {
+            name: '三号餐厅',
+            type: 'restaurant'
+          }
         }
       ],
       date: this.$dayjs().format('MM月DD日'),
@@ -206,6 +224,7 @@ export default {
   methods: {
     ...mapActions('barber', ['addBarber']),
     ...mapActions('Infirmary',['addClinic']),
+    ...mapActions('restaurant',['addZeroRestaurant']),
     validateHandler() {
       this.valid = arguments[0].valid
     },
@@ -326,8 +345,14 @@ export default {
       switch (this.releaseType) {
         case "barber":
           return await this.addBarber(data);
+          break
         case "infirmary":
           return await this.addClinic(data);
+          break
+        case "restaurant":
+          return await this.addZeroRestaurant(data);
+          break
+
         default:
           break
 
