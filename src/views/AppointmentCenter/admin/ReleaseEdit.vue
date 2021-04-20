@@ -200,7 +200,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions('order',['updateBarber']),
+    ...mapActions('barber',['updateBarber']),
     selectedTime() {
       this.datePicker = this.$createDatePicker({
         title: 'Date Picker',
@@ -381,7 +381,7 @@ export default {
 
   },
   computed: {
-    ...mapState('order', ['dayData'])
+    ...mapState('barber', ['dayData'])
   }
 }
 </script>

@@ -1,9 +1,6 @@
-
-
 import { BarberControllerImpl } from '@controller'
 
-
-const order = {
+const barber = {
   namespaced: true,
   state: {
     public: {},//所有查询预约结果
@@ -19,21 +16,19 @@ const order = {
     }
   },
   actions: {
-    async queryByTypeAndDate(context, payload) {
+    async queryByTypeAndDateForBarber(context, payload) {
       let resp
-      resp = await window.vue.dispatch(BarberControllerImpl.queryByTypeAndDate, {
+      resp = await window.vue.dispatch(BarberControllerImpl.queryByTypeAndDateForBarber, {
         type: payload.type,
         date: payload.date
       })
       if (!resp.error) {
-        context.commit('setPublic', {
-          key: 'barber',
+        context.commit('setState', {
+          key: 'public',
           value: resp.data.body
         })
-
       }
     },
-
     async addBarberUser(context, payload) {
       let resp
       resp = await window.vue.dispatch(BarberControllerImpl.addBarberUser, {
@@ -43,10 +38,10 @@ const order = {
         return resp
       }
     },
-    async queryByState(context, payload) {
+    async queryByStateForBarber(context, payload) {
 
       let resp
-      resp = await window.vue.dispatch(BarberControllerImpl.queryByState, {
+      resp = await window.vue.dispatch(BarberControllerImpl.queryByStateForBarber, {
         state: payload.state
       })
       if (!resp.error) {
@@ -56,10 +51,9 @@ const order = {
         })
       }
     },
-
-    async queryByMonth(context, payload) {
+    async queryByMonthForBarber(context, payload) {
       let resp
-      resp = await window.vue.dispatch(BarberControllerImpl.queryByMonth, {
+      resp = await window.vue.dispatch(BarberControllerImpl.queryByMonthForBarber, {
         month: payload.month
       })
       if(!resp.error){
@@ -79,9 +73,7 @@ const order = {
         console.log(JSON.parse(e))
         console.log(e.response)
       }
-      // if(!resp.error){
-      //   return  
-      // }
+
     },
     async updateBarber(context,payload){
       let resp
@@ -95,19 +87,19 @@ const order = {
         return resp
       }
     },
-    async updateCancel(context,payload){
+    async updateCancelForBarber(context,payload){
       let resp
-      resp = await window.vue.dispatch(BarberControllerImpl.updateCancel,payload)
+      resp = await window.vue.dispatch(BarberControllerImpl.updateCancelForBarber,payload)
       if(!resp.error){
-        await context.dispatch('queryByState', {state:'预约成功'})
+        await context.dispatch('queryByStateForBarber', {state:'预约成功'})
 
       }
     },
-    async updateSign(context,payload){
+    async updateSignForBarber(context,payload){
       let resp
-      resp = await window.vue.dispatch(BarberControllerImpl.updateSign,payload)
+      resp = await window.vue.dispatch(BarberControllerImpl.updateSignForBarber,payload)
       if(!resp.error) {
-        return
+        return  resp
       }
     }
 
@@ -119,6 +111,6 @@ const order = {
   }
 }
 
-export default order
+export default barber
 
 

@@ -2,7 +2,7 @@
   <TitleNav bgc-color="#fff">
     <h1 class="font-blod" style="font-size: 20px">行政服务平台预约中心</h1>
     <div class="container clear-fix">
-      <Card class="card" v-for="(item,index) in routerMap" :key="index" @clicked="$router.push({name:'YuYueItem',params:{id:item.text,value:item.value}})">
+      <Card class="card" v-for="(item,index) in routerMap" :key="index" @clicked="goInItem(item)">
         <div class="group">
           <Icon :svg-name="item.icon" class-name="svg_reserve "></Icon>
           <div class="font-blod" style="font-size: 14px">{{item.text}}</div>
@@ -82,6 +82,11 @@ export default {
   },
   mounted(){
     this.$children[0].$refs.scroll.$el.style.height = `${this.workspaceRealHeightNum - 130}px`
+  },
+  methods: {
+    goInItem(item) {
+        this.$router.push({name:'YuYueItem',params:{id:item.text,value:item.value}})
+    }
   }
 }
 </script>

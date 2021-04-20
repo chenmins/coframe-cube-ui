@@ -39,7 +39,7 @@
               </div>
               <div class="right_bottom" v-show="!toggleBreak">
                 <span v-if="reserve.state === '已取消'" @click.stop>已取消</span>
-                <span v-else @click.stop="test(reserve)" style="color: #333">取消</span>
+                <span v-else @click.stop="Cancel(reserve)" style="color: #333">取消</span>
               </div>
               <template v-if="reserve.state === '已签到'">
                 <!--                <Tag-->
@@ -98,10 +98,10 @@ export default {
     };
   },
   created() {
-    this.queryByState({state: "预约成功"});
+    this.queryByStateForBarber({state: "预约成功"});
   },
   computed: {
-    ...mapState("order", ["selfApply"]),
+    ...mapState("barber", ["selfApply"]),
   },
   methods: {
     sign(reserve) {
@@ -123,21 +123,25 @@ export default {
       //   }).show()
       // }
     },
-    test(reserve) {
+    async Cancel(reserve) {
       if (this.once) {
-        this.updateCancel({barberId: reserve.id});
-        this.once = false;
+        await this.updateCancelForBarber({barberId: reserve.id});
+        this.once = false
+        this.queryByStateForBarber({state: "预约成功"}).then(()=>{
+          this.once = true;
+        })
       }
     },
-    ...mapMutations("order", ["setState"]),
-    ...mapActions("order", ["queryByState", "updateCancel",'updateSign']),
+    ...mapMutations("barber", ["setState"]),
+    ...mapActions("barber", ["queryByStateForBarber", "updateCancelForBarber",'updateSignForBarber']),
+
     changeHandle(e) {
       this.toggleBreak = false;
       if (e === "已完成") {
-        this.queryByState({state: "已完成"});
+        this.queryByStateForBarber({state: "已完成"});
         this.toggleBreak = true;
       } else {
-        this.queryByState({state: "预约成功"});
+        this.queryByStateForBarber({state: "预约成功"});
       }
     },
   },

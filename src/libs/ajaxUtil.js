@@ -122,7 +122,6 @@ ajaxUtil.myRequest = (action, payload) => {
     ajaxUtil
       .headers({
         Authorization: localStorage.getItem('Token'),
-        uniqueId : localStorage.getItem('Token'),
         'X-EOS-SourceSysKey': Vue.config['X-EOS-SourceSysKey'],
         Locale: Vue.config.lang,
         Channel: 'website',
@@ -145,17 +144,17 @@ ajaxUtil.myRequest = (action, payload) => {
         resolve(response)   //error
       })
       .catch(res => {
+        // console.log(res)
         // console.log(res.response)
         // console.log('ajax catch')
         // console.log(JSON.parse(JSON.stringify(res)))
         // console.log(res.errorMsg)
-        if (res.response.data.status === 401) {
+        if (res.response.status === 401) {
           Toast.$create({
             txt: res.response.data.message,
             time: 1000,
             onTimeout: () => {
               localStorage.removeItem('Token')
-              localStorage.removeItem('admin')
               router.replace('/login').then(() => {
                 reject(res.response)
               })

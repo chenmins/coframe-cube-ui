@@ -39,7 +39,7 @@ export default {
             summary: '登录',
             method: 'post',
             url: (payload) => `/api/platform/user/login`,
-            parameters: [{'in':'body','name':'user','description':'user','required':true,'schema':{'$ref':'#/definitions/用户登录信息'}}],
+            parameters: [{'in':'body','name':'u','description':'u','required':true,'schema':{'$ref':'#/definitions/用户登录信息'}}],
         },
         [AuthApiController.logout.method] : {
             summary: '退出',

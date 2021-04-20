@@ -83,7 +83,7 @@ export default {
     };
   },
   created() {
-    this.queryByMonth({
+    this.queryByMonthForBarber({
       month: this.$dayjs().format("YYYY-MM-DD"),
     }).then(() => {
       for (let i in this.allDayData) {
@@ -96,10 +96,10 @@ export default {
     this.setScroll();
   },
   computed: {
-    ...mapState("order", ["allDayData"]),
+    ...mapState("barber", ["allDayData"]),
   },
   methods: {
-    ...mapActions("order", ["queryByMonth"]),
+    ...mapActions("barber", ["queryByMonthForBarber"]),
     selectMonth() {
       this.timePicker = this.$createDatePicker({
         title: "Time Picker",
@@ -139,7 +139,7 @@ export default {
     },
     setDate(day) {
       this.selectedDate = day;
-      this.queryByMonth({
+      this.queryByMonthForBarber({
         month: this.$dayjs(day).format("YYYY-MM-DD"),
       });
       this.dayData = this.allDayData[this.$dayjs(day).format("YYYY-M-D")];

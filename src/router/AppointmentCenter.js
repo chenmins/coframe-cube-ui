@@ -48,7 +48,6 @@ export default [
                 },
                 component: () => import('@/views/AppointmentCenter/admin/Release')
             },
-
         ]
     },
     {
@@ -60,7 +59,7 @@ export default [
                 yiwushi: [
                     {
                         text: '问诊',
-                        value:'问诊',
+                        value:'问诊'
                     },
                     {
                         text: '理疗',
@@ -225,6 +224,7 @@ export default [
         },
         component: () => import('@/views/AppointmentCenter/admin/index'),
     },
+
     {
         path: '/AdminReleaseEdit',
         name: 'AdminReleaseEdit',

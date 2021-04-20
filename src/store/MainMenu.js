@@ -1,4 +1,3 @@
-
 import { UserManager,AuthApiController } from "@controller";
 import router from '@/router'
 import {removeToken} from "@/utils/auth";
@@ -244,6 +243,5 @@ const MainMenu = {
 
     }
 }
-
 
 export default MainMenu
