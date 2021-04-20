@@ -1,12 +1,20 @@
 <template>
   <div class="product_list">
-    <div v-if="showTitle" class="product_list_title">{{ title }}</div>
-    <Card class="list_item" style="margin:0;border-radius:0;padding:15px" v-for="item in data" :key="item.id"
-          :data-id="item.id"
-          @clicked="go(item)"
-    >
-      <slot :scoped="item"></slot>
-    </Card>
+    <div v-show="showTitle" :title="title" class="product_list_title">{{title}}</div>
+      <cube-scroll
+          ref="scroll23"
+          :data="data"
+          :options="{click:false}"
+          >
+
+        <Card class="list_item" style="margin:0;border-radius:0;padding:15px" v-for="item in data" :key="item.id"
+              :data-id="item.id"
+              @clicked="go(item )"
+        >
+          <slot :scoped="item"></slot>
+        </Card>
+      </cube-scroll>
+
     <img v-if="data.length===0" src="../assets/AdministrativeService/noData.png" alt="">
   </div>
 </template>

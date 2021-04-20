@@ -6,6 +6,7 @@
   "platformRoleTmpId": "governor-role-tpl-grp-platform",
   "coframe": "/api/coframe",
   "X-EOS-SourceSysKey": "bf5a8edbe6134dfc9887df631007ef7a",
+  "tenantID": "default",
   "login": "/api/coframe/users/login",
   "pictureUrl": "c94.cn:3197",
   "bucket": "static",

@@ -41,7 +41,7 @@
 <script>
 import * as DATAS from "@/assets/data";
 import axios from "axios";
-import { DictApiController } from "@controller";
+import { DictManager } from "@controller";
 import {mapActions, mapMutations, mapState} from "vuex";
 
 export default {
@@ -57,10 +57,10 @@ export default {
     await this.getTopic({dispatch:this.dispatch})
     this.tabs = this.topicLists.map((item) => {
       return {
-        label: item.name,
-        id: item.id,
-        name: item.name,
-        code: item.code,
+        label: item.dicttypename,
+        id: item.dicttypeid,
+        name: item.dicttypename,
+        code: item.seqno,
       };
     });
   },
@@ -77,16 +77,26 @@ export default {
     },
     async getItem(id) {
       let resp;
-      resp = await this.dispatch(DictApiController.getDictEntryByDictEntryId, {
-        id: id,
+      // tag 修改eos8
+      resp = await this.dispatch(DictManager.queryDict, {
+        "limit": 10,
+        "offset": 1,
+        "dicttypeid": id,
+        "pageIndex": 1,
+        "pageSize": 10,
+        "page": {
+          "begin": 0,
+          "length": 10
+        },
       });
+
       if (!resp.error) {
-        this.scrollData = resp.data.children.map((item) => {
+        this.scrollData = resp.data.data.map((item) => {
           return {
-            label: item.name,
-            id: item.id,
-            name: item.name,
-            code: item.code,
+            label: item.dictname,
+            id: item.dictid,
+            name: item.dictname,
+            code: item.seqno,
           };
         });
       }

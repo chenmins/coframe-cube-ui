@@ -2,16 +2,18 @@
   <div class="login">
     <cube-form :model="model" :schema="schema" @submit="submitHandler" class="login-form">
     </cube-form>
-    <!--    <button @click="test"> test</button>-->
   </div>
 </template>
 
 <script>
-import { AuthApiController } from "@controller";
-import { setToken } from "@/utils/auth";
+// import { AuthApiController } from "@controller";
+import {setToken} from "@/utils/auth";
 import axios from "axios";
 import router from "@/router";
-import { Toast } from "cube-ui";
+import {Toast} from "cube-ui";
+import Vue from "_vue@2.6.11@vue";
+import {LoginManager,AuthApiController} from "@controller";
+
 //登录跳转路由储存s
 let routerStorage;
 
@@ -59,6 +61,9 @@ export default {
           },
           {
             type: "submit",
+            props:{
+              disabled: false,
+            },
             label: "登陆",
           },
         ],
@@ -76,41 +81,38 @@ export default {
     }
   },
   methods: {
-    async submitHandler(e, model) {
+    async   submitHandler(e, model) {
+      this.schema.fields[2].props.disabled = true
       let toast = this.$createToast({
         txt: "登陆中",
         time: 0,
       });
       e.preventDefault();
       toast.show();
-      let data = {
-        username: model.inputValue,
-        password: model.passwordValue,
-      };
-      let resp;
-      try {
-        resp = await this.dispatch(AuthApiController.login, data);
-      } catch (e) {
-        toast.hide();
-      }
+      let resp,coframeResp;
+        resp = await this.dispatch(AuthApiController.login, {
+          username: model.inputValue,
+          password: model.passwordValue,
+        });
+        if(!resp.data.status){
+          this.$store.commit("setUseInfo", resp.data);
+          localStorage.setItem("admin", resp.data.admin);
+          localStorage.setItem("Token", resp.data.token);
+          setToken(resp.data.token);
+          this.$createToast({
+            txt: "登陆成功，正在跳转",
+            time: 500,
+            onTimeout: () => {
+              // this.$router.go(0)
+              this.$router.replace(routerStorage ? routerStorage : "/");
+              toast.hide();
+            },
+          }).show();
+        }else {
+          this.loginStatus = false
+        }
 
-      if (!resp.error) {
-        this.$store.commit("setUseInfo", resp.data);
-        localStorage.setItem("admin", resp.data.admin);
-        localStorage.setItem("Token", resp.data.token);
-        setToken(resp.data.token);
-        toast.hide();
-        this.$createToast({
-          txt: "登陆成功，正在跳转",
-          time: 500,
-          onTimeout: () => {
-            // this.$router.go(0)
-            this.$router.replace(routerStorage ? routerStorage : "/");
-          },
-        }).show();
-      } else {
-        console.log("error");
-      }
+
     },
   },
 };
@@ -127,8 +129,9 @@ export default {
     left 50%
     top 50%
     width 90%
-    transform translate(-50%,-50%)
-  >>>.cube-btn
+    transform translate(-50%, -50%)
+
+  >>> .cube-btn
     height 20px
     line-height 0
 </style>

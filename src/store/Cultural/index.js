@@ -1,6 +1,6 @@
 import state from './state'
 import router from '@/router'
-import {CulturalControllerImpl, DictApiController} from '@controller'
+import {CulturalControllerImpl, DictManager} from '@controller'
 import {Toast} from 'cube-ui'
 
 const Cultural = {
@@ -43,7 +43,6 @@ const Cultural = {
                 2:context.state.sendForm.body,
                 3:context.state.selectedTopic,
             }
-            console.log(context.state.files,IF_MAP)
             return {
                 files: IF_MAP[1] ? context.state.files : [],
                 query: IF_MAP[2] ?  context.state.sendForm : {
@@ -75,13 +74,24 @@ const Cultural = {
         },
         async getTopic(context, payload) {
             let resp
-            resp = await payload.dispatch(DictApiController.getDictEntryByDictTypeCode, {code: 'pip-ccocci-topic'})
+            // tag 修改eos8
+            resp = await payload.dispatch(DictManager.queryDictType,{
+                "dicttypeid":"pip-ccocci-topic","tenantId":"default"
+            })
             if (!resp.error) {
+                console.log(resp)
                 context.commit('setStateVar', {
                     key: 'topicLists',
-                    value: resp.data
+                    value: resp.data.data
                 })
             }
+            // resp = await payload.dispatch(DictApiController.getDictEntryByDictTypeCode, {code: 'pip-ccocci-topic'})
+            // if (!resp.error) {
+            //     context.commit('setStateVar', {
+            //         key: 'topicLists',
+            //         value: resp.data
+            //     })
+            // }
         },
         async remove(context, payload) {
             let resp

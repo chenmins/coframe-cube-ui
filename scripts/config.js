@@ -1,6 +1,10 @@
 module.exports = {
     modules: [
         {
+            name:'coframe-eos8',
+            swaggerUrl:"http://192.168.200.131:28082/v2/api-docs?group=eosservice",
+        },
+        {
             name: 'platform-user',
             swaggerUrl: 'http://192.168.200.150:18080/v2/api-docs',
         },

@@ -1,5 +1,5 @@
 
-import { AuthApiController } from "@controller";
+import { UserManager,AuthApiController } from "@controller";
 import router from '@/router'
 import {removeToken} from "@/utils/auth";
 
@@ -205,20 +205,24 @@ const MainMenu = {
             context.dispatch('updateUserInfo',{hasInitValue:true,dispatch:payload.dispatch})
         },
         async exitLogin(context,payload){
-            let resp 
-            resp = await payload.dispatch(AuthApiController.logout)
-            if (!resp.error) {
-                localStorage.removeItem('Token')
-                localStorage.removeItem('userInfo')
-                localStorage.removeItem('ToolsManager')
-                localStorage.removeItem('admin')
-                removeToken()
-                router.replace('/login')
+            localStorage.removeItem('Token')
+            localStorage.removeItem('userInfo')
+            localStorage.removeItem('ToolsManager')
+            localStorage.removeItem('admin')
+            localStorage.removeItem('admin')
 
-            } else {
-                console.log('error')
-
-            }
+            removeToken()
+            router.replace('/login')
+            // let resp
+            //
+            // resp = await payload.dispatch(AuthApiController.logout)
+            // if (!resp.error) {
+            //
+            //
+            // } else {
+            //     console.log('error')
+            //
+            // }
 
         }
     },

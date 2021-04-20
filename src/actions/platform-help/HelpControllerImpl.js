@@ -29,6 +29,12 @@ export default {
             url: (payload) => `/api/platform/help/deleteCommonProblem/${payload.id}`,
             parameters: [{'name':'id','in':'path','description':'主键','required':true,'type':'integer','format':'int32'}],
         },
+        [HelpControllerImpl.DelProductIntroduction.method] : {
+            summary: '删除一个产品介绍',
+            method: 'delete',
+            url: (payload) => `/api/platform/help/delProductIntroduction/${payload.id}`,
+            parameters: [{'name':'id','in':'path','description':'主键','required':true,'type':'integer','format':'int32'}],
+        },
         [HelpControllerImpl.UpdateCommonProblem.method] : {
             summary: '修改一个常见问题',
             method: 'put',
