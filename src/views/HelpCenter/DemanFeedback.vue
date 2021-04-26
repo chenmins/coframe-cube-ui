@@ -16,7 +16,7 @@
 <script>
 import CommentBox from "@/components/HelpCenter/CommentBox";
 import ReplayBox from "@/components/HelpCenter/ReplayBox";
-import {mapActions, mapState} from "vuex";
+import { mapActions, mapState } from "vuex";
 
 export default {
   name: "DemanFeedback",
@@ -27,18 +27,21 @@ export default {
     };
   },
   created() {
-    this.initData({dispatch:this.dispatch,type:'Feedbacks',controller:'queryDemandFeedback'})
+    this.initData({
+      dispatch: this.dispatch,
+      type: "Feedbacks",
+      controller: "queryDemandFeedback",
+    });
   },
   mounted() {
-    document.querySelector(".cube-scroll-list-wrapper").style.paddingBottom = "100px";
+    document.querySelector(".cube-scroll-list-wrapper  ").style.paddingBottom = "100px";
   },
   methods: {
-    ...mapActions('HelpCenter',['initData'])
-
+    ...mapActions("HelpCenter", ["initData"]),
   },
-  computed:{
-    ...mapState('HelpCenter',['FeedbacksData']),
-  }
+  computed: {
+    ...mapState("HelpCenter", ["FeedbacksData"]),
+  },
 };
 </script>
 
