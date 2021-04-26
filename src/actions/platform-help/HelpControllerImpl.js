@@ -57,7 +57,7 @@ export default {
             summary: '删除 一个需求反馈',
             method: 'delete',
             url: (payload) => `/api/platform/help/delDemandFeedback/${payload.id}`,
-            parameters: [{'name':'id','in':'query','description':'id','required':false,'type':'integer','format':'int32'}],
+            parameters: [{'name':'id','in':'path','description':'主键','required':true,'type':'integer','format':'int32'}],
         },
         [HelpControllerImpl.queryByIdJoinReply.method] : {
             summary: '根据ID查询一个需求反馈',
