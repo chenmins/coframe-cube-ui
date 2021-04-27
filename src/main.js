@@ -55,6 +55,7 @@ window.vue =  new Vue({
 const create = async () => {
   await ReadConfig(Vue)
   Vue.prototype.$config = Vue.config
+
   new Vue({
     router,
     store,
