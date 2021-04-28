@@ -5,7 +5,7 @@
     </TitleNav>
 
     <footer>
-      <button @click="$router.push({ name: 'Approve' })">残忍拒绝</button>
+      <button @click="$router.push({ name: 'MyApproval' })">残忍拒绝</button>
     </footer>
   </div>
 </template>

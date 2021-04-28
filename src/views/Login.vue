@@ -94,7 +94,6 @@ export default {
         username: model.inputValue,
         password: model.passwordValue,
       });
-      console.log(resp);
       if (!resp.error) {
         this.$store.commit("setUseInfo", resp.data);
         localStorage.setItem("admin", resp.data.admin);

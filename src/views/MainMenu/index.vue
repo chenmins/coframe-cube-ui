@@ -101,7 +101,6 @@ export default {
 >>>.scroll-height-set
   height calc(100vh - 60px)
 .exit-login
-  position absolute
   bottom 0
 
 #main_menu

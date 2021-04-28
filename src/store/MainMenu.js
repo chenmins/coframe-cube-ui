@@ -44,20 +44,12 @@ const MainMenu = {
         ],
         applys: [
             {
-                name: '访客预约(京东商务部)',
+                name: '王伟的车辆审批',
                 status: false
             },
             {
-                name: '访客预约(京东商务部)',
+                name: '爱宝的车辆审批',
                 status: false
-            },
-            {
-                name: '访客预约(京东商务部)',
-                status: false
-            },
-            {
-                name: '访客预约(京东商务部)',
-                status: true
             },
         ],
         todoList: [

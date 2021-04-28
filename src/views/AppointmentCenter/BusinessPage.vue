@@ -90,7 +90,7 @@ export default {
             {
               type: 'select',
               modelKey: 'type',
-              label: '护理类型',
+              label: '预约类型',
               props: {},
               rules: {
                 required: true

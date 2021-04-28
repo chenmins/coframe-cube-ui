@@ -1,8 +1,6 @@
 <template>
   <div id="GuestDetail">
-    <TitleNav
-      bgc-color="#fff"
-    >
+    <TitleNav bgc-color="#fff">
       <div class="top">
         <div class="top_top">
           <div class="left"></div>
@@ -30,51 +28,69 @@
         </div>
       </div>
       <DetailBox></DetailBox>
-      <LayOut class="flow" style="margin:0 8px 20px">
+      <LayOut class="flow" style="margin: 0 8px 20px">
         <div class="title">审批流程</div>
         <ul>
           <li>
-            <Icon class-name="status_svg" svg-name="guest-agree" height="14px" width="14px"></Icon>
-              <img
-                  src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__15b1c74062335e999ca5b36fd025fed4.svg"
-                  alt="">
-              <div class="approve" >
-                <div style="display: flex;flex-direction: column;align-items: flex-start">
-                  <span class="name">张明</span>
-                  <span class="status agree">已同意</span>
-                </div>
-                <div class="time">
-                  <span>12/21  16:00 </span>
-                </div>
-              </div>
-          </li>
-          <li>
-            <Icon class-name="status_svg" svg-name="guest-appro" height="14px" width="14px"></Icon>
+            <Icon
+                class-name="status_svg"
+                svg-name="guest-agree"
+                height="14px"
+                width="14px"
+            ></Icon>
             <img
                 src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__15b1c74062335e999ca5b36fd025fed4.svg"
-                alt="">
-            <div class="approve" >
-              <div style="display: flex;flex-direction: column;align-items: flex-start">
+                alt=""
+            />
+            <div class="approve">
+              <div style="display: flex; flex-direction: column; align-items: flex-start">
                 <span class="name">张明</span>
-                <span class="status appro">审批中</span>
+                <span class="status agree">已同意</span>
               </div>
               <div class="time">
-                <span>12/21  16:00 </span>
+                <span>12/21 16:00 </span>
               </div>
             </div>
           </li>
           <li>
-            <Icon class-name="status_svg" svg-name="guest-reject-min" height="14px" width="14px"></Icon>
+            <Icon
+                class-name="status_svg"
+                svg-name="guest-appro"
+                height="14px"
+                width="14px"
+            ></Icon>
             <img
                 src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__15b1c74062335e999ca5b36fd025fed4.svg"
-                alt="">
-            <div class="approve" >
-              <div style="display: flex;flex-direction: column;align-items: flex-start">
+                alt=""
+            />
+            <div class="approve">
+              <div style="display: flex; flex-direction: column; align-items: flex-start">
+                <span class="name">张明</span>
+                <span class="status appro">审批中</span>
+              </div>
+              <div class="time">
+                <span>12/21 16:00 </span>
+              </div>
+            </div>
+          </li>
+          <li>
+            <Icon
+                class-name="status_svg"
+                svg-name="guest-reject-min"
+                height="14px"
+                width="14px"
+            ></Icon>
+            <img
+                src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__15b1c74062335e999ca5b36fd025fed4.svg"
+                alt=""
+            />
+            <div class="approve">
+              <div style="display: flex; flex-direction: column; align-items: flex-start">
                 <span class="name">张明</span>
                 <span class="status reject">已拒绝</span>
               </div>
               <div class="time">
-                <span>12/21  16:00 </span>
+                <span>12/21 16:00 </span>
               </div>
             </div>
           </li>
@@ -83,14 +99,23 @@
     </TitleNav>
 
     <footer>
-      <cube-button >
-        <div v-if="agree" style="overflow:hidden;display: flex;align-items: center">
+      <cube-button>
+        <div
+            v-if="!agree"
+            @click="agree = !agree"
+            style="overflow: hidden; display: flex; align-items: center"
+        >
           <Icon svg-name="guest-back" height="20px" width="20px"></Icon>
           <span>撤回</span>
         </div>
-        <div v-else style="overflow:hidden;display: flex;align-items: center">
-          <Icon svg-name="guest-back"  class-name="for_back" height="20px" width="20px"></Icon>
-          <span style="color: #999" >已撤回</span>
+        <div v-else style="overflow: hidden; display: flex; align-items: center">
+          <Icon
+              svg-name="guest-back"
+              class-name="for_back"
+              height="20px"
+              width="20px"
+          ></Icon>
+          <span style="color: #999">已撤回</span>
         </div>
       </cube-button>
     </footer>
@@ -103,14 +128,15 @@ import DetailBox from "@/components/Guest/DetailBox";
 export default {
   name: "GuestDetail",
   components: {
-    LayOut,DetailBox
+    LayOut,
+    DetailBox,
   },
-  data(){
+  data() {
     return {
-      agree:false
-    }
-  }
-}
+      agree: false,
+    };
+  },
+};
 </script>
 
 <style scoped lang="stylus">

@@ -34,7 +34,7 @@ export default {
     });
   },
   mounted() {
-    document.querySelector(".cube-scroll-list-wrapper  ").style.paddingBottom = "100px";
+    document.querySelector(".chat_wapper").style.paddingBottom = "800px";
   },
   methods: {
     ...mapActions("HelpCenter", ["initData"]),
@@ -46,10 +46,6 @@ export default {
 </script>
 
 <style scoped lang="stylus">
-//>>>.cube-scroll-list-wrapper {
-//  padding-bottom: 100px;
-//}
-
 #DemanFeedback_app {
   font-size: 14px;
   background-color: rgb(249, 249, 249);

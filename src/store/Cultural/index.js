@@ -79,7 +79,11 @@ const Cultural = {
                 "dicttypeid":"pip-ccocci-topic","tenantId":"default"
             })
             if (!resp.error) {
-                console.log(resp)
+                if(resp.data.exception && resp.data.exception.code==="12101001"){
+                    localStorage.removeItem("Token")
+                    router.replace('/login')
+                    return
+                }
                 context.commit('setStateVar', {
                     key: 'topicLists',
                     value: resp.data.data

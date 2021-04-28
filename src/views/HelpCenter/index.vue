@@ -1,23 +1,7 @@
 <template>
-  <div id="help_center">
-    <TitleNav :bottom="70" bgc-color="#fff">
-      <div
-          class="replay"
-          slot="right"
-          v-show="$route.meta.name === '反馈'"
-          @click="addFeedBack({
-              dispatch:dispatch,
-                uploadAsync:uploadAsync,
-          })"
-      >
-        发表
-      </div>
-      <template v-slot:default>
-        <router-view/>
-      </template>
-    </TitleNav>
+  <div id="help_center" style="height:100vh,width:100vw;overflow: hidden;">
     <Tabbar v-show="$route.meta.showTabbar" :tabs="tabs"></Tabbar>
-    <div class="replay_bot" v-show="$route.meta.tag === 'ReplayDetail' ">
+    <div class="replay_bot" v-show="$route.meta.tag === 'ReplayDetail'">
       <cube-textarea
           class="replay_textarea"
           v-model="value"
@@ -41,38 +25,61 @@
       </button>
       <!--      <Icon svg-name="helpcenter-emoji" style="margin-right: 10px" height="26px" width="26px"></Icon>-->
     </div>
+
+    <TitleNav>
+      <template slot="default">
+        <div style="height: calc(100vh - 130px); overflow: hidden">
+          <cube-scroll ref="scroll" style="height: calc(100vh - 350px)">
+            <router-view />
+          </cube-scroll>
+        </div>
+      </template>
+      <div
+          class="replay"
+          slot="right"
+          v-show="$route.meta.name === '反馈'"
+          @click="
+          addFeedBack({
+            dispatch: dispatch,
+            uploadAsync: uploadAsync,
+          })
+        "
+      >
+        发表
+      </div>
+    </TitleNav>
   </div>
 </template>
 
 <script>
-import {HelpControllerImpl} from "@controller";
+import { HelpControllerImpl } from "@controller";
 import TitleNav from "@/components/UI/TitleNav";
-import {mapActions} from 'vuex'
+import { mapActions } from "vuex";
 import filesUpload from "@/libs/mixins/filesUpload";
 
 export default {
   name: "index",
-  components: {TitleNav},
+  components: { TitleNav },
   mixins: [filesUpload],
   data() {
     return {
       tabs: [
         {
-          label: '常见问题',
-          value: 'question',
-          icon: 'helpcenter-question',
-
-        }, {
-          label: '产品介绍',
-          value: 'productInc',
-          icon: 'helpcenter-inc'
-
-        }, {
-          label: '需求反馈',
-          value: 'feedback',
-          icon: 'helpcenter-edit'
-
-        }],
+          label: "常见问题",
+          value: "question",
+          icon: "helpcenter-question",
+        },
+        {
+          label: "产品介绍",
+          value: "productInc",
+          icon: "helpcenter-inc",
+        },
+        {
+          label: "需求反馈",
+          value: "feedback",
+          icon: "helpcenter-edit",
+        },
+      ],
       value: "",
       placeholder: "回复需求",
       maxlength: 200,
@@ -80,10 +87,12 @@ export default {
   },
 
   mounted() {
-    this.$children[0].$refs.scroll.$el.style.height = `${this.workspaceRealHeightNum - 130}px`
+    // this.$children[0].$refs.scroll.$el.style.height = `${
+    //   this.workspaceRealHeightNum - 130
+    // }px`;
   },
   methods: {
-    ...mapActions('HelpCenter', ['addFeedBack',]),
+    ...mapActions("HelpCenter", ["addFeedBack"]),
     replay() {
       this.value = "";
     },
@@ -101,7 +110,7 @@ export default {
             time: 500,
             onTimeout: () => {
               this.value = "";
-              this.$router.push({name: "需求反馈"});
+              this.$router.push({ name: "需求反馈" });
             },
           });
           Toast.show();

@@ -5,11 +5,11 @@
         <cube-scroll ref="scroll">
           <!--   :field="fields[1]" -->
           <cube-form
-            :model="model"
-            :schema="schema"
-            :options="{ layout: 'classic' }"
-            @submit="submitGuestForm"
-            class="form-control"
+              :model="model"
+              :schema="schema"
+              :options="{ layout: 'classic' }"
+              @submit="submitGuestForm"
+              class="form-control"
           >
             <cube-form-group>
               <cube-form-item :field="form[0]">
@@ -27,10 +27,10 @@
             </cube-form-group>
 
             <cube-form-group
-              class="add-group"
-              v-for="(i, index) in schema.groups"
-              :legend="i.legend"
-              :fields="i.fields"
+                class="add-group"
+                v-for="(i, index) in schema.groups"
+                :legend="i.legend"
+                :fields="i.fields"
             >
             </cube-form-group>
 
@@ -46,7 +46,7 @@
             </cube-form-group>
 
             <cube-form-group>
-              <cube-button type="submit">提交</cube-button>
+              <cube-button type="submit">生成访客预约</cube-button>
             </cube-form-group>
           </cube-form>
           <ul class="notice">
@@ -63,6 +63,7 @@
 
 <script>
 import Button from "@/components/UI/Button";
+import { mapState, mapMutations } from "vuex";
 
 export default {
   name: "index",
@@ -204,7 +205,11 @@ export default {
     ];
     this.init();
   },
+  computed: {
+    ...mapState("Guest", ["curLabel"]),
+  },
   methods: {
+    ...mapMutations("Guest", ["setLabel"]),
     init(max = 10) {
       let newArr = [];
       for (let i = 1; i < max + 1; i++) {
@@ -213,9 +218,12 @@ export default {
       this.maxPeople = newArr;
     },
     submitGuestForm(e, model, model2) {
+      e.preventDefault();
+      this.setLabel("我的预约");
+      // this.$router.push({ name: "Reserve" });
+      return;
       let length = this.model.peopleNum;
       let newObj = {};
-      e.preventDefault();
       //将数据重组，放进model.guests数组中
       for (let j = 0; j < length; j++) {
         for (let i in model2) {
@@ -339,114 +347,139 @@ export default {
 </script>
 
 <style scoped lang="stylus">
->>>.cube-scroll-list-wrapper
-  padding-bottom 50px
-#Guest
+>>>.cube-scroll-list-wrapper {
+  padding-bottom: 50px;
+}
+
+#Guest {
   height: 154px;
   background: linear-gradient(119deg, #19D8FF 0%, #0F97FB 100%);
   position: relative;
 
-  main
-    margin 20px 13px 0
+  main {
+    margin: 20px 13px 0;
     overflow: hidden;
-    height calc(100vh - 60px)
+    height: calc(100vh - 60px);
 
-    .notice
-      line-height 20px
-      text-align left
-      margin 20px
-      padding-bottom 40px
-      font-size 14px
+    .notice {
+      line-height: 20px;
+      text-align: left;
+      margin: 20px;
+      padding-bottom: 40px;
+      font-size: 14px;
 
-      li
-        list-style decimal
-        margin-left 20px
+      li {
+        list-style: decimal;
+        margin-left: 20px;
+      }
+    }
+  }
+}
 
->>> .cube-textarea-wrapper::after
-  border none
+>>> .cube-textarea-wrapper::after {
+  border: none;
+}
 
->>> .cube-radio //单选框宽度
-  max-width: 50px
+>>> .cube-radio { // 单选框宽度
+  max-width: 50px;
+}
 
->>> .cube-radio-ui i::before
-  display none
+>>> .cube-radio-ui i::before {
+  display: none;
+}
 
->>> .cube-radio_selected .cube-radio-ui  //单选框图片
-  background-color transparent
-  background-image url("../../assets/icons/selected.png")
-  background-size 100%
+>>> .cube-radio_selected .cube-radio-ui { // 单选框图片
+  background-color: transparent;
+  background-image: url('../../assets/icons/selected.png');
+  background-size: 100%;
+}
 
->>> .cube-validator-content
-  text-align left
+>>> .cube-validator-content {
+  text-align: left;
   font-size: 14px;
   font-family: PingFangSC-Regular, PingFang SC;
   font-weight: 400;
   color: #CCCCCC;
   line-height: 20px;
   letter-spacing: 1px;
+}
 
->>> .cube-input::after, >>> .cube-radio-group[data-horz="true"]::after, .cube-radio-group[data-col="true"]::after, >>> .border-right-1px::after
-  border none
+>>> .cube-input::after, >>> .cube-radio-group[data-horz='true']::after, .cube-radio-group[data-col='true']::after, >>> .border-right-1px::after {
+  border: none;
+}
 
-.form-control
-  background-color $my-bgc-color
+.form-control {
+  background-color: $my-bgc-color;
+}
 
->>> .cube-form_classic .cube-form-item
-  background-color #fff
-  padding 10px
+>>> .cube-form_classic .cube-form-item {
+  background-color: #fff;
+  padding: 10px;
+}
 
->>> .cube-input-field
-  padding 10px
-  height 10px
-  text-align left
+>>> .cube-input-field {
+  padding: 10px;
+  height: 10px;
+  text-align: left;
+}
 
->>> .cube-form-label
+>>> .cube-form-label {
   font-size: 14px;
   font-family: PingFangSC-Medium, PingFang SC;
   font-weight: 500;
   color: #000000;
   line-height: 20px;
+}
 
->>> .border-bottom-1px
-  border-bottom 1px solid rgba($custom-border-color, .1)
+>>> .border-bottom-1px {
+  border-bottom: 1px solid rgba($custom-border-color, 0.1);
+}
 
-.add-group
-  border-bottom 1px solid rgba($custom-border-color, .1)
-  margin-top 12px
-  border-radius 6px
+.add-group {
+  border-bottom: 1px solid rgba($custom-border-color, 0.1);
+  margin-top: 12px;
+  border-radius: 6px;
   box-shadow: 0 1px 12px 0 rgba(0, 0, 0, 0.04);
 
-  >>> .cube-form-label
-    padding-bottom 10px
+  >>> .cube-form-label {
+    padding-bottom: 10px;
+  }
 
-  >>> .cube-form-item
-    padding 5px 10px
+  >>> .cube-form-item {
+    padding: 5px 10px;
+  }
 
-  & >>> .cube-form-group-legend
-    text-align left
-    padding 20px
-    background-color #fff
+  & >>> .cube-form-group-legend {
+    text-align: left;
+    padding: 20px;
+    background-color: #fff;
     font-size: 18px;
     font-family: PingFangSC-Medium, PingFang SC;
     font-weight: 500;
     color: #000000;
     line-height: 25px;
+  }
+}
 
->>> .cube-radio_selected .cube-radio-ui
-  background-color $custom-active-color
+>>> .cube-radio_selected .cube-radio-ui {
+  background-color: $custom-active-color;
+}
 
->>> .cube-form_classic .cube-form-item .cube-validator-msg
+>>> .cube-form_classic .cube-form-item .cube-validator-msg {
   position: relative;
-  text-align left
+  text-align: left;
+}
 
->>> input
-  text-align center
+>>> input {
+  text-align: center;
+}
 
->>> .cube-btn
-  background-color $custom-active-color
-  border-radius 10px
-  width 80%
-  margin 20px auto
-  height 40px
-  line-height 10px
+>>> .cube-btn {
+  background-color: $custom-active-color;
+  border-radius: 10px;
+  width: 80%;
+  margin: 20px auto;
+  height: 40px;
+  line-height: 10px;
+}
 </style>

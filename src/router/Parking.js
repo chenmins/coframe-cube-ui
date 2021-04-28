@@ -66,7 +66,7 @@ export default [
                 name: 'Parking-ApprovalDetail',
                 meta: {
                     name: '审批详情',
-                    showTabbar:true,
+                    showTabbar:false,
                     tag: '审批详情',
                     leave: 3,
                     showNav: true,
@@ -93,9 +93,9 @@ export default [
                 meta: {
                     name: '说明',
                     tag: '说明',
-                    leave: 2,
+                    leave: 'back',
                     showNav: true,
-                    showBottom: 'false'
+                    showBottom: 'false',
                 },
                 component: () => import('@/views/Parking/OutslideCar/Readme'),
             },
@@ -105,14 +105,14 @@ export default [
                 meta: {
                     name: '车辆注册',
                     tag: '车辆注册',
-                    leave: 3,
+                    leave: 'back',
                     showNav: true,
                     showBottom: 'false'
                 },
                 component: () => import('@/views/Parking/OutslideCar/CarRegister'),
             },
             {
-                path: 'Recorded',
+                path: 'Recorded/:id',
                 name: 'Recorded',
                 meta: {
                     name: '车辆备案详情',
@@ -120,10 +120,22 @@ export default [
                     leave: 3,
                     showNav: true,
                     showBottom: 'false',
-                    backRouter:'CarRegister',
+                    backRouter:'OutsideCar',
                 },
                 component: () => import('@/views/Parking/OutslideCar/Recorded'),
             },
         ]
+    },
+    {
+        path:'/RejectConfirm',
+        name:'ParkingRejectConfirm',
+        meta:{
+            name:'确认拒绝',
+            tag:'RejectConfirm',
+            leave:3,
+            showNav:true,
+            backRouter:'MyApproval',
+        },
+        component:()=>import('@/views/Parking/RejectConfirm')
     }
 ]

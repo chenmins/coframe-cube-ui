@@ -5,9 +5,10 @@
       :all-text="true"
       allTextColor="#999"
       bgcColor="transparent"
+      @SeeAll="SeeAll"
       >
     <ul class="container">
-      <li v-for="item in applys">
+      <li v-for="item in applys" @click="$router.push({name:'Recorded',params:{id: 1}})">
         <Icon svg-name="four" style="height:31px;width:31px"></Icon>
         <div class="box">
           <span>{{item.name}}</span>
@@ -26,6 +27,11 @@ export default {
   name: "MyApply",
   components: {
     MenuCard
+  },
+  methods: {
+    SeeAll(){
+      this.$router.push({name:'OutsideCar'})
+    }
   },
   computed:{
     ...mapState('MainMenu',['applys'])
