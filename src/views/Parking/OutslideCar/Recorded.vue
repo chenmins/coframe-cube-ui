@@ -4,7 +4,7 @@
       <LayOut @clicked="$router.push({name:'Parking-ApprovalDetail',params:{id:1}})" class="item_header">
         <div class="header">
           <div>
-            <h1>技术部-王小二</h1>
+            <h1>技术部-王伟</h1>
             <span>申请人</span>
           </div>
         </div>

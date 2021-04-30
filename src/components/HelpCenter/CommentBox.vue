@@ -3,19 +3,19 @@
     <div class="comment_title">
       <div class="left">
         <img
-            height="42px"
-            width="42px"
-            class="comment_avatar"
-            src="../../assets/logo.png"
-            alt=""
+          height="42px"
+          width="42px"
+          class="comment_avatar"
+          src="../../assets/logo.png"
+          alt=""
         />
         <div>
           <div class="comment_username">{{ listData.userName }}</div>
           <div class="comment_date">
             {{
               $dayjs(listData.feedbackTime)
-                  .subtract(14, "hour")
-                  .format("YYYY-MM-DD HH:mm:ss")
+                .subtract(14, "hour")
+                .format("YYYY-MM-DD HH:mm:ss")
             }}
           </div>
         </div>
@@ -24,11 +24,11 @@
     <div class="comment_content">
       <div class="clear-fix">
         <img
-            width="33.33%"
-            :src="img"
-            v-for="(img, index) in imgs"
-            :key="img"
-            @click="handleImgsClick(index)"
+          width="33.33%"
+          :src="img"
+          v-for="(img, index) in imgs"
+          :key="img"
+          @click="handleImgsClick(index)"
         />
         <!-- <img  width="33.33%" v-for="url in listData.picture.split(',')" :src="url  " alt=""> -->
       </div>
@@ -42,7 +42,9 @@
         <slot name="replay"></slot>
         <div class="comment_replay_svg" @click="openComment">
           <Icon svg-name="comment" height="20px" width="20px"></Icon>
-          <span style="margin-left: 4px">{{ listData.replys.length }}</span>
+          <span style="margin-left: 4px">{{
+            listData.replys && listData.replys.length
+          }}</span>
         </div>
       </div>
     </div>
@@ -79,12 +81,12 @@ export default {
     // this.listData.picture.split(",");
     //tx.chenmin.org:9000/  jiaoliuquan
 
-    let newArr = `/8e3f7d5b-5c82-4aec-bae6-af1fedf67013/1615167859925.jpg,/8e3f7d5b-5c82-4aec-bae6-af1fedf67013/1615167859925.jpg,/8e3f7d5b-5c82-4aec-bae6-af1fedf67013/1615167859925.jpg,`
+    let newArr = `/8e3f7d5b-5c82-4aec-bae6-af1fedf67013/1615167859925.jpg,/8e3f7d5b-5c82-4aec-bae6-af1fedf67013/1615167859925.jpg,/8e3f7d5b-5c82-4aec-bae6-af1fedf67013/1615167859925.jpg,`;
     let arr = this.listData.picture.split(",");
-    arr.pop()
-    this.imgs = arr.map(i=>{
-      return `//${this.$config.pictureUrl}/${this.$config.bucket}/${i}_${this.$config.imgSize}`
-    })
+    arr.pop();
+    this.imgs = arr.map((i) => {
+      return `//${this.$config.pictureUrl}/${this.$config.bucket}/${i}_${this.$config.imgSize}`;
+    });
     if (this.listData.body) {
       if (this.listData.body.length > 120) {
         this.open = true;
@@ -107,7 +109,7 @@ export default {
           },
         },
       };
-      this.$createImagePreview({...params}).show();
+      this.$createImagePreview({ ...params }).show();
     },
     toggle() {
       if (this.open) {
@@ -117,13 +119,13 @@ export default {
     openComment() {
       if (this.$route.fullPath.includes("ReplayDetail")) return;
       this.$axios
-          .get(`/api/platform/help/demandFeedback/queryByIdJoinReply/${this.listData.id}`)
-          .then((res) => {
-            this.$router.push({
-              name: "ReplayDetail",
-              params: {id: this.listData.id, data: res.data.body},
-            });
+        .get(`/api/platform/help/demandFeedback/queryByIdJoinReply/${this.listData.id}`)
+        .then((res) => {
+          this.$router.push({
+            name: "ReplayDetail",
+            params: { id: this.listData.id, data: res.data.body },
           });
+        });
     },
   },
 };

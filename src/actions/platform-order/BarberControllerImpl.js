@@ -117,7 +117,7 @@ export default {
             summary: '根据预约类型和日期查询理发室的预约情况  名额',
             method: 'get',
             url: (payload) => `/api/platform/order/barber/queryByDate/${payload.type}/${payload.date}`,
-            parameters: [{'name':'date','in':'path','description':'日期','required':true,'type':'string'},{'name':'type','in':'path','description':'类型','required':true,'type':'string'}],
+            parameters: [{'name':'date','in':'path','description':'日期','required':true,'type':'string'},{'name':'type','in':'path','description':'类���','required':true,'type':'string'}],
         },
         [BarberControllerImpl.queryByTypeAndDateForClinic.method] : {
             summary: '根据预约类型和日期查询医务室的预约情况  名额',

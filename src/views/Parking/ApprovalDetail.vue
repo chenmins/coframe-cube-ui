@@ -1,29 +1,25 @@
 <template>
   <div id="approval_detail">
-     <TitleNav bgc-color="#fff">
-       <LayOut  class="item">
-         <div class="header">
-           <div>
-             <h1>技术部-王小二</h1>
-             <span>申请人</span>
-           </div>
-         </div>
-         <div class="body">
-           <div><span>车牌号：</span> 京A BL192s</div>
-           <div><span>姓名：</span> 京A BL192</div>
-           <div><span>入院日期：</span> 2020-12-20 15:00</div>
-         </div>
-       </LayOut>
+    <TitleNav bgc-color="#fff">
+      <LayOut class="item">
+        <div class="header">
+          <div>
+            <h1>技术部-王小二</h1>
+            <span>申请人</span>
+          </div>
+        </div>
+        <div class="body">
+          <div><span>车牌号：</span> 京A BL192s</div>
+          <div><span>姓名：</span> 京A BL192</div>
+          <div><span>入院日期：</span> 2020-12-20 15:00</div>
+        </div>
+      </LayOut>
 
-       <Reserve
-           class="box_2"
-           :status="status"
-           :text-value="model.textareaValue"
-       >
-       </Reserve>
-     </TitleNav>
+      <Reserve class="box_2" :status="status" :text-value="model.textareaValue">
+      </Reserve>
+    </TitleNav>
     <footer>
-      <button class="rej" @click="$router.push({name:'RejectConfirm'})">拒绝</button>
+      <button class="rej" @click="$router.push({ name: 'RejectConfirm' })">拒绝</button>
       <button class="pass">通过</button>
     </footer>
   </div>
@@ -34,17 +30,17 @@ import Reserve from "@/components/Reserve";
 
 export default {
   name: "ApprovalDetail",
-  components: {Reserve},
-  data(){
+  components: { Reserve },
+  data() {
     return {
-      schema:'',
-      status: 'approve',
+      schema: "",
+      status: "approve",
       model: {
-        textareaValue: '',
+        textareaValue: "",
       },
-    }
-  }
-}
+    };
+  },
+};
 </script>
 
 <style scoped lang="stylus">

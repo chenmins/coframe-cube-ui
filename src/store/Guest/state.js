@@ -2,6 +2,7 @@
 
 
 export default {
+    curLabel:'123',
     approves:[
         {
             title:'3132',

@@ -5,8 +5,8 @@
           :model="model"
           :schema="schema"
           :options="{
-            layout:'classic'
-          }"
+          layout: 'classic',
+        }"
           @validate="validateHandler"
           @submit="submitHandler"
       ></cube-form>
@@ -18,99 +18,99 @@
 <script>
 export default {
   name: "CarRegister",
-  data(){
+  data() {
     return {
-      model:{
-        name:'',
-        tel:'',
-        carNumber:'',
-        carType:'',
-        comeInTime:''
+      model: {
+        name: "",
+        tel: "",
+        carNumber: "",
+        carType: "",
+        comeInTime: "",
       },
-      schema:{
-        fields:[
+      schema: {
+        fields: [
           {
-            type: 'input',
-            modelKey: 'name',
-            label: '姓名',
+            type: "input",
+            modelKey: "name",
+            label: "姓名",
             props: {
-              placeholder: '请输入'
+              placeholder: "请输入",
             },
             rules: {
-              required: true
+              required: true,
             },
             // validating when blur
-            trigger: 'blur'
+            trigger: "blur",
           },
           {
-            type: 'input',
-            modelKey: 'tel',
-            label: '手机号',
+            type: "input",
+            modelKey: "tel",
+            label: "手机号",
             props: {
-              placeholder: '请输入'
+              placeholder: "请输入",
             },
             rules: {
-              required: true
+              required: true,
             },
             // validating when blur
-            trigger: 'blur'
+            trigger: "blur",
           },
           {
-            type: 'input',
-            modelKey: 'carNumber',
-            label: '车牌号',
+            type: "input",
+            modelKey: "carNumber",
+            label: "车牌号",
             props: {
-              placeholder: '请输入'
+              placeholder: "请输入",
             },
             rules: {
-              required: true
+              required: true,
             },
             // validating when blur
-            trigger: 'blur'
+            trigger: "blur",
           },
           {
-            type: 'select',
-            modelKey: 'carType',
-            label: '车型',
+            type: "select",
+            modelKey: "carType",
+            label: "车型",
             props: {
-              options: [2015, 2016, 2017, 2018, 2019, 2020]
+              options: ["小轿车", "SUV", "面包车", "大货车"],
             },
             rules: {
-              required: true
-            }
+              required: true,
+            },
           },
           {
-            type: 'input',
-            modelKey: 'comeInTime',
-            label: '入圆时间',
+            type: "input",
+            modelKey: "comeInTime",
+            label: "入圆时间",
             props: {
-              placeholder: '请输入'
+              placeholder: "请输入",
             },
             rules: {
-              required: true
+              required: true,
             },
             // validating when blur
-            trigger: 'blur'
+            trigger: "blur",
           },
           {
-            type: 'submit',
-            label: '提交'
+            type: "submit",
+            label: "提交",
           },
-        ]
-      }
-    }
+        ],
+      },
+    };
   },
-  methods:{
-    submitHandler(e,model){
-      e.preventDefault()
-      console.log(e,model)
+  methods: {
+    submitHandler(e, model) {
+      e.preventDefault();
+      this.$router.push({ name: "Recorded" });
     },
-    validateHandler(result){
-      this.validity = result.validity
-      this.valid = result.valid
-    }
-  }
-}
+    validateHandler(result) {
+      this.validity = result.validity;
+      this.valid = result.valid;
+    },
+  },
+};
 </script>
 
 <style scoped lang="stylus">
@@ -150,5 +150,4 @@ export default {
   width 90%
 >>>.cube-input-field
   text-align center
-
 </style>

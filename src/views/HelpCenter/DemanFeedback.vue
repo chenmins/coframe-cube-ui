@@ -16,7 +16,7 @@
 <script>
 import CommentBox from "@/components/HelpCenter/CommentBox";
 import ReplayBox from "@/components/HelpCenter/ReplayBox";
-import {mapActions, mapState} from "vuex";
+import { mapActions, mapState } from "vuex";
 
 export default {
   name: "DemanFeedback",
@@ -27,26 +27,25 @@ export default {
     };
   },
   created() {
-    this.initData({dispatch:this.dispatch,type:'Feedbacks',controller:'queryDemandFeedback'})
+    this.initData({
+      dispatch: this.dispatch,
+      type: "Feedbacks",
+      controller: "queryDemandFeedback",
+    });
   },
   mounted() {
-    document.querySelector(".cube-scroll-list-wrapper").style.paddingBottom = "100px";
+    document.querySelector(".chat_wapper").style.paddingBottom = "800px";
   },
   methods: {
-    ...mapActions('HelpCenter',['initData'])
-
+    ...mapActions("HelpCenter", ["initData"]),
   },
-  computed:{
-    ...mapState('HelpCenter',['FeedbacksData']),
-  }
+  computed: {
+    ...mapState("HelpCenter", ["FeedbacksData"]),
+  },
 };
 </script>
 
 <style scoped lang="stylus">
-//>>>.cube-scroll-list-wrapper {
-//  padding-bottom: 100px;
-//}
-
 #DemanFeedback_app {
   font-size: 14px;
   background-color: rgb(249, 249, 249);

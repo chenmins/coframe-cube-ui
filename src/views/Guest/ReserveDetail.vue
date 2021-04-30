@@ -1,12 +1,15 @@
 <template>
   <div id="ReserveDetail">
-    <TitleNav
-        bgc-color="#fff"
-    >
+    <TitleNav bgc-color="#fff">
       <div class="top">
         <div class="top_top">
           <!--          <div class="left"></div>-->
-          <Icon svg-name="four" style="margin-right: 12px" height="44px" width="44px"></Icon>
+          <Icon
+              svg-name="four"
+              style="margin-right: 12px"
+              height="44px"
+              width="44px"
+          ></Icon>
           <div class="right">
             <div class="title">合作方案讨论</div>
             <div class="right_bottom">
@@ -30,68 +33,98 @@
           </div>
         </div>
       </div>
-      <Icon svg-name="guest-forback" class-name="icon_status" height="95" width="95"></Icon>
+      <Icon
+          svg-name="guest-forback"
+          class-name="icon_status"
+          height="95"
+          width="95"
+      ></Icon>
       <DetailBox></DetailBox>
-      <LayOut class="flow" style="margin:0 12px 20px">
+      <LayOut class="flow" style="margin: 0 12px 20px">
         <div class="title">审批流程</div>
         <ul class="approve_ul">
           <li>
-            <Icon class-name="status_svg" svg-name="guest-appro" height="14px" width="14px"></Icon>
+            <Icon
+                class-name="status_svg"
+                svg-name="guest-appro"
+                height="14px"
+                width="14px"
+            ></Icon>
             <img
                 src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__15b1c74062335e999ca5b36fd025fed4.svg"
-                alt="">
+                alt=""
+            />
             <div class="approve">
-              <div style="display: flex;flex-direction: column;align-items: flex-start">
+              <div style="display: flex; flex-direction: column; align-items: flex-start">
                 <span class="name">张明</span>
                 <span class="status appro">审批中</span>
               </div>
               <div class="time">
-                <span>12/21  16:00 </span>
+                <span>12/21 16:00 </span>
               </div>
             </div>
           </li>
           <li>
-            <Icon class-name="status_svg" svg-name="guest-agree" height="14px" width="14px"></Icon>
+            <Icon
+                class-name="status_svg"
+                svg-name="guest-agree"
+                height="14px"
+                width="14px"
+            ></Icon>
             <img
                 src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__15b1c74062335e999ca5b36fd025fed4.svg"
-                alt="">
+                alt=""
+            />
 
             <div class="approve">
-              <div style="display: flex;flex-direction: column;align-items: flex-start">
+              <div style="display: flex; flex-direction: column; align-items: flex-start">
                 <span class="name">张明</span>
-                <span class="status " style="color: #999">审批人：易烊千玺</span>
+                <span class="status" style="color: #999">审批人：易烊千玺</span>
               </div>
               <div class="time">
                 <span class="agree">同意</span>
               </div>
             </div>
           </li>
-          <li style="margin-bottom:-10px">
-            <Icon class-name="status_svg" svg-name="guest-reject-min" height="14px" width="14px"></Icon>
+          <li style="margin-bottom: -10px">
+            <Icon
+                class-name="status_svg"
+                svg-name="guest-reject-min"
+                height="14px"
+                width="14px"
+            ></Icon>
             <img
                 src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__15b1c74062335e999ca5b36fd025fed4.svg"
-                alt="">
+                alt=""
+            />
             <div class="approve">
-              <div style="display: flex;flex-direction: column;align-items: flex-start">
+              <div style="display: flex; flex-direction: column; align-items: flex-start">
                 <span class="name">张明</span>
-                <span class="status " style="color: #999">审批人：易烊千玺</span>
+                <span class="status" style="color: #999">审批人：易烊千玺</span>
               </div>
               <div class="time">
                 <span class="reject">已拒绝</span>
               </div>
             </div>
-
           </li>
           <li class="avatar" style="margin-left: 18px">
-            <div style="padding: 10px 14px;background-color: #F5F6FA;border-radius: 8px">
+            <div
+                style="padding: 10px 14px; background-color: #f5f6fa; border-radius: 8px"
+            >
               这是拒绝理由哦这是拒绝理由哦这是拒绝理由哦这是拒绝理由哦这是拒绝理由哦这是拒绝理由哦
             </div>
           </li>
           <li class="send" style="margin-top: -10px">
-            <Icon class-name="status_svg" svg-name="guest-reject-min" height="14px" width="14px"></Icon>
+            <Icon
+                class-name="status_svg"
+                svg-name="guest-reject-min"
+                height="14px"
+                width="14px"
+            ></Icon>
             <img
                 src="https://axure-file.lanhuapp.com/1bd99c9f-823c-4505-a248-0fe8d210da20__15b1c74062335e999ca5b36fd025fed4.svg"
-                alt="">
+                alt=""
+            />
             <div class="approve">
               <span>抄送</span>
             </div>
@@ -100,8 +133,8 @@
       </LayOut>
     </TitleNav>
     <footer>
-      <button class="rej" @click="$router.push({name:'RejectConfirm'})">拒绝</button>
-      <button class="pass">通过</button>
+      <button class="rej" @click="$router.push({ name: 'RejectConfirm' })">拒绝</button>
+      <button class="pass" @click="$router.push({ name: 'Approve' })">通过</button>
     </footer>
   </div>
 </template>
@@ -113,79 +146,79 @@ import Button from "@/components/UI/Button";
 export default {
   name: "ReserveDetail",
   components: {
-    DetailBox, Button
+    DetailBox,
+    Button,
   },
   data() {
     return {
-      status: 'approve',
+      status: "approve",
       options: {
         scrollToInvalidField: true,
-        layout: 'standard' // classic fresh
+        layout: "standard", // classic fresh
       },
       validity: {},
       valid: undefined,
       model: {
-        textareaValue: '',
+        textareaValue: "",
       },
       schema: {
         groups: [
           {
             fields: [
               {
-                type: 'textarea',
-                modelKey: 'textareaValue',
-                label: '拒绝理由',
+                type: "textarea",
+                modelKey: "textareaValue",
+                label: "拒绝理由",
                 props: {
-                  placeholder: '填写拒绝理由'
+                  placeholder: "填写拒绝理由",
                 },
                 rules: {
-                  required: false
+                  required: false,
                 },
                 // debounce validate
                 // if set to true, the default debounce time will be 200(ms)
-                debounce: 100
-              }
-            ]
+                debounce: 100,
+              },
+            ],
           },
           {
             fields: [
               {
-                type: 'reset',
-                label: '通过'
+                type: "reset",
+                label: "通过",
               },
               {
-                type: 'submit',
-                label: '拒绝',
-              }
-            ]
-          }
-        ]
+                type: "submit",
+                label: "拒绝",
+              },
+            ],
+          },
+        ],
       },
-
-    }
+    };
   },
 
   methods: {
     hiddenButton() {
-      this.schema.groups[1].fields = []
+      this.schema.groups[1].fields = [];
     },
     submitHandler(e) {
-      e.preventDefault()
-      this.status = ''
-      this.hiddenButton()
-      console.log('submit', e)
+      e.preventDefault();
+      this.status = "";
+      this.hiddenButton();
+      console.log("submit", e);
     },
     validateHandler(result) {
-      this.validity = result.validity
-      this.valid = result.valid
+      this.validity = result.validity;
+      this.valid = result.valid;
     },
     resetHandler(e) {
-      this.status = 'agree'
-      this.hiddenButton()
-      console.log('reset', e)
-    }
-  }
-}
+      this.status = "agree";
+      this.hiddenButton();
+      console.log("reset", e);
+    },
+  },
+};
 </script>
 
 <style scoped lang="stylus">
@@ -371,5 +404,4 @@ footer
       div
         display flex
         align-items center
-
 </style>

@@ -1,12 +1,19 @@
 <template>
   <ApproveContainer
-    :tabs="tabs"
-    :selectedLabel="selectedLabel"
-    @changeHandle="changeHandle"
+      :tabs="tabs"
+      :selectedLabel="selectedLabel"
+      @changeHandle="changeHandle"
   >
     <Card
-      v-for="approve in approveLists"
-      @clicked="approve.state !== '审批中'?'':$router.push({ name: 'ApprovalDetail', params: {id:approve.code, info: approve } })"
+        v-for="approve in approveLists"
+        @clicked="
+        approve.state !== '审批中'
+          ? ''
+          : $router.push({
+              name: 'ApprovalDetail',
+              params: { id: approve.code, info: approve },
+            })
+      "
     >
       <div class="title">
         <div class="dot"></div>
@@ -42,10 +49,10 @@
       </div>
       <template v-if="arrived">
         <Tag
-          v-if="approve.state === '审批中'"
-          color="#fff"
-          class="tag"
-          :background-color="approve.state === '审批中' ? '#F5BA39' : '#42b983'"
+            v-if="approve.state === '审批中'"
+            color="#fff"
+            class="tag"
+            :background-color="approve.state === '审批中' ? '#F5BA39' : '#42b983'"
         >
           {{ approve.state }}
         </Tag>
@@ -123,9 +130,9 @@ export default {
           break;
         case "已完成":
           this.getReviewList({ pass: 1 });
-        // this.approves = this.$store.state.Guest.approves.filter(
-        //     (i) => i.approved === true
-        // );
+          // this.approves = this.$store.state.Guest.approves.filter(
+          //     (i) => i.approved === true
+          // );
       }
     },
   },

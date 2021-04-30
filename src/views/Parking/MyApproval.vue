@@ -1,43 +1,73 @@
 <template>
-  <div id="my_approval">
+  <div id="my_approval" style="height: 100vh; overflow: hidden">
     <ApproveContainer :tabs="tabs" :selected-label="selectLabel">
-      <LayOut @clicked="$router.push({name:'Parking-ApprovalDetail',params:{id:1}})" class="item">
-        <div class="header">
-          <div>
-            <h1>技术部-王小二</h1>
-            <span>申请人</span>
-          </div>
+      <template slot="default">
+        <div style="height: calc(100vh - 190px); overflow: hidden">
+          <cube-scroll ref="scroll" style="height: calc(100vh - 250px)">
+            <LayOut
+                @clicked="
+                $router.push({ name: 'Parking-ApprovalDetail', params: { id: 1 } })
+              "
+                class="item"
+            >
+              <div class="header">
+                <div>
+                  <h1>技术部-王小二</h1>
+                  <span>申请人</span>
+                </div>
+              </div>
+              <div class="body">
+                <div><span>车牌号：</span> 京A BL192s</div>
+                <div><span>姓名：</span> 京A BL192</div>
+                <div><span>入院日期：</span> 2020-12-20 15:00</div>
+              </div>
+              <Tag
+                  class="tag"
+                  :color="complete ? '#666666' : '#fff'"
+                  :background-color="!complete ? '#F5BA39' : '#EDEDED'"
+              >
+                {{ !complete ? "待审批" : "已完成" }}
+              </Tag>
+              <Icon
+                  v-if="complete"
+                  svg-name="guest-complete"
+                  class-name="complete_svg"
+              ></Icon>
+            </LayOut>
+            <LayOut
+                @clicked="
+                $router.push({ name: 'Parking-ApprovalDetail', params: { id: 1 } })
+              "
+                class="item"
+            >
+              <div class="header">
+                <div>
+                  <h1>技术部-王小二</h1>
+                  <span>申请人</span>
+                </div>
+              </div>
+              <div class="body">
+                <div><span>车牌号：</span> 京A BL192s</div>
+                <div><span>姓名：</span> 京A BL192</div>
+                <div><span>入院日期：</span> 2020-12-20 15:00</div>
+              </div>
+              <Tag
+                  class="tag"
+                  :color="!complete ? '#666666' : '#fff'"
+                  :background-color="complete ? '#F5BA39' : '#EDEDED'"
+              >
+                {{ complete ? "待审批" : "已完成" }}
+              </Tag>
+              <Icon
+                  v-if="!complete"
+                  svg-name="guest-complete"
+                  class-name="complete_svg"
+              ></Icon>
+            </LayOut>
+          </cube-scroll>
         </div>
-        <div class="body">
-          <div><span>车牌号：</span> 京A BL192s</div>
-          <div><span>姓名：</span> 京A BL192</div>
-          <div><span>入院日期：</span> 2020-12-20 15:00</div>
-        </div>
-        <Tag class="tag" :color="complete?'#666666':'#fff'" :background-color="!complete?'#F5BA39':'#EDEDED'">
-          {{!complete?'待审批':'已完成'}}
-        </Tag>
-        <Icon v-if="complete" svg-name="guest-complete" class-name="complete_svg"></Icon>
-      </LayOut>
-      <LayOut @clicked="$router.push({name:'Parking-ApprovalDetail',params:{id:1}})" class="item">
-        <div class="header">
-          <div>
-            <h1>技术部-王小二</h1>
-            <span>申请人</span>
-          </div>
-        </div>
-        <div class="body">
-          <div><span>车牌号：</span> 京A BL192s</div>
-          <div><span>姓名：</span> 京A BL192</div>
-          <div><span>入院日期：</span> 2020-12-20 15:00</div>
-        </div>
-        <Tag class="tag" :color="!complete?'#666666':'#fff'" :background-color="complete?'#F5BA39':'#EDEDED'">
-          {{complete?'待审批':'已完成'}}
-        </Tag>
-        <Icon v-if="!complete" svg-name="guest-complete" class-name="complete_svg"></Icon>
-      </LayOut>
+      </template>
     </ApproveContainer>
-
-
   </div>
 </template>
 
@@ -47,22 +77,23 @@ import ApproveContainer from "@/components/UI/ApproveContainer";
 
 export default {
   name: "MyApproval",
-  components: {ApproveContainer, SlideNav},
+  components: { ApproveContainer, SlideNav },
   data() {
     return {
-      complete:true,
-      selectLabel: '待审批',
+      complete: true,
+      selectLabel: "待审批",
       tabs: [
         {
-          label: '待审批'
-        }, {
-          label: '已完成'
-        }
-      ]
-    }
+          label: "待审批",
+        },
+        {
+          label: "已完成",
+        },
+      ],
+    };
   },
-  methods: {}
-}
+  methods: {},
+};
 </script>
 
 <style scoped lang="stylus">

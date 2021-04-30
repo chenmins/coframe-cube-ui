@@ -11,37 +11,37 @@ import SlideNav from "@/components/Cultural/SlideNav";
 export default {
   name: "index",
   components: {
-    SlideNav
+    SlideNav,
   },
   data() {
     return {
-      tabMap:{
-        '车辆申请': 'Parking',
-        '我的审批': 'MyApproval',
-        '外来车辆备案': 'OutsideCar',
+      tabMap: {
+        车辆申请: "Parking",
+        我的审批: "MyApproval",
+        外来车辆备案: "OutsideCar",
       },
       tabs: [
         {
-          label: '车辆申请',
-          icon: 'Parking-home',
-
-        }, {
-          label: '我的审批',
-          icon: 'Parking-shuazi'
-
-        },{
-          label: '外来车辆备案',
-          icon: 'Parking-dui'
-
-        }]
-    }
+          label: "车辆申请",
+          icon: "Parking-home",
+        },
+        {
+          label: "我的审批",
+          icon: "Parking-shuazi",
+        },
+        {
+          label: "外来车辆备案",
+          icon: "Parking-dui",
+        },
+      ],
+    };
   },
   methods: {
     demo() {
-      console.log(this.$route.name)
-    }
-  }
-}
+      console.log(this.$route.name);
+    },
+  },
+};
 </script>
 
 <style scoped lang="stylus">
@@ -65,5 +65,4 @@ export default {
 
     .active
       color $custom-active-color
-
 </style>

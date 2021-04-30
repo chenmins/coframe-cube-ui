@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img width="100%" src="../../assets/icons/question.png" alt=""/>
+    <img width="100%" src="../../assets/icons/question.png" alt="" />
     <div style="position: relative; padding-top: 47px">
       <div class="header">
         <Search :value="keywords" @search="search" @reflash="reFlash"></Search>
@@ -20,15 +20,9 @@
             .catch(() => {})
         "
       >
-        <span
-            style="
-            display: flex;
-            align-items: center;
-            color: #0f1826;
-            height: 48px;
-          "
-        >{{ item.title }}</span
-        >
+        <span style="display: flex; align-items: center; color: #0f1826; height: 48px">{{
+            item.title
+          }}</span>
         <i class="cubeic-arrow icon-arrow"></i>
       </Card>
     </div>
@@ -38,7 +32,7 @@
 <script>
 import Search from "@/components/UI/Search";
 import Card from "@/components/UI/Card";
-import {mapActions, mapState} from "vuex";
+import { mapActions, mapState } from "vuex";
 
 export default {
   name: "Question",
@@ -52,8 +46,7 @@ export default {
     };
   },
   computed: {
-    ...mapState('HelpCenter', ['QuestionsData'])
-
+    ...mapState("HelpCenter", ["QuestionsData"]),
   },
   beforeRouteLeave(to, from, next) {
     if (to.fullPath.includes("ProductInc")) {
@@ -62,23 +55,31 @@ export default {
     next();
   },
   created() {
-    this.initData({dispatch: this.dispatch, type: 'Questions', controller: 'queryByTitle'})
+    this.initData({
+      dispatch: this.dispatch,
+      type: "Questions",
+      controller: "queryByTitle",
+    });
   },
   beforeMount() {
     this.listData = this.$store.state.HelpCenter.listData;
   },
   methods: {
-    ...mapActions('HelpCenter', ['searchSubmit','initData']),
+    ...mapActions("HelpCenter", ["searchSubmit", "initData"]),
     search(e) {
-      this.keywords = e
+      this.keywords = e;
       this.searchSubmit({
         dispatch: this.dispatch,
-        keywords: e
-      })
+        keywords: e,
+      });
     },
     reFlash(e) {
-      this.keywords = ''
-      this.initData({dispatch: this.dispatch, type: 'Questions', controller: 'queryByTitle'})
+      this.keywords = "";
+      this.initData({
+        dispatch: this.dispatch,
+        type: "Questions",
+        controller: "queryByTitle",
+      });
     },
   },
 };
