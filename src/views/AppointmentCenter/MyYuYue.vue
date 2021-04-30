@@ -39,7 +39,7 @@
               </div>
               <div class="right_bottom" v-show="!toggleBreak">
                 <span v-if="reserve.state === '已取消'" @click.stop>已取消</span>
-                <span v-else @click.stop="test(reserve)" style="color: #333">取消</span>
+                <span v-else @click.stop="Cancel(reserve)" style="color: #333">取消</span>
               </div>
               <template v-if="reserve.state === '已签到'">
                 <!--                <Tag-->
@@ -123,7 +123,7 @@ export default {
       //   }).show()
       // }
     },
-    async test(reserve) {
+    async Cancel(reserve) {
       if (this.once) {
         await this.updateCancelForBarber({barberId: reserve.id});
         this.once = false
@@ -134,6 +134,7 @@ export default {
     },
     ...mapMutations("barber", ["setState"]),
     ...mapActions("barber", ["queryByStateForBarber", "updateCancelForBarber",'updateSignForBarber']),
+
     changeHandle(e) {
       this.toggleBreak = false;
       if (e === "已完成") {

@@ -117,11 +117,14 @@ export default {
       this.listData = this.printing;
     } else if (type === "warehouse") {
       this.listData = this.warehouse;
+    } else if (type === "lingdian") {
+      this.listData = this.restaurant;
     }
   },
   methods: {
     ...mapActions("barber", ["addBarberUser"]),
     ...mapActions("Infirmary", ["addClinicUser"]),
+    ...mapActions("restaurant", ["addZeroRestaurantUser"]),
     changeHandle(e) {
       this.yuyue = !this.yuyue;
     },
@@ -178,6 +181,14 @@ export default {
           console.log("选择了文印室");
         } else if (type === "kufang") {
           console.log("选择了库房");
+        } else if (type === "lingdian") {
+          this.addZeroRestaurantUser({ id: id }).then((resp) => {
+            if (resp.data.body === 1) {
+              resolve();
+            } else {
+              reject();
+            }
+          });
         }
       });
     },
@@ -187,6 +198,7 @@ export default {
     ...mapState("Infirmary", ["infirmary"]),
     ...mapState("printing", ["printing"]),
     ...mapState("warehouse", ["warehouse"]),
+    ...mapState("restaurant", ["restaurant"]),
   },
 };
 </script>

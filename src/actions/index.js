@@ -1,6 +1,15 @@
 //Do not modify this file, it will be auto generated
 import vuexDecorator from '@lib/vuexDecorator';
 
+import DictApiController from './platform-user/DictApiController';
+import AuthApiController from './platform-user/AuthApiController';
+import ScheduleControllerImpl from './platform-schedule/ScheduleControllerImpl';
+import WorkCartControllerImpl from './platform-card/WorkCartControllerImpl';
+import PipeReportController from './platform-health/PipeReportController';
+import HealthApiController from './platform-health/HealthApiController';
+import HelpControllerImpl from './platform-help/HelpControllerImpl';
+import CulturalControllerImpl from './platform-cultural/CulturalControllerImpl';
+import BarberControllerImpl from './platform-order/BarberControllerImpl';
 import fileupload from './coframe-eos8/fileupload';
 import agent from './coframe-eos8/agent';
 import process from './coframe-eos8/process';
@@ -41,17 +50,17 @@ import PartyManager from './coframe-eos8/PartyManager';
 import RoleManager from './coframe-eos8/RoleManager';
 import UserManager from './coframe-eos8/UserManager';
 import win7Service from './coframe-eos8/win7Service';
-import DictApiController from './platform-user/DictApiController';
-import AuthApiController from './platform-user/AuthApiController';
-import PipeReportController from './platform-health/PipeReportController';
-import HealthApiController from './platform-health/HealthApiController';
-import HelpControllerImpl from './platform-help/HelpControllerImpl';
-import WorkCartControllerImpl from './platform-card/WorkCartControllerImpl';
-import CulturalControllerImpl from './platform-cultural/CulturalControllerImpl';
-import ScheduleControllerImpl from './platform-schedule/ScheduleControllerImpl';
-import BarberControllerImpl from './platform-order/BarberControllerImpl';
 
 export default {
+    DictApiController: vuexDecorator('DictApiController',DictApiController),
+    AuthApiController: vuexDecorator('AuthApiController',AuthApiController),
+    ScheduleControllerImpl: vuexDecorator('ScheduleControllerImpl',ScheduleControllerImpl),
+    WorkCartControllerImpl: vuexDecorator('WorkCartControllerImpl',WorkCartControllerImpl),
+    PipeReportController: vuexDecorator('PipeReportController',PipeReportController),
+    HealthApiController: vuexDecorator('HealthApiController',HealthApiController),
+    HelpControllerImpl: vuexDecorator('HelpControllerImpl',HelpControllerImpl),
+    CulturalControllerImpl: vuexDecorator('CulturalControllerImpl',CulturalControllerImpl),
+    BarberControllerImpl: vuexDecorator('BarberControllerImpl',BarberControllerImpl),
     fileupload: vuexDecorator('fileupload',fileupload),
     agent: vuexDecorator('agent',agent),
     process: vuexDecorator('process',process),
@@ -92,13 +101,4 @@ export default {
     RoleManager: vuexDecorator('RoleManager',RoleManager),
     UserManager: vuexDecorator('UserManager',UserManager),
     win7Service: vuexDecorator('win7Service',win7Service),
-    DictApiController: vuexDecorator('DictApiController',DictApiController),
-    AuthApiController: vuexDecorator('AuthApiController',AuthApiController),
-    PipeReportController: vuexDecorator('PipeReportController',PipeReportController),
-    HealthApiController: vuexDecorator('HealthApiController',HealthApiController),
-    HelpControllerImpl: vuexDecorator('HelpControllerImpl',HelpControllerImpl),
-    WorkCartControllerImpl: vuexDecorator('WorkCartControllerImpl',WorkCartControllerImpl),
-    CulturalControllerImpl: vuexDecorator('CulturalControllerImpl',CulturalControllerImpl),
-    ScheduleControllerImpl: vuexDecorator('ScheduleControllerImpl',ScheduleControllerImpl),
-    BarberControllerImpl: vuexDecorator('BarberControllerImpl',BarberControllerImpl),
 }
