@@ -32,5 +32,6 @@ module.exports = {
             name: 'platform-order',
             swaggerUrl: 'http://192.168.200.150:18088/v2/api-docs',
         },
+        
     ]
 }

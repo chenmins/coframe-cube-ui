@@ -68,6 +68,71 @@ let HealthApiController = {
     getHealthInfo: {controller: 'HealthApiController' , method: 'getHealthInfo'}, // 获取人员健康信息
     updateHealthInfo: {controller: 'HealthApiController' , method: 'updateHealthInfo'}, // 根据人员id更新人员健康录入信息
 };
+ //预约中心
+let BarberControllerImpl = {
+    __name: 'BarberControllerImpl',
+    addBarber: {controller: 'BarberControllerImpl' , method: 'addBarber'}, // 发布理发室
+    addBarberUser: {controller: 'BarberControllerImpl' , method: 'addBarberUser'}, // 预约理发室
+    addClinic: {controller: 'BarberControllerImpl' , method: 'addClinic'}, // 发布医务室
+    addClinicUser: {controller: 'BarberControllerImpl' , method: 'addClinicUser'}, // 预约医务室
+    addPrintingRoom: {controller: 'BarberControllerImpl' , method: 'addPrintingRoom'}, // 发布医务室
+    addPrintingRoomUser: {controller: 'BarberControllerImpl' , method: 'addPrintingRoomUser'}, // 预约医务室
+    addStoreHouse: {controller: 'BarberControllerImpl' , method: 'addStoreHouse'}, // 发布库房
+    addStoreHouseUser: {controller: 'BarberControllerImpl' , method: 'addStoreHouseUser'}, // 预约库房
+    addZeroRestaurant: {controller: 'BarberControllerImpl' , method: 'addZeroRestaurant'}, // 发布零点餐厅
+    addZeroRestaurantUser: {controller: 'BarberControllerImpl' , method: 'addZeroRestaurantUser'}, // 预约零点餐厅
+    deleteBarber: {controller: 'BarberControllerImpl' , method: 'deleteBarber'}, // 删除一个发布的理发室信息
+    deleteClinic: {controller: 'BarberControllerImpl' , method: 'deleteClinic'}, // 删除一个发布的医务室信息
+    deletePrintingRoom: {controller: 'BarberControllerImpl' , method: 'deletePrintingRoom'}, // 删除一个发布的医务室信息
+    deleteStoreHouse: {controller: 'BarberControllerImpl' , method: 'deleteStoreHouse'}, // 删除一个发布的库房信息
+    deleteZeroRestaurant: {controller: 'BarberControllerImpl' , method: 'deleteZeroRestaurant'}, // 删除一个发布的零点餐厅信息
+    queryAllForBarber: {controller: 'BarberControllerImpl' , method: 'queryAllForBarber'}, // 管理员查询全部预约情况
+    queryAllForClinic: {controller: 'BarberControllerImpl' , method: 'queryAllForClinic'}, // 管理员查询全部预约情况
+    queryAllForPrintingRoom: {controller: 'BarberControllerImpl' , method: 'queryAllForPrintingRoom'}, // 管理员查询全部预约情况
+    queryAllForStoreHouse: {controller: 'BarberControllerImpl' , method: 'queryAllForStoreHouse'}, // 管理员查询全部预约情况
+    queryAllForZeroRestaurant: {controller: 'BarberControllerImpl' , method: 'queryAllForZeroRestaurant'}, // 管理员查询全部预约情况
+    queryByMonthForBarber: {controller: 'BarberControllerImpl' , method: 'queryByMonthForBarber'}, // 根据日期进行查询预约情况
+    queryByMonthForClinic: {controller: 'BarberControllerImpl' , method: 'queryByMonthForClinic'}, // 根据日期进行查询预约情况
+    queryByMonthForPrintingRoom: {controller: 'BarberControllerImpl' , method: 'queryByMonthForPrintingRoom'}, // 根据日期进行查询预约情况
+    queryByMonthForStoreHouse: {controller: 'BarberControllerImpl' , method: 'queryByMonthForStoreHouse'}, // 根据日期进行查询预约情况
+    queryByMonthForZeroRestaurant: {controller: 'BarberControllerImpl' , method: 'queryByMonthForZeroRestaurant'}, // 根据日期进行查询预约情况
+    queryByStateForBarber: {controller: 'BarberControllerImpl' , method: 'queryByStateForBarber'}, // 根据预约状态查询理发室的预约情况
+    queryByStateForClinic: {controller: 'BarberControllerImpl' , method: 'queryByStateForClinic'}, // 根据预约状态查询医务室的预约情况
+    queryByStateForPrintingRoom: {controller: 'BarberControllerImpl' , method: 'queryByStateForPrintingRoom'}, // 根据预约状态查询医务室的预约情况
+    queryByStateForStoreHouse: {controller: 'BarberControllerImpl' , method: 'queryByStateForStoreHouse'}, // 根据预约状态查询库房的预约情况
+    queryByStateForZeroRestaurant: {controller: 'BarberControllerImpl' , method: 'queryByStateForZeroRestaurant'}, // 根据预约状态查询零点餐厅的预约情况
+    queryByTypeAndDateForBarber: {controller: 'BarberControllerImpl' , method: 'queryByTypeAndDateForBarber'}, // 根据预约类型和日期查询理发室的预约情况  名额
+    queryByTypeAndDateForClinic: {controller: 'BarberControllerImpl' , method: 'queryByTypeAndDateForClinic'}, // 根据预约类型和日期查询医务室的预约情况  名额
+    queryByTypeAndDateForPrintingRoom: {controller: 'BarberControllerImpl' , method: 'queryByTypeAndDateForPrintingRoom'}, // 根据预约类型和日期查询医务室的预约情况  名额
+    queryByTypeAndDateForStoreHouse: {controller: 'BarberControllerImpl' , method: 'queryByTypeAndDateForStoreHouse'}, // 根据预约类型和日期查询库房的预约情况  名额
+    queryByTypeAndDateForZeroRestaurant: {controller: 'BarberControllerImpl' , method: 'queryByTypeAndDateForZeroRestaurant'}, // 根据预约类型和日期查询零点餐厅的预约情况  名额
+    updateBarber: {controller: 'BarberControllerImpl' , method: 'updateBarber'}, // 修改发布的理发室信息
+    updateCancelForBarber: {controller: 'BarberControllerImpl' , method: 'updateCancelForBarber'}, // 取消理发室预约
+    updateCancelForClinic: {controller: 'BarberControllerImpl' , method: 'updateCancelForClinic'}, // 取消医务室预约
+    updateCancelForPrintingRoom: {controller: 'BarberControllerImpl' , method: 'updateCancelForPrintingRoom'}, // 取消医务室预约
+    updateCancelForStoreHouse: {controller: 'BarberControllerImpl' , method: 'updateCancelForStoreHouse'}, // 取消库房预约
+    updateCancelForZeroRestaurant: {controller: 'BarberControllerImpl' , method: 'updateCancelForZeroRestaurant'}, // 取消零点餐厅预约
+    updateClinic: {controller: 'BarberControllerImpl' , method: 'updateClinic'}, // 修改发布的医务室信息
+    updatePrintingRoom: {controller: 'BarberControllerImpl' , method: 'updatePrintingRoom'}, // 修改发布的医务室信息
+    updateSignForBarber: {controller: 'BarberControllerImpl' , method: 'updateSignForBarber'}, // 理发室预约签到
+    updateSignForClinic: {controller: 'BarberControllerImpl' , method: 'updateSignForClinic'}, // 医务室预约签到
+    updateSignForPrintingRoom: {controller: 'BarberControllerImpl' , method: 'updateSignForPrintingRoom'}, // 医务室预约签到
+    updateSignForStoreHouse: {controller: 'BarberControllerImpl' , method: 'updateSignForStoreHouse'}, // 库房预约签到
+    updateSignForZeroRestaurant: {controller: 'BarberControllerImpl' , method: 'updateSignForZeroRestaurant'}, // 零点餐厅预约签到
+    updateStoreHouse: {controller: 'BarberControllerImpl' , method: 'updateStoreHouse'}, // 修改发布的库房信息
+    updateZeroRestaurant: {controller: 'BarberControllerImpl' , method: 'updateZeroRestaurant'}, // 修改发布的零点餐厅信息
+};
+ //文化建设
+let CulturalControllerImpl = {
+    __name: 'CulturalControllerImpl',
+    addCommunicationCircle: {controller: 'CulturalControllerImpl' , method: 'addCommunicationCircle'}, // 添加一个交流圈（发帖子）
+    allPageSreach: {controller: 'CulturalControllerImpl' , method: 'allPageSreach'}, // 根据分页数据查询公告列表、企业新闻、交流圈
+    deleteCommunicationCircle: {controller: 'CulturalControllerImpl' , method: 'deleteCommunicationCircle'}, // 根据主键删除交流圈
+    fabulousCommunicationCircle: {controller: 'CulturalControllerImpl' , method: 'fabulousCommunicationCircle'}, // 根据交流圈主键点赞或取消点赞
+    getCommunicationCircleEntity: {controller: 'CulturalControllerImpl' , method: 'getCommunicationCircleEntity'}, // 根据交流圈主键获取交流圈详细信息与评论列表信息
+    getNotice: {controller: 'CulturalControllerImpl' , method: 'getNotice'}, // 根据主键查询公告
+    noticePageSreach: {controller: 'CulturalControllerImpl' , method: 'noticePageSreach'}, // 根据分页数据查询公告列表
+};
  //帮助中心
 let HelpControllerImpl = {
     __name: 'HelpControllerImpl',
@@ -85,51 +150,6 @@ let HelpControllerImpl = {
     queryDemandFeedback: {controller: 'HelpControllerImpl' , method: 'queryDemandFeedback'}, // 查询所有需求反馈
     queryProductIntroduction: {controller: 'HelpControllerImpl' , method: 'queryProductIntroduction'}, // 查询所有产品介绍
     updateDemandFeedbackType: {controller: 'HelpControllerImpl' , method: 'updateDemandFeedbackType'}, // 更改需求反馈的状态
-};
- //文化建设
-let CulturalControllerImpl = {
-    __name: 'CulturalControllerImpl',
-    addCommunicationCircle: {controller: 'CulturalControllerImpl' , method: 'addCommunicationCircle'}, // 添加一个交流圈（发帖子）
-    allPageSreach: {controller: 'CulturalControllerImpl' , method: 'allPageSreach'}, // 根据分页数据查询公告列表、企业新闻、交流圈
-    deleteCommunicationCircle: {controller: 'CulturalControllerImpl' , method: 'deleteCommunicationCircle'}, // 根据主键删除交流圈
-    fabulousCommunicationCircle: {controller: 'CulturalControllerImpl' , method: 'fabulousCommunicationCircle'}, // 根据交流圈主键点赞或取消点赞
-    getCommunicationCircleEntity: {controller: 'CulturalControllerImpl' , method: 'getCommunicationCircleEntity'}, // 根据交流圈主键获取交流圈详细信息与评论列表信息
-    getNotice: {controller: 'CulturalControllerImpl' , method: 'getNotice'}, // 根据主键查询公告
-    noticePageSreach: {controller: 'CulturalControllerImpl' , method: 'noticePageSreach'}, // 根据分页数据查询公告列表
-};
- //预约中心
-let BarberControllerImpl = {
-    __name: 'BarberControllerImpl',
-    addBarber: {controller: 'BarberControllerImpl' , method: 'addBarber'}, // 发布理发室
-    addBarberUser: {controller: 'BarberControllerImpl' , method: 'addBarberUser'}, // 预约理发室
-    addClinic: {controller: 'BarberControllerImpl' , method: 'addClinic'}, // 发布医务室
-    addClinicUser: {controller: 'BarberControllerImpl' , method: 'addClinicUser'}, // 预约医务室
-    addZeroRestaurant: {controller: 'BarberControllerImpl' , method: 'addZeroRestaurant'}, // 发布零点餐厅
-    addZeroRestaurantUser: {controller: 'BarberControllerImpl' , method: 'addZeroRestaurantUser'}, // 预约零点餐厅
-    deleteBarber: {controller: 'BarberControllerImpl' , method: 'deleteBarber'}, // 删除一个发布的理发室信息
-    deleteClinic: {controller: 'BarberControllerImpl' , method: 'deleteClinic'}, // 删除一个发布的医务室信息
-    deleteZeroRestaurant: {controller: 'BarberControllerImpl' , method: 'deleteZeroRestaurant'}, // 删除一个发布的零点餐厅信息
-    queryAllForBarber: {controller: 'BarberControllerImpl' , method: 'queryAllForBarber'}, // 管理员查询全部预约情况
-    queryAllForClinic: {controller: 'BarberControllerImpl' , method: 'queryAllForClinic'}, // 管理员查询全部预约情况
-    queryAllForZeroRestaurant: {controller: 'BarberControllerImpl' , method: 'queryAllForZeroRestaurant'}, // 管理员查询全部预约情况
-    queryByMonthForBarber: {controller: 'BarberControllerImpl' , method: 'queryByMonthForBarber'}, // 根据日期进行查询预约情况
-    queryByMonthForClinic: {controller: 'BarberControllerImpl' , method: 'queryByMonthForClinic'}, // 根据日期进行查询预约情况
-    queryByMonthForZeroRestaurant: {controller: 'BarberControllerImpl' , method: 'queryByMonthForZeroRestaurant'}, // 根据日期进行查询预约情况
-    queryByStateForBarber: {controller: 'BarberControllerImpl' , method: 'queryByStateForBarber'}, // 根据预约状态查询理发室的预约情况
-    queryByStateForClinic: {controller: 'BarberControllerImpl' , method: 'queryByStateForClinic'}, // 根据预约状态查询医务室的预约情况
-    queryByStateForZeroRestaurant: {controller: 'BarberControllerImpl' , method: 'queryByStateForZeroRestaurant'}, // 根据预约状态查询零点餐厅的预约情况
-    queryByTypeAndDateForBarber: {controller: 'BarberControllerImpl' , method: 'queryByTypeAndDateForBarber'}, // 根据预约类型和日期查询理发室的预约情况  名额
-    queryByTypeAndDateForClinic: {controller: 'BarberControllerImpl' , method: 'queryByTypeAndDateForClinic'}, // 根据预约类型和日期查询医务室的预约情况  名额
-    queryByTypeAndDateForZeroRestaurant: {controller: 'BarberControllerImpl' , method: 'queryByTypeAndDateForZeroRestaurant'}, // 根据预约类型和日期查询零点餐厅的预约情况  名额
-    updateBarber: {controller: 'BarberControllerImpl' , method: 'updateBarber'}, // 修改发布的理发室信息
-    updateCancelForBarber: {controller: 'BarberControllerImpl' , method: 'updateCancelForBarber'}, // 取消理发室预约
-    updateCancelForClinic: {controller: 'BarberControllerImpl' , method: 'updateCancelForClinic'}, // 取消医务室预约
-    updateCancelForZeroRestaurant: {controller: 'BarberControllerImpl' , method: 'updateCancelForZeroRestaurant'}, // 取消零点餐厅预约
-    updateClinic: {controller: 'BarberControllerImpl' , method: 'updateClinic'}, // 修改发布的医务室信息
-    updateSignForBarber: {controller: 'BarberControllerImpl' , method: 'updateSignForBarber'}, // 理发室预约签到
-    updateSignForClinic: {controller: 'BarberControllerImpl' , method: 'updateSignForClinic'}, // 医务室预约签到
-    updateSignForZeroRestaurant: {controller: 'BarberControllerImpl' , method: 'updateSignForZeroRestaurant'}, // 零点餐厅预约签到
-    updateZeroRestaurant: {controller: 'BarberControllerImpl' , method: 'updateZeroRestaurant'}, // 修改发布的零点餐厅信息
 };
  //fileupload
 let fileupload = {
@@ -553,9 +573,9 @@ export {
     WorkCartControllerImpl,
     PipeReportController,
     HealthApiController,
-    HelpControllerImpl,
-    CulturalControllerImpl,
     BarberControllerImpl,
+    CulturalControllerImpl,
+    HelpControllerImpl,
     fileupload,
     agent,
     process,

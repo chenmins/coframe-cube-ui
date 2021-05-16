@@ -1,40 +1,41 @@
 <template>
-  <div id="floor_select" :style="'background-color'+bgColor">
-    <TitleNav
-        bgc-color="#fff"
-    >
+  <div id="floor_select" :style="'background-color' + bgColor">
+    <TitleNav bgc-color="#fff">
       <LayOut class="bgcolor">
-        <LayOut style="margin-top: 12px;padding: 12px 20px">
+        <LayOut style="margin-top: 12px; padding: 12px 20px">
           <div class="title">选择新员工</div>
           <!--        @submit="submitHandler"-->
           <!--        @validate="validateHandler"-->
-          <cube-form :model="groupModel.firstModel"
-                     :schema="groupSchema.fristSchema"
-                     :options="{layout:'classic'}"
-                     class="form-control new-employee"
+          <cube-form
+            :model="groupModel.firstModel"
+            :schema="groupSchema.fristSchema"
+            :options="{ layout: 'classic' }"
+            class="form-control new-employee"
           >
             <cube-form-item :field="groupSchema.fristSchema.groups[0].fields[0]">
-
             </cube-form-item>
             <cube-form-item :field="groupSchema.fristSchema.groups[0].fields[1]">
-              <div class="time-show" @click="selectedTime">{{ groupModel.firstModel.date || '请选择' }}
-                <i class="cubeic-arrow" style="float: right;margin-right: 16px"></i>
+              <div class="time-show" @click="selectedTime">
+                {{ groupModel.firstModel.date || "请选择" }}
+                <i class="cubeic-arrow" style="float: right; margin-right: 16px"></i>
               </div>
             </cube-form-item>
-
           </cube-form>
         </LayOut>
       </LayOut>
-      <section class="time_part" v-for="(item,index) in groupModel.floorModel">
+      <section class="time_part" v-for="(item, index) in groupModel.floorModel">
         <div class="title">时间段</div>
-        <div class="content">{{ item.startTime }}-{{ item.endTime }}
-          <span style="color: #0099FF">{{ item.quota }}人</span>
+        <div class="content">
+          {{ item.startTime }}-{{ item.endTime }}
+          <span style="color: #0099ff">{{ item.quota }}人</span>
         </div>
-        <Icon svg-name="employee-close" class-name="close" @iconToggle="close(index)"></Icon>
+        <Icon
+          svg-name="employee-close"
+          class-name="close"
+          @iconToggle="close(index)"
+        ></Icon>
       </section>
-      <func-btn @clicked="add">
-        添加
-      </func-btn>
+      <func-btn @clicked="add"> 添加 </func-btn>
     </TitleNav>
     <div class="footer two">
       <cube-button type="submit" class="confirm" @click="confirm">提交</cube-button>
@@ -45,89 +46,86 @@
 <script>
 import Preview from "@/components/EmployeeCard/Preview";
 import FuncBtn from "@/views/AppointmentCenter/components/funcBtn";
-import {mapActions, mapState} from "vuex";
-
+import { mapActions, mapState } from "vuex";
 
 export default {
   name: "FloorSelect",
-  props: [
-    'Detail'
-  ],
+  props: ["Detail"],
   components: {
     FuncBtn,
-    Preview
+    Preview,
   },
   created() {
     this.groupModel.firstModel = {
       type: this.$route.params.key,
       date: this.$route.params.date,
-    }
+    };
 
-    this.groupModel.floorModel = this.$route.params.data.map(i => {
+    this.groupModel.floorModel = this.$route.params.data.map((i) => {
       return {
-        startTime: this.$dayjs(i.startTime).format('HH:mm'),
+        startTime: this.$dayjs(i.startTime).format("HH:mm"),
         quota: i.quota,
-        endTime: this.$dayjs(i.endTime).format('HH:mm'),
-      }
-    })
+        endTime: this.$dayjs(i.endTime).format("HH:mm"),
+      };
+    });
   },
   data() {
     return {
       dateSegmentData: [
         {
-          is: 'cube-date-picker',
-          title: '开始时间',
-          startColumn: 'hour',
+          is: "cube-date-picker",
+          title: "开始时间",
+          startColumn: "hour",
           min: [this.$dayjs().hour(), this.$dayjs().minute(), this.$dayjs().second()],
           max: [23, 59, 59],
         },
         {
-          is: 'cube-date-picker',
-          title: '结束时间',
-          startColumn: 'hour',
+          is: "cube-date-picker",
+          title: "结束时间",
+          startColumn: "hour",
           min: this.nexTime,
           max: [23, 59, 59],
-        }
+        },
       ],
       closeTypeArr: [
-        {text: '理发', value: '理发'},
-        {text: '护理', value: '护理'},
-        {text: '洗发', value: '洗发'}
+        { text: "理发", value: "理发" },
+        { text: "护理", value: "护理" },
+        { text: "洗发", value: "洗发" },
       ],
       preview: false,
       groupModel: {
         firstModel: {
-          type: '',
+          type: "",
           date: "",
           // endTime: "",
           // peopleNum: ""
         },
-        floorModel: []
+        floorModel: [],
       },
       groupSchema: {
         fristSchema: {
           groups: [
             {
-              legend: '',
+              legend: "",
               fields: [
                 {
-                  type: 'select',
-                  modelKey: 'type',
-                  label: '类型',
+                  type: "select",
+                  modelKey: "type",
+                  label: "类型",
                   props: {
-                    options: ['理发', '护发', '洗发']
+                    options: ["理发", "护发", "洗发"],
                   },
                   rules: {
-                    required: true
-                  }
+                    required: true,
+                  },
                 },
                 {
-                  type: 'select',
-                  modelKey: 'date',
-                  label: '日期',
+                  type: "select",
+                  modelKey: "date",
+                  label: "日期",
                   rules: {
-                    required: true
-                  }
+                    required: true,
+                  },
                 },
                 // {
                 //   type: 'input',
@@ -151,97 +149,100 @@ export default {
                 //     required: true
                 //   }
                 // },
-              ]
+              ],
             },
-
-          ]
+          ],
         },
         floorSchema: [
           {
             fields: [
               {
-                type: 'select',
-                modelKey: 'which',
-                label: '楼栋',
+                type: "select",
+                modelKey: "which",
+                label: "楼栋",
                 props: {
-                  options: [2015, 2016, 2017, 2018, 2019, 2020]
+                  options: [2015, 2016, 2017, 2018, 2019, 2020],
                 },
                 rules: {
-                  required: true
-                }
+                  required: true,
+                },
               },
               {
-                type: 'select',
-                modelKey: 'floor',
-                label: '楼层',
+                type: "select",
+                modelKey: "floor",
+                label: "楼层",
                 props: {
-                  options: [2015, 2016, 2017, 2018, 2019, 2020]
+                  options: [2015, 2016, 2017, 2018, 2019, 2020],
                 },
                 rules: {
-                  required: true
-                }
+                  required: true,
+                },
               },
               {
-                type: 'select',
-                modelKey: 'num',
-                label: '楼门',
+                type: "select",
+                modelKey: "num",
+                label: "楼门",
                 props: {
-                  options: [2015, 2016, 2017, 2018, 2019, 2020]
+                  options: [2015, 2016, 2017, 2018, 2019, 2020],
                 },
                 rules: {
-                  required: true
-                }
+                  required: true,
+                },
               },
-            ]
-          }
-        ]
+            ],
+          },
+        ],
       },
-
-    }
+    };
   },
   methods: {
-    ...mapActions('barber',['updateBarber']),
+    ...mapActions("barber", ["updateBarber"]),
     selectedTime() {
       this.datePicker = this.$createDatePicker({
-        title: 'Date Picker',
+        title: "Date Picker",
         min: new Date(),
         max: new Date(2099, 12, 31),
         value: new Date(),
         onSelect: (v1, v2, v3) => {
-          this.groupModel.firstModel.date = this.$dayjs(v1).format('YYYY-MM-DD')
-        }
-      }).show()
+          this.groupModel.firstModel.date = this.$dayjs(v1).format("YYYY-MM-DD");
+        },
+      }).show();
     },
     cancel() {
       this.$createDialog({
-        type: 'confirm',
-        title: '确定注销该员工卡吗？',
+        type: "confirm",
+        title: "确定注销该员工卡吗？",
         maskClosable: true,
         onConfirm: (e) => {
-          this.$router.push({name: 'RejectConfirm', params: {id: 1}})
-
-        }
-      }).show()
+          this.$router.push({ name: "RejectConfirm", params: { id: 1 } });
+        },
+      }).show();
     },
     confirm() {
-      let idList = this.$route.params.data.map((i)=>i.id)
-      let form = {
-        idList :idList,
-        type: this.groupModel.firstModel.type,
-        date:  this.groupModel.firstModel.date,
-        timePartVos: this.groupModel.floorModel
+      console.log(this.$route);
+      //TODO
+      const typeMap = [""];
+      return;
+      if (typeMap.find((item) => this.$route.params.key.includes(item))) {
       }
-      this.updateBarber(form).then((resp)=>{
-        if(resp.data.body){
-          this.$router.push({name:'AppointmentAdminRelease'})
-        }else{
+      let idList = this.$route.params.data.map((i) => i.id);
+      let form = {
+        idList: idList,
+        type: this.groupModel.firstModel.type,
+        date: this.groupModel.firstModel.date,
+        timePartVos: this.groupModel.floorModel,
+      };
+      this.updateBarber(form).then((resp) => {
+        if (resp.data.body) {
+          this.$router.push({ name: "AppointmentAdminRelease" });
+        } else {
           this.$createToast({
-            txt:'修改错误',
-            type:"error",
-            time:1500
-          }).show()
+            txt: "修改错误",
+            type: "error",
+            time: 1500,
+          }).show();
         }
-      })
+      });
       // this.$router.push({name: 'Preview', params: {id: 1}})
     },
     add() {
@@ -249,52 +250,49 @@ export default {
         data: this.dateSegmentData,
         onSelect: (selectedDates, selectedVals, selectedTexts) => {
           this.$createDialog({
-            type: 'prompt',
-            title: '',
+            type: "prompt",
+            title: "",
             prompt: {
               value: null,
-              placeholder: '请输入人数'
+              placeholder: "请输入人数",
             },
             onConfirm: (e, promptValue) => {
-              let value = parseInt(promptValue)
+              let value = parseInt(promptValue);
               if (!isNaN(value)) {
                 this.compareTimePart({
-                  startTime: this.$dayjs(selectedDates[0]).format('HH:mm'),
+                  startTime: this.$dayjs(selectedDates[0]).format("HH:mm"),
                   quota: value,
-                  endTime: this.$dayjs(selectedDates[1]).format('HH:mm')
-                })
+                  endTime: this.$dayjs(selectedDates[1]).format("HH:mm"),
+                });
                 this.groupModel.floorModel.push({
-                  startTime: this.$dayjs(selectedDates[0]).format('HH:mm'),
+                  startTime: this.$dayjs(selectedDates[0]).format("HH:mm"),
                   quota: value,
-                  endTime: this.$dayjs(selectedDates[1]).format('HH:mm')
-                })
-
+                  endTime: this.$dayjs(selectedDates[1]).format("HH:mm"),
+                });
               } else {
                 this.$createToast({
-                  type: 'warning',
-                  txt: '请填入数字',
-                  time: 1000
-                }).show()
+                  type: "warning",
+                  txt: "请填入数字",
+                  time: 1000,
+                }).show();
               }
-
-            }
-          }).show()
-
+            },
+          }).show();
         },
         onNext: (i, selectedDate, selectedValue, selectedText) => {
-          this.nexTime = selectedValue
-          this.dateSegmentData[1].min = selectedDate
+          this.nexTime = selectedValue;
+          this.dateSegmentData[1].min = selectedDate;
           if (i === 0) {
             dateSegmentPicker.$updateProps({
-              data: this.dateSegmentData
-            })
+              data: this.dateSegmentData,
+            });
           }
-        }
-      })
-      dateSegmentPicker.show()
+        },
+      });
+      dateSegmentPicker.show();
     },
     close(index) {
-      this.groupModel.floorModel.splice(index, 1)
+      this.groupModel.floorModel.splice(index, 1);
     },
     showTimePicker() {
       const timePicker = this.$createTimePicker({
@@ -303,87 +301,95 @@ export default {
         delay: 15,
         day: {
           len: 30,
-          filter: ['今天', '明天', '后天'],
-          format: 'M月D日'
+          filter: ["今天", "明天", "后天"],
+          format: "M月D日",
         },
         onSelect: (selectedTime, selectedText, formatedTime) => {
-          this.model.time = formatedTime
+          this.model.time = formatedTime;
         },
-      })
+      });
       // timePicker.setTime(time)
-      timePicker.show()
+      timePicker.show();
     },
     selectItem2() {
       if (!this.picker) {
         this.picker = this.$createPicker({
-          title: 'Picker',
+          title: "Picker",
           data: [column3],
           onSelect: this.selectHandle,
-          onCancel: this.cancelHandle
-        })
+          onCancel: this.cancelHandle,
+        });
       }
-      this.picker.show()
+      this.picker.show();
     },
     selectItem1() {
       if (!this.picker) {
         this.picker = this.$createPicker({
-          title: 'Picker',
+          title: "Picker",
           data: [column2],
           onSelect: this.selectHandle,
-          onCancel: this.cancelHandle
-        })
+          onCancel: this.cancelHandle,
+        });
       }
-      this.picker.show()
+      this.picker.show();
     },
     selectFloor() {
       if (!this.picker) {
         this.picker = this.$createPicker({
-          title: 'Picker',
+          title: "Picker",
           data: [column1],
           onSelect: this.selectHandle,
-          onCancel: this.cancelHandle
-        })
+          onCancel: this.cancelHandle,
+        });
       }
-      this.picker.show()
+      this.picker.show();
     },
     selectHandle(selectedVal, selectedIndex, selectedText) {
       this.$createDialog({
-        type: 'warn',
-        content: `Selected Item: <br/> - value: ${selectedVal.join(', ')} <br/> - index: ${selectedIndex.join(', ')} <br/> - text: ${selectedText.join(' ')}`,
-        icon: 'cubeic-alert'
-      }).show()
+        type: "warn",
+        content: `Selected Item: <br/> - value: ${selectedVal.join(
+          ", "
+        )} <br/> - index: ${selectedIndex.join(", ")} <br/> - text: ${selectedText.join(
+          " "
+        )}`,
+        icon: "cubeic-alert",
+      }).show();
     },
     cancelHandle() {
       this.$createToast({
-        type: 'correct',
-        txt: 'Picker canceled',
-        time: 1000
-      }).show()
+        type: "correct",
+        txt: "Picker canceled",
+        time: 1000,
+      }).show();
     },
 
-    compareTimePart(timePart){
-      this.groupModel.floorModel.findIndex(i=>{
-        let dayjs = this.$dayjs
-        
-        console.log(this.$dayjs(`${this.$dayjs().format('YYYY-MM-DD')+" "+timePart.endTime}`)
-            .isBetween(this.$dayjs().format('YYYY-MM-DD')+" "+i.startTime,
-                this.$dayjs().format('YYYY-MM-DD')+" "+i.endTime
-            ));
-        console.log(this.$dayjs(timePart.startTime).isBetween(i.startTime, i.endTime, 'minute'))
+    compareTimePart(timePart) {
+      this.groupModel.floorModel.findIndex((i) => {
+        let dayjs = this.$dayjs;
 
-      })
-
-    }
-
+        console.log(
+          this.$dayjs(
+            `${this.$dayjs().format("YYYY-MM-DD") + " " + timePart.endTime}`
+          ).isBetween(
+            this.$dayjs().format("YYYY-MM-DD") + " " + i.startTime,
+            this.$dayjs().format("YYYY-MM-DD") + " " + i.endTime
+          )
+        );
+        console.log(
+          this.$dayjs(timePart.startTime).isBetween(i.startTime, i.endTime, "minute")
+        );
+      });
+    },
   },
   mounted() {
-    this.$children[0].$refs.scroll.$el.style.height = `${this.workspaceRealHeightNum - 120}px`
-
+    this.$children[0].$refs.scroll.$el.style.height = `${
+      this.workspaceRealHeightNum - 120
+    }px`;
   },
   computed: {
-    ...mapState('barber', ['dayData'])
-  }
-}
+    ...mapState("barber", ["dayData"]),
+  },
+};
 </script>
 
 <style scoped lang="stylus">
@@ -479,9 +485,7 @@ export default {
 
 >>> .cube-select-text
   color #CCCCCC
-
 </style>
-
 
 <style scoped lang="stylus">
 .time-show
@@ -674,5 +678,4 @@ export default {
     border-radius: 20px;
     margin 12px 20px
     width 100%
-
 </style>

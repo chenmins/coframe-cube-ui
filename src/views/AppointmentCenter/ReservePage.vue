@@ -119,12 +119,16 @@ export default {
       this.listData = this.warehouse;
     } else if (type === "lingdian") {
       this.listData = this.restaurant;
+    } else if (type === "wenyingshi") {
+      this.listData = this.printing;
     }
   },
   methods: {
     ...mapActions("barber", ["addBarberUser"]),
     ...mapActions("Infirmary", ["addClinicUser"]),
     ...mapActions("restaurant", ["addZeroRestaurantUser"]),
+    ...mapActions("printing", ["addPrintingRoomUser"]),
+    ...mapActions("warehouse", ["addStoreHouseUser"]),
     changeHandle(e) {
       this.yuyue = !this.yuyue;
     },
@@ -178,9 +182,21 @@ export default {
             }
           });
         } else if (type === "wenyingshi") {
-          console.log("选择了文印室");
+          this.addPrintingRoomUser({ id: id }).then((resp) => {
+            if (resp.data.body === 1) {
+              resolve();
+            } else {
+              reject();
+            }
+          });
         } else if (type === "kufang") {
-          console.log("选择了库房");
+          this.addStoreHouseUser({ id: id }).then((resp) => {
+            if (resp.data.body === 1) {
+              resolve();
+            } else {
+              reject();
+            }
+          });
         } else if (type === "lingdian") {
           this.addZeroRestaurantUser({ id: id }).then((resp) => {
             if (resp.data.body === 1) {

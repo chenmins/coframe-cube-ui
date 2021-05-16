@@ -7,9 +7,9 @@ import ScheduleControllerImpl from './platform-schedule/ScheduleControllerImpl';
 import WorkCartControllerImpl from './platform-card/WorkCartControllerImpl';
 import PipeReportController from './platform-health/PipeReportController';
 import HealthApiController from './platform-health/HealthApiController';
-import HelpControllerImpl from './platform-help/HelpControllerImpl';
-import CulturalControllerImpl from './platform-cultural/CulturalControllerImpl';
 import BarberControllerImpl from './platform-order/BarberControllerImpl';
+import CulturalControllerImpl from './platform-cultural/CulturalControllerImpl';
+import HelpControllerImpl from './platform-help/HelpControllerImpl';
 import fileupload from './coframe-eos8/fileupload';
 import agent from './coframe-eos8/agent';
 import process from './coframe-eos8/process';
@@ -58,9 +58,9 @@ export default {
     WorkCartControllerImpl: vuexDecorator('WorkCartControllerImpl',WorkCartControllerImpl),
     PipeReportController: vuexDecorator('PipeReportController',PipeReportController),
     HealthApiController: vuexDecorator('HealthApiController',HealthApiController),
-    HelpControllerImpl: vuexDecorator('HelpControllerImpl',HelpControllerImpl),
-    CulturalControllerImpl: vuexDecorator('CulturalControllerImpl',CulturalControllerImpl),
     BarberControllerImpl: vuexDecorator('BarberControllerImpl',BarberControllerImpl),
+    CulturalControllerImpl: vuexDecorator('CulturalControllerImpl',CulturalControllerImpl),
+    HelpControllerImpl: vuexDecorator('HelpControllerImpl',HelpControllerImpl),
     fileupload: vuexDecorator('fileupload',fileupload),
     agent: vuexDecorator('agent',agent),
     process: vuexDecorator('process',process),

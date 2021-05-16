@@ -20,7 +20,6 @@ const restaurant = {
                 date: payload.date
             })
             if(!response.error){
-                console.log(response)
                 commit('setState',{
                     key:'restaurant',
                     value: response.data.body
