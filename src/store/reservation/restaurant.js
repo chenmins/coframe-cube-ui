@@ -3,7 +3,7 @@ import {BarberControllerImpl} from "@controller";
 const restaurant = {
     namespaced: true,
     state: {
-        infirmary: {},
+        restaurant: [],
         selfApply: [],
         allDayData: {}
     },

@@ -109,13 +109,15 @@ export default {
   },
   created() {
     let type = this.$route.params.type;
+    console.log("type:", type);
+
     if (type === "lifashi") {
       this.listData = this.public;
     } else if (type === "yiwushi") {
       this.listData = this.infirmary;
     } else if (type === "priting") {
       this.listData = this.printing;
-    } else if (type === "warehouse") {
+    } else if (type === "kufang") {
       this.listData = this.warehouse;
     } else if (type === "lingdian") {
       this.listData = this.restaurant;

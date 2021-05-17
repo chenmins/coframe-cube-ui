@@ -3,7 +3,7 @@ import {BarberControllerImpl} from "@controller";
 const warehouse = {
     namespaced: true,
     state: {
-        printing: {},
+        warehouse: [],
         public: {},//所有查询预约结果
         selfApply: [],
         allDayData: {}
@@ -17,15 +17,16 @@ const warehouse = {
         }
     },
     actions: {
-        async queryByTypeAndDateForStoreHouse({ commit }, payload) {
+        async queryByTypeAndDateForStoreHouse({ commit,state }, payload) {
             let response
             response = await window.vue.dispatch(BarberControllerImpl.queryByTypeAndDateForStoreHouse, {
                 type: payload.type,
                 date: payload.date
             })
             if (!response.error) {
+                
                 commit('setState', {
-                    key: 'printing',
+                    key: 'warehouse',
                     value: response.data.body
                 })
             }
