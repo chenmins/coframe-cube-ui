@@ -128,6 +128,15 @@ module.exports = {
           '^/org': '' // 将/api开头的请求地址的/api替换为''
         },
       },
+      // http://192.168.200.150:18090/api/platform
+      "/platform": { //是否使用代理标识,/api开头的才用代理
+        target: "http://192.168.200.150:18090/api/platform",
+        ws: false,// 启用websockets
+        changeOrigin: true, //跨域
+        pathRewrite: {
+          '^/platform': '' // 将/api开头的请求地址的/api替换为''
+        },
+      },
       // "/org": {
       //   target: "http://192.168.200.131:28082/",
       //   ws: false,// 启用websockets

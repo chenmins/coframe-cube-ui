@@ -38,10 +38,12 @@ const barber = {
         return resp
       }
     },
-    async queryByStateForBarber(context, payload) {
+    async queryByStateForGather(context, payload) {
 
       let resp
-      resp = await window.vue.dispatch(BarberControllerImpl.queryByStateForBarber, {
+      // resp = await window.vue.dispatch(BarberControllerImpl.queryByStateForBarber, {
+
+      resp = await window.vue.dispatch(BarberControllerImpl.queryByStateForGather, {
         state: payload.state
       })
       if (!resp.error) {
@@ -51,9 +53,12 @@ const barber = {
         })
       }
     },
+
     async queryByMonthForBarber(context, payload) {
       let resp
-      resp = await window.vue.dispatch(BarberControllerImpl.queryByMonthForBarber, {
+      // resp = await window.vue.dispatch(BarberControllerImpl.queryByMonthForBarber, {
+        
+        resp = await window.vue.dispatch(BarberControllerImpl.queryByMonthForGather, {
         month: payload.month
       })
       if(!resp.error){

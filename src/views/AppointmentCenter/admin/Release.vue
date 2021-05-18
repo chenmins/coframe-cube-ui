@@ -121,7 +121,7 @@ export default {
     setScroll(day) {
       if (this.$dayjs(day).format("D") > 3) {
         document.querySelector(".van-calendar__days").scrollLeft =
-          59.13 * this.$dayjs(day).subtract(3, "day").format("D");
+          59.13 * this.$dayjs(day).subtract(0, "day").format("D");
       } else {
         document.querySelector(".van-calendar__days").scrollLeft =
           59.13 * this.$dayjs(day).format("D");

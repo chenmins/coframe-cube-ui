@@ -98,7 +98,7 @@ export default {
     };
   },
   created() {
-    this.queryByStateForBarber({ state: "预约成功" });
+    this.queryByStateForGather({ state: "预约成功" });
   },
   computed: {
     ...mapState("barber", ["selfApply"]),
@@ -127,14 +127,14 @@ export default {
       if (this.once) {
         await this.updateCancelForBarber({ barberId: reserve.id });
         this.once = false;
-        this.queryByStateForBarber({ state: "预约成功" }).then(() => {
+        this.queryByStateForGather({ state: "预约成功" }).then(() => {
           this.once = true;
         });
       }
     },
     ...mapMutations("barber", ["setState"]),
     ...mapActions("barber", [
-      "queryByStateForBarber",
+      "queryByStateForGather",
       "updateCancelForBarber",
       "updateSignForBarber",
     ]),
@@ -142,10 +142,10 @@ export default {
     changeHandle(e) {
       this.toggleBreak = false;
       if (e === "已完成") {
-        this.queryByStateForBarber({ state: "已完成" });
+        this.queryByStateForGather({ state: "已完成" });
         this.toggleBreak = true;
       } else {
-        this.queryByStateForBarber({ state: "预约成功" });
+        this.queryByStateForGather({ state: "预约成功" });
       }
     },
   },
