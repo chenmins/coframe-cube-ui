@@ -1,14 +1,14 @@
 //Do not modify this file, it will be auto generated
 import vuexDecorator from '@lib/vuexDecorator';
 
+import ScheduleControllerImpl from './platform-schedule/ScheduleControllerImpl';
 import DictApiController from './platform-user/DictApiController';
 import AuthApiController from './platform-user/AuthApiController';
-import ScheduleControllerImpl from './platform-schedule/ScheduleControllerImpl';
-import WorkCartControllerImpl from './platform-card/WorkCartControllerImpl';
 import PipeReportController from './platform-health/PipeReportController';
 import HealthApiController from './platform-health/HealthApiController';
-import HelpControllerImpl from './platform-help/HelpControllerImpl';
+import WorkCartControllerImpl from './platform-card/WorkCartControllerImpl';
 import CulturalControllerImpl from './platform-cultural/CulturalControllerImpl';
+import HelpControllerImpl from './platform-help/HelpControllerImpl';
 import BarberControllerImpl from './platform-order/BarberControllerImpl';
 import fileupload from './coframe-eos8/fileupload';
 import agent from './coframe-eos8/agent';
@@ -52,14 +52,14 @@ import UserManager from './coframe-eos8/UserManager';
 import win7Service from './coframe-eos8/win7Service';
 
 export default {
+    ScheduleControllerImpl: vuexDecorator('ScheduleControllerImpl',ScheduleControllerImpl),
     DictApiController: vuexDecorator('DictApiController',DictApiController),
     AuthApiController: vuexDecorator('AuthApiController',AuthApiController),
-    ScheduleControllerImpl: vuexDecorator('ScheduleControllerImpl',ScheduleControllerImpl),
-    WorkCartControllerImpl: vuexDecorator('WorkCartControllerImpl',WorkCartControllerImpl),
     PipeReportController: vuexDecorator('PipeReportController',PipeReportController),
     HealthApiController: vuexDecorator('HealthApiController',HealthApiController),
-    HelpControllerImpl: vuexDecorator('HelpControllerImpl',HelpControllerImpl),
+    WorkCartControllerImpl: vuexDecorator('WorkCartControllerImpl',WorkCartControllerImpl),
     CulturalControllerImpl: vuexDecorator('CulturalControllerImpl',CulturalControllerImpl),
+    HelpControllerImpl: vuexDecorator('HelpControllerImpl',HelpControllerImpl),
     BarberControllerImpl: vuexDecorator('BarberControllerImpl',BarberControllerImpl),
     fileupload: vuexDecorator('fileupload',fileupload),
     agent: vuexDecorator('agent',agent),

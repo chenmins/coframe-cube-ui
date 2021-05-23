@@ -2,14 +2,17 @@
   <TitleNav bgc-color="#fff">
     <h1 class="font-blod" style="font-size: 20px">行政服务平台预约中心</h1>
     <div class="container clear-fix">
-      <Card class="card" v-for="(item,index) in routerMap" :key="index" @clicked="goInItem(item)">
+      <Card
+        class="card"
+        v-for="(item, index) in routerMap"
+        :key="index"
+        @clicked="goInItem(item)"
+      >
         <div class="group">
           <Icon :svg-name="item.icon" class-name="svg_reserve "></Icon>
-          <div class="font-blod" style="font-size: 14px">{{item.text}}</div>
+          <div class="font-blod" style="font-size: 14px">{{ item.text }}</div>
         </div>
       </Card>
-
-
     </div>
     <div class="font-normal rules">
       <div>预约规则说明：</div>
@@ -19,7 +22,6 @@
       <div>4、每人每月违约5次后不允许使用预约功能；</div>
     </div>
   </TitleNav>
-
 </template>
 
 <script>
@@ -27,68 +29,68 @@ import Card from "@/components/UI/Card";
 
 const routerMap = [
   {
-    text:'医务室预约',
-    value:'yiwushi',
-    icon:'reserve-yiwushi'
-
+    text: "医务室预约",
+    value: "yiwushi",
+    icon: "reserve-yiwushi",
   },
   {
-    text:'理发室预约',
-    value:'lifashi',
-    icon:'reserve-lifashi'
-
+    text: "理发室预约",
+    value: "lifashi",
+    icon: "reserve-lifashi",
   },
   {
-    text:'零点餐厅预约',
-    value:'lingdian',
-    icon:'reserve-lingdian'
+    text: "零点餐厅预约",
+    value: "lingdian",
+    icon: "reserve-lingdian",
+  },
+  // {
+  //   text:'衣物干洗预约',
+  //   value:'yiwuganxi',
+  //   icon:'reserve-xiyi'
 
+  // },
+  // {
+  //   text:'会议室预约',
+  //   value:'huiyishi',
+  //   icon:'reserve-huiyishi'
+
+  // },
+  {
+    text: "文印室预约",
+    value: "wenyingshi",
+    icon: "reserve-wenyingshi",
   },
   {
-    text:'衣物干洗预约',
-    value:'yiwuganxi',
-    icon:'reserve-xiyi'
-
+    text: "库房预约",
+    value: "kufang",
+    icon: "reserve-kuyue",
   },
-  {
-    text:'会议室预约',
-    value:'huiyishi',
-    icon:'reserve-huiyishi'
-
-  },
-  {
-    text:'文印室预约',
-    value:'wenyingshi',
-    icon:'reserve-wenyingshi'
-
-  },
-  {
-    text:'库房预约',
-    value:'kufang',
-    icon:'reserve-kuyue'
-
-  },
-]
+];
 
 export default {
   name: "YuYueCenter",
-  components:{
-    Card
+  components: {
+    Card,
   },
-  data(){
+  data() {
     return {
-      routerMap:routerMap
-    }
+      routerMap: routerMap,
+    };
   },
-  mounted(){
-    this.$children[0].$refs.scroll.$el.style.height = `${this.workspaceRealHeightNum - 130}px`
+  mounted() {
+    this.$children[0].$refs.scroll.$el.style.height = `${
+      this.workspaceRealHeightNum - 130
+    }px`;
   },
   methods: {
     goInItem(item) {
-        this.$router.push({name:'YuYueItem',params:{id:item.text,value:item.value}})
-    }
-  }
-}
+      this.$router.push({
+        name: "YuYueItem",
+        params: { id: item.text, value: item.value },
+      });
+    },
+  },
+};
 </script>
 
 <style scoped lang="stylus">
@@ -145,5 +147,4 @@ h1
 
   div
     margin 10px
-
 </style>

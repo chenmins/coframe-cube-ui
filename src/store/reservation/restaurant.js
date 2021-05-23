@@ -3,7 +3,7 @@ import {BarberControllerImpl} from "@controller";
 const restaurant = {
     namespaced: true,
     state: {
-        infirmary: {},
+        restaurant: [],
         selfApply: [],
         allDayData: {}
     },
@@ -20,7 +20,6 @@ const restaurant = {
                 date: payload.date
             })
             if(!response.error){
-                console.log(response)
                 commit('setState',{
                     key:'restaurant',
                     value: response.data.body

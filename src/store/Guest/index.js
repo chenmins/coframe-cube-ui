@@ -1,5 +1,5 @@
 
-import state from './state'
+import state from './state';
 const Guest = {
     namespaced:true,
     state,
@@ -7,6 +7,9 @@ const Guest = {
         setLabel(state, payload){
             state.curLabel = payload
         }
+    },
+    actions:{
+
     }
 }
 

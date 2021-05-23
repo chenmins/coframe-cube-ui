@@ -131,32 +131,24 @@ export default [
                 ],
                 wenyingshi: [
                     {
-                        text: '一号餐厅',
-                        value:'一号餐厅'
+                        text: '文印社',
+                        value:'文印社'
 
-                    },
-                    {
-                        text: '二号餐厅',
-                        value:'二号餐厅'
-                    },
-                    {
-                        text: '三号餐厅',
-                        value:'三号餐厅'
                     }
                 ],
                 kufang: [
                     {
-                        text: '一号餐厅',
-                        value:'一号餐厅'
+                        text: '一号仓库',
+                        value:'一号仓库'
 
                     },
                     {
-                        text: '二号餐厅',
-                        value:'二号餐厅'
+                        text: '二号仓库',
+                        value:'二号仓库'
                     },
                     {
-                        text: '三号餐厅',
-                        value:'三号餐厅'
+                        text: '三号仓库',
+                        value:'三号仓库'
                     }
                 ]
             },

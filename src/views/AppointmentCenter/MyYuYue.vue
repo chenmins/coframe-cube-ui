@@ -1,11 +1,11 @@
 <template xmlns="">
   <div style="height: 100vh; overflow: hidden">
     <ApproveContainer
-        @changeHandle="changeHandle"
-        class="clear-fix"
-        style="height: 154px"
-        :tabs="tabs"
-        :selectedLabel="selectedLabel"
+      @changeHandle="changeHandle"
+      class="clear-fix"
+      style="height: 154px"
+      :tabs="tabs"
+      :selectedLabel="selectedLabel"
     >
       <LayOut v-show="toggleBreak" class="switch_box">
         <span>仅显示违约记录</span>
@@ -14,7 +14,7 @@
       <template slot="default">
         <div style="height: calc(100vh - 190px); overflow: hidden">
           <cube-scroll ref="scroll" style="height: calc(100vh - 250px)">
-            <Card v-for="reserve in listData"  @clicked="sign(reserve)">
+            <Card v-for="reserve in listData" @clicked="sign(reserve)">
               <div class="title">
                 <div class="dot"></div>
                 <span>{{ reserve.type }}</span>
@@ -23,10 +23,10 @@
                 <p>
                   <span class="titou">预约时间 </span>
                   <span>{{
-                      $dayjs(reserve.startTime).format("YYYY/MM/DD HH:mm:ss") +
-                      "-" +
-                      $dayjs(reserve.endTime).format("HH:mm:ss")
-                    }}</span>
+                    $dayjs(reserve.startTime).format("YYYY/MM/DD HH:mm:ss") +
+                    "-" +
+                    $dayjs(reserve.endTime).format("HH:mm:ss")
+                  }}</span>
                 </p>
                 <!--                <p>-->
                 <!--                  <span class="titou">预约地点 </span>-->
@@ -67,7 +67,7 @@
 import SlideNav from "@/components/Cultural/SlideNav";
 import ApproveContainer from "@/components/UI/ApproveContainer";
 import Card from "@/components/UI/Card";
-import {mapActions, mapState, mapMutations} from "vuex";
+import { mapActions, mapState, mapMutations } from "vuex";
 
 export default {
   name: "MyYuYue",
@@ -98,7 +98,7 @@ export default {
     };
   },
   created() {
-    this.queryByStateForBarber({state: "预约成功"});
+    this.queryByStateForGather({ state: "预约成功" });
   },
   computed: {
     ...mapState("barber", ["selfApply"]),
@@ -125,23 +125,27 @@ export default {
     },
     async Cancel(reserve) {
       if (this.once) {
-        await this.updateCancelForBarber({barberId: reserve.id});
-        this.once = false
-        this.queryByStateForBarber({state: "预约成功"}).then(()=>{
+        await this.updateCancelForBarber({ barberId: reserve.id });
+        this.once = false;
+        this.queryByStateForGather({ state: "预约成功" }).then(() => {
           this.once = true;
-        })
+        });
       }
     },
     ...mapMutations("barber", ["setState"]),
-    ...mapActions("barber", ["queryByStateForBarber", "updateCancelForBarber",'updateSignForBarber']),
+    ...mapActions("barber", [
+      "queryByStateForGather",
+      "updateCancelForBarber",
+      "updateSignForBarber",
+    ]),
 
     changeHandle(e) {
       this.toggleBreak = false;
       if (e === "已完成") {
-        this.queryByStateForBarber({state: "已完成"});
+        this.queryByStateForGather({ state: "已完成" });
         this.toggleBreak = true;
       } else {
-        this.queryByStateForBarber({state: "预约成功"});
+        this.queryByStateForGather({ state: "预约成功" });
       }
     },
   },

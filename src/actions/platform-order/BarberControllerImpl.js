@@ -29,6 +29,30 @@ export default {
             url: (payload) => `/api/platform/order/clinic/addClinicUser/${payload.clinicId}`,
             parameters: [{'name':'clinicId','in':'path','description':'医务室id','required':true,'type':'integer','format':'int32'}],
         },
+        [BarberControllerImpl.addPrintingRoom.method] : {
+            summary: '发布文印室',
+            method: 'post',
+            url: (payload) => `/api/platform/order/printingRoom/addPrintingRoom`,
+            parameters: [{'in':'body','name':'nNarberVO','description':'nNarberVO','required':true,'schema':{'$ref':'#/definitions/NPrintingRoomVo'}}],
+        },
+        [BarberControllerImpl.addPrintingRoomUser.method] : {
+            summary: '预约文印室',
+            method: 'post',
+            url: (payload) => `/api/platform/order/printingRoom/addPrintingRoomUser/${payload.printingRoomId}`,
+            parameters: [{'name':'printingRoomId','in':'path','description':'文印室id','required':true,'type':'integer','format':'int32'}],
+        },
+        [BarberControllerImpl.addStoreHouse.method] : {
+            summary: '发布库房',
+            method: 'post',
+            url: (payload) => `/api/platform/order/storeHouse/addStoreHouse`,
+            parameters: [{'in':'body','name':'nNarberVO','description':'nNarberVO','required':true,'schema':{'$ref':'#/definitions/NStoreHouseVo'}}],
+        },
+        [BarberControllerImpl.addStoreHouseUser.method] : {
+            summary: '预约库房',
+            method: 'post',
+            url: (payload) => `/api/platform/order/storeHouse/addStoreHouseUser/${payload.storeHouseId}`,
+            parameters: [{'name':'storeHouseId','in':'path','description':'库房id','required':true,'type':'integer','format':'int32'}],
+        },
         [BarberControllerImpl.addZeroRestaurant.method] : {
             summary: '发布零点餐厅',
             method: 'post',
@@ -53,6 +77,18 @@ export default {
             url: (payload) => `/api/platform/order/clinic/deleteClinic/${payload.id}`,
             parameters: [{'name':'id','in':'path','description':'主键','required':true,'type':'integer','format':'int32'}],
         },
+        [BarberControllerImpl.deletePrintingRoom.method] : {
+            summary: '删除一个发布的文印室信息',
+            method: 'delete',
+            url: (payload) => `/api/platform/order/printingRoom/deletePrintingRoom/${payload.id}`,
+            parameters: [{'name':'id','in':'path','description':'主键','required':true,'type':'integer','format':'int32'}],
+        },
+        [BarberControllerImpl.deleteStoreHouse.method] : {
+            summary: '删除一个发布的库房信息',
+            method: 'delete',
+            url: (payload) => `/api/platform/order/storeHouse/deleteStoreHouse/${payload.id}`,
+            parameters: [{'name':'id','in':'path','description':'主键','required':true,'type':'integer','format':'int32'}],
+        },
         [BarberControllerImpl.deleteZeroRestaurant.method] : {
             summary: '删除一个发布的零点餐厅信息',
             method: 'delete',
@@ -69,6 +105,18 @@ export default {
             summary: '管理员查询全部预约情况',
             method: 'get',
             url: (payload) => `/api/platform/order/clinic/queryAllByAdmin`,
+            parameters: [],
+        },
+        [BarberControllerImpl.queryAllForPrintingRoom.method] : {
+            summary: '管理员查询全部预约情况',
+            method: 'get',
+            url: (payload) => `/api/platform/order/printingRoom/queryAllByAdmin`,
+            parameters: [],
+        },
+        [BarberControllerImpl.queryAllForStoreHouse.method] : {
+            summary: '管理员查询全部预约情况',
+            method: 'get',
+            url: (payload) => `/api/platform/order/storeHouse/queryAllByAdmin`,
             parameters: [],
         },
         [BarberControllerImpl.queryAllForZeroRestaurant.method] : {
@@ -89,6 +137,24 @@ export default {
             url: (payload) => `/api/platform/order/clinic/queryByMonth/${payload.month}`,
             parameters: [{'name':'month','in':'path','description':'日期','required':true,'type':'string'}],
         },
+        [BarberControllerImpl.queryByMonthForGather.method] : {
+            summary: '根据日期进行查询预约情况',
+            method: 'get',
+            url: (payload) => `/api/platform/order/gather/queryByMonth/${payload.month}`,
+            parameters: [{'name':'month','in':'path','description':'日期','required':true,'type':'string'}],
+        },
+        [BarberControllerImpl.queryByMonthForPrintingRoom.method] : {
+            summary: '根据日期进行查询预约情况',
+            method: 'get',
+            url: (payload) => `/api/platform/order/printingRoom/queryByMonth/${payload.month}`,
+            parameters: [{'name':'month','in':'path','description':'日期','required':true,'type':'string'}],
+        },
+        [BarberControllerImpl.queryByMonthForStoreHouse.method] : {
+            summary: '根据日期进行查询预约情况',
+            method: 'get',
+            url: (payload) => `/api/platform/order/storeHouse/queryByMonth/${payload.month}`,
+            parameters: [{'name':'month','in':'path','description':'日期','required':true,'type':'string'}],
+        },
         [BarberControllerImpl.queryByMonthForZeroRestaurant.method] : {
             summary: '根据日期进行查询预约情况',
             method: 'get',
@@ -107,6 +173,24 @@ export default {
             url: (payload) => `/api/platform/order/clinic/queryByState/${payload.state}`,
             parameters: [{'name':'state','in':'path','description':'状态','required':true,'type':'string'}],
         },
+        [BarberControllerImpl.queryByStateForGather.method] : {
+            summary: '根据预约状态查询所有的预约情况',
+            method: 'get',
+            url: (payload) => `/api/platform/order/gather/queryByState/${payload.state}`,
+            parameters: [{'name':'state','in':'path','description':'状态','required':true,'type':'string'}],
+        },
+        [BarberControllerImpl.queryByStateForPrintingRoom.method] : {
+            summary: '根据预约状态查询文印室的预约情况',
+            method: 'get',
+            url: (payload) => `/api/platform/order/printingRoom/queryByState/${payload.state}`,
+            parameters: [{'name':'state','in':'path','description':'状态','required':true,'type':'string'}],
+        },
+        [BarberControllerImpl.queryByStateForStoreHouse.method] : {
+            summary: '根据预约状态查询库房的预约情况',
+            method: 'get',
+            url: (payload) => `/api/platform/order/storeHouse/queryByState/${payload.state}`,
+            parameters: [{'name':'state','in':'path','description':'状态','required':true,'type':'string'}],
+        },
         [BarberControllerImpl.queryByStateForZeroRestaurant.method] : {
             summary: '根据预约状态查询零点餐厅的预约情况',
             method: 'get',
@@ -117,12 +201,24 @@ export default {
             summary: '根据预约类型和日期查询理发室的预约情况  名额',
             method: 'get',
             url: (payload) => `/api/platform/order/barber/queryByDate/${payload.type}/${payload.date}`,
-            parameters: [{'name':'date','in':'path','description':'日期','required':true,'type':'string'},{'name':'type','in':'path','description':'类���','required':true,'type':'string'}],
+            parameters: [{'name':'date','in':'path','description':'日期','required':true,'type':'string'},{'name':'type','in':'path','description':'类型','required':true,'type':'string'}],
         },
         [BarberControllerImpl.queryByTypeAndDateForClinic.method] : {
             summary: '根据预约类型和日期查询医务室的预约情况  名额',
             method: 'get',
             url: (payload) => `/api/platform/order/clinic/queryByDate/${payload.type}/${payload.date}`,
+            parameters: [{'name':'date','in':'path','description':'日期','required':true,'type':'string'},{'name':'type','in':'path','description':'类型','required':true,'type':'string'}],
+        },
+        [BarberControllerImpl.queryByTypeAndDateForPrintingRoom.method] : {
+            summary: '根据预约类型和日期查询文印室的预约情况  名额',
+            method: 'get',
+            url: (payload) => `/api/platform/order/printingRoom/queryByDate/${payload.type}/${payload.date}`,
+            parameters: [{'name':'date','in':'path','description':'日期','required':true,'type':'string'},{'name':'type','in':'path','description':'类型','required':true,'type':'string'}],
+        },
+        [BarberControllerImpl.queryByTypeAndDateForStoreHouse.method] : {
+            summary: '根据预约类型和日期查询库房的预约情况  名额',
+            method: 'get',
+            url: (payload) => `/api/platform/order/storeHouse/queryByDate/${payload.type}/${payload.date}`,
             parameters: [{'name':'date','in':'path','description':'日期','required':true,'type':'string'},{'name':'type','in':'path','description':'类型','required':true,'type':'string'}],
         },
         [BarberControllerImpl.queryByTypeAndDateForZeroRestaurant.method] : {
@@ -149,6 +245,18 @@ export default {
             url: (payload) => `/api/platform/order/clinic/updateClinicUserForCancel/${payload.clinicId}`,
             parameters: [{'name':'clinicId','in':'path','description':'医务室id','required':true,'type':'integer','format':'int32'}],
         },
+        [BarberControllerImpl.updateCancelForPrintingRoom.method] : {
+            summary: '取消文印室预约',
+            method: 'put',
+            url: (payload) => `/api/platform/order/printingRoom/updatePrintingRoomUserForCancel/${payload.printingRoomId}`,
+            parameters: [{'name':'printingRoomId','in':'path','description':'文印室id','required':true,'type':'integer','format':'int32'}],
+        },
+        [BarberControllerImpl.updateCancelForStoreHouse.method] : {
+            summary: '取消库房预约',
+            method: 'put',
+            url: (payload) => `/api/platform/order/storeHouse/updateStoreHouseUserForCancel/${payload.storeHouseId}`,
+            parameters: [{'name':'storeHouseId','in':'path','description':'库房id','required':true,'type':'integer','format':'int32'}],
+        },
         [BarberControllerImpl.updateCancelForZeroRestaurant.method] : {
             summary: '取消零点餐厅预约',
             method: 'put',
@@ -160,6 +268,12 @@ export default {
             method: 'put',
             url: (payload) => `/api/platform/order/clinic/updateClinic`,
             parameters: [{'in':'body','name':'upClinicVo','description':'upClinicVo','required':true,'schema':{'$ref':'#/definitions/UpClinicVo'}}],
+        },
+        [BarberControllerImpl.updatePrintingRoom.method] : {
+            summary: '修改发布的文印室信息',
+            method: 'put',
+            url: (payload) => `/api/platform/order/printingRoom/updatePrintingRoom`,
+            parameters: [{'in':'body','name':'upPrintingRoomVo','description':'upPrintingRoomVo','required':true,'schema':{'$ref':'#/definitions/UpPrintingRoomVo'}}],
         },
         [BarberControllerImpl.updateSignForBarber.method] : {
             summary: '理发室预约签到',
@@ -173,14 +287,32 @@ export default {
             url: (payload) => `/api/platform/order/clinic/updateClinicUserForSign/${payload.clinicId}`,
             parameters: [{'name':'clinicId','in':'path','description':'医务室id','required':true,'type':'integer','format':'int32'}],
         },
+        [BarberControllerImpl.updateSignForPrintingRoom.method] : {
+            summary: '文印室预约签到',
+            method: 'put',
+            url: (payload) => `/api/platform/order/printingRoom/updatePrintingRoomUserForSign/${payload.printingRoomId}`,
+            parameters: [{'name':'printingRoomId','in':'path','description':'文印室id','required':true,'type':'integer','format':'int32'}],
+        },
+        [BarberControllerImpl.updateSignForStoreHouse.method] : {
+            summary: '库房预约签到',
+            method: 'put',
+            url: (payload) => `/api/platform/order/storeHouse/updateStoreHouseUserForSign/${payload.storeHouseId}`,
+            parameters: [{'name':'storeHouseId','in':'path','description':'库房id','required':true,'type':'integer','format':'int32'}],
+        },
         [BarberControllerImpl.updateSignForZeroRestaurant.method] : {
             summary: '零点餐厅预约签到',
             method: 'put',
             url: (payload) => `/api/platform/order/zeroRestaurant/updateZeroRestaurantUserForSign/${payload.zeroRestaurantId}`,
             parameters: [{'name':'zeroRestaurantId','in':'path','description':'零点餐厅id','required':true,'type':'integer','format':'int32'}],
         },
+        [BarberControllerImpl.updateStoreHouse.method] : {
+            summary: '修改发布的库房信息',
+            method: 'put',
+            url: (payload) => `/api/platform/order/storeHouse/updateStoreHouse`,
+            parameters: [{'in':'body','name':'upStoreHouseVo','description':'upStoreHouseVo','required':true,'schema':{'$ref':'#/definitions/UpStoreHouseVo'}}],
+        },
         [BarberControllerImpl.updateZeroRestaurant.method] : {
-            summary: '修改发布的零点餐厅信息',
+            summary: '修改��布的零点餐厅信息',
             method: 'put',
             url: (payload) => `/api/platform/order/zeroRestaurant/updateZeroRestaurant`,
             parameters: [{'in':'body','name':'upZeroRestaurantVo','description':'upZeroRestaurantVo','required':true,'schema':{'$ref':'#/definitions/UpZeroRestaurantVo'}}],

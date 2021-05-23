@@ -5,11 +5,11 @@
         <cube-scroll ref="scroll">
           <!--   :field="fields[1]" -->
           <cube-form
-              :model="model"
-              :schema="schema"
-              :options="{ layout: 'classic' }"
-              @submit="submitGuestForm"
-              class="form-control"
+            :model="model"
+            :schema="schema"
+            :options="{ layout: 'classic' }"
+            @submit="submitGuestForm"
+            class="form-control"
           >
             <cube-form-group>
               <cube-form-item :field="form[0]">
@@ -27,10 +27,10 @@
             </cube-form-group>
 
             <cube-form-group
-                class="add-group"
-                v-for="(i, index) in schema.groups"
-                :legend="i.legend"
-                :fields="i.fields"
+              class="add-group"
+              v-for="(i, index) in schema.groups"
+              :legend="i.legend"
+              :fields="i.fields"
             >
             </cube-form-group>
 
@@ -115,7 +115,7 @@ export default {
             maxlength: 150,
           },
           rules: {
-            required: true,
+            required: false,
           },
         },
         {
@@ -144,7 +144,7 @@ export default {
             fields: [
               {
                 type: "input",
-                modelKey: `people1.name`,
+                modelKey: `people1.fullName`,
                 label: "来访姓名",
                 rules: {
                   required: true,
@@ -152,7 +152,7 @@ export default {
               },
               {
                 type: "input",
-                modelKey: `people1.tel`,
+                modelKey: `people1.telephone`,
                 label: "来访电话",
                 rules: {
                   required: true,
@@ -160,27 +160,27 @@ export default {
               },
               {
                 type: "input",
-                modelKey: `people1.position`,
+                modelKey: `people1.company`,
                 label: "来访单位",
                 rules: {
                   required: true,
                 },
               },
+              // {
+              //   type: "radio-group",
+              //   modelKey: `people1.health`,
+              //   label: "健康情况",
+              //   props: {
+              //     options: ["优秀", "良好", "一般"],
+              //     horizontal: true,
+              //   },
+              //   rules: {
+              //     required: false,
+              //   },
+              // },
               {
                 type: "radio-group",
-                modelKey: `people1.situation`,
-                label: "健康情况",
-                props: {
-                  options: ["优秀", "良好", "一般"],
-                  horizontal: true,
-                },
-                rules: {
-                  required: true,
-                },
-              },
-              {
-                type: "radio-group",
-                modelKey: `people1.from`,
+                modelKey: `people1.highRisk`,
                 label: "是否来自高风险地区",
                 props: {
                   options: ["是", "否"],
@@ -219,22 +219,61 @@ export default {
     },
     submitGuestForm(e, model, model2) {
       e.preventDefault();
-      this.setLabel("我的预约");
       // this.$router.push({ name: "Reserve" });
-      return;
       let length = this.model.peopleNum;
-      let newObj = {};
+      let newArr = [];
+
       //将数据重组，放进model.guests数组中
       for (let j = 0; j < length; j++) {
-        for (let i in model2) {
-          newObj[i.replace(`people${j}.`, "")] = model2[i];
-          if (i.includes(`people${j}`)) {
-            //将重新分类的数据删除
+        newArr[j] = {};
+        for (let i in this.model) {
+          if (i.includes(`people${j + 1}`)) {
+            // newArr[j][i.replace(`people${j+1}.`, "")] =  model2[i];
+            newArr[j][i.replace(`people${j + 1}.`, "")] = model2[i];
+            // newObj[i.replace(`people${j+1}.`, "")] = model2[i];
+            delete model2[i];
             delete this.model[i];
           }
+          // newObj[i.replace(`people${j+1}.`, "")] = model2[i];
+          // if (i.includes(`people${j+1}`)) {
+          //   //将重新分类的数据删除
+          //   delete this.model[i];
+          // }
         }
-        this.model.guests.push(newObj);
+        this.model.guests = newArr;
       }
+      this.$createToast({
+        txt: "Loading...",
+        mask: true,
+      }).show();
+      this.$axios
+        .post("/api/platform/visitor/saveAppointmentInfo", {
+          visitingTime: this.$dayjs(this.model.time).format("YYYY-MM-DD HH:mm"),
+          amount: this.model.peopleNum,
+          reasonsForVisit: this.model.reason,
+          area: this.model.to,
+          receptionist: this.model.receive,
+          visitorList: this.model.guests,
+        })
+        .then((res) => {
+          if (res.data) {
+            this.$createToast({
+              txt: "生成成功",
+              type: "correct",
+              time: 1500,
+              onTimeout: () => {
+                this.setLabel("我的预约");
+                this.$router.push({ name: "Reserve" });
+              },
+            }).show();
+          } else {
+            this.$createToast({
+              txt: "生成失败",
+              type: "error",
+              time: 1500,
+            }).show();
+          }
+        });
     },
     showTimePicker() {
       const timePicker = this.$createTimePicker({
@@ -272,12 +311,13 @@ export default {
       }
     },
     syncSchemaGroup(index) {
+      console.log(index);
       return {
         legend: `访客${index + 1}信息`,
         fields: [
           {
             type: "input",
-            modelKey: `people${index}.name`,
+            modelKey: `people${index + 1}.fullName`,
             label: "来访姓名",
             rules: {
               required: true,
@@ -285,7 +325,7 @@ export default {
           },
           {
             type: "input",
-            modelKey: `people${index}.tel`,
+            modelKey: `people${index + 1}.telephone`,
             label: "来访电话",
             rules: {
               required: true,
@@ -293,27 +333,27 @@ export default {
           },
           {
             type: "input",
-            modelKey: `people${index}.position`,
+            modelKey: `people${index + 1}.company`,
             label: "来访单位",
             rules: {
               required: true,
             },
           },
+          // {
+          //   type: "radio-group",
+          //   modelKey: `people${index + 1}.health`,
+          //   label: "健康情况",
+          //   props: {
+          //     options: ["优秀", "良好", "一般"],
+          //     horizontal: true,
+          //   },
+          //   rules: {
+          //     required: true,
+          //   },
+          // },
           {
             type: "radio-group",
-            modelKey: `people${index}.situation`,
-            label: "健康情况",
-            props: {
-              options: ["优秀", "良好", "一般"],
-              horizontal: true,
-            },
-            rules: {
-              required: true,
-            },
-          },
-          {
-            type: "radio-group",
-            modelKey: `people${index}.from`,
+            modelKey: `people${index + 1}.highRisk`,
             label: "是否来自高风险地区",
             props: {
               options: ["是", "否"],
